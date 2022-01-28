@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - v2
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Cache Node Modules and NPM Cache
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install deps
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Bundle spec and build docsite
+        run: npm run build -- web_deploy
+
+      - name: Prepare release artifacts
+        run: mkdir -p out && cp web_deploy/swagger.{yaml,json} out/
+
+      - name: Deploy artifacts to release branch
+        uses: JamesIves/github-pages-deploy-action@v4.2.2
+        with:
+          branch: release/v2
+          folder: out
+          commit-message: Release ${{ github.repository }}@${{ github.sha }} by ${{ github.actor }}
