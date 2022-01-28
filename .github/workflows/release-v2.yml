@@ -31,9 +31,6 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
 
-      - name: Run tests
-        run: npm test
-
       - name: Bundle spec and build docsite
         run: npm run build -- web_deploy
 
@@ -45,4 +42,4 @@ jobs:
         with:
           branch: release/v2
           folder: out
-          commit-message: Release ${{ github.repository }}@${{ github.sha }} by ${{ github.actor }}
+          commit-message: Release ${{ github.repository }}@${{ github.sha }}
