@@ -3,9 +3,16 @@ allOf:
   - $ref: '#/definitions/PaymentTool'
   - type: object
     description: Электронный кошелёк
-    discriminator: digitalWalletType
+    required:
+      - id
+      - provider
     properties:
-      digitalWalletType:
+      id:
+        description: Идентификатор кошелька
         type: string
-        enum:
-          - DigitalWalletQIWI
+      provider:
+        x-rebillyMerge:
+          - $ref: '#/definitions/DigitalWalletProvider'
+      token:
+        description: Токен
+        type: string
