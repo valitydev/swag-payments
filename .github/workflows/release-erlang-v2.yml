@@ -19,7 +19,7 @@ jobs:
           node-version: "16"
 
       - name: Setup swagger-codegen
-        uses: valitydev/action-setup-swagger-codegen@0d53499816c42c7d5acd777f59fc73e304094b26
+        uses: valitydev/action-setup-swagger-codegen@v0.0.1
         with:
           codegen-version: "2.4.25"
           generator-version: "1.0.1"
