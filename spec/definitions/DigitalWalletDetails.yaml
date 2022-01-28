@@ -1,8 +1,7 @@
 discriminator: digitalWalletDetailsType
 required:
-  - digitalWalletDetailsType
+  - provider
 properties:
-  digitalWalletDetailsType:
-    type: string
-    enum:
-      - DigitalWalletDetailsQIWI
+  provider:
+    x-rebillyMerge:
+      - $ref: '#/definitions/DigitalWalletProvider'
