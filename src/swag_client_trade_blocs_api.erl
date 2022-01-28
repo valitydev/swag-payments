@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_trade_blocs_api).
+-module(swag_client_trade_blocs_api).
 
 %% generated methods
 
@@ -10,44 +10,44 @@
 -export([get_trade_blocs/3]).
 
 
--spec get_trade_bloc_by_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_trade_bloc_by_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_trade_bloc_by_id(Endpoint, Params) ->
     get_trade_bloc_by_id(Endpoint, Params, []).
 
--spec get_trade_bloc_by_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_trade_bloc_by_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_trade_bloc_by_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/tradeblocs/:tradeBlocID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/tradeblocs/:tradeBlocID"),
         Params,
         get_request_spec(get_trade_bloc_by_id),
         Opts
     ), get_trade_bloc_by_id).
 
--spec get_trade_blocs(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_trade_blocs(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_trade_blocs(Endpoint, Params) ->
     get_trade_blocs(Endpoint, Params, []).
 
--spec get_trade_blocs(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_trade_blocs(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_trade_blocs(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/tradeblocs"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/tradeblocs"),
         Params,
         get_request_spec(get_trade_blocs),
         Opts
     ), get_trade_blocs).
 
 process_response({ok, Code, Headers, RespBody}, OperationID) ->
-    try swagger_procession:process_response(
+    try swag_client_procession:process_response(
         get_response_spec(OperationID, Code),
         RespBody
     ) of
@@ -63,8 +63,8 @@ process_response(Error, _) ->
     Error.
 
 
--spec get_request_spec(OperationID :: swagger:operation_id()) ->
-    Spec :: swagger_procession:request_spec() | no_return().
+-spec get_request_spec(OperationID :: swag_client:operation_id()) ->
+    Spec :: swag_client_procession:request_spec() | no_return().
 
 
 get_request_spec('get_trade_bloc_by_id') ->
@@ -99,8 +99,8 @@ get_request_spec('get_trade_blocs') ->
         }}
     ].
 
--spec get_response_spec(OperationID :: swagger:operation_id(), Code :: swagger_procession:code()) ->
-    Spec :: swagger_procession:response_spec() | no_return().
+-spec get_response_spec(OperationID :: swag_client:operation_id(), Code :: swag_client_procession:code()) ->
+    Spec :: swag_client_procession:response_spec() | no_return().
 
 
 get_response_spec('get_trade_bloc_by_id', 200) ->

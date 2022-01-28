@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_invoice_templates_api).
+-module(swag_client_invoice_templates_api).
 
 %% generated methods
 
@@ -22,116 +22,116 @@
 -export([update_invoice_template/3]).
 
 
--spec create_invoice_template(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec create_invoice_template(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_invoice_template(Endpoint, Params) ->
     create_invoice_template(Endpoint, Params, []).
 
--spec create_invoice_template(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec create_invoice_template(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_invoice_template(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoice-templates"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoice-templates"),
         Params,
         get_request_spec(create_invoice_template),
         Opts
     ), create_invoice_template).
 
--spec create_invoice_with_template(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec create_invoice_with_template(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_invoice_with_template(Endpoint, Params) ->
     create_invoice_with_template(Endpoint, Params, []).
 
--spec create_invoice_with_template(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec create_invoice_with_template(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_invoice_with_template(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoice-templates/:invoiceTemplateID/invoices"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoice-templates/:invoiceTemplateID/invoices"),
         Params,
         get_request_spec(create_invoice_with_template),
         Opts
     ), create_invoice_with_template).
 
--spec delete_invoice_template(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec delete_invoice_template(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 delete_invoice_template(Endpoint, Params) ->
     delete_invoice_template(Endpoint, Params, []).
 
--spec delete_invoice_template(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec delete_invoice_template(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 delete_invoice_template(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         delete,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoice-templates/:invoiceTemplateID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoice-templates/:invoiceTemplateID"),
         Params,
         get_request_spec(delete_invoice_template),
         Opts
     ), delete_invoice_template).
 
--spec get_invoice_payment_methods_by_template_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_invoice_payment_methods_by_template_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_invoice_payment_methods_by_template_id(Endpoint, Params) ->
     get_invoice_payment_methods_by_template_id(Endpoint, Params, []).
 
--spec get_invoice_payment_methods_by_template_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_invoice_payment_methods_by_template_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_invoice_payment_methods_by_template_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoice-templates/:invoiceTemplateID/payment-methods"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoice-templates/:invoiceTemplateID/payment-methods"),
         Params,
         get_request_spec(get_invoice_payment_methods_by_template_id),
         Opts
     ), get_invoice_payment_methods_by_template_id).
 
--spec get_invoice_template_by_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_invoice_template_by_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_invoice_template_by_id(Endpoint, Params) ->
     get_invoice_template_by_id(Endpoint, Params, []).
 
--spec get_invoice_template_by_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_invoice_template_by_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_invoice_template_by_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoice-templates/:invoiceTemplateID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoice-templates/:invoiceTemplateID"),
         Params,
         get_request_spec(get_invoice_template_by_id),
         Opts
     ), get_invoice_template_by_id).
 
--spec update_invoice_template(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec update_invoice_template(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 update_invoice_template(Endpoint, Params) ->
     update_invoice_template(Endpoint, Params, []).
 
--spec update_invoice_template(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec update_invoice_template(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 update_invoice_template(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         put,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoice-templates/:invoiceTemplateID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoice-templates/:invoiceTemplateID"),
         Params,
         get_request_spec(update_invoice_template),
         Opts
     ), update_invoice_template).
 
 process_response({ok, Code, Headers, RespBody}, OperationID) ->
-    try swagger_procession:process_response(
+    try swag_client_procession:process_response(
         get_response_spec(OperationID, Code),
         RespBody
     ) of
@@ -147,8 +147,8 @@ process_response(Error, _) ->
     Error.
 
 
--spec get_request_spec(OperationID :: swagger:operation_id()) ->
-    Spec :: swagger_procession:request_spec() | no_return().
+-spec get_request_spec(OperationID :: swag_client:operation_id()) ->
+    Spec :: swag_client_procession:request_spec() | no_return().
 
 
 get_request_spec('create_invoice_template') ->
@@ -267,8 +267,8 @@ get_request_spec('update_invoice_template') ->
         }}
     ].
 
--spec get_response_spec(OperationID :: swagger:operation_id(), Code :: swagger_procession:code()) ->
-    Spec :: swagger_procession:response_spec() | no_return().
+-spec get_response_spec(OperationID :: swag_client:operation_id(), Code :: swag_client_procession:code()) ->
+    Spec :: swag_client_procession:response_spec() | no_return().
 
 
 get_response_spec('create_invoice_template', 201) ->

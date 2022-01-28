@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_common_validator).
+-module(swag_client_common_validator).
 
 -export([validate/2]).
 
@@ -23,14 +23,14 @@
     {format, 'uri'}.
 
 -type result() ::
-    ok | {ok, Prepared :: swagger:value()} | error | {error, Message :: term()}.
+    ok | {ok, Prepared :: swag_client:value()} | error | {error, Message :: term()}.
 
 -export_type([
     param_rule/0,
     result/0
 ]).
 
--type value()    :: swagger:value().
+-type value()    :: swag_client:value().
 
 %% API
 
@@ -47,7 +47,7 @@ validate({type, 'binary'}, Value) ->
 
 validate({type, 'integer'}, Value0) ->
     try
-        Value = swagger_utils:to_int(Value0),
+        Value = swag_client_utils:to_int(Value0),
         {ok, Value}
     catch
         error:badarg ->
@@ -57,7 +57,7 @@ validate({type, 'integer'}, Value0) ->
 validate({type, 'boolean'},  Value) when is_boolean(Value) ->
     {ok, Value};
 validate({type, 'boolean'}, Value) ->
-    case swagger_utils:to_lower(Value) of
+    case swag_client_utils:to_lower(Value) of
         <<"true">> ->  {ok, true};
         <<"false">> -> {ok, false};
         _ -> error
@@ -72,7 +72,7 @@ validate({type, 'byte'}, Value) ->
 
 validate({type, 'float'}, Value) ->
     try
-        {ok, swagger_utils:to_float(Value)}
+        {ok, swag_client_utils:to_float(Value)}
     catch
         error:badarg ->
             error
@@ -82,7 +82,7 @@ validate({type, 'float'}, Value) ->
 
 validate({format, 'int64'}, Value0) ->
     try
-        Value = swagger_utils:to_int(Value0),
+        Value = swag_client_utils:to_int(Value0),
         ok = validate_between(Value, -9223372036854775808, 922337203685477580),
         {ok, Value}
     catch
@@ -92,7 +92,7 @@ validate({format, 'int64'}, Value0) ->
 
 validate({format, 'int32'}, Value0) ->
     try
-        Value = swagger_utils:to_int(Value0),
+        Value = swag_client_utils:to_int(Value0),
         ok = validate_between(Value, -2147483648, 2147483647),
         {ok, Value}
     catch
@@ -154,7 +154,7 @@ validate({format, 'uri'}, Value) when is_binary(Value) ->
 
 %%
 
--spec validate_between(Value :: swagger:value(), Min :: integer(), Max :: integer()) ->
+-spec validate_between(Value :: swag_client:value(), Min :: integer(), Max :: integer()) ->
     ok | no_return().
 
 validate_between(Value, Min, Max) when
@@ -168,7 +168,7 @@ validate_between(_, _, _) ->
 
 %% Internal
 
--spec validate_base64(Value :: swagger:value()) ->
+-spec validate_base64(Value :: swag_client:value()) ->
     ok | no_return().
 
 validate_base64(Value) when is_binary(Value) ->

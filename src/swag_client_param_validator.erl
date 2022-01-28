@@ -1,10 +1,10 @@
 %% -*- mode: erlang -*-
--module(swagger_param_validator).
+-module(swag_client_param_validator).
 
 -export([validate/2]).
 
 -type param_base_rule() ::
-    swagger_common_validator:param_rule() |
+    swag_client_common_validator:param_rule() |
     {enum, [atom()]} |
     {max, Max :: number(), Type :: exclusive | inclusive} |
     {min, Min :: number(), Type :: exclusive | inclusive} |
@@ -26,8 +26,8 @@
 
 %% API
 
--spec validate(Rule :: param_rule(), Param :: swagger:value()) ->
-    ok | {ok, Prepared :: swagger:value()} | error.
+-spec validate(Rule :: param_rule(), Param :: swag_client:value()) ->
+    ok | {ok, Prepared :: swag_client:value()} | error.
 
 validate(true, _Value) ->
     ok;
@@ -46,7 +46,7 @@ validate({'list', Format, Ruleset}, Value) ->
 
 validate({enum, Values}, Value) ->
     try
-        FormattedValue = swagger_utils:binary_to_existing_atom(Value, utf8),
+        FormattedValue = swag_client_utils:binary_to_existing_atom(Value, utf8),
         case lists:member(FormattedValue, Values) of
             true -> {ok, FormattedValue};
             false -> error
@@ -107,16 +107,16 @@ validate({RuleName, _} = Rule, Value) when
     RuleName =:= type;
     RuleName =:= format
 ->
-    swagger_common_validator:validate(Rule, Value).
+    swag_client_common_validator:validate(Rule, Value).
 
 
 %% Internal
 
 -spec validate_ruleset(
     Ruleset :: [param_base_rule()],
-    Value   :: swagger:value()
+    Value   :: swag_client:value()
 ) ->
-    Value   :: swagger:value().
+    Value   :: swag_client:value().
 
 validate_ruleset(Ruleset, Value) ->
     lists:foldl(

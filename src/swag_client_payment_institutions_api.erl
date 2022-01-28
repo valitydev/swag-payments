@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_payment_institutions_api).
+-module(swag_client_payment_institutions_api).
 
 %% generated methods
 
@@ -22,116 +22,116 @@
 -export([get_service_provider_by_id/3]).
 
 
--spec get_payment_institution_by_ref(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_institution_by_ref(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_institution_by_ref(Endpoint, Params) ->
     get_payment_institution_by_ref(Endpoint, Params, []).
 
--spec get_payment_institution_by_ref(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_institution_by_ref(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_institution_by_ref(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/payment-institutions/:paymentInstitutionID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/payment-institutions/:paymentInstitutionID"),
         Params,
         get_request_spec(get_payment_institution_by_ref),
         Opts
     ), get_payment_institution_by_ref).
 
--spec get_payment_institution_payment_terms(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_institution_payment_terms(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_institution_payment_terms(Endpoint, Params) ->
     get_payment_institution_payment_terms(Endpoint, Params, []).
 
--spec get_payment_institution_payment_terms(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_institution_payment_terms(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_institution_payment_terms(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payments"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payments"),
         Params,
         get_request_spec(get_payment_institution_payment_terms),
         Opts
     ), get_payment_institution_payment_terms).
 
--spec get_payment_institution_payout_methods(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_institution_payout_methods(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_institution_payout_methods(Endpoint, Params) ->
     get_payment_institution_payout_methods(Endpoint, Params, []).
 
--spec get_payment_institution_payout_methods(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_institution_payout_methods(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_institution_payout_methods(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payouts/methods"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payouts/methods"),
         Params,
         get_request_spec(get_payment_institution_payout_methods),
         Opts
     ), get_payment_institution_payout_methods).
 
--spec get_payment_institution_payout_schedules(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_institution_payout_schedules(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_institution_payout_schedules(Endpoint, Params) ->
     get_payment_institution_payout_schedules(Endpoint, Params, []).
 
--spec get_payment_institution_payout_schedules(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_institution_payout_schedules(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_institution_payout_schedules(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payouts/schedules"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payouts/schedules"),
         Params,
         get_request_spec(get_payment_institution_payout_schedules),
         Opts
     ), get_payment_institution_payout_schedules).
 
--spec get_payment_institutions(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_institutions(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_institutions(Endpoint, Params) ->
     get_payment_institutions(Endpoint, Params, []).
 
--spec get_payment_institutions(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_institutions(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_institutions(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/payment-institutions"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/payment-institutions"),
         Params,
         get_request_spec(get_payment_institutions),
         Opts
     ), get_payment_institutions).
 
--spec get_service_provider_by_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_service_provider_by_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_service_provider_by_id(Endpoint, Params) ->
     get_service_provider_by_id(Endpoint, Params, []).
 
--spec get_service_provider_by_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_service_provider_by_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_service_provider_by_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/service-providers/:serviceProviderID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/service-providers/:serviceProviderID"),
         Params,
         get_request_spec(get_service_provider_by_id),
         Opts
     ), get_service_provider_by_id).
 
 process_response({ok, Code, Headers, RespBody}, OperationID) ->
-    try swagger_procession:process_response(
+    try swag_client_procession:process_response(
         get_response_spec(OperationID, Code),
         RespBody
     ) of
@@ -147,8 +147,8 @@ process_response(Error, _) ->
     Error.
 
 
--spec get_request_spec(OperationID :: swagger:operation_id()) ->
-    Spec :: swagger_procession:request_spec() | no_return().
+-spec get_request_spec(OperationID :: swag_client:operation_id()) ->
+    Spec :: swag_client_procession:request_spec() | no_return().
 
 
 get_request_spec('get_payment_institution_by_ref') ->
@@ -280,8 +280,8 @@ get_request_spec('get_service_provider_by_id') ->
         }}
     ].
 
--spec get_response_spec(OperationID :: swagger:operation_id(), Code :: swagger_procession:code()) ->
-    Spec :: swagger_procession:response_spec() | no_return().
+-spec get_response_spec(OperationID :: swag_client:operation_id(), Code :: swag_client_procession:code()) ->
+    Spec :: swag_client_procession:response_spec() | no_return().
 
 
 get_response_spec('get_payment_institution_by_ref', 200) ->

@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_claims_api).
+-module(swag_client_claims_api).
 
 %% generated methods
 
@@ -16,80 +16,80 @@
 -export([revoke_claim_by_id/3]).
 
 
--spec create_claim(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec create_claim(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_claim(Endpoint, Params) ->
     create_claim(Endpoint, Params, []).
 
--spec create_claim(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec create_claim(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_claim(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/claims"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/claims"),
         Params,
         get_request_spec(create_claim),
         Opts
     ), create_claim).
 
--spec get_claim_by_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_claim_by_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_claim_by_id(Endpoint, Params) ->
     get_claim_by_id(Endpoint, Params, []).
 
--spec get_claim_by_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_claim_by_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_claim_by_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/claims/:claimID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/claims/:claimID"),
         Params,
         get_request_spec(get_claim_by_id),
         Opts
     ), get_claim_by_id).
 
--spec get_claims(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_claims(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_claims(Endpoint, Params) ->
     get_claims(Endpoint, Params, []).
 
--spec get_claims(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_claims(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_claims(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/claims"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/claims"),
         Params,
         get_request_spec(get_claims),
         Opts
     ), get_claims).
 
--spec revoke_claim_by_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec revoke_claim_by_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 revoke_claim_by_id(Endpoint, Params) ->
     revoke_claim_by_id(Endpoint, Params, []).
 
--spec revoke_claim_by_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec revoke_claim_by_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 revoke_claim_by_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         put,
-        swagger_utils:get_url(Endpoint, "/v2/processing/claims/:claimID/revoke"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/claims/:claimID/revoke"),
         Params,
         get_request_spec(revoke_claim_by_id),
         Opts
     ), revoke_claim_by_id).
 
 process_response({ok, Code, Headers, RespBody}, OperationID) ->
-    try swagger_procession:process_response(
+    try swag_client_procession:process_response(
         get_response_spec(OperationID, Code),
         RespBody
     ) of
@@ -105,8 +105,8 @@ process_response(Error, _) ->
     Error.
 
 
--spec get_request_spec(OperationID :: swagger:operation_id()) ->
-    Spec :: swagger_procession:request_spec() | no_return().
+-spec get_request_spec(OperationID :: swag_client:operation_id()) ->
+    Spec :: swag_client_procession:request_spec() | no_return().
 
 
 get_request_spec('create_claim') ->
@@ -190,8 +190,8 @@ get_request_spec('revoke_claim_by_id') ->
         }}
     ].
 
--spec get_response_spec(OperationID :: swagger:operation_id(), Code :: swagger_procession:code()) ->
-    Spec :: swagger_procession:response_spec() | no_return().
+-spec get_response_spec(OperationID :: swag_client:operation_id(), Code :: swag_client_procession:code()) ->
+    Spec :: swag_client_procession:response_spec() | no_return().
 
 
 get_response_spec('create_claim', 201) ->

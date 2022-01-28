@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger).
+-module(swag_client).
 %% Type definitions
 
 %% API

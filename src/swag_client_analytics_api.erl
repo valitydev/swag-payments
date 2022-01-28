@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_analytics_api).
+-module(swag_client_analytics_api).
 
 %% generated methods
 
@@ -19,98 +19,98 @@
 -export([get_payment_revenue_stats/3]).
 
 
--spec get_payment_conversion_stats(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_conversion_stats(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_conversion_stats(Endpoint, Params) ->
     get_payment_conversion_stats(Endpoint, Params, []).
 
--spec get_payment_conversion_stats(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_conversion_stats(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_conversion_stats(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/payments/stats/conversion"),
+        swag_client_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/payments/stats/conversion"),
         Params,
         get_request_spec(get_payment_conversion_stats),
         Opts
     ), get_payment_conversion_stats).
 
--spec get_payment_geo_stats(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_geo_stats(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_geo_stats(Endpoint, Params) ->
     get_payment_geo_stats(Endpoint, Params, []).
 
--spec get_payment_geo_stats(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_geo_stats(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_geo_stats(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/payments/stats/geo"),
+        swag_client_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/payments/stats/geo"),
         Params,
         get_request_spec(get_payment_geo_stats),
         Opts
     ), get_payment_geo_stats).
 
--spec get_payment_method_stats(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_method_stats(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_method_stats(Endpoint, Params) ->
     get_payment_method_stats(Endpoint, Params, []).
 
--spec get_payment_method_stats(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_method_stats(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_method_stats(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/customers/stats/payment_method"),
+        swag_client_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/customers/stats/payment_method"),
         Params,
         get_request_spec(get_payment_method_stats),
         Opts
     ), get_payment_method_stats).
 
--spec get_payment_rate_stats(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_rate_stats(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_rate_stats(Endpoint, Params) ->
     get_payment_rate_stats(Endpoint, Params, []).
 
--spec get_payment_rate_stats(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_rate_stats(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_rate_stats(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/customers/stats/rate"),
+        swag_client_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/customers/stats/rate"),
         Params,
         get_request_spec(get_payment_rate_stats),
         Opts
     ), get_payment_rate_stats).
 
--spec get_payment_revenue_stats(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_revenue_stats(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_revenue_stats(Endpoint, Params) ->
     get_payment_revenue_stats(Endpoint, Params, []).
 
--spec get_payment_revenue_stats(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_revenue_stats(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_revenue_stats(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/payments/stats/revenue"),
+        swag_client_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/payments/stats/revenue"),
         Params,
         get_request_spec(get_payment_revenue_stats),
         Opts
     ), get_payment_revenue_stats).
 
 process_response({ok, Code, Headers, RespBody}, OperationID) ->
-    try swagger_procession:process_response(
+    try swag_client_procession:process_response(
         get_response_spec(OperationID, Code),
         RespBody
     ) of
@@ -126,8 +126,8 @@ process_response(Error, _) ->
     Error.
 
 
--spec get_request_spec(OperationID :: swagger:operation_id()) ->
-    Spec :: swagger_procession:request_spec() | no_return().
+-spec get_request_spec(OperationID :: swag_client:operation_id()) ->
+    Spec :: swag_client_procession:request_spec() | no_return().
 
 
 get_request_spec('get_payment_conversion_stats') ->
@@ -316,8 +316,8 @@ get_request_spec('get_payment_revenue_stats') ->
         }}
     ].
 
--spec get_response_spec(OperationID :: swagger:operation_id(), Code :: swagger_procession:code()) ->
-    Spec :: swagger_procession:response_spec() | no_return().
+-spec get_response_spec(OperationID :: swag_client:operation_id(), Code :: swag_client_procession:code()) ->
+    Spec :: swag_client_procession:response_spec() | no_return().
 
 
 get_response_spec('get_payment_conversion_stats', 200) ->

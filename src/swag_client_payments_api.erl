@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_payments_api).
+-module(swag_client_payments_api).
 
 %% generated methods
 
@@ -40,224 +40,224 @@
 -export([get_refunds/3]).
 
 
--spec cancel_payment(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec cancel_payment(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 cancel_payment(Endpoint, Params) ->
     cancel_payment(Endpoint, Params, []).
 
--spec cancel_payment(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec cancel_payment(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 cancel_payment(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/cancel"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/cancel"),
         Params,
         get_request_spec(cancel_payment),
         Opts
     ), cancel_payment).
 
--spec capture_payment(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec capture_payment(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 capture_payment(Endpoint, Params) ->
     capture_payment(Endpoint, Params, []).
 
--spec capture_payment(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec capture_payment(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 capture_payment(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/capture"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/capture"),
         Params,
         get_request_spec(capture_payment),
         Opts
     ), capture_payment).
 
--spec create_payment(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec create_payment(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_payment(Endpoint, Params) ->
     create_payment(Endpoint, Params, []).
 
--spec create_payment(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec create_payment(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_payment(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments"),
         Params,
         get_request_spec(create_payment),
         Opts
     ), create_payment).
 
--spec create_refund(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec create_refund(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_refund(Endpoint, Params) ->
     create_refund(Endpoint, Params, []).
 
--spec create_refund(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec create_refund(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_refund(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/refunds"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/refunds"),
         Params,
         get_request_spec(create_refund),
         Opts
     ), create_refund).
 
--spec get_chargeback_by_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_chargeback_by_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_chargeback_by_id(Endpoint, Params) ->
     get_chargeback_by_id(Endpoint, Params, []).
 
--spec get_chargeback_by_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_chargeback_by_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_chargeback_by_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/chargebacks/:chargebackID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/chargebacks/:chargebackID"),
         Params,
         get_request_spec(get_chargeback_by_id),
         Opts
     ), get_chargeback_by_id).
 
--spec get_chargebacks(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_chargebacks(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_chargebacks(Endpoint, Params) ->
     get_chargebacks(Endpoint, Params, []).
 
--spec get_chargebacks(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_chargebacks(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_chargebacks(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/chargebacks"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/chargebacks"),
         Params,
         get_request_spec(get_chargebacks),
         Opts
     ), get_chargebacks).
 
--spec get_payment_by_external_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_by_external_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_by_external_id(Endpoint, Params) ->
     get_payment_by_external_id(Endpoint, Params, []).
 
--spec get_payment_by_external_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_by_external_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_by_external_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/payments"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/payments"),
         Params,
         get_request_spec(get_payment_by_external_id),
         Opts
     ), get_payment_by_external_id).
 
--spec get_payment_by_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payment_by_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_by_id(Endpoint, Params) ->
     get_payment_by_id(Endpoint, Params, []).
 
--spec get_payment_by_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payment_by_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payment_by_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID"),
         Params,
         get_request_spec(get_payment_by_id),
         Opts
     ), get_payment_by_id).
 
--spec get_payments(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payments(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payments(Endpoint, Params) ->
     get_payments(Endpoint, Params, []).
 
--spec get_payments(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payments(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payments(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments"),
         Params,
         get_request_spec(get_payments),
         Opts
     ), get_payments).
 
--spec get_refund_by_external_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_refund_by_external_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_refund_by_external_id(Endpoint, Params) ->
     get_refund_by_external_id(Endpoint, Params, []).
 
--spec get_refund_by_external_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_refund_by_external_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_refund_by_external_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/refunds"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/refunds"),
         Params,
         get_request_spec(get_refund_by_external_id),
         Opts
     ), get_refund_by_external_id).
 
--spec get_refund_by_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_refund_by_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_refund_by_id(Endpoint, Params) ->
     get_refund_by_id(Endpoint, Params, []).
 
--spec get_refund_by_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_refund_by_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_refund_by_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/refunds/:refundID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/refunds/:refundID"),
         Params,
         get_request_spec(get_refund_by_id),
         Opts
     ), get_refund_by_id).
 
--spec get_refunds(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_refunds(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_refunds(Endpoint, Params) ->
     get_refunds(Endpoint, Params, []).
 
--spec get_refunds(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_refunds(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_refunds(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/refunds"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/payments/:paymentID/refunds"),
         Params,
         get_request_spec(get_refunds),
         Opts
     ), get_refunds).
 
 process_response({ok, Code, Headers, RespBody}, OperationID) ->
-    try swagger_procession:process_response(
+    try swag_client_procession:process_response(
         get_response_spec(OperationID, Code),
         RespBody
     ) of
@@ -273,8 +273,8 @@ process_response(Error, _) ->
     Error.
 
 
--spec get_request_spec(OperationID :: swagger:operation_id()) ->
-    Spec :: swagger_procession:request_spec() | no_return().
+-spec get_request_spec(OperationID :: swag_client:operation_id()) ->
+    Spec :: swag_client_procession:request_spec() | no_return().
 
 
 get_request_spec('cancel_payment') ->
@@ -560,8 +560,8 @@ get_request_spec('get_refunds') ->
         }}
     ].
 
--spec get_response_spec(OperationID :: swagger:operation_id(), Code :: swagger_procession:code()) ->
-    Spec :: swagger_procession:response_spec() | no_return().
+-spec get_response_spec(OperationID :: swag_client:operation_id(), Code :: swag_client_procession:code()) ->
+    Spec :: swag_client_procession:response_spec() | no_return().
 
 
 get_response_spec('cancel_payment', 202) ->

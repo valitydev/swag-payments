@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_schema_validator).
+-module(swag_client_schema_validator).
 
 -behaviour(jesse_schema_validator).
 
@@ -35,17 +35,17 @@ init_state(Opts) ->
     Opts#{refs => []}.
 
 -spec validate(
-    Value   :: swagger:value(),
-    DefName :: swagger:param_name(),
+    Value   :: swag_client:value(),
+    DefName :: swag_client:param_name(),
     MsgType :: msg_type()
 ) ->
-    ok | {error, Error :: swagger:error_reason()}.
+    ok | {error, Error :: swag_client:error_reason()}.
 validate(Value, DefName, MsgType) ->
-    validate(Value, DefName, MsgType, swagger_schema:get()).
+    validate(Value, DefName, MsgType, swag_client_schema:get()).
 
 validate(Value, DefName, MsgType, Schema) ->
     Options = [{validator_opts, #{msg_type => MsgType}} | options()],
-    case jesse:validate_definition(swagger_utils:to_list(DefName), Schema, Value, Options) of
+    case jesse:validate_definition(swag_client_utils:to_list(DefName), Schema, Value, Options) of
         {ok, _} ->
             ok;
         {error, [Error]} ->
@@ -89,7 +89,7 @@ validate_discriminator(Value, DiscrField, State) when is_binary(DiscrField) ->
 
 validate_child_schema(Value, SchemaName, State) ->
     Ref    = <<"#/" ?DEFINITIONS "/", SchemaName/binary>>,
-    BadRef = swagger_utils:to_list(Ref),
+    BadRef = swag_client_utils:to_list(Ref),
     Schema = make_ref_schema(Ref),
     try jesse_schema_validator:validate_with_state(Schema, Value, State)
     catch
@@ -121,7 +121,7 @@ validate_format(Value, {?FORMAT, Type}, State) when
     Type =:= <<"byte">>  orelse
     Type =:= <<"binary">>
 ->
-    case swagger_common_validator:validate({type, erlang:binary_to_atom(Type, utf8)}, Value) of
+    case swag_client_common_validator:validate({type, erlang:binary_to_atom(Type, utf8)}, Value) of
         error ->
             jesse_error:handle_data_invalid(wrong_format, Value, State);
         _ ->
@@ -137,7 +137,7 @@ validate_format(Value, {?FORMAT, Format}, State) when
     Format =:= <<"http-url">>   orelse
     Format =:= <<"uri">>
 ->
-    case swagger_common_validator:validate({format, erlang:binary_to_atom(Format, utf8)}, Value) of
+    case swag_client_common_validator:validate({format, erlang:binary_to_atom(Format, utf8)}, Value) of
         error ->
             jesse_error:handle_data_invalid(wrong_format, Value, State);
         _ ->
@@ -193,14 +193,14 @@ options() ->
 map_error_reason({'data_invalid', _Schema, Error, Data, Path0}) ->
     Path = get_error_path(Path0),
     Description = get_error_description(Error, Data),
-    swagger_utils:join(".", [Description, Path]).
+    swag_client_utils:join(".", [Description, Path]).
 
 get_error_path([]) ->
     <<"">>;
 get_error_path(Path0) ->
     Mapper = fun
         (N, Acc) when is_integer(N) ->
-            ["[", swagger_utils:to_binary(N), "]" | Acc];
+            ["[", swag_client_utils:to_binary(N), "]" | Acc];
         (X, Acc) ->
             [$., X | Acc]
     end,
@@ -208,16 +208,16 @@ get_error_path(Path0) ->
         [$.| Path1] -> Path1;
         Path1       -> Path1
     end,
-    Path3 = swagger_utils:to_binary(Path2),
+    Path3 = swag_client_utils:to_binary(Path2),
     <<" Path to item: ", Path3/binary>>.
 
 get_error_description(any_schemas_not_valid, _Value) ->
     <<"Schema rule \"AnyOf\" violated">>;
 get_error_description({missing_dependency, Dependency0}, _Value) ->
-    Dependency = swagger_utils:to_binary(Dependency0),
+    Dependency = swag_client_utils:to_binary(Dependency0),
     <<"Missing dependency: ", Dependency/binary>>;
 get_error_description(missing_required_property, Value) ->
-    PropertyName = swagger_utils:to_binary(Value),
+    PropertyName = swag_client_utils:to_binary(Value),
     <<"Missing required property: ", PropertyName/binary>>;
 get_error_description(no_extra_items_allowed, _Value) ->
     <<"Extra items not allowed">>;

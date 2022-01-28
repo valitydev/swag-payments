@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_payouts_api).
+-module(swag_client_payouts_api).
 
 %% generated methods
 
@@ -25,134 +25,134 @@
 -export([get_schedule_by_ref/3]).
 
 
--spec create_payout(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec create_payout(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_payout(Endpoint, Params) ->
     create_payout(Endpoint, Params, []).
 
--spec create_payout(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec create_payout(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_payout(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/payouts"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/payouts"),
         Params,
         get_request_spec(create_payout),
         Opts
     ), create_payout).
 
--spec get_payout(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payout(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payout(Endpoint, Params) ->
     get_payout(Endpoint, Params, []).
 
--spec get_payout(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payout(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payout(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/payouts/:payoutID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/payouts/:payoutID"),
         Params,
         get_request_spec(get_payout),
         Opts
     ), get_payout).
 
--spec get_payout_tool_by_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payout_tool_by_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payout_tool_by_id(Endpoint, Params) ->
     get_payout_tool_by_id(Endpoint, Params, []).
 
--spec get_payout_tool_by_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payout_tool_by_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payout_tool_by_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/contracts/:contractID/payout_tools/:payoutToolID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/contracts/:contractID/payout_tools/:payoutToolID"),
         Params,
         get_request_spec(get_payout_tool_by_id),
         Opts
     ), get_payout_tool_by_id).
 
--spec get_payout_tool_by_id_for_party(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payout_tool_by_id_for_party(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payout_tool_by_id_for_party(Endpoint, Params) ->
     get_payout_tool_by_id_for_party(Endpoint, Params, []).
 
--spec get_payout_tool_by_id_for_party(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payout_tool_by_id_for_party(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payout_tool_by_id_for_party(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/parties/:partyID/contracts/:contractID/payout_tools/:payoutToolID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/parties/:partyID/contracts/:contractID/payout_tools/:payoutToolID"),
         Params,
         get_request_spec(get_payout_tool_by_id_for_party),
         Opts
     ), get_payout_tool_by_id_for_party).
 
--spec get_payout_tools(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payout_tools(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payout_tools(Endpoint, Params) ->
     get_payout_tools(Endpoint, Params, []).
 
--spec get_payout_tools(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payout_tools(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payout_tools(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/contracts/:contractID/payout_tools"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/contracts/:contractID/payout_tools"),
         Params,
         get_request_spec(get_payout_tools),
         Opts
     ), get_payout_tools).
 
--spec get_payout_tools_for_party(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_payout_tools_for_party(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payout_tools_for_party(Endpoint, Params) ->
     get_payout_tools_for_party(Endpoint, Params, []).
 
--spec get_payout_tools_for_party(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_payout_tools_for_party(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_payout_tools_for_party(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/parties/:partyID/contracts/:contractID/payout_tools"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/parties/:partyID/contracts/:contractID/payout_tools"),
         Params,
         get_request_spec(get_payout_tools_for_party),
         Opts
     ), get_payout_tools_for_party).
 
--spec get_schedule_by_ref(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_schedule_by_ref(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_schedule_by_ref(Endpoint, Params) ->
     get_schedule_by_ref(Endpoint, Params, []).
 
--spec get_schedule_by_ref(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_schedule_by_ref(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_schedule_by_ref(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/schedules/:scheduleID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/schedules/:scheduleID"),
         Params,
         get_request_spec(get_schedule_by_ref),
         Opts
     ), get_schedule_by_ref).
 
 process_response({ok, Code, Headers, RespBody}, OperationID) ->
-    try swagger_procession:process_response(
+    try swag_client_procession:process_response(
         get_response_spec(OperationID, Code),
         RespBody
     ) of
@@ -168,8 +168,8 @@ process_response(Error, _) ->
     Error.
 
 
--spec get_request_spec(OperationID :: swagger:operation_id()) ->
-    Spec :: swagger_procession:request_spec() | no_return().
+-spec get_request_spec(OperationID :: swag_client:operation_id()) ->
+    Spec :: swag_client_procession:request_spec() | no_return().
 
 
 get_request_spec('create_payout') ->
@@ -318,8 +318,8 @@ get_request_spec('get_schedule_by_ref') ->
         }}
     ].
 
--spec get_response_spec(OperationID :: swagger:operation_id(), Code :: swagger_procession:code()) ->
-    Spec :: swagger_procession:response_spec() | no_return().
+-spec get_response_spec(OperationID :: swag_client:operation_id(), Code :: swag_client_procession:code()) ->
+    Spec :: swag_client_procession:response_spec() | no_return().
 
 
 get_response_spec('create_payout', 201) ->

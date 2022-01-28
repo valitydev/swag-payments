@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_tokens_api).
+-module(swag_client_tokens_api).
 
 %% generated methods
 
@@ -7,26 +7,26 @@
 -export([create_payment_resource/3]).
 
 
--spec create_payment_resource(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec create_payment_resource(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_payment_resource(Endpoint, Params) ->
     create_payment_resource(Endpoint, Params, []).
 
--spec create_payment_resource(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec create_payment_resource(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_payment_resource(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/payment-resources"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/payment-resources"),
         Params,
         get_request_spec(create_payment_resource),
         Opts
     ), create_payment_resource).
 
 process_response({ok, Code, Headers, RespBody}, OperationID) ->
-    try swagger_procession:process_response(
+    try swag_client_procession:process_response(
         get_response_spec(OperationID, Code),
         RespBody
     ) of
@@ -42,8 +42,8 @@ process_response(Error, _) ->
     Error.
 
 
--spec get_request_spec(OperationID :: swagger:operation_id()) ->
-    Spec :: swagger_procession:request_spec() | no_return().
+-spec get_request_spec(OperationID :: swag_client:operation_id()) ->
+    Spec :: swag_client_procession:request_spec() | no_return().
 
 
 get_request_spec('create_payment_resource') ->
@@ -64,8 +64,8 @@ get_request_spec('create_payment_resource') ->
         }}
     ].
 
--spec get_response_spec(OperationID :: swagger:operation_id(), Code :: swagger_procession:code()) ->
-    Spec :: swagger_procession:response_spec() | no_return().
+-spec get_response_spec(OperationID :: swag_client:operation_id(), Code :: swag_client_procession:code()) ->
+    Spec :: swag_client_procession:response_spec() | no_return().
 
 
 get_response_spec('create_payment_resource', 201) ->

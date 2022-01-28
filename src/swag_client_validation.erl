@@ -1,16 +1,16 @@
 %% -*- mode: erlang -*-
--module(swagger_validation).
+-module(swag_client_validation).
 
 -export([prepare_request_param/3]).
 -export([validate_response/2]).
 
--type rule()          :: schema | {required, boolean()} | swagger_param_validator:param_rule().
+-type rule()          :: schema | {required, boolean()} | swag_client_param_validator:param_rule().
 -type data_type()     :: 'list' | atom().
--type response_spec() :: {data_type(), swagger:param_name()} | undefined.
+-type response_spec() :: {data_type(), swag_client:param_name()} | undefined.
 
 -type error() :: #{
     type        := error_type(),
-    description => swagger:error_reason()
+    description => swag_client:error_reason()
 }.
 
 -type error_type() ::
@@ -42,10 +42,10 @@
 
 -spec prepare_request_param(
     Rules :: [rule()],
-    Name  :: swagger:param_name(),
-    Value :: swagger:value()
+    Name  :: swag_client:param_name(),
+    Value :: swag_client:value()
 ) ->
-    {ok,    Value :: swagger:value()} |
+    {ok,    Value :: swag_client:value()} |
     {error, Error :: error()}.
 
 prepare_request_param(Rules, Name, Value) ->
@@ -53,7 +53,7 @@ prepare_request_param(Rules, Name, Value) ->
 
 -spec validate_response(
     Spec :: response_spec(),
-    Resp :: swagger:object() | [swagger:object()] | undefined
+    Resp :: swag_client:object() | [swag_client:object()] | undefined
 ) ->
     ok |
     {error, Error :: error()}.
@@ -79,10 +79,10 @@ validate_response(undefined, _) ->
 
 -spec validate_param(
     Rules :: [rule()],
-    Name  :: swagger:param_name(),
-    Value :: swagger:value()
+    Name  :: swag_client:param_name(),
+    Value :: swag_client:value()
 ) ->
-    Prepared :: swagger:value() | no_return().
+    Prepared :: swag_client:value() | no_return().
 
 validate_param(Rules, Name, Value) ->
     lists:foldl(
@@ -103,14 +103,14 @@ validate({required, _}, _Name, _, _MsgType) ->
 validate(_, _Name, undefined, _MsgType) ->
     ok;
 validate(Rule = schema, Name, Value, MsgType) ->
-    case swagger_schema_validator:validate(Value, Name, MsgType) of
+    case swag_client_schema_validator:validate(Value, Name, MsgType) of
         ok ->
             ok;
         {error, Reason} ->
             report_validation_error(Rule, Name, Reason)
     end;
 validate(Rule, Name, Value, _MsgType) ->
-    case swagger_param_validator:validate(Rule, Value) of
+    case swag_client_param_validator:validate(Rule, Value) of
         ok ->
             ok;
         Ok = {ok, _} ->
@@ -119,7 +119,7 @@ validate(Rule, Name, Value, _MsgType) ->
             report_validation_error(Rule, Name)
     end.
 
--spec report_validation_error(Rule :: rule(), Param :: swagger:param_name()) ->
+-spec report_validation_error(Rule :: rule(), Param :: swag_client:param_name()) ->
     no_return().
 
 report_validation_error(Rule, Param) ->
@@ -127,15 +127,15 @@ report_validation_error(Rule, Param) ->
 
 -spec report_validation_error(
     Rule        :: rule(),
-    Param       :: swagger:param_name(),
-    Description :: swagger:error_reason() | undefined
+    Param       :: swag_client:param_name(),
+    Description :: swag_client:error_reason() | undefined
 ) ->
     no_return().
 
 report_validation_error(Rule, Param, Description) ->
     throw({wrong_param, Param, map_error(Rule, Description)}).
 
--spec map_error(Rule :: rule(), Description :: swagger:error_reason() | undefined) ->
+-spec map_error(Rule :: rule(), Description :: swag_client:error_reason() | undefined) ->
    Error :: error().
 map_error(Rule, Description) ->
     Error = #{type => map_violated_rule(Rule)},

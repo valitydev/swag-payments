@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_procession).
+-module(swag_client_procession).
 
 -export([process_request/5]).
 -export([process_response/2]).
@@ -12,8 +12,8 @@
     body        := any(),
     qs_val      := any()
 }.
--type opts()   :: swagger:transport_opts().
--type object() :: swagger:object().
+-type opts()   :: swag_client:transport_opts().
+-type object() :: swag_client:object().
 -type url()    :: string().
 -type method() :: atom().
 -type code()   :: pos_integer().
@@ -27,11 +27,11 @@
     body.
 
 -type request_spec() :: [{
-    swagger:param_name(),
-    #{source := param_source(), rules := [swagger_validation:rule()]}
+    swag_client:param_name(),
+    #{source := param_source(), rules := [swag_client_validation:rule()]}
 }].
 
--type response_spec() :: swagger_validation:response_spec().
+-type response_spec() :: swag_client_validation:response_spec().
 
 -export_type([code/0]).
 -export_type([body/0]).
@@ -42,7 +42,7 @@
 
 -spec process_request(method(), url(), params(), request_spec(), opts()) ->
     {ok, code(), list(), body()} |
-    {error, {request_validation_failed,  { swagger_validation:error(), BadParam :: atom()}}} |
+    {error, {request_validation_failed,  { swag_client_validation:error(), BadParam :: atom()}}} |
     {error, _Reason}.
 process_request(Method, BaseUrl, Params, Spec, Opts) ->
     case prepare_request(Spec, BaseUrl, Params) of
@@ -58,7 +58,7 @@ process_request(Method, BaseUrl, Params, Spec, Opts) ->
 
 -spec process_response(response_spec(), body()) ->
     {ok, object()} |
-    {error, {response_validation_failed, swagger_validation:error(), _Response}}.
+    {error, {response_validation_failed, swag_client_validation:error(), _Response}}.
 process_response(undefined, <<>>) ->
     {ok, #{}};
 process_response(Spec, RespBody) ->
@@ -88,7 +88,7 @@ prepare_params(Url, #{binding := Bindings, qs_val := Query, header := Headers, b
     }.
 
 prepare_url(Url, Params, Qs) ->
-    swagger_utils:fill_url(Url, Params, Qs).
+    swag_client_utils:fill_url(Url, Params, Qs).
 
 validate_request([], _) ->
     ok;
@@ -102,7 +102,7 @@ validate_request([ParamSpec | T], Params) ->
 
 validate_request_param({Name, #{rules := Rules, source := Source}}, Params) ->
     Value = get_value(Source, Name, Params),
-    case swagger_validation:prepare_request_param(Rules, Name, Value) of
+    case swag_client_validation:prepare_request_param(Rules, Name, Value) of
         {ok, _} ->
             ok;
         {error, Reason} ->
@@ -115,13 +115,13 @@ get_value(body, _Name, Params) ->
     maps:get(body, Params);
 get_value(qs_val, Name, Params) ->
     QueryParams = maps:get(qs_val, Params),
-    get_opt(swagger_utils:to_binary(Name), QueryParams);
+    get_opt(swag_client_utils:to_binary(Name), QueryParams);
 get_value(header, Name, Params) ->
     HeaderParams = maps:get(header, Params),
-    get_opt(swagger_utils:to_binary(Name), HeaderParams);
+    get_opt(swag_client_utils:to_binary(Name), HeaderParams);
 get_value(binding, Name, Params) ->
     BindingParams = maps:get(binding, Params),
-    get_opt(swagger_utils:to_binary(Name), BindingParams).
+    get_opt(swag_client_utils:to_binary(Name), BindingParams).
 
 get_opt(Key, Opts) ->
     get_opt(Key, Opts, undefined).
@@ -130,7 +130,7 @@ get_opt(Key, Opts, Default) ->
     maps:get(Key, Opts, Default).
 
 validate_response(Spec, RespBody) ->
-    case swagger_validation:validate_response(Spec, RespBody) of
+    case swag_client_validation:validate_response(Spec, RespBody) of
         ok ->
             ok;
         {error, Error} ->

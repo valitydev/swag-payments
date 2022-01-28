@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_schema).
+-module(swag_client_schema).
 
 -export([get/0]).
 -export([get_raw/0]).
@@ -7,7 +7,7 @@
 
 -define(DEFINITIONS, <<"definitions">>).
 
--spec get() -> swagger:object().
+-spec get() -> swag_client:object().
 get() ->
     ct_expand:term(enumerate_discriminator_children(maps:with([?DEFINITIONS], get_raw()))).
 

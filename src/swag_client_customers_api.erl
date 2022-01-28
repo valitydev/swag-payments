@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_customers_api).
+-module(swag_client_customers_api).
 
 %% generated methods
 
@@ -31,170 +31,170 @@
 -export([get_customer_payment_methods/3]).
 
 
--spec create_binding(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec create_binding(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_binding(Endpoint, Params) ->
     create_binding(Endpoint, Params, []).
 
--spec create_binding(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec create_binding(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_binding(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/bindings"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/bindings"),
         Params,
         get_request_spec(create_binding),
         Opts
     ), create_binding).
 
--spec create_customer(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec create_customer(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_customer(Endpoint, Params) ->
     create_customer(Endpoint, Params, []).
 
--spec create_customer(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec create_customer(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_customer(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/customers"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/customers"),
         Params,
         get_request_spec(create_customer),
         Opts
     ), create_customer).
 
--spec create_customer_access_token(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec create_customer_access_token(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_customer_access_token(Endpoint, Params) ->
     create_customer_access_token(Endpoint, Params, []).
 
--spec create_customer_access_token(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec create_customer_access_token(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 create_customer_access_token(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         post,
-        swagger_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/access-tokens"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/access-tokens"),
         Params,
         get_request_spec(create_customer_access_token),
         Opts
     ), create_customer_access_token).
 
--spec delete_customer(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec delete_customer(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 delete_customer(Endpoint, Params) ->
     delete_customer(Endpoint, Params, []).
 
--spec delete_customer(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec delete_customer(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 delete_customer(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         delete,
-        swagger_utils:get_url(Endpoint, "/v2/processing/customers/:customerID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/customers/:customerID"),
         Params,
         get_request_spec(delete_customer),
         Opts
     ), delete_customer).
 
--spec get_binding(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_binding(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_binding(Endpoint, Params) ->
     get_binding(Endpoint, Params, []).
 
--spec get_binding(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_binding(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_binding(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/bindings/:customerBindingID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/bindings/:customerBindingID"),
         Params,
         get_request_spec(get_binding),
         Opts
     ), get_binding).
 
--spec get_bindings(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_bindings(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_bindings(Endpoint, Params) ->
     get_bindings(Endpoint, Params, []).
 
--spec get_bindings(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_bindings(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_bindings(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/bindings"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/bindings"),
         Params,
         get_request_spec(get_bindings),
         Opts
     ), get_bindings).
 
--spec get_customer_by_id(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_customer_by_id(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_customer_by_id(Endpoint, Params) ->
     get_customer_by_id(Endpoint, Params, []).
 
--spec get_customer_by_id(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_customer_by_id(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_customer_by_id(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/customers/:customerID"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/customers/:customerID"),
         Params,
         get_request_spec(get_customer_by_id),
         Opts
     ), get_customer_by_id).
 
--spec get_customer_events(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_customer_events(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_customer_events(Endpoint, Params) ->
     get_customer_events(Endpoint, Params, []).
 
--spec get_customer_events(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_customer_events(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_customer_events(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/events"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/events"),
         Params,
         get_request_spec(get_customer_events),
         Opts
     ), get_customer_events).
 
--spec get_customer_payment_methods(Endpoint :: swagger:endpoint(), Params :: map()) ->
+-spec get_customer_payment_methods(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_customer_payment_methods(Endpoint, Params) ->
     get_customer_payment_methods(Endpoint, Params, []).
 
--spec get_customer_payment_methods(Endpoint :: swagger:endpoint(), Params :: map(), Opts :: swagger:transport_opts()) ->
+-spec get_customer_payment_methods(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
 get_customer_payment_methods(Endpoint, Params, Opts) ->
-    process_response(swagger_procession:process_request(
+    process_response(swag_client_procession:process_request(
         get,
-        swagger_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/payment-methods"),
+        swag_client_utils:get_url(Endpoint, "/v2/processing/customers/:customerID/payment-methods"),
         Params,
         get_request_spec(get_customer_payment_methods),
         Opts
     ), get_customer_payment_methods).
 
 process_response({ok, Code, Headers, RespBody}, OperationID) ->
-    try swagger_procession:process_response(
+    try swag_client_procession:process_response(
         get_response_spec(OperationID, Code),
         RespBody
     ) of
@@ -210,8 +210,8 @@ process_response(Error, _) ->
     Error.
 
 
--spec get_request_spec(OperationID :: swagger:operation_id()) ->
-    Spec :: swagger_procession:request_spec() | no_return().
+-spec get_request_spec(OperationID :: swag_client:operation_id()) ->
+    Spec :: swag_client_procession:request_spec() | no_return().
 
 
 get_request_spec('create_binding') ->
@@ -395,8 +395,8 @@ get_request_spec('get_customer_payment_methods') ->
         }}
     ].
 
--spec get_response_spec(OperationID :: swagger:operation_id(), Code :: swagger_procession:code()) ->
-    Spec :: swagger_procession:response_spec() | no_return().
+-spec get_response_spec(OperationID :: swag_client:operation_id(), Code :: swag_client_procession:code()) ->
+    Spec :: swag_client_procession:response_spec() | no_return().
 
 
 get_response_spec('create_binding', 201) ->

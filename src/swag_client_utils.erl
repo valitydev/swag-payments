@@ -1,5 +1,5 @@
 %% -*- mode: erlang -*-
--module(swagger_utils).
+-module(swag_client_utils).
 
 -export([to_binary/1]).
 -export([to_list/1]).
@@ -213,7 +213,7 @@ join_(Delim, [H | T]) ->
 
 -type url() :: string().
 
--spec get_url(Endpoint::swagger:endpoint(), Path::string()) -> url().
+-spec get_url(Endpoint::swag_client:endpoint(), Path::string()) -> url().
 get_url({Host, Port}, Path) ->
     Host ++ ":" ++ integer_to_list(Port) ++ Path;
 get_url(Url, Path) ->
