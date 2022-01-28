@@ -5375,35 +5375,41 @@ definitions:
       - $ref: '#/definitions/PaymentTool'
       - type: object
         description: Электронный кошелёк
-        discriminator: digitalWalletType
+        required:
+          - id
+          - provider
         properties:
-          digitalWalletType:
+          id:
+            description: Идентификатор кошелька
             type: string
-            enum:
-              - DigitalWalletQIWI
+          provider:
+            description: |
+              Провайдер электронных денежных средств.
+
+              Набор провайдеров, доступных для проведения платежей, можно узнать, вызвав
+              соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
+
+              Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
+            type: string
+            example: qiwi
+          token:
+            description: Токен
+            type: string
   DigitalWalletDetails:
     discriminator: digitalWalletDetailsType
     required:
-      - digitalWalletDetailsType
+      - provider
     properties:
-      digitalWalletDetailsType:
+      provider:
+        description: |
+          Провайдер электронных денежных средств.
+
+          Набор провайдеров, доступных для проведения платежей, можно узнать, вызвав
+          соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
+
+          Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
         type: string
-        enum:
-          - DigitalWalletDetailsQIWI
-  DigitalWalletDetailsQIWI:
-    allOf:
-      - $ref: '#/definitions/DigitalWalletDetails'
-      - type: object
-        required:
-          - phoneNumberMask
-        properties:
-          phoneNumberMask:
-            type: string
-            description: |
-              Маскированный номер телефона плательщика в международном формате, выступающий
-              в роли идентификатора кошелька Visa QIWI Wallet.
-            pattern: '^\+\d\*{1,10}\d{2,4}$'
-            example: +7******3210
+        example: qiwi
   DigitalWalletProvider:
     description: |
       Провайдер электронных денежных средств.
@@ -5414,23 +5420,6 @@ definitions:
       Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
     type: string
     example: qiwi
-  DigitalWalletQIWI:
-    allOf:
-      - $ref: '#/definitions/DigitalWalletData'
-      - type: object
-        required:
-          - phoneNumber
-        properties:
-          phoneNumber:
-            type: string
-            description: |
-              Номер телефона плательщика в международном формате, выступающий в роли
-              идентификатора кошелька Visa QIWI Wallet.
-            pattern: '^\+\d{4,15}$'
-            example: '+79876543210'
-          accessToken:
-            type: string
-            description: Авторизационный токен
   ExternalID:
     description: |
       Уникальный в рамках платформы идентификатор сущности для данного участника.
