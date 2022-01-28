@@ -1,0 +1,20 @@
+{application, swag_server, [
+    {description, "#### Последнее обновление: 16-09-2021 |   ## Описание  RBK.money API предназначен для [мерчантов](https://developer.rbk.money/docs/payments/overview/#lk), принимающих платежи из своего пользовательского интерфейса (веб-сайта или любого другого), и является единственной точкой взаимодействия с [платформой](https://developer.rbk.money/docs/payments/overview/) для проведения операций оплаты товаров/услуг.  ## Сценарии  Примеры информационного взаимодействия для некоторых пользовательских сценариев представлены в данных статьях:    - оплата [заказа](https://developer.rbk.money/docs/payments/overview/#invoice) покупателем: см. [\&quot;Платеж\&quot;](https://developer.rbk.money/docs/payments/overview/#pay);   - [рекуррентный платёж](https://developer.rbk.money/docs/payments/recurring/recurring/#_1);   - [покупка с привязанной карты](https://developer.rbk.money/docs/payments/examples/binding/).  ## Детали взаимодействия  При любом обращении к API в заголовке &#x60;X-Request-ID&#x60; соответствующего запроса необходимо передать его уникальный идентификатор:  &#x60;&#x60;&#x60;  X-Request-ID: oX5MWM2AQy &#x60;&#x60;&#x60;  ### Тип содержимого и кодировка  [Платформа](https://developer.rbk.money/docs/payments/overview/) принимает и возвращает данные в формате JSON и кодировке UTF-8:  &#x60;&#x60;&#x60;   Content-Type: application/json; charset&#x3D;utf-8 &#x60;&#x60;&#x60;  ### Формат дат  [Платформа](https://developer.rbk.money/docs/payments/overview/) принимает и возвращает значения отметок времени в формате &#x60;date-time&#x60;, описанном в [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339):  &#x60;&#x60;&#x60;   2017-01-01T00:00:00Z   2017-01-01T00:00:01+00:00 &#x60;&#x60;&#x60;  ### Максимальное время обработки запроса  При любом обращении к API в заголовке &#x60;X-Request-Deadline&#x60; соответствующего запроса можно передать параметр отсечки по времени, определяющий максимальное время ожидания завершения операции по запросу:  &#x60;&#x60;&#x60;  X-Request-Deadline: 10s &#x60;&#x60;&#x60;  По истечении указанного времени [платформа](https://developer.rbk.money/docs/payments/overview/) прекращает обработку запроса.  &#x60;X-Request-Deadline&#x60; может:  * задаваться в формате &#x60;date-time&#x60; (см. [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)); * задаваться в относительных величинах, в миллисекундах (&#x60;150000ms&#x60;), секундах (&#x60;540s&#x60;) или минутах (&#x60;3.5m&#x60;).  Рекомендуемые значения: не более одной минуты, но не менее трёх секунд. "},
+    {vsn, "1.0.0"},
+    {registered, []},
+    {applications, [
+        kernel,
+        stdlib,
+        ssl,
+        inets,
+        jsx,
+        jesse,
+        cowboy,
+        email_validator
+    ]},
+    {env, [
+    ]},
+    {modules, []},
+    {licenses, []},
+    {links, ["https://api.rbk.money"]}
+]}.
