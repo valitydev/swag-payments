@@ -8259,67 +8259,40 @@ get_raw() ->
         <<"$ref">> => <<"#/definitions/PaymentTool">>
       }, #{
         <<"type">> => <<"object">>,
-        <<"discriminator">> => <<"digitalWalletType">>,
+        <<"required">> => [ <<"id">>, <<"provider">> ],
         <<"properties">> => #{
-          <<"digitalWalletType">> => #{
+          <<"id">> => #{
             <<"type">> => <<"string">>,
-            <<"enum">> => [ <<"DigitalWalletQIWI">> ]
+            <<"description">> => <<"Идентификатор кошелька">>
+          },
+          <<"provider">> => #{
+            <<"type">> => <<"string">>,
+            <<"example">> => <<"qiwi">>,
+            <<"description">> => <<"Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>
+          },
+          <<"token">> => #{
+            <<"type">> => <<"string">>,
+            <<"description">> => <<"Токен">>
           }
         },
         <<"description">> => <<"Электронный кошелёк">>
       } ]
     },
     <<"DigitalWalletDetails">> => #{
-      <<"required">> => [ <<"digitalWalletDetailsType">> ],
+      <<"required">> => [ <<"provider">> ],
       <<"discriminator">> => <<"digitalWalletDetailsType">>,
       <<"properties">> => #{
-        <<"digitalWalletDetailsType">> => #{
+        <<"provider">> => #{
           <<"type">> => <<"string">>,
-          <<"enum">> => [ <<"DigitalWalletDetailsQIWI">> ]
+          <<"example">> => <<"qiwi">>,
+          <<"description">> => <<"Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>
         }
-      },
-      <<"x-discriminator-is-enum">> => true
-    },
-    <<"DigitalWalletDetailsQIWI">> => #{
-      <<"allOf">> => [ #{
-        <<"$ref">> => <<"#/definitions/DigitalWalletDetails">>
-      }, #{
-        <<"type">> => <<"object">>,
-        <<"required">> => [ <<"phoneNumberMask">> ],
-        <<"properties">> => #{
-          <<"phoneNumberMask">> => #{
-            <<"type">> => <<"string">>,
-            <<"example">> => <<"+7******3210">>,
-            <<"description">> => <<"Маскированный номер телефона плательщика в международном формате, выступающий\nв роли идентификатора кошелька Visa QIWI Wallet.\n">>,
-            <<"pattern">> => <<"^\\+\\d\\*{1,10}\\d{2,4}$">>
-          }
-        }
-      } ]
+      }
     },
     <<"DigitalWalletProvider">> => #{
       <<"type">> => <<"string">>,
       <<"description">> => <<"Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>,
       <<"example">> => <<"qiwi">>
-    },
-    <<"DigitalWalletQIWI">> => #{
-      <<"allOf">> => [ #{
-        <<"$ref">> => <<"#/definitions/DigitalWalletData">>
-      }, #{
-        <<"type">> => <<"object">>,
-        <<"required">> => [ <<"phoneNumber">> ],
-        <<"properties">> => #{
-          <<"phoneNumber">> => #{
-            <<"type">> => <<"string">>,
-            <<"example">> => <<"+79876543210">>,
-            <<"description">> => <<"Номер телефона плательщика в международном формате, выступающий в роли\nидентификатора кошелька Visa QIWI Wallet.\n">>,
-            <<"pattern">> => <<"^\\+\\d{4,15}$">>
-          },
-          <<"accessToken">> => #{
-            <<"type">> => <<"string">>,
-            <<"description">> => <<"Авторизационный токен">>
-          }
-        }
-      } ]
     },
     <<"ExternalID">> => #{
       <<"type">> => <<"string">>,
