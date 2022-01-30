@@ -41,7 +41,6 @@ x-merge-properties:
       payer:
         $ref: '#/definitions/Payer'
       transactionInfo:
-        description: 'Информация о транзакции'
         $ref: '#/definitions/TransactionInfo'
       makeRecurrent:
         x-rebillyMerge:
