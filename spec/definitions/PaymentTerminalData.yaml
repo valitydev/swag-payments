@@ -11,11 +11,10 @@ allOf:
           - $ref: '#/definitions/PaymentTerminalProvider'
       metadata:
         description: |
-          Произвольные, разделённые по пространствам имён метаданные, дополнительно
-          описывающие данный платёжный инструмент.
+          Произвольные метаданные, дополнительно описывающие данный платёжный
+          инструмент.
         type: object
         example:
-          dev.vality.paymentResource:
-            type: BankAccountRUS
-            accountNumber: '40817810500000000035'
-            bankBIC: '044525716'
+          type: BankAccountRUS
+          accountNumber: '40817810500000000035'
+          bankBIC: '044525716'
