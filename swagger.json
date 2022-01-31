@@ -9634,6 +9634,15 @@
               "description": "Провайдер терминальной сети.\n\nНабор провайдеров, доступных для проведения платежей можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n",
               "type": "string",
               "example": "euroset"
+            },
+            "metadata": {
+              "description": "Произвольные метаданные, дополнительно описывающие данный платёжный\nинструмент.\n",
+              "type": "object",
+              "example": {
+                "type": "BankAccountRUS",
+                "accountNumber": "40817810500000000035",
+                "bankBIC": "044525716"
+              }
             }
           }
         }

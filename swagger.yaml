@@ -7019,6 +7019,15 @@ definitions:
               Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
             type: string
             example: euroset
+          metadata:
+            description: |
+              Произвольные метаданные, дополнительно описывающие данный платёжный
+              инструмент.
+            type: object
+            example:
+              type: BankAccountRUS
+              accountNumber: '40817810500000000035'
+              bankBIC: '044525716'
   PaymentTerminalDetails:
     required:
       - provider
