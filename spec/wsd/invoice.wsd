@@ -1,6 +1,6 @@
 @startuml
 
-!include "plantuml-toolset/super-serious-skin.iwsd"
+!include "styles/serious.iwsd"
 
 skinparam State {
     BackgroundColor<<cancelled>>  #e57373

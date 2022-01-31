@@ -1,3 +1,4 @@
+description: Информация о транзакции
 type: object
 properties:
   rrn:

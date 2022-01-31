@@ -8,7 +8,7 @@ allOf:
       - paymentToken
     properties:
       gatewayMerchantID:
-        description: Идентификатор мерчанта в системе RBKmoney
+        description: Идентификатор мерчанта в системе
         type: string
       paymentToken:
         description: Совокупность открытых и зашифрованных платежных данных
