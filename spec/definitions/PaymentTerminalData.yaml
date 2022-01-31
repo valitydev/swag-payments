@@ -9,3 +9,12 @@ allOf:
       provider:
         x-rebillyMerge:
           - $ref: '#/definitions/PaymentTerminalProvider'
+      metadata:
+        description: |
+          Произвольные метаданные, дополнительно описывающие данный платёжный
+          инструмент.
+        type: object
+        example:
+          type: BankAccountRUS
+          accountNumber: '40817810500000000035'
+          bankBIC: '044525716'
