@@ -673,11 +673,6 @@ tags:
       Внимание! Только Webhooks Management API является частью данной спецификации. Для реализации
       обработчика присылаемых уведомлений вам необходимо будет ознакомиться со
       спецификацей [Vality Webhooks Events API](https://github.com/valitydev/swag-payments-webhook-events).
-  - name: Geo
-    x-displayName: Геопозиционирование
-    description: >
-      Для отображения геоданных плательщиков существуют вспомогательные
-      операции, например, получение названия геопозиции по её идентификатору.
   - name: Search
     x-displayName: Поиск
     description: >
