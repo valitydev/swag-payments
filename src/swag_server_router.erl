@@ -245,11 +245,6 @@ get_operations() ->
             method => <<"GET">>,
             handler => 'swag_server_customers_handler'
         },
-        'GetLocationsNames' => #{
-            path => "/v2/reference/geo/location/names",
-            method => <<"GET">>,
-            handler => 'swag_server_geo_handler'
-        },
         'CreateInvoiceTemplate' => #{
             path => "/v2/processing/invoice-templates",
             method => <<"POST">>,
