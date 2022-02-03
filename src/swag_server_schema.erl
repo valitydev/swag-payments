@@ -8207,8 +8207,8 @@ get_raw() ->
       } ]
     },
     <<"DigitalWalletDetails">> => #{
+      <<"type">> => <<"object">>,
       <<"required">> => [ <<"provider">> ],
-      <<"discriminator">> => <<"digitalWalletDetailsType">>,
       <<"properties">> => #{
         <<"provider">> => #{
           <<"type">> => <<"string">>,
