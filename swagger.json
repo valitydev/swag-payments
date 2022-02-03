@@ -396,11 +396,6 @@
       "description": "В данном разделе описаны методы, позволяющие управлять Webhook'ами, или инструментами для получения асинхронных оповещений посредством HTTP-запросов при наступлении одного или группы интересующих вас событий, например, о том, что платеж в рамках созданного инвойса был успешно оплачен.\nВнимание! Только Webhooks Management API является частью данной спецификации. Для реализации обработчика присылаемых уведомлений вам необходимо будет ознакомиться со спецификацей [Vality Webhooks Events API](https://github.com/valitydev/swag-payments-webhook-events).\n"
     },
     {
-      "name": "Geo",
-      "x-displayName": "Геопозиционирование",
-      "description": "Для отображения геоданных плательщиков существуют вспомогательные операции, например, получение названия геопозиции по её идентификатору.\n"
-    },
-    {
       "name": "Search",
       "x-displayName": "Поиск",
       "description": "Для получения списка всех инвойсов/платежей указанного магазина необходимо вызвать соответствующий метод платформы. Имеется возможность отфильтровать выборку по определенным статусам.\n"
@@ -5499,59 +5494,6 @@
         }
       }
     },
-    "/reference/geo/location/names": {
-      "get": {
-        "description": "Получить локализованные названия геопозиций плательщиков по их\nидентификаторам.\n",
-        "operationId": "getLocationsNames",
-        "tags": [
-          "Geo"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/requestID"
-          },
-          {
-            "$ref": "#/parameters/deadline"
-          },
-          {
-            "name": "language",
-            "in": "query",
-            "description": "Язык для локализации",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "geoIDs",
-            "in": "query",
-            "description": "Идентификаторы геопозиций",
-            "required": true,
-            "type": "array",
-            "collectionFormat": "csv",
-            "items": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Locations Names",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/LocationName"
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/responses/DefaultLogicError"
-          },
-          "401": {
-            "$ref": "#/responses/Unauthorized"
-          }
-        }
-      }
-    },
     "/shops/{shopID}/reports": {
       "post": {
         "description": "Сгенерировать отчет с указанным типом по магазину за указанный промежуток времени",
@@ -8677,22 +8619,6 @@
           "type": "integer",
           "format": "int32",
           "minimum": 0
-        }
-      }
-    },
-    "LocationName": {
-      "type": "object",
-      "required": [
-        "geoID",
-        "name"
-      ],
-      "properties": {
-        "geoID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "name": {
-          "type": "string"
         }
       }
     },
