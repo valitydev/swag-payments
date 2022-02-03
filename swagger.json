@@ -7439,7 +7439,7 @@
       ]
     },
     "DigitalWalletDetails": {
-      "discriminator": "digitalWalletDetailsType",
+      "type": "object",
       "required": [
         "provider"
       ],
