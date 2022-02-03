@@ -1,4 +1,4 @@
-discriminator: digitalWalletDetailsType
+type: object
 required:
   - provider
 properties:
