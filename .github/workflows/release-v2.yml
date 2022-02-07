@@ -35,7 +35,7 @@ jobs:
         run: npm run build -- web_deploy
 
       - name: Prepare release artifacts
-        run: mkdir -p out && cp web_deploy/swagger.{yaml,json} out/
+        run: mkdir -p out && cp web_deploy/swagger.{yaml,json} package.json package-lock.json out/
 
       - name: Deploy artifacts to release branch
         uses: JamesIves/github-pages-deploy-action@v4.2.2
