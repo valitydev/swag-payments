@@ -49,5 +49,3 @@ properties:
     description: Идентификатор расписания выводов
     type: integer
     format: int32
-  account:
-    $ref: '#/definitions/ShopAccount'
