@@ -90,11 +90,6 @@ get_operation(OperationId) ->
 
 get_operations() ->
     #{ 
-        'GetAccountByID' => #{
-            path => "/v2/processing/accounts/:accountID",
-            method => <<"GET">>,
-            handler => 'swag_server_accounts_handler'
-        },
         'GetPaymentConversionStats' => #{
             path => "/v2/analytics/shops/:shopID/payments/stats/conversion",
             method => <<"GET">>,
