@@ -52,14 +52,6 @@
     }
   },
   "parameters": {
-    "accountID": {
-      "name": "accountID",
-      "in": "path",
-      "description": "Account ID",
-      "required": true,
-      "type": "integer",
-      "format": "int64"
-    },
     "requestID": {
       "name": "X-Request-ID",
       "in": "header",
@@ -359,11 +351,6 @@
       "name": "InvoiceTemplates",
       "x-displayName": "Шаблоны инвойсов",
       "description": "Шаблоны инвойсов позволяют упростить выставление инвойсов. Шаблон инвойса привязан к конкретному магазину и содержит спецификацию, по которой можно создавать инвойсы, указывая только конкретнyю стоимость товаров и услуг и/или метаданные инвойса. В случае, если шаблон содержит фиксированную стоимость, её также можно опустить при создании инвойса. Если при создании инвойса по шаблону не указать метаданные инвойса, они будут взяты из значения в шаблоне (если шаблон содержит метаданные).\n\nCоздание, модификация и удаление шаблона инвойса не требуют верификации на стороне системы и заявок на эти изменения.\n## Authorization\nСоздание, модификация и удаление шаблона инвойса авторизуются вашим API-ключом.\n### Токен доступа к шаблону инвойса\nТокен доступа к шаблону инвойса создается в результате операции создания шаблона. Он авторизует:\n* получение шаблона инвойса по его идентификатору,\n* создание инвойса по данному шаблону.\n"
-    },
-    {
-      "name": "Accounts",
-      "x-displayName": "Счета",
-      "description": "Каждый магазин в платформе имеет привязанные счета, на которых аккумулируются средства плательщиков. К магазину может быть привязан счет в любой валюте, если это описано в рамках договора с участником системы, однако не более одного счета в одинаковой валюте.\nСчета разделяются на два основных типа - основной счет и счет гарантийного фонда.\nОсновной счет используется для оперативных взаиморасчетов между банковскими счетами RBKmoney и вашими банковскими счетами для вывода средств. Вывод средств предваряется суммированием всех средств со счетов ваших магазинов и последующим переводом с помощью банковских транзакций, либо других средств вывода денег из системы.\nСчет гарантийного фонда используется для накопления определенных сумм средств от оборота магазина так, как это указано в договоре с участником.\n"
     },
     {
       "name": "Payments",
@@ -1542,43 +1529,6 @@
             "description": "Download link",
             "schema": {
               "$ref": "#/definitions/ReportLink"
-            }
-          },
-          "400": {
-            "$ref": "#/responses/DefaultLogicError"
-          },
-          "401": {
-            "$ref": "#/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/responses/NotFound"
-          }
-        }
-      }
-    },
-    "/processing/accounts/{accountID}": {
-      "get": {
-        "description": "Get account by ID",
-        "operationId": "getAccountByID",
-        "tags": [
-          "Accounts"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/requestID"
-          },
-          {
-            "$ref": "#/parameters/deadline"
-          },
-          {
-            "$ref": "#/parameters/accountID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Account found",
-            "schema": {
-              "$ref": "#/definitions/Account"
             }
           },
           "400": {
@@ -5724,32 +5674,6 @@
         "payload": {
           "description": "Содержимое токена для доступа\n",
           "type": "string"
-        }
-      }
-    },
-    "Account": {
-      "type": "object",
-      "required": [
-        "id",
-        "ownAmount",
-        "availableAmount",
-        "currency"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "ownAmount": {
-          "type": "integer"
-        },
-        "availableAmount": {
-          "type": "integer"
-        },
-        "currency": {
-          "description": "Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).",
-          "type": "string",
-          "pattern": "^[A-Z]{3}$"
         }
       }
     },
@@ -10691,8 +10615,8 @@
         "createdAt",
         "isBlocked",
         "isSuspended",
-        "location",
         "categoryID",
+        "location",
         "details",
         "contractID"
       ],
@@ -10713,6 +10637,11 @@
         "isSuspended": {
           "description": "Приостановлены ли операции в рамках магазина?",
           "type": "boolean"
+        },
+        "currency": {
+          "description": "Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).",
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
         },
         "categoryID": {
           "description": "Идентификатор категории товаров и услуг, предлагаемых в этом магазине\n",
@@ -10737,33 +10666,6 @@
           "description": "Идентификатор расписания выводов",
           "type": "integer",
           "format": "int32"
-        },
-        "account": {
-          "$ref": "#/definitions/ShopAccount"
-        }
-      }
-    },
-    "ShopAccount": {
-      "description": "Счета магазина",
-      "type": "object",
-      "required": [
-        "currency",
-        "guaranteeID",
-        "settlementID"
-      ],
-      "properties": {
-        "currency": {
-          "description": "Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).",
-          "type": "string",
-          "pattern": "^[A-Z]{3}$"
-        },
-        "guaranteeID": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "settlementID": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
