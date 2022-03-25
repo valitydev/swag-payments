@@ -8005,7 +8005,7 @@ definitions:
       rrn:
         description: Retrieval Reference Number
         type: string
-        pattern: '^[a-zA-Z0-9]{12}$'
+        pattern: '^[a-zA-Z0-9]{4,20}$'
       approvalCode:
         description: Authorization Approval Code
         type: string
