@@ -11834,7 +11834,7 @@ get_raw() ->
         <<"rrn">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"Retrieval Reference Number">>,
-          <<"pattern">> => <<"^[a-zA-Z0-9]{12}$">>
+          <<"pattern">> => <<"^[a-zA-Z0-9]{4,20}$">>
         },
         <<"approvalCode">> => #{
           <<"type">> => <<"string">>,
