@@ -6439,8 +6439,6 @@ definitions:
   PaymentFlow:
     type: object
     discriminator: type
-    default:
-      type: PaymentFlowInstant
     required:
       - type
     properties:
@@ -6450,6 +6448,7 @@ definitions:
         enum:
           - PaymentFlowInstant
           - PaymentFlowHold
+        default: PaymentFlowInstant
   PaymentFlowHold:
     type: object
     allOf:

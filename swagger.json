@@ -8850,9 +8850,6 @@
     "PaymentFlow": {
       "type": "object",
       "discriminator": "type",
-      "default": {
-        "type": "PaymentFlowInstant"
-      },
       "required": [
         "type"
       ],
@@ -8863,7 +8860,8 @@
           "enum": [
             "PaymentFlowInstant",
             "PaymentFlowHold"
-          ]
+          ],
+          "default": "PaymentFlowInstant"
         }
       }
     },
