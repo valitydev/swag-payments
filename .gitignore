@@ -61,3 +61,6 @@ web_deploy/
 .idea/libraries
 .DS_Store
 spec/.DS_Store
+
+# Frontend
+/lib
