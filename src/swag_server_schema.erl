@@ -9643,6 +9643,7 @@ get_raw() ->
         <<"type">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"Тип процесса выполнения платежа">>,
+          <<"default">> => <<"PaymentFlowInstant">>,
           <<"enum">> => [ <<"PaymentFlowInstant">>, <<"PaymentFlowHold">> ]
         }
       },
