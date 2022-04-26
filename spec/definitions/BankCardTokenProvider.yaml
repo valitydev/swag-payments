@@ -4,9 +4,9 @@ description: |
     Набор провайдеров, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
 type: string
 # NOTE: Can't be put because of merging in other places
-# example: applepay
+# example: APPLE PAY
 # enum:
-#   - applepay
-#   - googlepay
-#   - samsungpay
-#   - yandexpay
+#   - APPLE PAY
+#   - GOOGLE PAY
+#   - SAMSUNG PAY
+#   - YANDEX PAY

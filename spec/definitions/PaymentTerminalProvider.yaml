@@ -6,12 +6,12 @@ description: |
 
     Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
 type: string
-example: euroset
+example: EUROSET
 # enum:
-#   - euroset
-#   - alipay
-#   - wechat
-#   - zotapay
-#   - qps
-#   - uzcard
-#   - rbs
+#   - EUROSET
+#   - ALIPAY
+#   - WECHAT
+#   - ZOTAPAY
+#   - QPS
+#   - UZCARD
+#   - RBS

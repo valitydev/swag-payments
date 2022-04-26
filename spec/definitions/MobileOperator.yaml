@@ -3,10 +3,10 @@ description: |
 
     Набор операторов, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
 type: string
-example: mts
+example: MTS
 # enum:
-#   - mts
-#   - beeline
-#   - megafone
-#   - tele2
-#   - yota
+#   - MTS
+#   - BEELINE
+#   - MEGAFONE
+#   - TELE2
+#   - YOTA

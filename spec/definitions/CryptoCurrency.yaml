@@ -3,11 +3,11 @@ description: |
 
     Набор криптовалют, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
 type: string
-example: bitcoin
+example: BITCOIN
 # enum:
-#   - bitcoin
-#   - litecoin
-#   - bitcoinCash
-#   - ripple
-#   - ethereum
-#   - zcash
+#   - BITCOIN
+#   - LITECOIN
+#   - BITCOINCASH
+#   - RIPPLE
+#   - ETHEREUM
+#   - ZCASH
