@@ -38,7 +38,7 @@ jobs:
         run: mkdir -p out && cp web_deploy/swagger.{yaml,json} package.json package-lock.json out/
 
       - name: Deploy artifacts to release branch
-        uses: JamesIves/github-pages-deploy-action@v4.3.2
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: release/v2
           folder: out
