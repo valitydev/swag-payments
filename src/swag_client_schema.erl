@@ -8006,14 +8006,7 @@ get_raw() ->
             <<"minLength">> => 1,
             <<"maxLength">> => 40
           },
-          <<"paymentToolToken">> => #{
-            <<"type">> => <<"string">>,
-            <<"description">> => <<"Токен платежного средства, предоставленного плательщиком">>,
-            <<"readOnly">> => true,
-            <<"maxLength">> => 2000
-          },
           <<"paymentToolDetails">> => #{
-            <<"readOnly">> => true,
             <<"$ref">> => <<"#/definitions/PaymentToolDetails">>
           }
         }
@@ -9920,16 +9913,15 @@ get_raw() ->
     },
     <<"PaymentResource">> => #{
       <<"type">> => <<"object">>,
-      <<"required">> => [ <<"paymentSession">>, <<"paymentToolToken">> ],
       <<"properties">> => #{
         <<"paymentToolToken">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Токен платежного средства, предоставленного плательщиком">>,
+          <<"description">> => <<"Токен платежного средства, предоставленного плательщиком.\n\n_Обязателен при создании платежа или привязки, может быть получен в процессе [токенизации](#operation/createPaymentResource)_.\n">>,
           <<"maxLength">> => 2000
         },
         <<"paymentSession">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор платежной сессии">>,
+          <<"description">> => <<"Идентификатор платежной сессии.\n\n_Обязателен при создании платежа или привязки, может быть получен в процессе [токенизации](#operation/createPaymentResource)_.\n">>,
           <<"maxLength">> => 1000
         },
         <<"paymentToolDetails">> => #{
@@ -9995,19 +9987,42 @@ get_raw() ->
       <<"description">> => <<"Одноразовое платежное средство">>
     },
     <<"PaymentResourceResult">> => #{
-      <<"allOf">> => [ #{
-        <<"$ref">> => <<"#/definitions/PaymentResource">>
-      }, #{
-        <<"type">> => <<"object">>,
-        <<"properties">> => #{
-          <<"validUntil">> => #{
-            <<"type">> => <<"string">>,
-            <<"format">> => <<"date-time">>,
-            <<"description">> => <<"Дата и время, до наступления которых токен платежного средства остается действительным">>,
-            <<"readOnly">> => true
-          }
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"paymentSession">>, <<"paymentToolToken">> ],
+      <<"properties">> => #{
+        <<"paymentToolToken">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Токен платежного средства, предоставленного плательщиком">>,
+          <<"maxLength">> => 2000
+        },
+        <<"paymentSession">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Идентификатор платежной сессии">>,
+          <<"maxLength">> => 1000
+        },
+        <<"paymentToolDetails">> => #{
+          <<"$ref">> => <<"#/definitions/PaymentToolDetails">>
+        },
+        <<"clientInfo">> => #{
+          <<"$ref">> => <<"#/definitions/BankCard_tokenProviderData">>
+        },
+        <<"validUntil">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"date-time">>,
+          <<"description">> => <<"Дата и время, до наступления которых токен платежного средства остается действительным">>,
+          <<"readOnly">> => true
         }
-      } ]
+      },
+      <<"description">> => <<"Данные одноразового платежного средства">>,
+      <<"example">> => #{
+        <<"paymentToolToken">> => <<"paymentToolToken">>,
+        <<"paymentSession">> => <<"paymentSession">>,
+        <<"clientInfo">> => #{ },
+        <<"validUntil">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"paymentToolDetails">> => #{
+          <<"detailsType">> => <<"detailsType">>
+        }
+      }
     },
     <<"PaymentRevenueStat">> => #{
       <<"type">> => <<"object">>,
@@ -10602,14 +10617,7 @@ get_raw() ->
           <<"recurrentParentPayment">> => #{
             <<"$ref">> => <<"#/definitions/PaymentRecurrentParent">>
           },
-          <<"paymentToolToken">> => #{
-            <<"type">> => <<"string">>,
-            <<"description">> => <<"Токен платежного средства, предоставленного плательщиком">>,
-            <<"readOnly">> => true,
-            <<"maxLength">> => 2000
-          },
           <<"paymentToolDetails">> => #{
-            <<"readOnly">> => true,
             <<"$ref">> => <<"#/definitions/PaymentToolDetails">>
           }
         }
