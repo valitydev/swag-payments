@@ -7212,14 +7212,7 @@
               "maxLength": 40,
               "minLength": 1
             },
-            "paymentToolToken": {
-              "readOnly": true,
-              "description": "Токен платежного средства, предоставленного плательщиком",
-              "type": "string",
-              "maxLength": 2000
-            },
             "paymentToolDetails": {
-              "readOnly": true,
               "$ref": "#/definitions/PaymentToolDetails"
             }
           }
@@ -9153,18 +9146,14 @@
     "PaymentResource": {
       "type": "object",
       "description": "Данные одноразового платежного средства",
-      "required": [
-        "paymentSession",
-        "paymentToolToken"
-      ],
       "properties": {
         "paymentToolToken": {
-          "description": "Токен платежного средства, предоставленного плательщиком",
+          "description": "Токен платежного средства, предоставленного плательщиком.\n\n_Обязателен при создании платежа или привязки, может быть получен в процессе [токенизации](#operation/createPaymentResource)_.\n",
           "type": "string",
           "maxLength": 2000
         },
         "paymentSession": {
-          "description": "Идентификатор платежной сессии",
+          "description": "Идентификатор платежной сессии.\n\n_Обязателен при создании платежа или привязки, может быть получен в процессе [токенизации](#operation/createPaymentResource)_.\n",
           "type": "string",
           "maxLength": 1000
         },
@@ -9229,22 +9218,42 @@
     },
     "PaymentResourceResult": {
       "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/PaymentResource"
+      "description": "Данные одноразового платежного средства",
+      "required": [
+        "paymentSession",
+        "paymentToolToken"
+      ],
+      "properties": {
+        "paymentToolToken": {
+          "description": "Токен платежного средства, предоставленного плательщиком",
+          "type": "string",
+          "maxLength": 2000
         },
-        {
-          "type": "object",
-          "properties": {
-            "validUntil": {
-              "description": "Дата и время, до наступления которых токен платежного средства остается действительным",
-              "type": "string",
-              "format": "date-time",
+        "paymentSession": {
+          "description": "Идентификатор платежной сессии",
+          "type": "string",
+          "maxLength": 1000
+        },
+        "paymentToolDetails": {
+          "$ref": "#/definitions/PaymentToolDetails"
+        },
+        "clientInfo": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/ClientInfo"
+            },
+            {
               "readOnly": true
             }
-          }
+          ]
+        },
+        "validUntil": {
+          "description": "Дата и время, до наступления которых токен платежного средства остается действительным",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
         }
-      ]
+      }
     },
     "PaymentRevenueStat": {
       "type": "object",
@@ -9954,14 +9963,7 @@
             "recurrentParentPayment": {
               "$ref": "#/definitions/PaymentRecurrentParent"
             },
-            "paymentToolToken": {
-              "readOnly": true,
-              "description": "Токен платежного средства, предоставленного плательщиком",
-              "type": "string",
-              "maxLength": 2000
-            },
             "paymentToolDetails": {
-              "readOnly": true,
               "$ref": "#/definitions/PaymentToolDetails"
             }
           }
