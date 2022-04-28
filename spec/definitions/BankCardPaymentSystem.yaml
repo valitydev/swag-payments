@@ -8,9 +8,7 @@ type: string
 # enum:
 #   - VISA
 #   - MASTERCARD
-#   - VISAELECTRON
 #   - MAESTRO
-#   - FORBRUGSFORENINGEN
 #   - DANKORT
 #   - AMEX
 #   - DINERSCLUB
@@ -20,5 +18,4 @@ type: string
 #   - NSPKMIR
 #   - ELO
 #   - RUPAY
-#   - DUMMY
 #   - UZCARD
