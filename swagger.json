@@ -6815,7 +6815,7 @@
     "CryptoCurrency": {
       "description": "Криптовалютное платёжное средство.\n\nНабор криптовалют, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n",
       "type": "string",
-      "example": "bitcoin"
+      "example": "BTC"
     },
     "CryptoCurrencyTransferRequest": {
       "type": "object",
@@ -6869,7 +6869,7 @@
               "items": {
                 "description": "Криптовалютное платёжное средство.\n\nНабор криптовалют, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n",
                 "type": "string",
-                "example": "bitcoin"
+                "example": "BTC"
               }
             }
           }
@@ -6895,7 +6895,7 @@
         "cryptoCurrency": {
           "description": "Криптовалютное платёжное средство.\n\nНабор криптовалют, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n",
           "type": "string",
-          "example": "bitcoin"
+          "example": "BTC"
         }
       }
     },
@@ -7317,7 +7317,7 @@
               "items": {
                 "description": "Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n",
                 "type": "string",
-                "example": "qiwi"
+                "example": "QIWI"
               }
             }
           }
@@ -7345,7 +7345,7 @@
             "provider": {
               "description": "Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n",
               "type": "string",
-              "example": "qiwi"
+              "example": "QIWI"
             },
             "token": {
               "description": "Токен",
@@ -7364,14 +7364,14 @@
         "provider": {
           "description": "Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n",
           "type": "string",
-          "example": "qiwi"
+          "example": "QIWI"
         }
       }
     },
     "DigitalWalletProvider": {
       "description": "Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n",
       "type": "string",
-      "example": "qiwi"
+      "example": "QIWI"
     },
     "ExternalID": {
       "description": "Уникальный в рамках платформы идентификатор сущности для данного участника.\n\nИспользуется для обеспечения идемпотентности запроса.\n",
@@ -8573,7 +8573,7 @@
               "items": {
                 "description": "Оператор сотовой связи.\n\nНабор операторов, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n",
                 "type": "string",
-                "example": "mts"
+                "example": "MTS"
               }
             }
           }
@@ -8639,7 +8639,7 @@
     "MobileOperator": {
       "description": "Оператор сотовой связи.\n\nНабор операторов, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n",
       "type": "string",
-      "example": "mts"
+      "example": "MTS"
     },
     "Party": {
       "type": "object",
@@ -9459,7 +9459,7 @@
               "items": {
                 "description": "Провайдер терминальной сети.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n",
                 "type": "string",
-                "example": "euroset"
+                "example": "EUROSET"
               }
             }
           }
@@ -9482,7 +9482,7 @@
             "provider": {
               "description": "Провайдер терминальной сети.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n",
               "type": "string",
-              "example": "euroset"
+              "example": "EUROSET"
             },
             "metadata": {
               "description": "Произвольные метаданные, дополнительно описывающие данный платёжный\nинструмент.\n",
@@ -9505,14 +9505,14 @@
         "provider": {
           "description": "Провайдер терминальной сети.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n",
           "type": "string",
-          "example": "euroset"
+          "example": "EUROSET"
         }
       }
     },
     "PaymentTerminalProvider": {
       "description": "Провайдер терминальной сети.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n",
       "type": "string",
-      "example": "euroset"
+      "example": "EUROSET"
     },
     "PaymentTerminalReceipt": {
       "type": "object",

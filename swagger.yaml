@@ -4893,7 +4893,7 @@ definitions:
 
       Набор криптовалют, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
     type: string
-    example: bitcoin
+    example: BTC
   CryptoCurrencyTransferRequest:
     type: object
     allOf:
@@ -4934,7 +4934,7 @@ definitions:
 
                 Набор криптовалют, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
               type: string
-              example: bitcoin
+              example: BTC
   CryptoWalletData:
     type: object
     allOf:
@@ -4950,7 +4950,7 @@ definitions:
 
           Набор криптовалют, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
         type: string
-        example: bitcoin
+        example: BTC
   Currency:
     description: 'Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).'
     type: string
@@ -5253,7 +5253,7 @@ definitions:
 
                 Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
               type: string
-              example: qiwi
+              example: QIWI
   DigitalWalletData:
     type: object
     allOf:
@@ -5276,7 +5276,7 @@ definitions:
 
               Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
             type: string
-            example: qiwi
+            example: QIWI
           token:
             description: Токен
             type: string
@@ -5294,7 +5294,7 @@ definitions:
 
           Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
         type: string
-        example: qiwi
+        example: QIWI
   DigitalWalletProvider:
     description: |
       Провайдер электронных денежных средств.
@@ -5304,7 +5304,7 @@ definitions:
 
       Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
     type: string
-    example: qiwi
+    example: QIWI
   ExternalID:
     description: |
       Уникальный в рамках платформы идентификатор сущности для данного участника.
@@ -6221,7 +6221,7 @@ definitions:
 
                 Набор операторов, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
               type: string
-              example: mts
+              example: MTS
   MobileCommerceData:
     type: object
     allOf:
@@ -6267,7 +6267,7 @@ definitions:
 
       Набор операторов, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
     type: string
-    example: mts
+    example: MTS
   Party:
     type: object
     required:
@@ -6889,7 +6889,7 @@ definitions:
 
                 Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
               type: string
-              example: euroset
+              example: EUROSET
   PaymentTerminalData:
     type: object
     allOf:
@@ -6908,7 +6908,7 @@ definitions:
 
               Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
             type: string
-            example: euroset
+            example: EUROSET
           metadata:
             description: |
               Произвольные метаданные, дополнительно описывающие данный платёжный
@@ -6931,7 +6931,7 @@ definitions:
 
           Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
         type: string
-        example: euroset
+        example: EUROSET
   PaymentTerminalProvider:
     description: |
       Провайдер терминальной сети.
@@ -6941,7 +6941,7 @@ definitions:
 
       Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
     type: string
-    example: euroset
+    example: EUROSET
   PaymentTerminalReceipt:
     type: object
     allOf:
