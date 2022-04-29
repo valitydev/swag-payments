@@ -4,21 +4,18 @@ description: |
     Набор систем, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
 type: string
 # NOTE: Can't be put because of merging in other places
-# example: visa
+# example: VISA
 # enum:
-#   - visa
-#   - mastercard
-#   - visaelectron
-#   - maestro
-#   - forbrugsforeningen
-#   - dankort
-#   - amex
-#   - dinersclub
-#   - discover
-#   - unionpay
-#   - jcb
-#   - nspkmir
-#   - elo
-#   - rupay
-#   - dummy
-#   - uzcard
+#   - VISA
+#   - MASTERCARD
+#   - MAESTRO
+#   - DANKORT
+#   - AMEX
+#   - DINERSCLUB
+#   - DISCOVER
+#   - UNIONPAY
+#   - JCB
+#   - NSPKMIR
+#   - ELO
+#   - RUPAY
+#   - UZCARD

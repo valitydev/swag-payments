@@ -6,6 +6,6 @@ description: |
 
     Дополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).
 type: string
-example: qiwi
+example: QIWI
 # enum:
-#   - qiwi
+#   - QIWI
