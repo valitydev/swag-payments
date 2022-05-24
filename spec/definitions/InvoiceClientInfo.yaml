@@ -1,5 +1,7 @@
 description: 'Дополнительная информация о клиенте'
 type: object
+required:
+  - trustLevel
 properties:
   trustLevel:
     description: 'Надёжен ли плательщик?'
