@@ -8481,6 +8481,7 @@ get_raw() ->
     },
     <<"InvoiceBankAccount">> => #{
       <<"type">> => <<"object">>,
+      <<"required">> => [ <<"accountType">> ],
       <<"discriminator">> => <<"accountType">>,
       <<"properties">> => #{
         <<"accountType">> => #{
@@ -8521,6 +8522,7 @@ get_raw() ->
     },
     <<"InvoiceClientInfo">> => #{
       <<"type">> => <<"object">>,
+      <<"required">> => [ <<"trustLevel">> ],
       <<"properties">> => #{
         <<"trustLevel">> => #{
           <<"type">> => <<"string">>,
@@ -9776,6 +9778,7 @@ get_raw() ->
     },
     <<"PaymentMethod">> => #{
       <<"type">> => <<"object">>,
+      <<"required">> => [ <<"method">> ],
       <<"discriminator">> => <<"method">>,
       <<"properties">> => #{
         <<"method">> => #{
