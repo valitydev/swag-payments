@@ -7729,6 +7729,9 @@
       "type": "object",
       "description": "Информация о банковском счете плательщика, к операциям с которым относится данный инвойс\n",
       "discriminator": "accountType",
+      "required": [
+        "accountType"
+      ],
       "properties": {
         "accountType": {
           "description": "Вид банковского счета",
@@ -7772,6 +7775,9 @@
     "InvoiceClientInfo": {
       "description": "Дополнительная информация о клиенте",
       "type": "object",
+      "required": [
+        "trustLevel"
+      ],
       "properties": {
         "trustLevel": {
           "description": "Надёжен ли плательщик?",
@@ -9009,6 +9015,9 @@
     "PaymentMethod": {
       "type": "object",
       "discriminator": "method",
+      "required": [
+        "method"
+      ],
       "properties": {
         "method": {
           "description": "Метод оплаты",
