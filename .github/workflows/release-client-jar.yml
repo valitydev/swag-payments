@@ -1,6 +1,7 @@
 name: Release java client
 on:
-  - pull_request
+  push:
+    branches: ['master', 'main', 'v2']
 
 env:
   NODEJS_VERSION: '16'
