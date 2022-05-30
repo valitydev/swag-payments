@@ -1,29 +1,14 @@
-name: Release java client
+name: Release java libraries
 on:
   push:
     branches: ['master', 'main', 'v2']
 
-env:
-  NODEJS_VERSION: '16'
-
 jobs:
-  bundle:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Maven
-        uses: actions/setup-java@v3
-        with:
-          java-version: '15'
-          distribution: 'adopt'
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODEJS_VERSION }}
-          cache: npm
-      - run: npm install
-      - name: Bundle specification
-        run: npm run build
-      - name: Release client jar
-        run: mvn --batch-mode clean install -f pom.xml -P="client"
+  deploy:
+    uses: valitydev/base-workflow/.github/workflows/maven-swag-deploy.yml@v1
+    secrets:
+      server-username: ${{ secrets.OSSRH_USERNAME }}
+      server-password: ${{ secrets.OSSRH_TOKEN }}
+      deploy-secret-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+      deploy-secret-key-password: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+      github-token: ${{ secrets.GITHUB_TOKEN }}
