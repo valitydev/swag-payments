@@ -2,14 +2,13 @@ description: Создание инструмента вывода в рамка�
 type: object
 allOf:
   - $ref: '#/definitions/ContractModification'
-  - allOf:
-    - type: object
-      required:
-        - payoutToolID
-      properties:
-        payoutToolID:
-          description: Идентификатор средства вывода
-          type: string
-          maxLength: 40
-          minLength: 1
-    - $ref: '#/definitions/PayoutToolParams'
+  - type: object
+    required:
+      - payoutToolID
+    properties:
+      payoutToolID:
+        description: Идентификатор средства вывода
+        type: string
+        maxLength: 40
+        minLength: 1
+  - $ref: '#/definitions/PayoutToolParams'
