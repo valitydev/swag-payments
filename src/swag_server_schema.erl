@@ -7496,20 +7496,18 @@ get_raw() ->
       <<"allOf">> => [ #{
         <<"$ref">> => <<"#/definitions/ContractModification">>
       }, #{
-        <<"allOf">> => [ #{
-          <<"type">> => <<"object">>,
-          <<"required">> => [ <<"payoutToolID">> ],
-          <<"properties">> => #{
-            <<"payoutToolID">> => #{
-              <<"type">> => <<"string">>,
-              <<"description">> => <<"Идентификатор средства вывода">>,
-              <<"minLength">> => 1,
-              <<"maxLength">> => 40
-            }
+        <<"type">> => <<"object">>,
+        <<"required">> => [ <<"payoutToolID">> ],
+        <<"properties">> => #{
+          <<"payoutToolID">> => #{
+            <<"type">> => <<"string">>,
+            <<"description">> => <<"Идентификатор средства вывода">>,
+            <<"minLength">> => 1,
+            <<"maxLength">> => 40
           }
-        }, #{
-          <<"$ref">> => <<"#/definitions/PayoutToolParams">>
-        } ]
+        }
+      }, #{
+        <<"$ref">> => <<"#/definitions/PayoutToolParams">>
       } ],
       <<"description">> => <<"Создание инструмента вывода в рамках договора">>
     },
