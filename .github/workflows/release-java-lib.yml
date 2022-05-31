@@ -1,0 +1,14 @@
+name: Release java libraries
+on:
+  push:
+    branches: ['master', 'main', 'v2']
+
+jobs:
+  deploy:
+    uses: valitydev/base-workflow/.github/workflows/maven-swag-deploy.yml@v1
+    secrets:
+      server-username: ${{ secrets.OSSRH_USERNAME }}
+      server-password: ${{ secrets.OSSRH_TOKEN }}
+      deploy-secret-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+      deploy-secret-key-password: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+      github-token: ${{ secrets.GITHUB_TOKEN }}

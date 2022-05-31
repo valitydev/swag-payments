@@ -1,0 +1,10 @@
+name: Build java libraries
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    uses: valitydev/base-workflow/.github/workflows/maven-swag-build.yml@v1
