@@ -14,9 +14,6 @@ allOf:
       id:
         description: Идентификатор платежа
         type: string
-      shortID:
-        description: Cокращенный идентификатор платежа и инвойса (spid)
-        type: string
       invoiceID:
         description: 'Идентификатор инвойса, в рамках которого был создан платеж'
         type: string
@@ -34,9 +31,9 @@ allOf:
           качестве валюты.
         type: integer
         format: int64
-        minimum: 1
+        minimum: 0
       fee:
-        description: 'Комиссия системы, в минорных денежных единицах'
+        description: Комиссия системы в минорных денежных единицах
         type: integer
         format: int64
         minimum: 0
@@ -47,8 +44,6 @@ allOf:
         $ref: '#/definitions/Payer'
       flow:
         $ref: '#/definitions/PaymentFlow'
-      geoLocationInfo:
-        $ref: '#/definitions/GeoLocationInfo'
       metadata:
         description: Связанные с платежом метаданные
         type: object
@@ -57,13 +52,9 @@ allOf:
         type: string
         format: date-time
       transactionInfo:
-        description: 'Информация о транзакции'
         $ref: '#/definitions/TransactionInfo'
       makeRecurrent:
         x-rebillyMerge:
           - $ref: '#/definitions/PaymentMakeRecurrent'
-          - readOnly: true
       cart:
         $ref: '#/definitions/InvoiceCart'
-      allocation:
-        $ref: '#/definitions/Allocation'
