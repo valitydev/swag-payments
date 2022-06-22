@@ -1,0 +1,25 @@
+@startuml
+
+!include "styles/serious.iwsd"
+
+skinparam State {
+    BackgroundColor<<cancelled>>  #e57373
+    BackgroundColor<<fulfilled>>  #81c784
+}
+
+skinparam GenericArrowFontSize 11
+
+state cancelled <<cancelled>>
+state fulfilled <<fulfilled>>
+
+cancelled : overdue
+cancelled : user request
+cancelled : invalid
+
+[*] -r-> unpaid : <b>1</b> issue
+unpaid -r-> cancelled : <b>2</b> cancel
+unpaid --> paid : <b>3</b> pay
+
+paid --> fulfilled : <b>4</b> fulfill
+
+@enduml
