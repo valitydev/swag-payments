@@ -19,7 +19,7 @@ jobs:
           cache: npm
       - run: npm install
       - name: Bundle specification
-        run: npm run build
+        run: npm run build -- ./dist
       - name: Publish ReDoc on Github Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
