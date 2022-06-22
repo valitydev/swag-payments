@@ -5,8 +5,8 @@ required:
   - createdAt
   - isBlocked
   - isSuspended
-  - categoryID
   - location
+  - categoryID
   - details
   - contractID
 properties:
@@ -23,9 +23,6 @@ properties:
   isSuspended:
     description: Приостановлены ли операции в рамках магазина?
     type: boolean
-  currency:
-    x-rebillyMerge:
-      - $ref: '#/definitions/Currency'
   categoryID:
     description: |
       Идентификатор категории товаров и услуг, предлагаемых в этом магазине
@@ -49,3 +46,5 @@ properties:
     description: Идентификатор расписания выводов
     type: integer
     format: int32
+  account:
+    $ref: '#/definitions/ShopAccount'
