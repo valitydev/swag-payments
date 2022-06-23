@@ -1,0 +1,21 @@
+type: object
+x-merge-properties:
+  - 
+    type: object
+    required:
+      - id
+      - paymentResource
+    properties:
+      id:
+        description: Идентификатор привязки
+        type: string
+      externalID:
+        x-rebillyMerge:
+          - 
+            $ref: '#/definitions/ExternalID'
+          - 
+            description: Внешний идентификатор привязки
+      paymentResource:
+        $ref: '#/definitions/PaymentResource'
+  - 
+    $ref: '#/definitions/CustomerBindingStatus'
