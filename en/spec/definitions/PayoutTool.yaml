@@ -1,0 +1,12 @@
+description: Средство вывода
+allOf:
+  - 
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        description: Идентификатор средства вывода
+        type: string
+  - 
+    $ref: '#/definitions/PayoutToolParams'
