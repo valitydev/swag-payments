@@ -1,0 +1,13 @@
+type: object
+allOf:
+  - 
+    $ref: '#/definitions/PaymentTool'
+  - 
+    type: object
+    required:
+      - mobilePhone
+    description: Мобильная коммерция
+    discriminator: mobileCommerceType
+    properties:
+      mobilePhone:
+        $ref: '#/definitions/MobileCommercePhone'
