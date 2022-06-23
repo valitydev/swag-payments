@@ -1,0 +1,45 @@
+type: object
+required:
+  - id
+  - shopID
+  - createdAt
+  - amount
+  - currency
+  - payoutToolDetails
+properties:
+  id:
+    description: Идентификатор выплаты
+    type: string
+  shopID:
+    description: Идентификатор магазина
+    type: string
+  createdAt:
+    description: Дата и время создания
+    type: string
+    format: date-time
+  cancellationDetails:
+    description: Детали отмены выплаты
+    type: string
+    maxLength: 1000
+  amount:
+    description: |
+      Сумма выплаты в минорных денежных
+      единицах, например в копейках в случае указания российских рублей в
+      качестве валюты.
+    type: integer
+    format: int64
+    minimum: 1
+  fee:
+    description: 'Комиссия системы, в минорных денежных единицах'
+    type: integer
+    format: int64
+    minimum: 0
+  currency:
+    x-rebillyMerge:
+      - 
+        $ref: '#/definitions/Currency'
+  payoutToolDetails:
+    $ref: '#/definitions/PayoutToolDetails'
+  status:
+    description: Статус выплаты
+    type: string
