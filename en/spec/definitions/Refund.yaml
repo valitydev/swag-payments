@@ -1,0 +1,50 @@
+type: object
+x-merge-properties:
+  - 
+    type: object
+    required:
+      - id
+      - createdAt
+      - amount
+      - currency
+    properties:
+      id:
+        description: Идентификатор возврата
+        type: string
+      externalID:
+        x-rebillyMerge:
+          - 
+            $ref: '#/definitions/ExternalID'
+      createdAt:
+        description: Дата и время осуществления
+        type: string
+        format: date-time
+      amount:
+        description: >
+          Сумма возврата, в минорных денежных единицах, например в копейках в случае указания российских рублей в качестве валюты.
+        type: integer
+        format: int64
+        minimum: 1
+      currency:
+        x-rebillyMerge:
+          - 
+            $ref: '#/definitions/Currency'
+      reason:
+        description: Причина осуществления возврата
+        type: string
+      cart:
+        x-rebillyMerge:
+          - 
+            $ref: '#/definitions/InvoiceCart'
+          - 
+            description: >
+              > Итоговая корзина предоставляемых товаров и услуг, которая должна формироваться из корзины инвойса исключением позиций, по которым производился возврат. Сумма корзины должна совпадать с суммой платежа за вычетом суммы возврата.
+      allocation:
+        x-rebillyMerge:
+          - 
+            $ref: '#/definitions/Allocation'
+          - 
+            description: >
+              > Итоговое распределение денежных средств, которое должно формироваться из распределения инвойса исключением позиций, по которым производится возврат.
+  - 
+    $ref: '#/definitions/RefundStatus'
