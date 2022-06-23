@@ -1,0 +1,34 @@
+get:
+  description: |
+    Получить статистику по геопозициям плательщиков за определённое время.
+  tags:
+    - Analytics
+  operationId: getPaymentGeoStats
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/shopID'
+    - 
+      $ref: '#/parameters/fromTime'
+    - 
+      $ref: '#/parameters/toTime'
+    - 
+      $ref: '#/parameters/splitUnit'
+    - 
+      $ref: '#/parameters/splitSize'
+  responses:
+    '200':
+      description: Статистика по геопозициям плательщиков
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/PaymentGeoStat'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
