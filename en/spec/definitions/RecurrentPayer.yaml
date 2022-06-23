@@ -1,0 +1,17 @@
+type: object
+description: Многоразовое платежное средство на основе другого платежа
+allOf:
+  - 
+    $ref: '#/definitions/Payer'
+  - 
+    type: object
+    required:
+      - contactInfo
+      - recurrentParentPayment
+    properties:
+      contactInfo:
+        $ref: '#/definitions/ContactInfo'
+      recurrentParentPayment:
+        $ref: '#/definitions/PaymentRecurrentParent'
+      paymentToolDetails:
+        $ref: '#/definitions/PaymentToolDetails'
