@@ -1,0 +1,80 @@
+post:
+  description: Запустить новую привязку к плательшику.
+  tags:
+    - Customers
+  operationId: createBinding
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/customerID'
+    - 
+      name: bindingParams
+      description: Параметры создаваемой привязки
+      in: body
+      required: true
+      schema:
+        $ref: '#/definitions/CustomerBindingParams'
+  responses:
+    '201':
+      description: Привязка запущена
+      schema:
+        $ref: '#/definitions/CustomerBinding'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      description: Ошибочные данные для привязки
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: |
+              [Код ошибки](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPaymentResource
+              - operationNotPermitted
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidPaymentToolToken
+              - invalidPaymentSession
+              - invalidRequest
+              - invalidDeadline
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Invalid payment resource
+    '409':
+      $ref: '#/responses/ExternalIDConflict'
+get:
+  description: Получить все привязки к плательщику.
+  tags:
+    - Customers
+  operationId: getBindings
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/customerID'
+  responses:
+    '200':
+      description: Список привязок
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/CustomerBinding'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
