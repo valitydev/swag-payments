@@ -1,0 +1,11 @@
+description: Единичное изменение данных участника
+type: object
+discriminator: partyModificationType
+required:
+  - partyModificationType
+properties:
+  partyModificationType:
+    type: string
+    enum:
+      - ContractModification
+      - ShopModification
