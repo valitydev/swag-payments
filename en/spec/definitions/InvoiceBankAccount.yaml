@@ -1,0 +1,12 @@
+type: object
+description: |
+  Информация о банковском счете плательщика, к операциям с которым относится данный инвойс
+discriminator: accountType
+required:
+  - accountType
+properties:
+  accountType:
+    description: Вид банковского счета
+    type: string
+    enum:
+      - InvoiceRussianBankAccount
