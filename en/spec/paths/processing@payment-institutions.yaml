@@ -1,0 +1,31 @@
+get:
+  description: Получить список платёжных организаций
+  tags:
+    - PaymentInstitutions
+  operationId: getPaymentInstitutions
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/residence'
+    - 
+      x-rebillyMerge:
+        - 
+          name: realm
+          in: query
+          required: false
+        - 
+          $ref: '#/definitions/RealmMode'
+  responses:
+    '200':
+      description: List of payment institutions
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/PaymentInstitution'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
