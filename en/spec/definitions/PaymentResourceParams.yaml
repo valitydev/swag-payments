@@ -1,0 +1,13 @@
+type: object
+required:
+  - paymentTool
+  - clientInfo
+properties:
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: '#/definitions/ExternalID'
+  paymentTool:
+    $ref: '#/definitions/PaymentTool'
+  clientInfo:
+    $ref: '#/definitions/ClientInfo'
