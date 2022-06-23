@@ -1,0 +1,51 @@
+post:
+  description: Отменить указанный платеж.
+  tags:
+    - Payments
+  operationId: cancelPayment
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/invoiceID'
+    - 
+      $ref: '#/parameters/paymentID'
+    - 
+      name: cancelPayment
+      in: body
+      description: Произвольная причина совершения операции
+      required: true
+      schema:
+        $ref: '#/definitions/Reason'
+  responses:
+    '202':
+      description: Запрос на отмену платежа принят
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      description: Ошибка отмены платежа
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: |
+              [Код ошибки](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPaymentStatus
+              - operationNotPermitted
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidRequest
+              - invalidDeadline
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Invalid payment status
