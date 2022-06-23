@@ -1,0 +1,12 @@
+type: object
+required:
+  - paymentResource
+properties:
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: '#/definitions/ExternalID'
+      - 
+        description: Внешний идентификатор привязки
+  paymentResource:
+    $ref: '#/definitions/PaymentResource'
