@@ -1,0 +1,5 @@
+allOf:
+  - 
+    description: Данные корреспондентского счёта указанного банка
+  - 
+    $ref: '#/definitions/InternationalBankAccount'
