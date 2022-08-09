@@ -266,27 +266,6 @@ parameters:
     required: true
     type: string
     format: date-time
-  splitUnit:
-    name: splitUnit
-    in: query
-    description: Единица времени сегмента разбиения
-    required: true
-    type: string
-    enum:
-      - minute
-      - hour
-      - day
-      - week
-      - month
-      - year
-  splitSize:
-    name: splitSize
-    in: query
-    description: Размер сегмента разбиения
-    required: true
-    type: integer
-    format: int32
-    minimum: 1
   limit:
     name: limit
     in: query
@@ -627,13 +606,6 @@ tags:
       Для получения списка всех инвойсов/платежей указанного магазина необходимо
       вызвать соответствующий метод платформы. Имеется возможность отфильтровать
       выборку по определенным статусам.
-  - name: Analytics
-    x-displayName: Аналитика
-    description: >
-      Платформа предоставляет возможность получения различных аналитических
-      данных, полученных в рамках взаимодействия с ней. Аналитические отчеты
-      подготовлены заранее и не подразумевают интерактивного изменения структуры
-      данных.
   - name: PaymentInstitutions
     x-displayName: Платёжные организации
     description: >
