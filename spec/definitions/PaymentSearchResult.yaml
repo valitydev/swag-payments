@@ -34,9 +34,9 @@ allOf:
           качестве валюты.
         type: integer
         format: int64
-        minimum: 1
+        minimum: 0
       fee:
-        description: 'Комиссия системы, в минорных денежных единицах'
+        description: Комиссия системы в минорных денежных единицах
         type: integer
         format: int64
         minimum: 0
