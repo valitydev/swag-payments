@@ -25,5 +25,3 @@ post:
       $ref: '#/responses/Unauthorized'
     '400':
       $ref: '#/responses/DefaultLogicError'
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
