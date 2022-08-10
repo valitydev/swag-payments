@@ -8186,21 +8186,6 @@ get_raw() ->
         }
       }
     },
-    <<"GeoLocationInfo">> => #{
-      <<"type">> => <<"object">>,
-      <<"required">> => [ <<"cityGeoID">>, <<"countryGeoID">> ],
-      <<"properties">> => #{
-        <<"cityGeoID">> => #{
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int32">>
-        },
-        <<"countryGeoID">> => #{
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int32">>
-        }
-      },
-      <<"description">> => <<"Информация о геопозиции">>
-    },
     <<"GooglePay">> => #{
       <<"allOf">> => [ #{
         <<"$ref">> => <<"#/definitions/TokenizedCardData">>
@@ -10091,9 +10076,6 @@ get_raw() ->
           },
           <<"flow">> => #{
             <<"$ref">> => <<"#/definitions/PaymentFlow">>
-          },
-          <<"geoLocationInfo">> => #{
-            <<"$ref">> => <<"#/definitions/GeoLocationInfo">>
           },
           <<"metadata">> => #{
             <<"type">> => <<"object">>,
