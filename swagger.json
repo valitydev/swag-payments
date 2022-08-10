@@ -4787,9 +4787,6 @@
           },
           "401": {
             "$ref": "#/responses/Unauthorized"
-          },
-          "409": {
-            "$ref": "#/responses/ExternalIDConflict"
           }
         }
       }
@@ -9184,12 +9181,6 @@
         "clientInfo"
       ],
       "properties": {
-        "externalID": {
-          "description": "Уникальный в рамках платформы идентификатор сущности для данного участника.\n\nИспользуется для обеспечения идемпотентности запроса.\n",
-          "type": "string",
-          "maxLength": 40,
-          "minLength": 1
-        },
         "paymentTool": {
           "$ref": "#/definitions/PaymentTool"
         },

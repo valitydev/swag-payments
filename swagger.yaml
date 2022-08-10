@@ -3507,8 +3507,6 @@ paths:
           $ref: '#/responses/DefaultLogicError'
         '401':
           $ref: '#/responses/Unauthorized'
-        '409':
-          $ref: '#/responses/ExternalIDConflict'
   /processing/payments:
     get:
       description: Получить платёж по указанному внешнему идентификатору.
@@ -6691,14 +6689,6 @@ definitions:
       - paymentTool
       - clientInfo
     properties:
-      externalID:
-        description: |
-          Уникальный в рамках платформы идентификатор сущности для данного участника.
-
-          Используется для обеспечения идемпотентности запроса.
-        type: string
-        maxLength: 40
-        minLength: 1
       paymentTool:
         $ref: '#/definitions/PaymentTool'
       clientInfo:
