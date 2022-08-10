@@ -77,8 +77,5 @@ get_response_spec('create_payment_resource', 400) ->
 get_response_spec('create_payment_resource', 401) ->
     undefined;
 
-get_response_spec('create_payment_resource', 409) ->
-    {'ExternalIDConflictError', 'ExternalIDConflictError'};
-
 get_response_spec(_, _) ->
     error(invalid_response_code).
