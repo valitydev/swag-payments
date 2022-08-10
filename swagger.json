@@ -7448,24 +7448,6 @@
         }
       }
     },
-    "GeoLocationInfo": {
-      "description": "Информация о геопозиции",
-      "type": "object",
-      "required": [
-        "cityGeoID",
-        "countryGeoID"
-      ],
-      "properties": {
-        "cityGeoID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "countryGeoID": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
     "GooglePay": {
       "type": "object",
       "allOf": [
@@ -9340,9 +9322,6 @@
             },
             "flow": {
               "$ref": "#/definitions/PaymentFlow"
-            },
-            "geoLocationInfo": {
-              "$ref": "#/definitions/GeoLocationInfo"
             },
             "metadata": {
               "description": "Связанные с платежом метаданные",
