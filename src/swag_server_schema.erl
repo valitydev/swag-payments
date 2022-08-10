@@ -5520,12 +5520,6 @@ get_raw() ->
           },
           <<"401">> => #{
             <<"description">> => <<"Ошибка авторизации">>
-          },
-          <<"409">> => #{
-            <<"description">> => <<"Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/ExternalIDConflictError">>
-            }
           }
         }
       }
@@ -9946,12 +9940,6 @@ get_raw() ->
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"clientInfo">>, <<"paymentTool">> ],
       <<"properties">> => #{
-        <<"externalID">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор сущности для данного участника.\n\nИспользуется для обеспечения идемпотентности запроса.\n">>,
-          <<"minLength">> => 1,
-          <<"maxLength">> => 40
-        },
         <<"paymentTool">> => #{
           <<"$ref">> => <<"#/definitions/PaymentTool">>
         },
@@ -9963,7 +9951,6 @@ get_raw() ->
         <<"paymentTool">> => #{
           <<"paymentToolType">> => <<"CardData">>
         },
-        <<"externalID">> => <<"externalID">>,
         <<"clientInfo">> => #{
           <<"ip">> => <<"ip">>,
           <<"fingerprint">> => <<"fingerprint">>,
