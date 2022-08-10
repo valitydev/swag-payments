@@ -47,8 +47,6 @@ allOf:
         $ref: '#/definitions/Payer'
       flow:
         $ref: '#/definitions/PaymentFlow'
-      geoLocationInfo:
-        $ref: '#/definitions/GeoLocationInfo'
       metadata:
         description: Связанные с платежом метаданные
         type: object
