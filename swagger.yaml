@@ -108,20 +108,6 @@ parameters:
     type: string
     maxLength: 32
     minLength: 1
-  claimID:
-    name: claimID
-    in: path
-    description: Идентификатор заявки
-    required: true
-    type: integer
-    format: int64
-  claimRevision:
-    name: claimRevision
-    in: query
-    description: Версия заявки
-    required: true
-    type: integer
-    format: int32
   shopID:
     name: shopID
     in: path
@@ -225,21 +211,6 @@ parameters:
     type: string
     maxLength: 40
     minLength: 1
-  reportID:
-    name: reportID
-    in: path
-    description: Идентификатор отчета
-    required: true
-    type: integer
-    format: int64
-  fileID:
-    name: fileID
-    in: path
-    description: Идентификатор файла
-    required: true
-    type: string
-    maxLength: 40
-    minLength: 1
   invoiceID:
     name: invoiceID
     in: path
@@ -277,27 +248,6 @@ parameters:
     required: true
     type: string
     format: date-time
-  splitUnit:
-    name: splitUnit
-    in: query
-    description: Единица времени сегмента разбиения
-    required: true
-    type: string
-    enum:
-      - minute
-      - hour
-      - day
-      - week
-      - month
-      - year
-  splitSize:
-    name: splitSize
-    in: query
-    description: Размер сегмента разбиения
-    required: true
-    type: integer
-    format: int32
-    minimum: 1
   limit:
     name: limit
     in: query
@@ -346,10 +296,6 @@ tags:
     x-displayName: Участники
     description: |
       Участник системы - совокупность данных о вашей организации, составе и условиях заключенных договоров, а также информация о связанных с организацией магазинах.
-  - name: Claims
-    x-displayName: Заявки
-    description: |
-      Некоторая область данных может быть изменена только после премодерации на стороне платформы. Например, создание и активация новых магазинов, изменение финансовых данных вашего участника и т.п. требуют ручной проверки сотрудниками RBKmoney. Попытка изменить такие данные приводит к автоматическому созданию заявки на изменение данных. До тех пор, пока заявка не одобрена, вы можете добавлять изменения. После одобрения они будут применены к набору данных. В случае отказа по заявке данные останутся в неизменном состоянии. Ближайшим аналогом заявок можно представить Pull Request в распределенных системах контроля версий.
   - name: Shops
     x-displayName: Магазины
     description: |
@@ -513,18 +459,10 @@ tags:
     x-displayName: Поиск
     description: |
       Для получения списка всех инвойсов/платежей указанного магазина необходимо вызвать соответствующий метод платформы. Имеется возможность отфильтровать выборку по определенным статусам.
-  - name: Analytics
-    x-displayName: Аналитика
-    description: |
-      Платформа предоставляет возможность получения различных аналитических данных, полученных в рамках взаимодействия с ней. Аналитические отчеты подготовлены заранее и не подразумевают интерактивного изменения структуры данных.
   - name: PaymentInstitutions
     x-displayName: Платёжные организации
     description: |
       Платёжная организация - организация, осуществляющая услуги по обслуживанию финансовых операций, которые возникают в результате осуществления бизнес-процессов системой.
-  - name: Reports
-    x-displayName: Отчеты
-    description: |
-      Один раз в отчетный период платформа автоматически подготавливает и размещает документы в формате XLSX с разбиением по магазину активной категории. Также, каждый документ будет подписан [квалифицированной ЭЦП](http://minsvyaz.ru/ru/appeals/faq/31/). Данная подпись является юридически значимой и позволяет полностью отказаться от бумажного документооборота.
   - name: Error Codes
     x-displayName: Коды ошибок
     description: |
@@ -565,8 +503,6 @@ tags:
         | **inconsistentRefundCurrency**   | Попытка возврата средств в валюте, отличной от валюты платежа.                                                                        |
         | **changesetConflict**            | Попытка внести изменения участника, конфликтующие с изменениями в других заявках, ожидающих рассмотрения.                             |
         | **invalidChangeset**             | Неверные изменения участника, например, попытка создать магазин в валюте, недоступной в рамках договора.                              |
-        | **invalidClaimStatus**           | Неверный статус заявки. Например, при попытке [отзыва](#operation/revokeClaimByID) уже принятой заявки.                               |
-        | **invalidClaimRevision**         | Неверная ревизия заявки. Например, в случае если заявку одновременно с вами кто-то уже принял или отклонил.                           |
         | **limitExceeded**                | Превышен разумный лимит выборки. В этом случае лучше запросить менее объёмный набор данных.                                           |
         | **invalidDeadline**              | Неверный формат времени.                                                                                                              |
         | **chargebackInProgress**         | Попытка возврата при открытом возвратном платеже.                                                                                     |
@@ -764,65 +700,6 @@ tags:
       ```
       Если вы получили ошибку, которой нет в данном описании, обратитесь в техническую поддержку.
 paths:
-  '/analytics/shops/{shopID}/customers/stats/payment_method':
-    get:
-      description: |
-        Получить статистику по платежным средствам за определённое время.
-      tags:
-        - Analytics
-      operationId: getPaymentMethodStats
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/fromTime'
-        - $ref: '#/parameters/toTime'
-        - $ref: '#/parameters/splitUnit'
-        - $ref: '#/parameters/splitSize'
-        - name: paymentMethod
-          in: query
-          description: Метод оплаты
-          type: string
-          required: true
-          enum:
-            - bankCard
-      responses:
-        '200':
-          description: Статистика по платежным средствам
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/PaymentMethodStat'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
-  '/analytics/shops/{shopID}/customers/stats/rate':
-    get:
-      description: |
-        Получить статистику по уникальным плательщикам за определённое время.
-      tags:
-        - Analytics
-      operationId: getPaymentRateStats
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/fromTime'
-        - $ref: '#/parameters/toTime'
-      responses:
-        '200':
-          description: Статистика по уникальным плательщикам
-          schema:
-            $ref: '#/definitions/PaymentRateStat'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
   '/analytics/shops/{shopID}/invoices':
     get:
       description: Поиск инвойсов
@@ -1163,91 +1040,6 @@ paths:
           $ref: '#/responses/Unauthorized'
         '404':
           $ref: '#/responses/NotFound'
-  '/analytics/shops/{shopID}/payments/stats/conversion':
-    get:
-      description: |
-        Получить статистику конверсии платежей магазина за определённое время.
-      tags:
-        - Analytics
-      operationId: getPaymentConversionStats
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/fromTime'
-        - $ref: '#/parameters/toTime'
-        - $ref: '#/parameters/splitUnit'
-        - $ref: '#/parameters/splitSize'
-      responses:
-        '200':
-          description: Статистика конверсии платежей
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/PaymentConversionStat'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
-  '/analytics/shops/{shopID}/payments/stats/geo':
-    get:
-      description: |
-        Получить статистику по геопозициям плательщиков за определённое время.
-      tags:
-        - Analytics
-      operationId: getPaymentGeoStats
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/fromTime'
-        - $ref: '#/parameters/toTime'
-        - $ref: '#/parameters/splitUnit'
-        - $ref: '#/parameters/splitSize'
-      responses:
-        '200':
-          description: Статистика по геопозициям плательщиков
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/PaymentGeoStat'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
-  '/analytics/shops/{shopID}/payments/stats/revenue':
-    get:
-      description: |
-        Получить статистику по сумме платежей магазина за определенное время, в том
-        числе за вычетом комиссии системы.
-      tags:
-        - Analytics
-      operationId: getPaymentRevenueStats
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/fromTime'
-        - $ref: '#/parameters/toTime'
-        - $ref: '#/parameters/splitUnit'
-        - $ref: '#/parameters/splitSize'
-      responses:
-        '200':
-          description: Статистика по сумме платежей и прибыли
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/PaymentRevenueStat'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
   '/analytics/shops/{shopID}/payouts':
     get:
       description: Поиск выплат
@@ -1374,140 +1166,6 @@ paths:
           $ref: '#/responses/Unauthorized'
         '404':
           $ref: '#/responses/NotFound'
-  '/parties/{partyID}/shops/{shopID}/reports':
-    post:
-      description: Сгенерировать отчет с указанным типом по магазину за указанный промежуток времени
-      tags:
-        - Reports
-      operationId: createReportForParty
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/partyID'
-        - name: createReport
-          in: body
-          description: Параметры генерации отчета
-          required: true
-          schema:
-            $ref: '#/definitions/ReportParams'
-      responses:
-        '201':
-          description: Отчет создан
-          schema:
-            $ref: '#/definitions/Report'
-        '400':
-          description: Ошибочные данные для генерации
-          schema:
-            type: object
-            required:
-              - code
-              - message
-            properties:
-              code:
-                description: |
-                  [Код ошибки](#tag/Error-Codes)
-                type: string
-                enum:
-                  - invalidShopID
-                  - invalidRequest
-                  - invalidDeadline
-              message:
-                description: Человекочитаемое описание ошибки
-                type: string
-                example: Invalid shop id
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
-    get:
-      description: Получить список отчетов по данному магазину за период
-      tags:
-        - Reports
-      operationId: getReportsForParty
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/fromTime'
-        - $ref: '#/parameters/toTime'
-        - $ref: '#/parameters/partyID'
-      responses:
-        '200':
-          description: Найденные отчеты
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Report'
-        '400':
-          description: Ошибочные данные для получения
-          schema:
-            type: object
-            required:
-              - code
-              - message
-            properties:
-              code:
-                description: |
-                  [Код ошибки](#tag/Error-Codes)
-                type: string
-                enum:
-                  - limitExceeded
-                  - invalidRequest
-                  - invalidDeadline
-              message:
-                description: Человекочитаемое описание ошибки
-                type: string
-                example: 'Max limit: 1000'
-        '401':
-          $ref: '#/responses/Unauthorized'
-  '/parties/{partyID}/shops/{shopID}/reports/{reportID}':
-    get:
-      description: Получить отчет по данному идентификатору
-      tags:
-        - Reports
-      operationId: getReportForParty
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/reportID'
-        - $ref: '#/parameters/partyID'
-      responses:
-        '200':
-          description: Найденный отчет
-          schema:
-            $ref: '#/definitions/Report'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
-  '/parties/{partyID}/shops/{shopID}/reports/{reportID}/files/{fileID}/download':
-    get:
-      description: Скачать файл
-      tags:
-        - Reports
-      operationId: downloadFileForParty
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/partyID'
-        - $ref: '#/parameters/reportID'
-        - $ref: '#/parameters/fileID'
-      responses:
-        '200':
-          description: Download link
-          schema:
-            $ref: '#/definitions/ReportLink'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
   /processing/categories:
     get:
       description: Получить список категорий
@@ -1550,147 +1208,6 @@ paths:
             $ref: '#/definitions/Category'
         '400':
           $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
-  /processing/claims:
-    get:
-      description: |
-        Получить список заявок участника, при желании отфильтрованный по значению
-        статуса.
-      operationId: getClaims
-      tags:
-        - Claims
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - name: claimStatus
-          description: Значение статуса для фильтрации
-          in: query
-          type: string
-          enum:
-            - pending
-            - accepted
-            - denied
-            - revoked
-      responses:
-        '200':
-          description: Список найденных заявок
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Claim'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-    post:
-      description: |
-        Создать новую заявку с заданным набором изменений и отправить её на
-        премодерацию.
-      operationId: createClaim
-      tags:
-        - Claims
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - name: claimChangeset
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ClaimChangeset'
-      responses:
-        '201':
-          description: Заявка создана
-          schema:
-            $ref: '#/definitions/Claim'
-        '400':
-          description: Ошибочные данные в заявке
-          schema:
-            type: object
-            required:
-              - code
-              - message
-            properties:
-              code:
-                description: |
-                  [Код ошибки](#tag/Error-Codes)
-                type: string
-                enum:
-                  - changesetConflict
-                  - invalidPartyStatus
-                  - invalidChangeset
-                  - invalidRequest
-                  - invalidDeadline
-              message:
-                description: Человекочитаемое описание ошибки
-                type: string
-                example: Changeset conflict
-        '401':
-          $ref: '#/responses/Unauthorized'
-  '/processing/claims/{claimID}':
-    get:
-      description: |
-        Получить заявку по её идентификатору.
-      operationId: getClaimByID
-      tags:
-        - Claims
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/claimID'
-      responses:
-        '200':
-          description: Данные заявки
-          schema:
-            $ref: '#/definitions/Claim'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
-  '/processing/claims/{claimID}/revoke':
-    put:
-      description: Отозвать заявку по её идентификатору.
-      operationId: revokeClaimByID
-      tags:
-        - Claims
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/claimID'
-        - $ref: '#/parameters/claimRevision'
-        - name: reason
-          in: body
-          schema:
-            $ref: '#/definitions/Reason'
-      responses:
-        '204':
-          description: Заявка отозвана
-        '400':
-          description: Ошибка отзыва заявки
-          schema:
-            type: object
-            required:
-              - code
-              - message
-            properties:
-              code:
-                description: |
-                  [Код ошибки](#tag/Error-Codes)
-                type: string
-                enum:
-                  - invalidClaimStatus
-                  - invalidClaimRevision
-                  - invalidPartyStatus
-                  - invalidRequest
-                  - invalidDeadline
-              message:
-                description: Человекочитаемое описание ошибки
-                type: string
-                example: Invalid claim status
         '401':
           $ref: '#/responses/Unauthorized'
         '404':
@@ -3904,138 +3421,6 @@ paths:
           $ref: '#/responses/Unauthorized'
         '404':
           $ref: '#/responses/NotFound'
-  '/shops/{shopID}/reports':
-    post:
-      description: Сгенерировать отчет с указанным типом по магазину за указанный промежуток времени
-      tags:
-        - Reports
-      operationId: createReport
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - name: createReport
-          in: body
-          description: Параметры генерации отчета
-          required: true
-          schema:
-            $ref: '#/definitions/ReportParams'
-      responses:
-        '201':
-          description: Отчет создан
-          schema:
-            $ref: '#/definitions/Report'
-        '400':
-          description: Ошибочные данные для генерации
-          schema:
-            type: object
-            required:
-              - code
-              - message
-            properties:
-              code:
-                description: |
-                  [Код ошибки](#tag/Error-Codes)
-                type: string
-                enum:
-                  - invalidShopID
-                  - invalidRequest
-                  - invalidDeadline
-              message:
-                description: Человекочитаемое описание ошибки
-                type: string
-                example: Invalid shop id
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
-    get:
-      description: Получить список отчетов по данному магазину за период
-      tags:
-        - Reports
-      operationId: getReports
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/fromTime'
-        - $ref: '#/parameters/toTime'
-      responses:
-        '200':
-          description: Найденные отчеты
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Report'
-        '400':
-          description: Ошибочные данные для получения
-          schema:
-            type: object
-            required:
-              - code
-              - message
-            properties:
-              code:
-                description: |
-                  [Код ошибки](#tag/Error-Codes)
-                type: string
-                enum:
-                  - limitExceeded
-                  - invalidRequest
-                  - invalidDeadline
-              message:
-                description: Человекочитаемое описание ошибки
-                type: string
-                example: 'Max limit: 1000'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
-  '/shops/{shopID}/reports/{reportID}':
-    get:
-      description: Получить отчет по данному идентификатору
-      tags:
-        - Reports
-      operationId: getReport
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/reportID'
-      responses:
-        '200':
-          description: Найденный отчет
-          schema:
-            $ref: '#/definitions/Report'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
-  '/shops/{shopID}/reports/{reportID}/files/{fileID}/download':
-    get:
-      description: Скачать файл
-      tags:
-        - Reports
-      operationId: downloadFile
-      parameters:
-        - $ref: '#/parameters/requestID'
-        - $ref: '#/parameters/deadline'
-        - $ref: '#/parameters/shopID'
-        - $ref: '#/parameters/reportID'
-        - $ref: '#/parameters/fileID'
-      responses:
-        '200':
-          description: Download link
-          schema:
-            $ref: '#/definitions/ReportLink'
-        '400':
-          $ref: '#/responses/DefaultLogicError'
-        '401':
-          $ref: '#/responses/Unauthorized'
-        '404':
-          $ref: '#/responses/NotFound'
 definitions:
   AccessToken:
     type: object
@@ -4544,74 +3929,6 @@ definitions:
           - rejected
           - accepted
           - cancelled
-  Claim:
-    type: object
-    discriminator: status
-    required:
-      - id
-      - revision
-      - createdAt
-      - status
-      - changeset
-    properties:
-      id:
-        description: Идентификатор заявки
-        type: integer
-        format: int64
-      revision:
-        description: Версия заявки
-        type: integer
-        format: int32
-      createdAt:
-        description: Дата создания
-        type: string
-        format: date-time
-      updatedAt:
-        description: Дата изменения
-        type: string
-        format: date-time
-      status:
-        description: Статус заявки
-        type: string
-      changeset:
-        $ref: '#/definitions/ClaimChangeset'
-  ClaimAccepted:
-    type: object
-    allOf:
-      - $ref: '#/definitions/Claim'
-  ClaimChangeset:
-    description: Набор изменений данных участника
-    type: array
-    items:
-      $ref: '#/definitions/PartyModification'
-  ClaimDenied:
-    type: object
-    allOf:
-      - $ref: '#/definitions/Claim'
-      - type: object
-        required:
-          - reason
-        properties:
-          reason:
-            description: Причина отклонения заявки
-            type: string
-            maxLength: 1000
-  ClaimPending:
-    type: object
-    allOf:
-      - $ref: '#/definitions/Claim'
-  ClaimRevoked:
-    type: object
-    allOf:
-      - $ref: '#/definitions/Claim'
-      - type: object
-        required:
-          - reason
-        properties:
-          reason:
-            description: Причина отзыва заявки
-            type: string
-            maxLength: 1000
   ClientInfo:
     description: Данные клиентского устройства плательщика
     type: object
@@ -4719,67 +4036,6 @@ definitions:
         description: Дата и время прекращения силы поправки
         type: string
         format: date-time
-  ContractAdjustmentCreation:
-    description: Создание поправки к договору
-    type: object
-    allOf:
-      - $ref: '#/definitions/ContractModification'
-      - type: object
-        properties:
-          adjustmentID:
-            type: string
-  ContractCreation:
-    description: Создание нового договора
-    type: object
-    allOf:
-      - $ref: '#/definitions/ContractModification'
-      - type: object
-        required:
-          - contractor
-          - paymentInstitutionID
-        properties:
-          contractor:
-            $ref: '#/definitions/Contractor'
-          paymentInstitutionID:
-            type: integer
-            format: int32
-  ContractLegalAgreementBinding:
-    description: Привязка юридического соглашения
-    type: object
-    allOf:
-      - $ref: '#/definitions/ContractModification'
-      - type: object
-        required:
-          - legalAgreement
-        properties:
-          legalAgreement:
-            $ref: '#/definitions/LegalAgreement'
-  ContractModification:
-    description: Изменение или создание договора
-    type: object
-    allOf:
-      - $ref: '#/definitions/PartyModification'
-      - type: object
-        discriminator: contractModificationType
-        required:
-          - contractID
-          - contractModificationType
-        properties:
-          contractID:
-            description: Идентификатор договора
-            type: string
-            maxLength: 40
-            minLength: 1
-          contractModificationType:
-            type: string
-            enum:
-              - ContractCreation
-              - ContractTermination
-              - ContractLegalAgreementBinding
-              - ContractAdjustmentCreation
-              - ContractPayoutToolCreation
-              - ContractPayoutToolInfoModification
-              - ContractReportingPreferencesChange
   Contractor:
     description: 'Данные лица, выступающего стороной договора'
     type: object
@@ -4794,55 +4050,6 @@ definitions:
           - LegalEntity
           - PrivateEntity
           - RegisteredUser
-  ContractPayoutToolCreation:
-    description: Создание инструмента вывода в рамках договора
-    type: object
-    allOf:
-      - $ref: '#/definitions/ContractModification'
-      - type: object
-        required:
-          - payoutToolID
-        properties:
-          payoutToolID:
-            description: Идентификатор средства вывода
-            type: string
-            maxLength: 40
-            minLength: 1
-      - $ref: '#/definitions/PayoutToolParams'
-  ContractPayoutToolInfoModification:
-    description: Изменение информации об инструменте вывода в рамках договора
-    type: object
-    allOf:
-      - $ref: '#/definitions/ContractModification'
-      - type: object
-        required:
-          - payoutToolID
-          - details
-        properties:
-          payoutToolID:
-            description: Идентификатор средства вывода
-            type: string
-            maxLength: 40
-            minLength: 1
-          details:
-            $ref: '#/definitions/PayoutToolDetails'
-  ContractReportingPreferencesChange:
-    description: Изменение настроек выгрузки автоматической отчетности
-    type: object
-    allOf:
-      - $ref: '#/definitions/ContractModification'
-      - $ref: '#/definitions/ReportingPreferences'
-  ContractTermination:
-    description: Расторжение договора
-    type: object
-    allOf:
-      - $ref: '#/definitions/ContractModification'
-      - type: object
-        properties:
-          reason:
-            description: Причина расторжения
-            type: string
-            maxLength: 1000
   CostAmountRange:
     type: object
     required:
@@ -5326,39 +4533,6 @@ definitions:
       message:
         description: Человекочитаемое описание ошибки
         type: string
-  FileMeta:
-    type: object
-    required:
-      - id
-      - filename
-    properties:
-      id:
-        description: Идентификатор файла
-        type: string
-        maxLength: 40
-        minLength: 1
-      filename:
-        description: Имя файла
-        type: string
-        maxLength: 1000
-        minLength: 1
-      signatures:
-        type: object
-        description: Сигнатуры файла
-        required:
-          - md5
-          - sha256
-        properties:
-          md5:
-            description: MD5 содержимого файла
-            type: string
-            maxLength: 32
-            minLength: 32
-          sha256:
-            description: SHA256 содержимого файла
-            type: string
-            maxLength: 64
-            minLength: 64
   GeneralError:
     type: object
     required:
@@ -5821,58 +4995,6 @@ definitions:
             type: string
             pattern: '^\d{9}$'
             example: 123456789
-  InvoiceSearchResult:
-    type: object
-    allOf:
-      - $ref: '#/definitions/InvoiceStatus'
-      - type: object
-        required:
-          - id
-          - shopID
-          - createdAt
-          - dueDate
-          - amount
-          - currency
-          - product
-          - metadata
-        properties:
-          id:
-            description: Идентификатор инвойса
-            type: string
-          shopID:
-            description: Идентификатор магазина
-            type: string
-          createdAt:
-            description: Дата и время создания
-            type: string
-            format: date-time
-          dueDate:
-            description: Дата и время окончания действия
-            type: string
-            format: date-time
-          amount:
-            description: |
-              Стоимость предлагаемых товаров или услуг, в минорных денежных единицах, например в копейках в случае указания российских рублей в качестве валюты.
-            type: integer
-            format: int64
-            minimum: 1
-          currency:
-            description: 'Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).'
-            type: string
-            pattern: '^[A-Z]{3}$'
-          product:
-            description: Наименование предлагаемых товаров или услуг
-            type: string
-            maxLength: 100
-          description:
-            description: Описание предлагаемых товаров или услуг
-            type: string
-            maxLength: 1000
-          cart:
-            $ref: '#/definitions/InvoiceCart'
-          metadata:
-            description: Связанные с инвойсом метаданные
-            type: object
   InvoiceStatus:
     type: object
     required:
@@ -6274,18 +5396,6 @@ definitions:
     type: string
     minLength: 1
     maxLength: 40
-  PartyModification:
-    description: Единичное изменение данных участника
-    type: object
-    discriminator: partyModificationType
-    required:
-      - partyModificationType
-    properties:
-      partyModificationType:
-        type: string
-        enum:
-          - ContractModification
-          - ShopModification
   Payer:
     type: object
     discriminator: payerType
@@ -6386,26 +5496,6 @@ definitions:
           - failed
       error:
         $ref: '#/definitions/PaymentError'
-  PaymentConversionStat:
-    type: object
-    required:
-      - offset
-      - successfulCount
-      - totalCount
-      - conversion
-    properties:
-      offset:
-        description: Смещение сегмента выборки
-        type: integer
-      successfulCount:
-        description: Количество успешных платежей
-        type: integer
-      totalCount:
-        description: Общее количество платежей
-        type: integer
-      conversion:
-        description: Значение конверсии
-        type: number
   PaymentError:
     description: |
       [Ошибка, возникшая в процессе проведения платежа](#tag/Error-Codes)
@@ -6455,32 +5545,6 @@ definitions:
     type: object
     allOf:
       - $ref: '#/definitions/PaymentFlow'
-  PaymentGeoStat:
-    type: object
-    required:
-      - offset
-      - geoID
-      - currency
-      - profit
-      - revenue
-    properties:
-      offset:
-        description: Смещение сегмента выборки
-        type: integer
-      geoID:
-        description: Идентификатор геопозиции плательщика
-        type: integer
-        format: int32
-      currency:
-        description: 'Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).'
-        type: string
-        pattern: '^[A-Z]{3}$'
-      profit:
-        description: Прибыль магазина
-        type: integer
-      revenue:
-        description: Сумма платежей в магазине
-        type: integer
   PaymentInstitution:
     description: Платёжная организация
     type: object
@@ -6553,45 +5617,6 @@ definitions:
           - DigitalWallet
           - CryptoWallet
           - MobileCommerce
-  PaymentMethodBankCardStat:
-    type: object
-    allOf:
-      - $ref: '#/definitions/PaymentMethodStat'
-      - type: object
-        required:
-          - offset
-          - totalCount
-          - paymentSystem
-          - profit
-          - revenue
-        properties:
-          offset:
-            description: Смещение сегмента выборки
-            type: integer
-          totalCount:
-            description: Общее количество плательщиков
-            type: integer
-          paymentSystem:
-            description: |
-              Платежная система.
-
-              Набор систем, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
-            type: string
-          profit:
-            description: Прибыль магазина
-            type: integer
-          revenue:
-            description: Сумма платежей в магазине
-            type: integer
-  PaymentMethodStat:
-    type: object
-    discriminator: statType
-    required:
-      - statType
-    properties:
-      statType:
-        description: Тип статистики по методу оплаты
-        type: string
   PaymentParams:
     type: object
     required:
@@ -6625,14 +5650,6 @@ definitions:
       metadata:
         description: 'Метаданные, которые необходимо связать с платежом'
         type: object
-  PaymentRateStat:
-    type: object
-    required:
-      - uniqueCount
-    properties:
-      uniqueCount:
-        description: Количество уникальных плательщиков
-        type: integer
   PaymentRecurrentParent:
     type: object
     description: 'Родительский платеж, на основе которого создан текущий рекуррентный платеж'
@@ -6718,27 +5735,6 @@ definitions:
         type: string
         format: date-time
         readOnly: true
-  PaymentRevenueStat:
-    type: object
-    required:
-      - offset
-      - currency
-      - profit
-      - revenue
-    properties:
-      offset:
-        description: Смещение сегмента выборки
-        type: integer
-      currency:
-        description: 'Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).'
-        type: string
-        pattern: '^[A-Z]{3}$'
-      profit:
-        description: Прибыль магазина
-        type: integer
-      revenue:
-        description: Сумма платежей в магазине
-        type: integer
   PaymentSearchResult:
     type: object
     allOf:
@@ -6776,9 +5772,9 @@ definitions:
               качестве валюты.
             type: integer
             format: int64
-            minimum: 1
+            minimum: 0
           fee:
-            description: 'Комиссия системы, в минорных денежных единицах'
+            description: Комиссия системы в минорных денежных единицах
             type: integer
             format: int64
             minimum: 0
@@ -6798,7 +5794,6 @@ definitions:
             type: string
             format: date-time
           transactionInfo:
-            description: Информация о транзакции
             $ref: '#/definitions/TransactionInfo'
           makeRecurrent:
             description: |
@@ -6806,7 +5801,6 @@ definitions:
               Успешно проведеный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах.
             type: boolean
             default: false
-            readOnly: true
           cart:
             $ref: '#/definitions/InvoiceCart'
           allocation:
@@ -7427,49 +6421,6 @@ definitions:
           email:
             description: 'Электронная почта, идентифицирующая пользователя'
             type: string
-  Report:
-    type: object
-    required:
-      - id
-      - createdAt
-      - fromTime
-      - toTime
-      - status
-      - type
-      - files
-    properties:
-      id:
-        description: Идентификатор отчета
-        type: integer
-        format: int64
-      createdAt:
-        description: Дата и время создания
-        type: string
-        format: date-time
-      fromTime:
-        description: Дата и время начала периода
-        type: string
-        format: date-time
-      toTime:
-        description: Дата и время конца периода
-        type: string
-        format: date-time
-      status:
-        description: Статус формирования отчета
-        type: string
-        enum:
-          - pending
-          - created
-      type:
-        description: Тип отчета
-        type: string
-        enum:
-          - provisionOfService
-          - paymentRegistry
-      files:
-        type: array
-        items:
-          $ref: '#/definitions/FileMeta'
   ReportingPreferences:
     description: Настройки выгрузки автоматической отчетности
     type: object
@@ -7758,78 +6709,6 @@ definitions:
         description: Идентификатор расписания выводов
         type: integer
         format: int32
-  ShopAccountCreation:
-    description: Создание новых счетов в магазине
-    type: object
-    allOf:
-      - $ref: '#/definitions/ShopModification'
-      - type: object
-        required:
-          - currency
-        properties:
-          currency:
-            description: 'Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).'
-            type: string
-            pattern: '^[A-Z]{3}$'
-  ShopCategoryChange:
-    description: Изменение категории магазина
-    type: object
-    allOf:
-      - $ref: '#/definitions/ShopModification'
-      - type: object
-        required:
-          - categoryID
-        properties:
-          categoryID:
-            description: |
-              Идентификатор категории товаров и услуг, предлагаемых в этом магазине
-            type: integer
-            format: int32
-  ShopContractBinding:
-    description: Привязка магазина к указанному договору
-    type: object
-    allOf:
-      - $ref: '#/definitions/ShopModification'
-      - type: object
-        required:
-          - contractID
-          - payoutToolID
-        properties:
-          contractID:
-            description: |
-              Идентификатор договора, на основании которого следует производить
-              обслуживание магазина
-            type: string
-          payoutToolID:
-            description: |
-              Идентификатор средства вывода в рамках указанного контракта
-            type: string
-  ShopCreation:
-    description: Создание нового магазина
-    type: object
-    allOf:
-      - $ref: '#/definitions/ShopModification'
-      - type: object
-        required:
-          - location
-          - details
-          - contractID
-          - payoutToolID
-        properties:
-          location:
-            $ref: '#/definitions/ShopLocation'
-          details:
-            $ref: '#/definitions/ShopDetails'
-          contractID:
-            description: |
-              Идентификатор договора, на основании которого следует производить
-              обслуживание создаваемого магазина
-            type: string
-          payoutToolID:
-            description: |
-              Идентификатор средства вывода для создаваемого магазина в рамках
-              указанного контракта
-            type: string
   ShopDetails:
     type: object
     required:
@@ -7843,17 +6722,6 @@ definitions:
         description: Краткое описание
         type: string
         maxLength: 1000
-  ShopDetailsChange:
-    description: Изменение деталей магазина
-    type: object
-    allOf:
-      - $ref: '#/definitions/ShopModification'
-      - type: object
-        required:
-          - details
-        properties:
-          details:
-            $ref: '#/definitions/ShopDetails'
   ShopLocation:
     description: 'Местоположение магазина, по которому можно его найти'
     type: object
@@ -7864,17 +6732,6 @@ definitions:
       locationType:
         description: Тип местоположения
         type: string
-  ShopLocationChange:
-    description: Изменение местоположения магазина
-    type: object
-    allOf:
-      - $ref: '#/definitions/ShopModification'
-      - type: object
-        required:
-          - location
-        properties:
-          location:
-            $ref: '#/definitions/ShopLocation'
   ShopLocationUrl:
     description: Местоположение в Интернете
     type: object
@@ -7889,56 +6746,6 @@ definitions:
             type: string
             format: uri
             maxLength: 1000
-  ShopModification:
-    type: object
-    allOf:
-      - $ref: '#/definitions/PartyModification'
-      - type: object
-        discriminator: shopModificationType
-        required:
-          - shopID
-          - shopModificationType
-        properties:
-          shopID:
-            description: Идентификатор магазина
-            type: string
-            maxLength: 40
-            minLength: 1
-          shopModificationType:
-            type: string
-            enum:
-              - ShopCreation
-              - ShopAccountCreation
-              - ShopCategoryChange
-              - ShopLocationChange
-              - ShopDetailsChange
-              - ShopContractBinding
-              - ShopPayoutToolChange
-              - ShopPayoutScheduleChange
-  ShopPayoutScheduleChange:
-    description: Изменение расписания выводов магазина
-    type: object
-    allOf:
-      - $ref: '#/definitions/ShopModification'
-      - type: object
-        properties:
-          scheduleID:
-            description: Идентификатор расписания выводов
-            type: integer
-            format: int32
-  ShopPayoutToolChange:
-    description: Изменение средства вывода магазина
-    type: object
-    allOf:
-      - $ref: '#/definitions/ShopModification'
-      - type: object
-        required:
-          - payoutToolID
-        properties:
-          payoutToolID:
-            description: |
-              Идентификатор средства вывода в рамках текущего контракта магазина
-            type: string
   SubError:
     description: |
       Детализация описания ошибки
