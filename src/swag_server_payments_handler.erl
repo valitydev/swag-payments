@@ -1028,7 +1028,7 @@ get_response_spec('CancelPayment', 202) ->
     undefined;
 
 get_response_spec('CancelPayment', 400) ->
-    {'inline_response_400_13', 'inline_response_400_13'};
+    {'inline_response_400_9', 'inline_response_400_9'};
 
 get_response_spec('CancelPayment', 401) ->
     undefined;
@@ -1040,7 +1040,7 @@ get_response_spec('CapturePayment', 202) ->
     undefined;
 
 get_response_spec('CapturePayment', 400) ->
-    {'inline_response_400_14', 'inline_response_400_14'};
+    {'inline_response_400_10', 'inline_response_400_10'};
 
 get_response_spec('CapturePayment', 401) ->
     undefined;
@@ -1052,7 +1052,7 @@ get_response_spec('CreatePayment', 201) ->
     {'Payment', 'Payment'};
 
 get_response_spec('CreatePayment', 400) ->
-    {'inline_response_400_12', 'inline_response_400_12'};
+    {'inline_response_400_8', 'inline_response_400_8'};
 
 get_response_spec('CreatePayment', 401) ->
     undefined;
@@ -1067,7 +1067,7 @@ get_response_spec('CreateRefund', 201) ->
     {'Refund', 'Refund'};
 
 get_response_spec('CreateRefund', 400) ->
-    {'inline_response_400_15', 'inline_response_400_15'};
+    {'inline_response_400_11', 'inline_response_400_11'};
 
 get_response_spec('CreateRefund', 401) ->
     undefined;

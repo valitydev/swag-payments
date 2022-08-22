@@ -727,7 +727,7 @@ get_response_spec('CreateInvoice', 201) ->
     {'InvoiceAndToken', 'InvoiceAndToken'};
 
 get_response_spec('CreateInvoice', 400) ->
-    {'inline_response_400_10', 'inline_response_400_10'};
+    {'inline_response_400_6', 'inline_response_400_6'};
 
 get_response_spec('CreateInvoice', 401) ->
     undefined;
@@ -751,7 +751,7 @@ get_response_spec('FulfillInvoice', 204) ->
     undefined;
 
 get_response_spec('FulfillInvoice', 400) ->
-    {'inline_response_400_11', 'inline_response_400_11'};
+    {'inline_response_400_7', 'inline_response_400_7'};
 
 get_response_spec('FulfillInvoice', 401) ->
     undefined;
@@ -811,7 +811,7 @@ get_response_spec('RescindInvoice', 204) ->
     undefined;
 
 get_response_spec('RescindInvoice', 400) ->
-    {'inline_response_400_16', 'inline_response_400_16'};
+    {'inline_response_400_12', 'inline_response_400_12'};
 
 get_response_spec('RescindInvoice', 401) ->
     undefined;

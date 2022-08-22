@@ -791,7 +791,7 @@ get_response_spec('CreateBinding', 201) ->
     {'CustomerBinding', 'CustomerBinding'};
 
 get_response_spec('CreateBinding', 400) ->
-    {'inline_response_400_6', 'inline_response_400_6'};
+    {'inline_response_400_2', 'inline_response_400_2'};
 
 get_response_spec('CreateBinding', 401) ->
     undefined;
@@ -806,7 +806,7 @@ get_response_spec('CreateCustomer', 201) ->
     {'CustomerAndToken', 'CustomerAndToken'};
 
 get_response_spec('CreateCustomer', 400) ->
-    {'inline_response_400_4', 'inline_response_400_4'};
+    {'inline_response_400', 'inline_response_400'};
 
 get_response_spec('CreateCustomer', 401) ->
     undefined;
@@ -830,7 +830,7 @@ get_response_spec('DeleteCustomer', 204) ->
     undefined;
 
 get_response_spec('DeleteCustomer', 400) ->
-    {'inline_response_400_5', 'inline_response_400_5'};
+    {'inline_response_400_1', 'inline_response_400_1'};
 
 get_response_spec('DeleteCustomer', 401) ->
     undefined;

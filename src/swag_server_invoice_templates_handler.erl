@@ -591,7 +591,7 @@ get_response_spec('CreateInvoiceTemplate', 201) ->
     {'InvoiceTemplateAndToken', 'InvoiceTemplateAndToken'};
 
 get_response_spec('CreateInvoiceTemplate', 400) ->
-    {'inline_response_400_7', 'inline_response_400_7'};
+    {'inline_response_400_3', 'inline_response_400_3'};
 
 get_response_spec('CreateInvoiceTemplate', 401) ->
     undefined;
@@ -603,7 +603,7 @@ get_response_spec('CreateInvoiceWithTemplate', 201) ->
     {'InvoiceAndToken', 'InvoiceAndToken'};
 
 get_response_spec('CreateInvoiceWithTemplate', 400) ->
-    {'inline_response_400_9', 'inline_response_400_9'};
+    {'inline_response_400_5', 'inline_response_400_5'};
 
 get_response_spec('CreateInvoiceWithTemplate', 401) ->
     undefined;
@@ -618,7 +618,7 @@ get_response_spec('DeleteInvoiceTemplate', 204) ->
     undefined;
 
 get_response_spec('DeleteInvoiceTemplate', 400) ->
-    {'inline_response_400_5', 'inline_response_400_5'};
+    {'inline_response_400_1', 'inline_response_400_1'};
 
 get_response_spec('DeleteInvoiceTemplate', 401) ->
     undefined;
@@ -654,7 +654,7 @@ get_response_spec('UpdateInvoiceTemplate', 200) ->
     {'InvoiceTemplate', 'InvoiceTemplate'};
 
 get_response_spec('UpdateInvoiceTemplate', 400) ->
-    {'inline_response_400_8', 'inline_response_400_8'};
+    {'inline_response_400_4', 'inline_response_400_4'};
 
 get_response_spec('UpdateInvoiceTemplate', 401) ->
     undefined;

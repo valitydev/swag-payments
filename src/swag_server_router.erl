@@ -90,31 +90,6 @@ get_operation(OperationId) ->
 
 get_operations() ->
     #{ 
-        'GetPaymentConversionStats' => #{
-            path => "/v2/analytics/shops/:shopID/payments/stats/conversion",
-            method => <<"GET">>,
-            handler => 'swag_server_analytics_handler'
-        },
-        'GetPaymentGeoStats' => #{
-            path => "/v2/analytics/shops/:shopID/payments/stats/geo",
-            method => <<"GET">>,
-            handler => 'swag_server_analytics_handler'
-        },
-        'GetPaymentMethodStats' => #{
-            path => "/v2/analytics/shops/:shopID/customers/stats/payment_method",
-            method => <<"GET">>,
-            handler => 'swag_server_analytics_handler'
-        },
-        'GetPaymentRateStats' => #{
-            path => "/v2/analytics/shops/:shopID/customers/stats/rate",
-            method => <<"GET">>,
-            handler => 'swag_server_analytics_handler'
-        },
-        'GetPaymentRevenueStats' => #{
-            path => "/v2/analytics/shops/:shopID/payments/stats/revenue",
-            method => <<"GET">>,
-            handler => 'swag_server_analytics_handler'
-        },
         'GetCategories' => #{
             path => "/v2/processing/categories",
             method => <<"GET">>,
@@ -124,26 +99,6 @@ get_operations() ->
             path => "/v2/processing/categories/:categoryID",
             method => <<"GET">>,
             handler => 'swag_server_categories_handler'
-        },
-        'CreateClaim' => #{
-            path => "/v2/processing/claims",
-            method => <<"POST">>,
-            handler => 'swag_server_claims_handler'
-        },
-        'GetClaimByID' => #{
-            path => "/v2/processing/claims/:claimID",
-            method => <<"GET">>,
-            handler => 'swag_server_claims_handler'
-        },
-        'GetClaims' => #{
-            path => "/v2/processing/claims",
-            method => <<"GET">>,
-            handler => 'swag_server_claims_handler'
-        },
-        'RevokeClaimByID' => #{
-            path => "/v2/processing/claims/:claimID/revoke",
-            method => <<"PUT">>,
-            handler => 'swag_server_claims_handler'
         },
         'GetContractAdjustmentByID' => #{
             path => "/v2/processing/contracts/:contractID/adjustments/:adjustmentID",
@@ -464,46 +419,6 @@ get_operations() ->
             path => "/v2/processing/schedules/:scheduleID",
             method => <<"GET">>,
             handler => 'swag_server_payouts_handler'
-        },
-        'CreateReport' => #{
-            path => "/v2/shops/:shopID/reports",
-            method => <<"POST">>,
-            handler => 'swag_server_reports_handler'
-        },
-        'CreateReportForParty' => #{
-            path => "/v2/parties/:partyID/shops/:shopID/reports",
-            method => <<"POST">>,
-            handler => 'swag_server_reports_handler'
-        },
-        'DownloadFile' => #{
-            path => "/v2/shops/:shopID/reports/:reportID/files/:fileID/download",
-            method => <<"GET">>,
-            handler => 'swag_server_reports_handler'
-        },
-        'DownloadFileForParty' => #{
-            path => "/v2/parties/:partyID/shops/:shopID/reports/:reportID/files/:fileID/download",
-            method => <<"GET">>,
-            handler => 'swag_server_reports_handler'
-        },
-        'GetReport' => #{
-            path => "/v2/shops/:shopID/reports/:reportID",
-            method => <<"GET">>,
-            handler => 'swag_server_reports_handler'
-        },
-        'GetReportForParty' => #{
-            path => "/v2/parties/:partyID/shops/:shopID/reports/:reportID",
-            method => <<"GET">>,
-            handler => 'swag_server_reports_handler'
-        },
-        'GetReports' => #{
-            path => "/v2/shops/:shopID/reports",
-            method => <<"GET">>,
-            handler => 'swag_server_reports_handler'
-        },
-        'GetReportsForParty' => #{
-            path => "/v2/parties/:partyID/shops/:shopID/reports",
-            method => <<"GET">>,
-            handler => 'swag_server_reports_handler'
         },
         'SearchInvoices' => #{
             path => "/v2/analytics/shops/:shopID/invoices",
