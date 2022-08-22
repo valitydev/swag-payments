@@ -326,7 +326,7 @@ get_response_spec('create_payout', 201) ->
     {'Payout', 'Payout'};
 
 get_response_spec('create_payout', 400) ->
-    {'inline_response_400_17', 'inline_response_400_17'};
+    {'inline_response_400_13', 'inline_response_400_13'};
 
 get_response_spec('create_payout', 401) ->
     undefined;

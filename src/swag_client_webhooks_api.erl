@@ -184,7 +184,7 @@ get_response_spec('create_webhook', 201) ->
     {'Webhook', 'Webhook'};
 
 get_response_spec('create_webhook', 400) ->
-    {'inline_response_400_18', 'inline_response_400_18'};
+    {'inline_response_400_14', 'inline_response_400_14'};
 
 get_response_spec('create_webhook', 401) ->
     undefined;
