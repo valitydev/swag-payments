@@ -5728,6 +5728,30 @@
         }
       }
     },
+    "CustomerBindingInteractionCompleted": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/CustomerChange"
+        },
+        {
+          "type": "object",
+          "description": "Оповещение о завершении последнего запрошенного взаимодействия с плательщиком\nв рамках привязки\n",
+          "required": [
+            "customerBindingID"
+          ],
+          "properties": {
+            "customerBindingID": {
+              "description": "Идентификатор привязки",
+              "type": "string"
+            },
+            "userInteraction": {
+              "$ref": "#/definitions/UserInteraction"
+            }
+          }
+        }
+      ]
+    },
     "CustomerBindingInteractionRequested": {
       "type": "object",
       "allOf": [
@@ -5843,7 +5867,8 @@
           "enum": [
             "CustomerBindingStarted",
             "CustomerBindingStatusChanged",
-            "CustomerBindingInteractionRequested"
+            "CustomerBindingInteractionRequested",
+            "CustomerBindingInteractionCompleted"
           ]
         }
       }
@@ -6416,6 +6441,7 @@
             "PaymentStarted",
             "PaymentStatusChanged",
             "PaymentInteractionRequested",
+            "PaymentInteractionCompleted",
             "RefundStarted",
             "RefundStatusChanged"
           ]
@@ -7484,6 +7510,30 @@
     "PaymentInstitutionAccount": {
       "description": "Аккаунт платёжной организации",
       "type": "object"
+    },
+    "PaymentInteractionCompleted": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/InvoiceChange"
+        },
+        {
+          "type": "object",
+          "description": "Оповещение о завершении последнего запрошенного взаимодействия с плательщиком\n",
+          "required": [
+            "paymentID"
+          ],
+          "properties": {
+            "paymentID": {
+              "description": "Идентификатор платежа",
+              "type": "string"
+            },
+            "userInteraction": {
+              "$ref": "#/definitions/UserInteraction"
+            }
+          }
+        }
+      ]
     },
     "PaymentInteractionRequested": {
       "type": "object",
