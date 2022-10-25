@@ -4242,6 +4242,22 @@ definitions:
         type: string
       message:
         type: string
+  CustomerBindingInteractionCompleted:
+    type: object
+    allOf:
+      - $ref: '#/definitions/CustomerChange'
+      - type: object
+        description: |
+          Оповещение о завершении последнего запрошенного взаимодействия с плательщиком
+          в рамках привязки
+        required:
+          - customerBindingID
+        properties:
+          customerBindingID:
+            description: Идентификатор привязки
+            type: string
+          userInteraction:
+            $ref: '#/definitions/UserInteraction'
   CustomerBindingInteractionRequested:
     type: object
     allOf:
@@ -4318,6 +4334,7 @@ definitions:
           - CustomerBindingStarted
           - CustomerBindingStatusChanged
           - CustomerBindingInteractionRequested
+          - CustomerBindingInteractionCompleted
   CustomerEvent:
     type: object
     required:
@@ -4776,6 +4793,7 @@ definitions:
           - PaymentStarted
           - PaymentStatusChanged
           - PaymentInteractionRequested
+          - PaymentInteractionCompleted
           - RefundStarted
           - RefundStatusChanged
   InvoiceClientInfo:
@@ -5579,6 +5597,21 @@ definitions:
   PaymentInstitutionAccount:
     description: Аккаунт платёжной организации
     type: object
+  PaymentInteractionCompleted:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceChange'
+      - type: object
+        description: |
+          Оповещение о завершении последнего запрошенного взаимодействия с плательщиком
+        required:
+          - paymentID
+        properties:
+          paymentID:
+            description: Идентификатор платежа
+            type: string
+          userInteraction:
+            $ref: '#/definitions/UserInteraction'
   PaymentInteractionRequested:
     type: object
     allOf:
