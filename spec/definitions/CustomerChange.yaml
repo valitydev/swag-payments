@@ -9,3 +9,4 @@ properties:
       - CustomerBindingStarted
       - CustomerBindingStatusChanged
       - CustomerBindingInteractionRequested
+      - CustomerBindingInteractionCompleted
