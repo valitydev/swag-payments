@@ -6398,6 +6398,24 @@ get_raw() ->
         <<"message">> => <<"message">>
       }
     },
+    <<"CustomerBindingInteractionCompleted">> => #{
+      <<"allOf">> => [ #{
+        <<"$ref">> => <<"#/definitions/CustomerChange">>
+      }, #{
+        <<"type">> => <<"object">>,
+        <<"required">> => [ <<"customerBindingID">> ],
+        <<"properties">> => #{
+          <<"customerBindingID">> => #{
+            <<"type">> => <<"string">>,
+            <<"description">> => <<"Идентификатор привязки">>
+          },
+          <<"userInteraction">> => #{
+            <<"$ref">> => <<"#/definitions/UserInteraction">>
+          }
+        },
+        <<"description">> => <<"Оповещение о завершении последнего запрошенного взаимодействия с плательщиком\nв рамках привязки\n">>
+      } ]
+    },
     <<"CustomerBindingInteractionRequested">> => #{
       <<"allOf">> => [ #{
         <<"$ref">> => <<"#/definitions/CustomerChange">>
@@ -6491,7 +6509,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"changeType">> => #{
           <<"type">> => <<"string">>,
-          <<"enum">> => [ <<"CustomerBindingStarted">>, <<"CustomerBindingStatusChanged">>, <<"CustomerBindingInteractionRequested">> ]
+          <<"enum">> => [ <<"CustomerBindingStarted">>, <<"CustomerBindingStatusChanged">>, <<"CustomerBindingInteractionRequested">>, <<"CustomerBindingInteractionCompleted">> ]
         }
       },
       <<"example">> => #{
@@ -7042,7 +7060,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"changeType">> => #{
           <<"type">> => <<"string">>,
-          <<"enum">> => [ <<"InvoiceCreated">>, <<"InvoiceStatusChanged">>, <<"PaymentStarted">>, <<"PaymentStatusChanged">>, <<"PaymentInteractionRequested">>, <<"RefundStarted">>, <<"RefundStatusChanged">> ]
+          <<"enum">> => [ <<"InvoiceCreated">>, <<"InvoiceStatusChanged">>, <<"PaymentStarted">>, <<"PaymentStatusChanged">>, <<"PaymentInteractionRequested">>, <<"PaymentInteractionCompleted">>, <<"RefundStarted">>, <<"RefundStatusChanged">> ]
         }
       },
       <<"example">> => #{
@@ -8149,6 +8167,24 @@ get_raw() ->
     <<"PaymentInstitutionAccount">> => #{
       <<"type">> => <<"object">>,
       <<"description">> => <<"Аккаунт платёжной организации">>
+    },
+    <<"PaymentInteractionCompleted">> => #{
+      <<"allOf">> => [ #{
+        <<"$ref">> => <<"#/definitions/InvoiceChange">>
+      }, #{
+        <<"type">> => <<"object">>,
+        <<"required">> => [ <<"paymentID">> ],
+        <<"properties">> => #{
+          <<"paymentID">> => #{
+            <<"type">> => <<"string">>,
+            <<"description">> => <<"Идентификатор платежа">>
+          },
+          <<"userInteraction">> => #{
+            <<"$ref">> => <<"#/definitions/UserInteraction">>
+          }
+        },
+        <<"description">> => <<"Оповещение о завершении последнего запрошенного взаимодействия с плательщиком\n">>
+      } ]
     },
     <<"PaymentInteractionRequested">> => #{
       <<"allOf">> => [ #{
