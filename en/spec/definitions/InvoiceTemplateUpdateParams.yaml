@@ -5,7 +5,7 @@ properties:
     type: string
     maxLength: 100
   description:
-    description: Описание предлагаемых товаров или услуг
+    description: Description of the goods or services offered
     type: string
     maxLength: 1000
   lifetime:
