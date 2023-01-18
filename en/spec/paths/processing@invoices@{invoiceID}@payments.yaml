@@ -77,7 +77,7 @@ post:
               - invalidRecurrentParent
               - operationNotPermitted
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid invoice status
     '409':
