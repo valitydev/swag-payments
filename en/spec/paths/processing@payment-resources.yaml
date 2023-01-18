@@ -1,0 +1,30 @@
+post:
+  description: |
+    Создать новый одноразовый токен платежного средства, предоставленного плательщиком, а
+    также новую уникальную платежную сессию.
+    Токен платежного средства и идентификатор сессии необходим для создания
+    платежа по инвойсу и имеет ограниченное время жизни.
+  tags:
+    - Tokens
+  operationId: createPaymentResource
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      name: paymentResource
+      description: Данные для создания платежного средства
+      in: body
+      required: true
+      schema:
+        $ref: '#/definitions/PaymentResourceParams'
+  responses:
+    '201':
+      description: Токен и сессия созданы
+      schema:
+        $ref: '#/definitions/PaymentResourceResult'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
