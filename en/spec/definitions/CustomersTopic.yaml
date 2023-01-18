@@ -11,7 +11,7 @@ allOf:
       - eventTypes
     properties:
       shopID:
-        description: Идентификатор магазина
+        description: Shop ID
         type: string
         maxLength: 40
         minLength: 1
