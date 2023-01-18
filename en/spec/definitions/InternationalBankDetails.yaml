@@ -20,7 +20,7 @@ properties:
     pattern: '^[0-9]{9}$'
     example: "129131673"
   name:
-    description: Наименование юридического лица банковской организации
+    description: Name of the legal entity of the banking organization
     type: string
     #TODO
     #readOnly: true
@@ -36,7 +36,7 @@ properties:
            Код страны резиденции банковской организации, обозначается
           alpha-3 код по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
   address:
-    description: Адрес юридического лица банковской организации
+    description: Address of the legal entity of the banking organization
     type: string
     #readOnly: true
     maxLength: 1000
