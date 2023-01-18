@@ -11,7 +11,7 @@ properties:
       - 
         description: Внешний идентификатор плательщика
   shopID:
-    description: Идентификатор магазина
+    description: Shop ID
     type: string
   partyID:
     x-rebillyMerge:
