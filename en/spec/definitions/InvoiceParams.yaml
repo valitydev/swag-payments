@@ -7,7 +7,7 @@ required:
   - metadata
 properties:
   shopID:
-    description: Идентификатор магазина
+    description: Shop ID
     type: string
     maxLength: 40
     minLength: 1
@@ -42,11 +42,11 @@ properties:
       - 
         $ref: '#/definitions/Currency'
   product:
-    description: Наименование предлагаемых товаров или услуг
+    description: Name of the offered goods or services
     type: string
     maxLength: 100
   description:
-    description: Описание предлагаемых товаров или услуг
+    description: Description of the goods or services offered
     type: string
     maxLength: 1000
   cart:
