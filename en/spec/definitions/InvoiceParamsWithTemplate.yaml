@@ -1,0 +1,20 @@
+type: object
+properties:
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: '#/definitions/ExternalID'
+  amount:
+    description: |
+      Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,
+      например в копейках в случае указания российских рублей в качестве валюты.
+    type: integer
+    format: int64
+    minimum: 1
+  currency:
+    x-rebillyMerge:
+      - 
+        $ref: '#/definitions/Currency'
+  metadata:
+    description: 'Метаданные, которые необходимо связать с инвойсом'
+    type: object
