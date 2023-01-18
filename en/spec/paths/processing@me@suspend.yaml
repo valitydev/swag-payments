@@ -1,0 +1,17 @@
+put:
+  description: Suspend my party
+  operationId: suspendMyParty
+  tags:
+    - Parties
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+  responses:
+    '204':
+      description: Party suspended
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
