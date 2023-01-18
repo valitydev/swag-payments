@@ -10,19 +10,19 @@ allOf:
       - registeredOffice
     properties:
       legalName:
-        description: Наименование
+        description: Name
         type: string
       tradingName:
-        description: Торговое наименование (если применимо)
+        description: Trade name (if applicable)
         type: string
       registeredOffice:
-        description: Адрес места регистрации
+        description: Registration postal address
         type: string
       principalPlaceOfBusiness:
         description: Адрес места нахождения (если отличается от регистрации)
         type: string
       registeredNumber:
-        description: Регистрационный номер
+        description: Registration number
         type: string
         maxLength: 100
       country:
