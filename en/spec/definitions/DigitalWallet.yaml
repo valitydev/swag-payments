@@ -1,0 +1,16 @@
+type: object
+allOf:
+  - 
+    $ref: '#/definitions/PaymentMethod'
+  - 
+    type: object
+    required:
+      - providers
+    properties:
+      providers:
+        description: Список провайдеров электронных денежных средств
+        type: array
+        items:
+          x-rebillyMerge:
+            - 
+              $ref: '#/definitions/DigitalWalletProvider'
