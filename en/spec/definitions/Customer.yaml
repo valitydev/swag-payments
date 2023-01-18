@@ -5,7 +5,7 @@ required:
   - metadata
 properties:
   id:
-    description: Идентификатор плательщика
+    description: Customer ID
     type: string
     readOnly: true
   externalID:
@@ -15,7 +15,7 @@ properties:
       - 
         description: Внешний идентификатор плательщика
   shopID:
-    description: Идентификатор магазина
+    description: Shop ID
     type: string
   partyID:
     x-rebillyMerge:
