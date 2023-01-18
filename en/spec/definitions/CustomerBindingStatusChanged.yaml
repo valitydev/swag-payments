@@ -1,0 +1,13 @@
+type: object
+allOf:
+  - 
+    $ref: '#/definitions/CustomerChange'
+  - 
+    $ref: '#/definitions/CustomerBindingStatus'
+  - 
+    type: object
+    required:
+      - customerBindingID
+    properties:
+      customerBindingID:
+        type: string
