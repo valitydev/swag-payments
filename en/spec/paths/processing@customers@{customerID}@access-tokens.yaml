@@ -1,0 +1,25 @@
+post:
+  operationId: createCustomerAccessToken
+  description: |
+    Создать новый токен для доступа к указанному плательщику.
+  tags:
+    - Customers
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/customerID'
+  responses:
+    '201':
+      description: Токен для доступа создан
+      schema:
+        $ref: '#/definitions/AccessToken'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
+
