@@ -13,10 +13,10 @@ x-merge-properties:
       - metadata
     properties:
       id:
-        description: Идентификатор инвойса
+        description: Invoice ID
         type: string
       shopID:
-        description: Идентификатор магазина
+        description: Shop ID
         type: string
       externalID:
         x-rebillyMerge:
@@ -25,7 +25,7 @@ x-merge-properties:
           - 
             description: Внешний идентификатор инвойса
       createdAt:
-        description: Дата и время создания
+        description: Created at
         type: string
         format: date-time
       dueDate:
@@ -44,11 +44,11 @@ x-merge-properties:
           - 
             $ref: '#/definitions/Currency'
       product:
-        description: Наименование предлагаемых товаров или услуг
+        description: Name of the offered goods or services
         type: string
         maxLength: 100
       description:
-        description: Описание предлагаемых товаров или услуг
+        description: Description of the goods or services offered
         type: string
         maxLength: 1000
       invoiceTemplateID:
