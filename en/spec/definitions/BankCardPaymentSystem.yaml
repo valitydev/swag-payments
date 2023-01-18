@@ -1,0 +1,21 @@
+description: |
+  Платежная система.
+
+  Набор систем, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
+type: string
+#NOTE: Can't be put because of merging in other places
+#example: VISA
+#enum:
+#- VISA
+#- MASTERCARD
+#- MAESTRO
+#- DANKORT
+#- AMEX
+#- DINERSCLUB
+#- DISCOVER
+#- UNIONPAY
+#- JCB
+#- NSPKMIR
+#- ELO
+#- RUPAY
+#- UZCARD
