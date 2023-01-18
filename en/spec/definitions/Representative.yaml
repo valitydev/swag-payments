@@ -9,7 +9,7 @@ properties:
     description: Наименование должности ЕИО/представителя
     type: string
   fullName:
-    description: ФИО ЕИО/представителя
+    description: EEC/representative full name
     type: string
   document:
     $ref: '#/definitions/RepresentativeDocument'
