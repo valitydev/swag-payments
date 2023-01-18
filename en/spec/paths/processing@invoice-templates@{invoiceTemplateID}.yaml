@@ -1,0 +1,113 @@
+get:
+  description: Получить шаблон инвойса по его идентификатору.
+  tags:
+    - InvoiceTemplates
+  operationId: getInvoiceTemplateByID
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/invoiceTemplateID'
+  responses:
+    '200':
+      description: Шаблон инвойса
+      schema:
+        $ref: '#/definitions/InvoiceTemplate'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
+put:
+  description: Модифицировать шаблон инвойса.
+  tags:
+    - InvoiceTemplates
+  operationId: updateInvoiceTemplate
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/invoiceTemplateID'
+    - 
+      name: invoiceTemplateUpdateParams
+      description: Параметры модифицируемого инвойса.
+      in: body
+      required: true
+      schema:
+        $ref: '#/definitions/InvoiceTemplateUpdateParams'
+  responses:
+    '200':
+      description: Шаблон инвойса модифицирован.
+      schema:
+        $ref: '#/definitions/InvoiceTemplate'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      description: Ошибочные данные для изменения шаблона
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: |
+              [Код ошибки](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidInvoiceCart
+              - invalidRequest
+              - invalidDeadline
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Invalid party status
+delete:
+  description: Удалить шаблон инвойса.
+  tags:
+    - InvoiceTemplates
+  operationId: deleteInvoiceTemplate
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/invoiceTemplateID'
+  responses:
+    '204':
+      description: Шаблон инвойса удален.
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      description: Ошибочные данные для удаления шаблона
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: |
+              [Код ошибки](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidRequest
+              - invalidDeadline
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Invalid party status
