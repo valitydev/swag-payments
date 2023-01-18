@@ -1,0 +1,48 @@
+post:
+  description: Погасить указанный инвойс.
+  tags:
+    - Invoices
+  operationId: fulfillInvoice
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/invoiceID'
+    - 
+      name: fulfillInvoice
+      in: body
+      description: Произвольная причина совершения операции
+      required: true
+      schema:
+        $ref: '#/definitions/Reason'
+  responses:
+    '204':
+      description: Инвойс погашен
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      description: Ошибка погашения инвойса
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: |
+              [Код ошибки](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidInvoiceStatus
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidRequest
+              - invalidDeadline
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Invalid invoice status
