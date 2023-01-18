@@ -3,7 +3,7 @@ required:
   - status
 properties:
   status:
-    description: Статус инвойса
+    description: Invoice status
     type: string
     enum:
       - unpaid
@@ -11,6 +11,6 @@ properties:
       - paid
       - fulfilled
   reason:
-    description: Причина отмены или погашения инвойса
+    description: Reason for invoice cancellation or redemption
     type: string
     maxLength: 1000
