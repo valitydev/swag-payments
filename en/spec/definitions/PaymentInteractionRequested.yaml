@@ -12,7 +12,7 @@ allOf:
       - userInteraction
     properties:
       paymentID:
-        description: Идентификатор платежа
+        description: Payment ID
         type: string
       userInteraction:
         $ref: '#/definitions/UserInteraction'
