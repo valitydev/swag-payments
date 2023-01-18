@@ -1,0 +1,19 @@
+description: Данные клиентского устройства плательщика
+type: object
+required:
+  - fingerprint
+properties:
+  fingerprint:
+    description: Уникальный отпечаток user agent'а плательщика
+    type: string
+    maxLength: 1000
+  ip:
+    description: IP-адрес плательщика
+    type: string
+    format: ip-address
+    maxLength: 45
+  url:
+    description: URL с которого была получена платежная форма клиентом
+    type: string
+    format: uri
+    maxLength: 1000
