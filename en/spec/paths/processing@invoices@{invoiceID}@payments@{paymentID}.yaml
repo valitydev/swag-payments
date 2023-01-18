@@ -1,0 +1,25 @@
+get:
+  description: Получить данные платежа по указанному инвойсу.
+  tags:
+    - Payments
+  operationId: getPaymentByID
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/invoiceID'
+    - 
+      $ref: '#/parameters/paymentID'
+  responses:
+    '200':
+      description: Данные платежа
+      schema:
+        $ref: '#/definitions/Payment'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
