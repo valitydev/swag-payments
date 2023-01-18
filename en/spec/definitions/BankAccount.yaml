@@ -13,7 +13,7 @@ properties:
     type: string
     pattern: '^\d{20}$'
   bankName:
-    description: Наименование юридического лица банковской организации
+    description: Name of the legal entity of the banking organization
     type: string
     maxLength: 100
   bankPostAccount:
