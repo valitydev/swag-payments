@@ -1,0 +1,84 @@
+get:
+  description: Получить инвойс по указанному внешнему идентификатору.
+  tags:
+    - Invoices
+  operationId: getInvoiceByExternalID
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      name: externalID
+      description: Внешний идентификатор инвойса
+      in: query
+      required: true
+      type: string
+      maxLength: 40
+      minLength: 1
+  responses:
+    '200':
+      description: Инвойс
+      schema:
+        $ref: '#/definitions/Invoice'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
+post:
+  description: Создать новый инвойс.
+  tags:
+    - Invoices
+  operationId: createInvoice
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      name: invoiceParams
+      description: Параметры создаваемого инвойса
+      in: body
+      required: true
+      schema:
+        $ref: '#/definitions/InvoiceParams'
+  responses:
+    '201':
+      description: Инвойс создан
+      schema:
+        $ref: '#/definitions/InvoiceAndToken'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      description: Ошибочные данные для создания инвойса
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: |
+              [Код ошибки](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPartyID
+              - invalidShopID
+              - invalidRequest
+              - invalidDeadline
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidInvoiceCart
+              - invalidAllocation
+              - allocationNotPermitted
+              - invalidInvoiceCost
+              - invoiceTermsViolated
+              - ambiguousPartyID
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Shop not found or inaccessible
+    '409':
+      $ref: '#/responses/ExternalIDConflict'
