@@ -1,0 +1,6 @@
+type: object
+allOf:
+  - 
+    $ref: '#/definitions/PaymentTool'
+  - 
+    $ref: '#/definitions/CryptoWalletDetails'
