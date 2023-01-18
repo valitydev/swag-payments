@@ -1,0 +1,12 @@
+description: |
+  Провайдер платежных токенов.
+
+  Набор провайдеров, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
+type: string
+#NOTE: Can't be put because of merging in other places
+#example: APPLE PAY
+#enum:
+#- APPLE PAY
+#- GOOGLE PAY
+#- SAMSUNG PAY
+#- YANDEX PAY
