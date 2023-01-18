@@ -5,7 +5,7 @@ required:
   - code
 properties:
   code:
-    description: Основной код ошибки
+    description: Basic error code
     type: string
   subError:
     $ref: '#/definitions/SubError'
