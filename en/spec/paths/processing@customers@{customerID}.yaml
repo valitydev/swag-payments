@@ -58,6 +58,6 @@ delete:
               - invalidRequest
               - invalidDeadline
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid party status
