@@ -14,7 +14,7 @@ allOf:
       - flow
     properties:
       id:
-        description: Идентификатор платежа
+        description: Payment ID
         type: string
       shortID:
         description: Cокращенный идентификатор платежа и инвойса (spid)
@@ -26,7 +26,7 @@ allOf:
         description: 'Идентификатор магазина, в рамках которого был создан платеж'
         type: string
       createdAt:
-        description: Дата и время создания
+        description: Created at
         type: string
         format: date-time
       amount:
