@@ -84,7 +84,7 @@ post:
               - chargebackInProgress
               - refundCartConflict
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Operation not permitted
     '409':
