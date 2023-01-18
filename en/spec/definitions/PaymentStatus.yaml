@@ -3,7 +3,7 @@ required:
   - status
 properties:
   status:
-    description: Статус платежа
+    description: Payment status
     type: string
     enum:
       - pending
