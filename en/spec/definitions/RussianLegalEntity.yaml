@@ -35,7 +35,7 @@ allOf:
         pattern: '^(\d{10}|\d{12})$'
       actualAddress:
         description: |
-          Почтовый адрес места нахождения
+          Location postal address
         type: string
         maxLength: 1000
       postAddress:
