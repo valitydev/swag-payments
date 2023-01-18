@@ -43,6 +43,6 @@ post:
               - invalidDeadline
               - ambiguousPartyID
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: invalid payout id
