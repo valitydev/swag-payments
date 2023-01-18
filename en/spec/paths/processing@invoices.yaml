@@ -18,7 +18,7 @@ get:
       minLength: 1
   responses:
     '200':
-      description: Инвойс
+      description: Invoice
       schema:
         $ref: '#/definitions/Invoice'
     '404':
@@ -77,7 +77,7 @@ post:
               - invoiceTermsViolated
               - ambiguousPartyID
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Shop not found or inaccessible
     '409':
