@@ -48,7 +48,7 @@ post:
               - invalidRequest
               - invalidDeadline
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid payment resource
     '409':
