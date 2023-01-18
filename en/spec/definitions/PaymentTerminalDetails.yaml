@@ -1,0 +1,7 @@
+required:
+  - provider
+properties:
+  provider:
+    x-rebillyMerge:
+      - 
+        $ref: '#/definitions/PaymentTerminalProvider'
