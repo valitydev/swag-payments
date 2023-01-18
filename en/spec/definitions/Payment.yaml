@@ -1,0 +1,61 @@
+type: object
+x-merge-properties:
+  - 
+    type: object
+    required:
+      - id
+      - invoiceID
+      - createdAt
+      - amount
+      - currency
+      - flow
+      - payer
+    properties:
+      id:
+        description: Идентификатор платежа
+        type: string
+      externalID:
+        x-rebillyMerge:
+          - 
+            $ref: '#/definitions/ExternalID'
+      invoiceID:
+        description: 'Идентификатор инвойса, в рамках которого был создан платеж'
+        type: string
+      createdAt:
+        description: Дата и время создания
+        type: string
+        format: date-time
+      amount:
+        description: >
+          Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,
+          например в копейках в случае указания российских рублей в качестве валюты.
+        type: integer
+        format: int64
+        minimum: 1
+      currency:
+        x-rebillyMerge:
+          - 
+            $ref: '#/definitions/Currency'
+      flow:
+        $ref: '#/definitions/PaymentFlow'
+      payer:
+        $ref: '#/definitions/Payer'
+      transactionInfo:
+        $ref: '#/definitions/TransactionInfo'
+      makeRecurrent:
+        x-rebillyMerge:
+          - 
+            $ref: '#/definitions/PaymentMakeRecurrent'
+          - 
+            readOnly: true
+      metadata:
+        description: Связанные с платежом метаданные
+        type: object
+      allocation:
+        x-rebillyMerge:
+          - 
+            $ref: '#/definitions/Allocation'
+          - 
+            readOnly: true
+  - 
+    $ref: '#/definitions/PaymentStatus'
