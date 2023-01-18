@@ -1,0 +1,10 @@
+description: Описание ошибки, возникшей в процессе проведения платежа
+type: object
+required:
+  - code
+  - message
+properties:
+  code:
+    type: string
+  message:
+    type: string
