@@ -1,0 +1,15 @@
+type: object
+allOf:
+  - 
+    $ref: '#/definitions/PayoutToolDetails'
+  - 
+    type: object
+    required:
+      - walletID
+    properties:
+      walletID:
+        description: Идентификатор кошелька
+        type: string
+        maxLength: 40
+        minLength: 1
+
