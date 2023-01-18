@@ -52,6 +52,6 @@ post:
               - inconsistentCaptureCurrency
               - amountExceededCaptureBalance
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid payment status
