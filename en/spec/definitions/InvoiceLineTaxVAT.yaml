@@ -8,7 +8,7 @@ allOf:
       - rate
     properties:
       rate:
-        description: Ставка налога
+        description: Tax rate
         type: string
         enum:
           - 0%
