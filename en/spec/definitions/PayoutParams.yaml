@@ -10,7 +10,7 @@ properties:
       - 
         $ref: '#/definitions/PayoutID'
   shopID:
-    description: Идентификатор магазина
+    description: Shop ID
     type: string
   partyID:
     x-rebillyMerge:
