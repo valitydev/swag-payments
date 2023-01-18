@@ -1,0 +1,51 @@
+post:
+  description: Создать новый шаблон инвойса.
+  tags:
+    - InvoiceTemplates
+  operationId: createInvoiceTemplate
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      name: invoiceTemplateCreateParams
+      description: Параметры шаблона инвойса.
+      in: body
+      required: true
+      schema:
+        $ref: '#/definitions/InvoiceTemplateCreateParams'
+  responses:
+    '201':
+      description: Шаблон инвойса создан.
+      schema:
+        $ref: '#/definitions/InvoiceTemplateAndToken'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      description: Ошибочные данные для создания шаблона
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: |
+              [Код ошибки](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPartyID
+              - invalidRequest
+              - invalidDeadline
+              - invalidShopID
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidInvoiceCart
+              - ambiguousPartyID
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Lifetime cannot be zero
+    '409':
+      $ref: '#/responses/ExternalIDConflict'
