@@ -91,20 +91,20 @@ responses:
     schema:
       $ref: '#/definitions/GeneralError'
   Unauthorized:
-    description: Ошибка авторизации
+    description: Authorization error
   DefaultLogicError:
     description: Неверные данные
     schema:
       $ref: '#/definitions/DefaultLogicError'
   ExternalIDConflict:
-    description: Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса
+    description: The passed value `externalID` has already been used by you with other query parameters
     schema:
       $ref: '#/definitions/ExternalIDConflictError'
 parameters:
   requestID:
     name: X-Request-ID
     in: header
-    description: Уникальный идентификатор запроса к системе
+    description: Unique identifier of the request to the system
     required: true
     type: string
     maxLength: 32
@@ -112,7 +112,7 @@ parameters:
   shopID:
     name: shopID
     in: path
-    description: Идентификатор магазина
+    description: Shop ID
     required: true
     type: string
     maxLength: 40
@@ -184,7 +184,7 @@ parameters:
   webhookID:
     name: webhookID
     in: path
-    description: Идентификатор webhook'а
+    description: Webhook identifier
     required: true
     type: string
     maxLength: 40
@@ -208,7 +208,7 @@ parameters:
   payoutID:
     name: payoutID
     in: path
-    description: Идентификатор вывода
+    description: Withdrawal ID
     required: true
     type: string
     maxLength: 40
@@ -216,7 +216,7 @@ parameters:
   invoiceID:
     name: invoiceID
     in: path
-    description: Идентификатор инвойса
+    description: Invoice ID
     required: true
     type: string
     maxLength: 40
@@ -239,21 +239,21 @@ parameters:
   fromTime:
     name: fromTime
     in: query
-    description: Начало временного отрезка
+    description: Start of the time period
     required: true
     type: string
     format: date-time
   toTime:
     name: toTime
     in: query
-    description: Конец временного отрезка
+    description: End of the time period
     required: true
     type: string
     format: date-time
   limit:
     name: limit
     in: query
-    description: Лимит выборки
+    description: Selection limit
     required: true
     type: integer
     format: int32
@@ -269,7 +269,7 @@ parameters:
   deadline:
     name: X-Request-Deadline
     in: header
-    description: Максимальное время обработки запроса
+    description: Maximum request processing time
     required: false
     type: string
     maxLength: 40
@@ -277,7 +277,7 @@ parameters:
   partyID:
     name: partyID
     in: path
-    description: Уникальный в рамках системы идентификатор участника. #TODO: rephrase
+    description: The participant's unique identifier within the system. #TODO: rephrase
     required: true
     type: string
   countryID:
@@ -301,7 +301,7 @@ tags:
       Участник системы - совокупность данных о вашей организации, составе и условиях заключенных договоров, а также информация о связанных с организацией магазинах.
   - 
     name: Shops
-    x-displayName: Магазины
+    x-displayName: Shops
     description: >
       Магазин - это отображение вашего веб-сайта или точки продаж в системе. К магазину привязываются финансовые условия, которые определяют, в частности, процент комиссии системы. Каждый магазин в системе имеет привязанные счета, на которых аккумулируются отправленные плательщиками деньги. В каждой валюте может существовать только один счет. Категория магазина определяет группы товаров или услуг, которые в нем представлены. К магазину может быть привязан банковский терминал на стороне банка-эквайера. Любые изменения данных магазинов требуют верификации на стороне системы.
       Для тестовых платежей используются магазины, созданные в тестовой категории. Первый тестовый магазин система создает автоматически при регистрации участника.
@@ -310,7 +310,7 @@ tags:
       Для любого магазина можно указать URL для получения асинхронных оповещений об изменении состояния данных при помощи установки webhook'а. Например, вы можете установить webhook, указав URL вашего приложения, на который система будет отправлять данных об изменении состояния инвойса. Для проверки подлинности присланных на URL вашего приложения данных используется соответствующий публичный ключ, который создаётся при установке этого webhook'а и получить который можно в вашем личном кабинете.
   - 
     name: Invoices
-    x-displayName: Инвойсы
+    x-displayName: Invoices
     description: |
       Инвойс - это базовая модель для работы с системой по приему платежей. Перед
       рендерингом платежной формы, запуском транзакций на списание денег,
@@ -419,7 +419,7 @@ tags:
       * создание инвойса по данному шаблону.
   - 
     name: Payments
-    x-displayName: Платежи
+    x-displayName: Payments
     description: >
       Реальное списание денег с плательщиков осуществляется вызовом метода создания платежа. Перед запуском платежей необходимо создать инвойс, в рамках которого система будет проводить попытки списания, а также указать токен платежного средства плательщика. Таким образом, система предоставляет вам интерфейс, позволяющий со стороны вашего серверного кода инициировать и контролировать процесс списания денег. Данный процесс может быть, как синхронным, когда вы ожидаете ответа системы, так и асинхронным, когда после запуска платежа вы ожидаете уведомлений на установленный для соответствующего магазина webhook.
       ## Варианты проведения оплаты
@@ -457,7 +457,7 @@ tags:
       Любые изменения данных магазинов требуют верификации на стороне системы путем создания заявок на изменение.
   - 
     name: Payouts
-    x-displayName: Вывод средств
+    x-displayName: Withdrawal of funds
     description: >
       Для получения автоматических выплат по принятым платежам на ваш банковский счет необходимо в рамках договора с системой указать данные для вывода средств. В дальнейшем по указанным данным система будет инициировать банковские переводы на основе суммы платежей, принятой по всем активным магазинам.
       Любые изменения данных требуют верификации на стороне системы путем создания заявок на изменение.
@@ -469,7 +469,7 @@ tags:
       Внимание! Только Webhooks Management API является частью данной спецификации. Для реализации обработчика присылаемых уведомлений вам необходимо будет ознакомиться со спецификацей [Vality Webhooks Events API](https://github.com/valitydev/swag-payments-webhook-events).
   - 
     name: Search
-    x-displayName: Поиск
+    x-displayName: Search
     description: >
       Для получения списка всех инвойсов/платежей указанного магазина необходимо вызвать соответствующий метод платформы. Имеется возможность отфильтровать выборку по определенным статусам.
   - 
@@ -479,7 +479,7 @@ tags:
       Платёжная организация - организация, осуществляющая услуги по обслуживанию финансовых операций, которые возникают в результате осуществления бизнес-процессов системой.
   - 
     name: Error Codes
-    x-displayName: Коды ошибок
+    x-displayName: Error codes
     description: >
 
       ## Ошибки бизнес-логики
