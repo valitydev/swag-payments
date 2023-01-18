@@ -1,0 +1,17 @@
+type: object
+allOf:
+  - 
+    $ref: '#/definitions/CustomerChange'
+  - 
+    type: object
+    description: |
+      Оповещение о завершении последнего запрошенного взаимодействия с плательщиком
+      в рамках привязки
+    required:
+      - customerBindingID
+    properties:
+      customerBindingID:
+        description: Идентификатор привязки
+        type: string
+      userInteraction:
+        $ref: '#/definitions/UserInteraction'
