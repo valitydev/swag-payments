@@ -12,7 +12,7 @@ x-merge-properties:
       - payer
     properties:
       id:
-        description: Идентификатор платежа
+        description: Payment ID
         type: string
       externalID:
         x-rebillyMerge:
@@ -22,7 +22,7 @@ x-merge-properties:
         description: 'Идентификатор инвойса, в рамках которого был создан платеж'
         type: string
       createdAt:
-        description: Дата и время создания
+        description: Created at
         type: string
         format: date-time
       amount:
