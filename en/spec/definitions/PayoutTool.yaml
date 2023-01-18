@@ -1,4 +1,4 @@
-description: Средство вывода
+description: Payout tool
 allOf:
   - 
     type: object
