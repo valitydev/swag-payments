@@ -10,7 +10,7 @@ allOf:
       - provider
     properties:
       id:
-        description: Идентификатор кошелька
+        description: Identifier of the wallet
         type: string
       provider:
         x-rebillyMerge:
