@@ -3,7 +3,7 @@ required:
   - name
 properties:
   name:
-    description: Название магазина
+    description: Shop name
     type: string
     maxLength: 100
   description:
