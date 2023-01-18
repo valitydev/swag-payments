@@ -5,8 +5,8 @@ required:
   - paymentID
 properties:
   invoiceID:
-    description: Идентификатор инвойса
+    description: Invoice ID
     type: string
   paymentID:
-    description: Идентификатор платежа
+    description: Payment ID
     type: string
