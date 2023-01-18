@@ -9,7 +9,7 @@ allOf:
       - price
     properties:
       product:
-        description: Наименование предлагаемых товаров или услуг
+        description: Name of the offered goods or services
         type: string
         maxLength: 100
       price:
