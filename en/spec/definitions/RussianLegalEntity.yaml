@@ -1,0 +1,64 @@
+description: Юридическое лицо, ведущее деятельность под юрисдикцией РФ
+type: object
+allOf:
+  - 
+    $ref: '#/definitions/LegalEntity'
+  - 
+    type: object
+    required:
+      - registeredName
+      - registeredNumber
+      - inn
+      - actualAddress
+      - postAddress
+      - representativePosition
+      - representativeFullName
+      - representativeDocument
+      - bankAccount
+    properties:
+      registeredName:
+        description: |
+          Зарегистрированное наименование юридического лица
+        type: string
+        maxLength: 100
+      registeredNumber:
+        description: |
+          Регистрационный номер,
+          [ОГРН](https://ru.wikipedia.org/wiki/Основной_государственный_регистрационный_номер) или
+          [ОГРНИП](https://ru.wikipedia.org/wiki/Основной_государственный_регистрационный_номер_индивидуального_предпринимателя)
+        type: string
+        pattern: '^(\d{13}|\d{15})$'
+      inn:
+        description: |
+          [ИНН](https://ru.wikipedia.org/wiki/Идентификационный_номер_налогоплательщика)
+        type: string
+        pattern: '^(\d{10}|\d{12})$'
+      actualAddress:
+        description: |
+          Почтовый адрес места нахождения
+        type: string
+        maxLength: 1000
+      postAddress:
+        description: |
+          Почтовый адрес для отправки корреспонденции
+        type: string
+        maxLength: 1000
+      representativePosition:
+        description: |
+          Наименование должности
+          [ЕИО](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) или его представителя
+        type: string
+        maxLength: 100
+      representativeFullName:
+        description: |
+          ФИО [ЕИО](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) или его представителя
+        type: string
+        maxLength: 100
+      representativeDocument:
+        description: |
+          Идентификационные данные документа, на основании которого действует
+          [ЕИО](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) или его представитель
+        type: string
+        maxLength: 1000
+      bankAccount:
+        $ref: '#/definitions/BankAccount'
