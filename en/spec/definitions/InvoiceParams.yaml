@@ -1,0 +1,62 @@
+type: object
+required:
+  - shopID
+  - dueDate
+  - currency
+  - product
+  - metadata
+properties:
+  shopID:
+    description: Идентификатор магазина
+    type: string
+    maxLength: 40
+    minLength: 1
+  partyID:
+    x-rebillyMerge:
+      - 
+        $ref: '#/definitions/PartyID'
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: '#/definitions/ExternalID'
+      - 
+        description: Внешний идентификатор инвойса
+  dueDate:
+    description: |
+      Дата и время окончания действия инвойса, после наступления которых его
+      уже невозможно будет оплатить
+    type: string
+    format: date-time
+  amount:
+    description: |
+      Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,
+      например в копейках в случае указания российских рублей в качестве валюты.
+
+      Если стоимость не указана, то стоимостью инвойса будет считаться суммарная
+      стоимость позиций в корзине.
+    type: integer
+    format: int64
+    minimum: 1
+  currency:
+    x-rebillyMerge:
+      - 
+        $ref: '#/definitions/Currency'
+  product:
+    description: Наименование предлагаемых товаров или услуг
+    type: string
+    maxLength: 100
+  description:
+    description: Описание предлагаемых товаров или услуг
+    type: string
+    maxLength: 1000
+  cart:
+    $ref: '#/definitions/InvoiceCart'
+  allocation:
+    $ref: '#/definitions/Allocation'
+  bankAccount:
+    $ref: '#/definitions/InvoiceBankAccount'
+  metadata:
+    description: 'Метаданные, которые необходимо связать с инвойсом'
+    type: object
+  clientInfo:
+    $ref: '#/definitions/InvoiceClientInfo'
