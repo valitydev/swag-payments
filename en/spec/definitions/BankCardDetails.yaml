@@ -14,7 +14,7 @@ properties:
     type: string
     pattern: '^\d{6}$'
   last4:
-    description: Последние цифры номера карты
+    description: Card last digits
     type: string
     pattern: '^\d{0,4}$'
   paymentSystem:
