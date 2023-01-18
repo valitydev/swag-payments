@@ -44,7 +44,7 @@ post:
               - invalidInvoiceCart
               - ambiguousPartyID
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Lifetime cannot be zero
     '409':
