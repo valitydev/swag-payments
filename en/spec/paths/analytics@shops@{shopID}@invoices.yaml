@@ -52,7 +52,7 @@ get:
     - 
       name: paymentMethod
       in: query
-      description: Метод оплаты
+      description: Payment method
       required: false
       type: string
       enum:
@@ -75,7 +75,7 @@ get:
       #- rbs
       name: invoiceID
       in: query
-      description: Идентификатор инвойса
+      description: Invoice ID
       required: false
       type: string
       maxLength: 40
@@ -83,7 +83,7 @@ get:
     - 
       name: paymentID
       in: query
-      description: Идентификатор платежа
+      description: Payment ID
       required: false
       type: string
       maxLength: 40
@@ -99,7 +99,7 @@ get:
     - 
       name: payerIP
       in: query
-      description: IP-адрес плательщика
+      description: Payer IP-address
       required: false
       type: string
       format: ip-address
@@ -114,7 +114,7 @@ get:
     - 
       name: customerID
       in: query
-      description: Идентификатор плательщика
+      description: Customer ID
       required: false
       type: string
       maxLength: 40
@@ -145,7 +145,7 @@ get:
     - 
       name: last4
       in: query
-      description: Последние цифры номера карты
+      description: Card last digits
       required: false
       type: string
       pattern: '^\d{0,4}$'
@@ -159,7 +159,7 @@ get:
     - 
       name: paymentAmount
       in: query
-      description: Сумма платежа
+      description: Amount
       required: false
       type: integer
       format: int64
