@@ -21,7 +21,7 @@ get:
     - 
       name: invoiceID
       in: query
-      description: Идентификатор инвойса
+      description: Invoice ID
       required: false
       type: string
       maxLength: 40
@@ -29,7 +29,7 @@ get:
     - 
       name: paymentID
       in: query
-      description: Идентификатор платежа
+      description: Payment ID
       required: false
       type: string
       maxLength: 40
@@ -60,7 +60,7 @@ get:
     - 
       name: refundStatus
       in: query
-      description: Статус возврата
+      description: Refund status
       type: string
       enum:
         - pending
