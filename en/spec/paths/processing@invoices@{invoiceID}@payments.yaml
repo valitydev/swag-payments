@@ -1,0 +1,84 @@
+get:
+  description: Получить все платежи по указанному инвойсу.
+  tags:
+    - Payments
+  operationId: getPayments
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/invoiceID'
+  responses:
+    '200':
+      description: Данные платежей по инвойсу
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/Payment'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
+post:
+  description: Создать новый платеж по указанному инвойсу.
+  tags:
+    - Payments
+  operationId: createPayment
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/invoiceID'
+    - 
+      name: paymentParams
+      description: Параметры создаваемого платежа
+      in: body
+      required: true
+      schema:
+        $ref: '#/definitions/PaymentParams'
+  responses:
+    '201':
+      description: Платёж создан
+      schema:
+        $ref: '#/definitions/Payment'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      description: Ошибочные данные для запуска платежа
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: |
+              [Код ошибки](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidInvoiceStatus
+              - invoicePaymentPending
+              - invalidRequest
+              - invalidDeadline
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidContractStatus
+              - invalidPaymentToolToken
+              - invalidPaymentSession
+              - invalidProcessingDeadline
+              - invalidRecurrentParent
+              - operationNotPermitted
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Invalid invoice status
+    '409':
+      $ref: '#/responses/ExternalIDConflict'
