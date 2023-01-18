@@ -1,0 +1,8 @@
+type: object
+required:
+  - reason
+properties:
+  reason:
+    description: Причина совершения операции
+    type: string
+    maxLength: 1000
