@@ -12,7 +12,7 @@ properties:
     description: Идентификатор чарджбэка
     type: string
   createdAt:
-    description: Дата и время создания
+    description: Date and time of creation
     type: string
     format: date-time
   body:
