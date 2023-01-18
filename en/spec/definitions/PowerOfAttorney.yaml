@@ -1,0 +1,6 @@
+type: object
+allOf:
+  - 
+    $ref: '#/definitions/RepresentativeDocument'
+  - 
+    $ref: '#/definitions/LegalAgreement'
