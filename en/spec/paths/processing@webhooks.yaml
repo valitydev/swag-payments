@@ -1,0 +1,78 @@
+post:
+  description: Установить новый webhook.
+  tags:
+    - Webhooks
+  operationId: createWebhook
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      name: webhookParams
+      description: Параметры устанавливаемого webhook'а
+      in: body
+      required: true
+      schema:
+        $ref: '#/definitions/Webhook'
+  responses:
+    '201':
+      description: Webhook установлен
+      schema:
+        $ref: '#/definitions/Webhook'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '429':
+      description: Превышен лимит количества установленных webhook'ов
+      schema:
+        type: object
+        required:
+          - message
+        properties:
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Webhook limit exceeded
+    '400':
+      description: Ошибочные данные webhook'а
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: |
+              [Код ошибки](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPartyID
+              - invalidShopID
+              - invalidRequest
+              - invalidDeadline
+              - ambiguousPartyID
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Shop not found or inaccessible
+get:
+  description: Получить набор установленных webhook'ов.
+  tags:
+    - Webhooks
+  operationId: getWebhooks
+  parameters:
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+  responses:
+    '200':
+      description: Набор webhook'ов
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/Webhook'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
