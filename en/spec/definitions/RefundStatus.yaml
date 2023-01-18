@@ -3,7 +3,7 @@ required:
   - status
 properties:
   status:
-    description: Статус возврата
+    description: Refund status
     type: string
     enum:
       - pending
