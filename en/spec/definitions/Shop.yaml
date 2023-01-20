@@ -1,4 +1,4 @@
-description: Данные магазина
+description: Shop details
 type: object
 required:
   - id
@@ -18,7 +18,7 @@ properties:
     type: string
     format: date-time
   isBlocked:
-    description: Заблокирован ли магазин?
+    description: Is the shop blocked?
     type: boolean
   isSuspended:
     description: Приостановлены ли операции в рамках магазина?
