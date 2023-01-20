@@ -51,7 +51,7 @@ allOf:
       flow:
         $ref: '#/definitions/PaymentFlow'
       metadata:
-        description: Связанные с платежом метаданные
+        description: Payment metadata
         type: object
       statusChangedAt:
         description: Дата и время изменения статуса платежа
