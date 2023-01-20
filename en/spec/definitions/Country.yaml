@@ -1,4 +1,4 @@
-description: 'Страна'
+description: 'Country'
 type: object
 required:
   - id
