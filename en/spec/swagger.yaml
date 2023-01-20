@@ -93,7 +93,7 @@ responses:
   Unauthorized:
     description: Authorization error
   DefaultLogicError:
-    description: Неверные данные
+    description: Invalid data
     schema:
       $ref: '#/definitions/DefaultLogicError'
   ExternalIDConflict:
@@ -120,7 +120,7 @@ parameters:
   invoiceTemplateID:
     name: invoiceTemplateID
     in: path
-    description: Идентификатор шаблона инвойса
+    description: Invoice template ID
     required: true
     type: string
     maxLength: 40
@@ -152,7 +152,7 @@ parameters:
   contractID:
     name: contractID
     in: path
-    description: Идентификатор договора
+    description: Contract ID
     required: true
     type: string
     maxLength: 40
@@ -168,7 +168,7 @@ parameters:
   customerID:
     name: customerID
     in: path
-    description: Идентификатор кастомера
+    description: Customer ID
     required: true
     type: string
     maxLength: 40
@@ -200,7 +200,7 @@ parameters:
   payoutToolID:
     name: payoutToolID
     in: path
-    description: Идентификатор средства вывода
+    description: Payout tool ID
     required: true
     type: string
     maxLength: 40
@@ -284,7 +284,7 @@ parameters:
     name: countryID
     in: path
     required: true
-    description: 'Alpha-3 код страны по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)'
+    description: ' Alpha-3 country code by standard [ISO 3166-1] (https://en.wikipedia.org/wiki/ISO_3166-1)'
     type: string
     pattern: '^[A-Z]{3}$'
   tradeBlocID:
@@ -439,19 +439,19 @@ tags:
       Запросы API платежей авторизуются либо токеном доступа к инвойсу, по которому создан платеж, либо вашим API-ключом.
   - 
     name: Tokens
-    x-displayName: Платежные токены
+    x-displayName: Payment tokens
     description: >
       Система предоставляет вам возможность самостоятельно инициировать списание денег с платежных карт плательщиков и берет на себя процессы сертификации и соответствия стандартам PCS-DSS. Стандарт декларирует запрет на обработку и хранение данных держателей карт (ДДК) на стороне мерчанта. Используемые нами подходы к реализации интерфейса подразумевают возможность верстки и отдачи HTML формы для ввода ДДК на стороне вашего серверного кода. Чтобы обеспечить соответствие стандартам мы предоставляем разработанную нами JS-библиотеку, которая после встраивания в HTML-код вашей платежной формы в асинхронном режиме собирает ДДК и отправляет на интерфейс системы для дальнейшего шифрования и токенизации. В ответ JS-библиотека возвращает на вашу платежную форму уникальный токен платежной карты, который в дальнейшем вы можете использовать для запуска платежей.
 
       В процессе создания токена предоставляется [платежная сессия](#tag/Payments), обеспечивающая идемпотентность списания денег с платежного средства.
   - 
     name: Categories
-    x-displayName: Категории магазинов
+    x-displayName: Shop categories
     description: >
       Для описания групп товаров и услуг, предоставляемых магазинами, используются категории. Категории могут влиять на предоставление статистики, упорядочивание магазинов, а также на финансовые условия системы.
   - 
     name: Contracts
-    x-displayName: Договоры
+    x-displayName: Contracts
     description: >
       Договор содержит данные юридического соглашения, на основе которого система предоставляет всевозможные услуги мерчанту. В договоре, в частности описывается набор условий, по которым предоставляются сервисы системы, например, комиссии на проведение транзакций, условия вывода средств и данных юридического лица.
       Любые изменения данных магазинов требуют верификации на стороне системы путем создания заявок на изменение.
@@ -474,7 +474,7 @@ tags:
       Для получения списка всех инвойсов/платежей указанного магазина необходимо вызвать соответствующий метод платформы. Имеется возможность отфильтровать выборку по определенным статусам.
   - 
     name: PaymentInstitutions
-    x-displayName: Платёжные организации
+    x-displayName: Payment Institutions
     description: >
       Платёжная организация - организация, осуществляющая услуги по обслуживанию финансовых операций, которые возникают в результате осуществления бизнес-процессов системой.
   - 
