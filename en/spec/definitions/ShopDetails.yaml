@@ -7,6 +7,6 @@ properties:
     type: string
     maxLength: 100
   description:
-    description: Краткое описание
+    description: Short description
     type: string
     maxLength: 1000
