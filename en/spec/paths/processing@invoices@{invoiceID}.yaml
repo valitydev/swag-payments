@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/invoiceID'
   responses:
     '200':
-      description: Данные инвойса
+      description: Invoice details
       schema:
         $ref: '#/definitions/Invoice'
     '404':
