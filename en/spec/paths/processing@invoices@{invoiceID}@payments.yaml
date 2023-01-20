@@ -44,7 +44,7 @@ post:
         $ref: '#/definitions/PaymentParams'
   responses:
     '201':
-      description: Платёж создан
+      description: Payment created
       schema:
         $ref: '#/definitions/Payment'
     '404':
@@ -61,7 +61,7 @@ post:
         properties:
           code:
             description: |
-              [Код ошибки](#tag/Error-Codes)
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidInvoiceStatus
