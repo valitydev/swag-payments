@@ -8,14 +8,14 @@ required:
   - paymentInstitutionID
 properties:
   id:
-    description: Идентификатор договора
+    description: Contract ID
     type: string
   createdAt:
     description: Дата и время создания договора
     type: string
     format: date-time
   status:
-    description: Статус договора
+    description: Contract status
     type: string
     enum:
       - active
