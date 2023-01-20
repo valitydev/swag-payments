@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/countryID'
   responses:
     '200':
-      description: Страна найдена
+      description: Country found
       schema:
         $ref: '#/definitions/Country'
     '404':
