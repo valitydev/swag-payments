@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/customerID'
   responses:
     '200':
-      description: Данные плательщика
+      description: Customer details
       schema:
         $ref: '#/definitions/Customer'
     '404':
@@ -35,7 +35,7 @@ delete:
       $ref: '#/parameters/customerID'
   responses:
     '204':
-      description: Плательщик удален
+      description: Customer removed
     '404':
       $ref: '#/responses/NotFound'
     '401':
@@ -50,7 +50,7 @@ delete:
         properties:
           code:
             description: |
-              [Код ошибки](#tag/Error-Codes)
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyStatus
