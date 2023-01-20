@@ -1,4 +1,4 @@
-description: Расписание
+description: Schedule
 type: object
 required:
   - name
