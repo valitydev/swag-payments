@@ -8,7 +8,7 @@ properties:
   target:
     $ref: '#/definitions/AllocationTarget'
   allocationBodyType:
-    description: Тело транзакции
+    description: Transaction body
     type: string
     enum:
       - AllocationBodyAmount
