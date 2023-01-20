@@ -37,7 +37,7 @@ get:
     - 
       name: refundID
       in: query
-      description: Идентификатор возврата
+      description: Refund ID
       required: false
       type: string
       maxLength: 40
@@ -68,7 +68,7 @@ get:
         - failed
   responses:
     '200':
-      description: Найденные возвраты
+      description: Refunds found
       schema:
         type: object
         properties:
