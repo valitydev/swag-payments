@@ -16,7 +16,7 @@ get:
       $ref: '#/parameters/partyID'
   responses:
     '200':
-      description: Данные средства вывода
+      description: Payout tool details
       schema:
         $ref: '#/definitions/PayoutTool'
     '404':
