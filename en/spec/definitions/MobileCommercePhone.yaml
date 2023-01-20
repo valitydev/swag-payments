@@ -11,7 +11,7 @@ properties:
     pattern: '^\d{1,3}$'
     example: "7"
   ctn:
-    description: Номер абонента
+    description: Phone number
     type: string
     pattern: '^\d{10,12}$'
     example: "0001234567"
