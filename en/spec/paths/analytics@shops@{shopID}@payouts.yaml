@@ -21,7 +21,7 @@ get:
     - 
       name: payoutID
       in: query
-      description: Идентификатор выплаты
+      description: Payout ID
       required: false
       type: string
       maxLength: 40
@@ -39,7 +39,7 @@ get:
         Тип выплаты для поиска * PayoutAccount - выплата на банковский счёт * Wallet - выплата на кошелёк * PaymentInstitutionAccount - выплата на счёт платежной организации
   responses:
     '200':
-      description: Найденные выплаты
+      description: Payouts found
       schema:
         type: object
         properties:
