@@ -22,7 +22,7 @@ properties:
       - 
         $ref: '#/definitions/PartyID'
   name:
-    description: Название шаблона
+    description: Template name
     type: string
     maxLength: 100
   description:
