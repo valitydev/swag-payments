@@ -14,7 +14,7 @@ get:
       $ref: '#/parameters/paymentID'
   responses:
     '200':
-      description: Данные платежа
+      description: Payment details
       schema:
         $ref: '#/definitions/Payment'
     '404':
