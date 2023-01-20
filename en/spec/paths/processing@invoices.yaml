@@ -46,7 +46,7 @@ post:
         $ref: '#/definitions/InvoiceParams'
   responses:
     '201':
-      description: Инвойс создан
+      description: Invoice created
       schema:
         $ref: '#/definitions/InvoiceAndToken'
     '401':
@@ -61,7 +61,7 @@ post:
         properties:
           code:
             description: |
-              [Код ошибки](#tag/Error-Codes)
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyID
