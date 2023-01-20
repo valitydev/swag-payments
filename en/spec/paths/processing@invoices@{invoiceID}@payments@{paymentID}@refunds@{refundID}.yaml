@@ -16,7 +16,7 @@ get:
       $ref: '#/parameters/refundID'
   responses:
     '200':
-      description: Данные возврата
+      description: Refund details
       schema:
         $ref: '#/definitions/Refund'
     '404':
