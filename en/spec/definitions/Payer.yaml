@@ -2,7 +2,7 @@ type: object
 discriminator: payerType
 properties:
   payerType:
-    description: Тип платежного средства
+    description: Payment tool type
     type: string
   sessionInfo:
     description: Данные текущей сессии плательщика
