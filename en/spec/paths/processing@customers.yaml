@@ -17,7 +17,7 @@ post:
         $ref: '#/definitions/CustomerParams'
   responses:
     '201':
-      description: Плательщик создан
+      description: Customer created
       schema:
         $ref: '#/definitions/CustomerAndToken'
     '401':
@@ -32,7 +32,7 @@ post:
         properties:
           code:
             description: |
-              [Код ошибки](#tag/Error-Codes)
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - operationNotPermitted
