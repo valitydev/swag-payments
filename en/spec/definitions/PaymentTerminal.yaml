@@ -8,7 +8,7 @@ allOf:
       - providers
     properties:
       providers:
-        description: Список провайдеров
+        description: Providers
         type: array
         items:
           x-rebillyMerge:
