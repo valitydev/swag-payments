@@ -1,4 +1,4 @@
-description: Платёжная организация
+description: Payment Institution
 type: object
 required:
   - id
