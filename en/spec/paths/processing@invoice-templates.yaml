@@ -32,7 +32,7 @@ post:
         properties:
           code:
             description: |
-              [Код ошибки](#tag/Error-Codes)
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyID
