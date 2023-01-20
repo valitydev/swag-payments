@@ -4,7 +4,7 @@ allOf:
     $ref: '#/definitions/PaymentTool'
   - 
     type: object
-    description: Электронный кошелёк
+    description: E-wallet
     required:
       - id
       - provider
@@ -17,5 +17,5 @@ allOf:
           - 
             $ref: '#/definitions/DigitalWalletProvider'
       token:
-        description: Токен
+        description: Token
         type: string
