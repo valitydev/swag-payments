@@ -17,7 +17,7 @@ properties:
       - 
         $ref: '#/definitions/Currency'
   reason:
-    description: Причина совершения возврата
+    description: Refund reason
     type: string
     maxLength: 1000
   cart:
