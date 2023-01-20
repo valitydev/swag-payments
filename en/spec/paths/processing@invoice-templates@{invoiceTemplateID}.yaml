@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/invoiceTemplateID'
   responses:
     '200':
-      description: Шаблон инвойса
+      description: Invoice template
       schema:
         $ref: '#/definitions/InvoiceTemplate'
     '404':
@@ -59,7 +59,7 @@ put:
         properties:
           code:
             description: |
-              [Код ошибки](#tag/Error-Codes)
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyStatus
@@ -100,7 +100,7 @@ delete:
         properties:
           code:
             description: |
-              [Код ошибки](#tag/Error-Codes)
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyStatus
