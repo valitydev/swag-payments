@@ -18,13 +18,13 @@ post:
         $ref: '#/definitions/PayoutParams'
   responses:
     '201':
-      description: Выплата создана
+      description: Payout created
       schema:
         $ref: '#/definitions/Payout'
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Неверные данные
+      description: Invalid data
       schema:
         type: object
         required:
@@ -33,7 +33,7 @@ post:
         properties:
           code:
             description: |
-              [Код ошибки](#tag/Error-Codes)
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyID
