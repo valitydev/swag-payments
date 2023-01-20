@@ -8,7 +8,7 @@ required:
   - payoutToolDetails
 properties:
   id:
-    description: Идентификатор выплаты
+    description: Payout ID
     type: string
   shopID:
     description: Shop ID
@@ -41,5 +41,5 @@ properties:
   payoutToolDetails:
     $ref: '#/definitions/PayoutToolDetails'
   status:
-    description: Статус выплаты
+    description: Payout status
     type: string
