@@ -11,7 +11,7 @@ allOf:
       - bankBik
     properties:
       account:
-        description: Номер счёта
+        description: Account number
         type: string
         pattern: '^\d{20}$'
         example: 12345678912345678912
