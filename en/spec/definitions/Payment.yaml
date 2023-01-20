@@ -49,7 +49,7 @@ x-merge-properties:
           - 
             readOnly: true
       metadata:
-        description: Связанные с платежом метаданные
+        description: Payment metadata
         type: object
       allocation:
         x-rebillyMerge:
