@@ -9,7 +9,7 @@ required:
   - status
 properties:
   id:
-    description: Идентификатор чарджбэка
+    description: Chargeback ID
     type: string
   createdAt:
     description: Date and time of creation
@@ -32,18 +32,18 @@ properties:
       - 
         $ref: '#/definitions/Currency'
   reasonCode:
-    description: Код причины чарджбэка
+    description: Chargeback reason code
     type: string
     maxLength: 1000
   stage:
-    description: Стадия чарджбэка
+    description: Chargeback stage
     type: string
     enum:
       - chargeback
       - pre-arbitration
       - arbitration
   status:
-    description: Статус чарджбэка
+    description: Chargeback status
     type: string
     enum:
       - pending
