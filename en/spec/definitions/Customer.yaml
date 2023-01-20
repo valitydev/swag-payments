@@ -24,7 +24,7 @@ properties:
   contactInfo:
     $ref: '#/definitions/ContactInfo'
   status:
-    description: Статус плательщика
+    description: Customer status
     type: string
     readOnly: true
     enum:
