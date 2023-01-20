@@ -32,7 +32,7 @@ get:
     - 
       name: paymentFlow
       in: query
-      description: Flow платежа
+      description: Payment flow
       required: false
       type: string
       enum:
