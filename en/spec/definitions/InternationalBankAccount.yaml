@@ -3,7 +3,7 @@ type: object
 properties:
   number:
     description: |
-      Номер счёта
+      Account number
     type: string
     pattern: '^[0-9A-Z]{8,40}$'
     example: "123006951"
