@@ -1,4 +1,4 @@
-description: Комиссия транзакции
+description: Transaction fee
 type: object
 discriminator: allocationFeeType
 required:
