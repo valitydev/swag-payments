@@ -43,7 +43,7 @@ get:
     - 
       name: paymentFlow
       in: query
-      description: Flow платежа
+      description: Payment flow
       required: false
       type: string
       enum:
@@ -167,7 +167,7 @@ get:
     - 
       name: invoiceAmount
       in: query
-      description: Сумма инвойса
+      description: Invoice amount
       required: false
       type: integer
       format: int64
@@ -182,7 +182,7 @@ get:
           $ref: '#/definitions/ContinuationToken'
   responses:
     '200':
-      description: Найденные инвойсы
+      description: Invoices found
       schema:
         type: object
         properties:
