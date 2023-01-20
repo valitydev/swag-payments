@@ -5,5 +5,5 @@ required:
   - locationType
 properties:
   locationType:
-    description: Тип местоположения
+    description: Location type
     type: string
