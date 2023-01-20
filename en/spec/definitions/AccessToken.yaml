@@ -4,5 +4,5 @@ required:
 properties:
   payload:
     description: |
-      Содержимое токена для доступа
+      Access token payload
     type: string
