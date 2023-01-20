@@ -9,7 +9,7 @@ x-merge-properties:
       - currency
     properties:
       id:
-        description: Идентификатор возврата
+        description: Refund ID
         type: string
       externalID:
         x-rebillyMerge:
@@ -30,7 +30,7 @@ x-merge-properties:
           - 
             $ref: '#/definitions/Currency'
       reason:
-        description: Причина осуществления возврата
+        description: Refund reason
         type: string
       cart:
         x-rebillyMerge:
