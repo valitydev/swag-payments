@@ -1,4 +1,4 @@
-description: Физическое лицо
+description: Private entity
 allOf:
   - 
     $ref: '#/definitions/Contractor'
@@ -9,7 +9,7 @@ allOf:
       - entityType
     properties:
       entityType:
-        description: Тип физ. лица
+        description: Private entity type
         type: string
         enum:
           - RussianPrivateEntity
