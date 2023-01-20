@@ -61,7 +61,7 @@ x-merge-properties:
       bankAccount:
         $ref: '#/definitions/InvoiceBankAccount'
       metadata:
-        description: Связанные с инвойсом метаданные
+        description: Invoice metadata
         type: object
       clientInfo:
         $ref: '#/definitions/InvoiceClientInfo'
