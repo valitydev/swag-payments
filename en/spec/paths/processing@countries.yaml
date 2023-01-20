@@ -10,7 +10,7 @@ get:
       $ref: '#/parameters/deadline'
   responses:
     '200':
-      description: Список стран
+      description: Country list
       schema:
         type: array
         items:
