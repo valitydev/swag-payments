@@ -16,7 +16,7 @@ get:
       $ref: '#/parameters/chargebackID'
   responses:
     '200':
-      description: Данные чарджбэка
+      description: Chargeback details
       schema:
         $ref: '#/definitions/Chargeback'
     '404':
