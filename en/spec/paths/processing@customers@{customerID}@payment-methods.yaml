@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/customerID'
   responses:
     '200':
-      description: Список методов оплаты
+      description: Payment methods
       schema:
         type: array
         items:
