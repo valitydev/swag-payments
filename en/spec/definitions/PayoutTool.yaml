@@ -6,7 +6,7 @@ allOf:
       - id
     properties:
       id:
-        description: Идентификатор средства вывода
+        description: Payout tool ID
         type: string
   - 
     $ref: '#/definitions/PayoutToolParams'
