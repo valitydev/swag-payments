@@ -48,7 +48,7 @@ post:
         $ref: '#/definitions/RefundParams'
   responses:
     '201':
-      description: Возврат создан
+      description: Refund created
       schema:
         $ref: '#/definitions/Refund'
     '404':
@@ -65,7 +65,7 @@ post:
         properties:
           code:
             description: |
-              [Код ошибки](#tag/Error-Codes)
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyStatus
