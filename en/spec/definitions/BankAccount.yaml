@@ -9,7 +9,7 @@ required:
   - bankBik
 properties:
   account:
-    description: Номер счёта
+    description: Account number
     type: string
     pattern: '^\d{20}$'
   bankName:
