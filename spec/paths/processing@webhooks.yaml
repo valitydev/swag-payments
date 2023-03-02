@@ -61,6 +61,7 @@ get:
   parameters:
     - $ref: '#/parameters/requestID'
     - $ref: '#/parameters/deadline'
+    - $ref: '#/parameters/optionalPartyID'
   responses:
     '200':
       description: Набор webhook'ов

@@ -1,0 +1,55 @@
+post:
+  description: >
+    Подтвердить указанный платеж участника.
+    В случае передачи суммы подтверждения, меньшей, чем оригинальная,
+    оставшаяся часть платежа будет возвращена.(см. [Варианты проведения оплаты](#tag/Payments))
+  tags:
+    - Payments
+  operationId: capturePaymentForParty
+  parameters:
+    - $ref: '#/parameters/requestID'
+    - $ref: '#/parameters/deadline'
+    - $ref: '#/parameters/partyID'
+    - $ref: '#/parameters/invoiceID'
+    - $ref: '#/parameters/paymentID'
+    - name: capturePayment
+      in: body
+      description: Параметры подтверждения платежа
+      required: true
+      schema:
+        $ref: '#/definitions/CaptureParams'
+  responses:
+    '202':
+      description: Запрос на подтверждение платежа принят
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      description: Ошибка подтверждения платежа
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: |
+              [Код ошибки](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPaymentStatus
+              - operationNotPermitted
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidRequest
+              - invalidDeadline
+              - invalidInvoiceCart
+              - invalidAllocation
+              - allocationNotPermitted
+              - inconsistentCaptureCurrency
+              - amountExceededCaptureBalance
+          message:
+            description: Человекочитаемое описание ошибки
+            type: string
+            example: Invalid payment status
