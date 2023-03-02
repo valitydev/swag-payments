@@ -2,7 +2,7 @@ get:
   description: Получить инвойс участника по указанному внешнему идентификатору.
   tags:
     - Invoices
-  operationId: getInvoiceForPartyByExternalID
+  operationId: getInvoiceByExternalIDForParty
   parameters:
     - $ref: '#/parameters/requestID'
     - $ref: '#/parameters/deadline'

@@ -7,7 +7,6 @@ get:
     - $ref: '#/parameters/requestID'
     - $ref: '#/parameters/deadline'
     - $ref: '#/parameters/webhookID'
-    - $ref: '#/parameters/optionalPartyID'
   responses:
     '200':
       description: Данные webhook'а
@@ -29,7 +28,6 @@ delete:
     - $ref: '#/parameters/requestID'
     - $ref: '#/parameters/deadline'
     - $ref: '#/parameters/webhookID'
-    - $ref: '#/parameters/optionalPartyID'
   responses:
     '204':
       description: Webhook успешно снят
