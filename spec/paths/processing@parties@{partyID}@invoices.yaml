@@ -1,0 +1,27 @@
+get:
+  description: Получить инвойс участника по указанному внешнему идентификатору.
+  tags:
+    - Invoices
+  operationId: getInvoiceByExternalIDForParty
+  parameters:
+    - $ref: '#/parameters/requestID'
+    - $ref: '#/parameters/deadline'
+    - $ref: '#/parameters/partyID'
+    - name: externalID
+      description: Внешний идентификатор инвойса
+      in: query
+      required: true
+      type: string
+      maxLength: 40
+      minLength: 1
+  responses:
+    '200':
+      description: Инвойс
+      schema:
+        $ref: '#/definitions/Invoice'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'

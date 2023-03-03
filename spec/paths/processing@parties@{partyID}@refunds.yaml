@@ -1,0 +1,27 @@
+get:
+  description: Получить возврат по указанному внешнему идентификатору для участника.
+  tags:
+    - Payments
+  operationId: getRefundByExternalIDForParty
+  parameters:
+    - $ref: '#/parameters/requestID'
+    - $ref: '#/parameters/deadline'
+    - $ref: '#/parameters/partyID'
+    - name: externalID
+      description: Внешний идентификатор возврата
+      in: query
+      required: true
+      type: string
+      maxLength: 40
+      minLength: 1
+  responses:
+    '200':
+      description: Данные возврата
+      schema:
+        $ref: '#/definitions/Refund'
+    '404':
+      $ref: '#/responses/NotFound'
+    '401':
+      $ref: '#/responses/Unauthorized'
+    '400':
+      $ref: '#/responses/DefaultLogicError'
