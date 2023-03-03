@@ -2746,6 +2746,165 @@ paths:
           $ref: '#/responses/Unauthorized'
         '404':
           $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/invoices':
+    get:
+      description: Получить инвойс участника по указанному внешнему идентификатору.
+      tags:
+        - Invoices
+      operationId: getInvoiceByExternalIDForParty
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+        - name: externalID
+          description: Внешний идентификатор инвойса
+          in: query
+          required: true
+          type: string
+          maxLength: 40
+          minLength: 1
+      responses:
+        '200':
+          description: Инвойс
+          schema:
+            $ref: '#/definitions/Invoice'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/payment-institutions/{paymentInstitutionID}/terms/payouts/methods':
+    get:
+      description: Получить cпособы вывода средств для платёжной организации участника
+      tags:
+        - PaymentInstitutions
+      operationId: getPaymentInstitutionPayoutMethodsForParty
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+        - $ref: '#/parameters/paymentInstitutionID'
+        - name: currency
+          in: query
+          required: false
+          description: 'Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).'
+          type: string
+          pattern: '^[A-Z]{3}$'
+      responses:
+        '200':
+          description: Способ вывода средств
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - BankAccount
+                - InternationalBankAccount
+                - Wallet
+                - PaymentInstitutionAccount
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/payment-institutions/{paymentInstitutionID}/terms/payouts/schedules':
+    get:
+      description: Получить доступные расписания вывода средств для платёжной организации участника
+      tags:
+        - PaymentInstitutions
+      operationId: getPaymentInstitutionPayoutSchedulesForParty
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+        - $ref: '#/parameters/paymentInstitutionID'
+        - name: currency
+          in: query
+          required: false
+          description: 'Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).'
+          type: string
+          pattern: '^[A-Z]{3}$'
+        - name: payoutMethod
+          in: query
+          required: false
+          description: Способ вывода средств
+          type: string
+          enum:
+            - BankAccount
+            - InternationalBankAccount
+            - Wallet
+      responses:
+        '200':
+          description: Идентификаторы расписаний выводов
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int32
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/payments':
+    get:
+      description: Получить платёж по указанному внешнему идентификатору для участника.
+      tags:
+        - Payments
+      operationId: getPaymentByExternalIDForParty
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+        - name: externalID
+          description: Внешний идентификатор платежа
+          in: query
+          required: true
+          type: string
+          maxLength: 40
+          minLength: 1
+      responses:
+        '200':
+          description: Платёж
+          schema:
+            $ref: '#/definitions/Payment'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/refunds':
+    get:
+      description: Получить возврат по указанному внешнему идентификатору для участника.
+      tags:
+        - Payments
+      operationId: getRefundByExternalIDForParty
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+        - name: externalID
+          description: Внешний идентификатор возврата
+          in: query
+          required: true
+          type: string
+          maxLength: 40
+          minLength: 1
+      responses:
+        '200':
+          description: Данные возврата
+          schema:
+            $ref: '#/definitions/Refund'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
   '/processing/parties/{partyID}/shops':
     get:
       description: Get all shops
