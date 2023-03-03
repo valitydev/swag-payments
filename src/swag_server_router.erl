@@ -245,6 +245,11 @@ get_operations() ->
             method => <<"GET">>,
             handler => 'swag_server_invoices_handler'
         },
+        'GetInvoiceByExternalIDForParty' => #{
+            path => "/v2/processing/parties/:partyID/invoices",
+            method => <<"GET">>,
+            handler => 'swag_server_invoices_handler'
+        },
         'GetInvoiceByID' => #{
             path => "/v2/processing/invoices/:invoiceID",
             method => <<"GET">>,
@@ -310,8 +315,18 @@ get_operations() ->
             method => <<"GET">>,
             handler => 'swag_server_payment_institutions_handler'
         },
+        'GetPaymentInstitutionPayoutMethodsForParty' => #{
+            path => "/v2/processing/parties/:partyID/payment-institutions/:paymentInstitutionID/terms/payouts/methods",
+            method => <<"GET">>,
+            handler => 'swag_server_payment_institutions_handler'
+        },
         'GetPaymentInstitutionPayoutSchedules' => #{
             path => "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payouts/schedules",
+            method => <<"GET">>,
+            handler => 'swag_server_payment_institutions_handler'
+        },
+        'GetPaymentInstitutionPayoutSchedulesForParty' => #{
+            path => "/v2/processing/parties/:partyID/payment-institutions/:paymentInstitutionID/terms/payouts/schedules",
             method => <<"GET">>,
             handler => 'swag_server_payment_institutions_handler'
         },
@@ -360,6 +375,11 @@ get_operations() ->
             method => <<"GET">>,
             handler => 'swag_server_payments_handler'
         },
+        'GetPaymentByExternalIDForParty' => #{
+            path => "/v2/processing/parties/:partyID/payments",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
         'GetPaymentByID' => #{
             path => "/v2/processing/invoices/:invoiceID/payments/:paymentID",
             method => <<"GET">>,
@@ -372,6 +392,11 @@ get_operations() ->
         },
         'GetRefundByExternalID' => #{
             path => "/v2/processing/refunds",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetRefundByExternalIDForParty' => #{
+            path => "/v2/processing/parties/:partyID/refunds",
             method => <<"GET">>,
             handler => 'swag_server_payments_handler'
         },

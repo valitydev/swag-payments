@@ -80,7 +80,23 @@ allowed_methods(
 allowed_methods(
     Req,
     State = #state{
+        operation_id = 'GetPaymentInstitutionPayoutMethodsForParty'
+    }
+) ->
+    {[<<"GET">>], Req, State};
+
+allowed_methods(
+    Req,
+    State = #state{
         operation_id = 'GetPaymentInstitutionPayoutSchedules'
+    }
+) ->
+    {[<<"GET">>], Req, State};
+
+allowed_methods(
+    Req,
+    State = #state{
+        operation_id = 'GetPaymentInstitutionPayoutSchedulesForParty'
     }
 ) ->
     {[<<"GET">>], Req, State};
@@ -195,7 +211,61 @@ is_authorized(
 is_authorized(
     Req0,
     State = #state{
+        operation_id  = 'GetPaymentInstitutionPayoutMethodsForParty' = OperationID,
+        logic_handler = LogicHandler,
+        context       = Context
+    }
+) ->
+    From = header,
+    Result = swag_server_handler_api:authorize_api_key(
+        LogicHandler,
+        OperationID,
+        From,
+        'Authorization',
+        Req0,
+        Context
+    ),
+    case Result of
+        {true, AuthContext, Req} ->
+            NewContext = Context#{
+                auth_context => AuthContext
+            },
+            {true, Req, State#state{context = NewContext}};
+        {false, AuthHeader, Req} ->
+            {{false, AuthHeader}, Req, State}
+    end;
+
+is_authorized(
+    Req0,
+    State = #state{
         operation_id  = 'GetPaymentInstitutionPayoutSchedules' = OperationID,
+        logic_handler = LogicHandler,
+        context       = Context
+    }
+) ->
+    From = header,
+    Result = swag_server_handler_api:authorize_api_key(
+        LogicHandler,
+        OperationID,
+        From,
+        'Authorization',
+        Req0,
+        Context
+    ),
+    case Result of
+        {true, AuthContext, Req} ->
+            NewContext = Context#{
+                auth_context => AuthContext
+            },
+            {true, Req, State#state{context = NewContext}};
+        {false, AuthHeader, Req} ->
+            {{false, AuthHeader}, Req, State}
+    end;
+
+is_authorized(
+    Req0,
+    State = #state{
+        operation_id  = 'GetPaymentInstitutionPayoutSchedulesForParty' = OperationID,
         logic_handler = LogicHandler,
         context       = Context
     }
@@ -324,7 +394,27 @@ valid_content_headers(
 valid_content_headers(
     Req0,
     State = #state{
+        operation_id = 'GetPaymentInstitutionPayoutMethodsForParty'
+    }
+) ->
+    Headers = ["X-Request-ID","X-Request-Deadline"],
+    {Result, Req} = validate_headers(Headers, Req0),
+    {Result, Req, State};
+
+valid_content_headers(
+    Req0,
+    State = #state{
         operation_id = 'GetPaymentInstitutionPayoutSchedules'
+    }
+) ->
+    Headers = ["X-Request-ID","X-Request-Deadline"],
+    {Result, Req} = validate_headers(Headers, Req0),
+    {Result, Req, State};
+
+valid_content_headers(
+    Req0,
+    State = #state{
+        operation_id = 'GetPaymentInstitutionPayoutSchedulesForParty'
     }
 ) ->
     Headers = ["X-Request-ID","X-Request-Deadline"],
@@ -526,11 +616,72 @@ get_request_spec('GetPaymentInstitutionPayoutMethods') ->
 , {required, false}]
         }}
     ];
+get_request_spec('GetPaymentInstitutionPayoutMethodsForParty') ->
+    [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'partyID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, true
+, {required, true}]
+        }},
+        {'paymentInstitutionID', #{
+            source => binding,
+            rules  => [{type, 'integer'}, {format, 'int32'}, true
+, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }},
+        {'currency', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, {pattern, "^[A-Z]{3}$"}, true
+, {required, false}]
+        }}
+    ];
 get_request_spec('GetPaymentInstitutionPayoutSchedules') ->
     [
         {'X-Request-ID', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'paymentInstitutionID', #{
+            source => binding,
+            rules  => [{type, 'integer'}, {format, 'int32'}, true
+, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }},
+        {'currency', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, {pattern, "^[A-Z]{3}$"}, true
+, {required, false}]
+        }},
+        {'payoutMethod', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, {enum, ['BankAccount', 'InternationalBankAccount', 'Wallet']}, true
+, {required, false}]
+        }}
+    ];
+get_request_spec('GetPaymentInstitutionPayoutSchedulesForParty') ->
+    [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'partyID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, true
 , {required, true}]
         }},
         {'paymentInstitutionID', #{
@@ -636,6 +787,18 @@ get_response_spec('GetPaymentInstitutionPayoutMethods', 401) ->
 get_response_spec('GetPaymentInstitutionPayoutMethods', 404) ->
     {'GeneralError', 'GeneralError'};
 
+get_response_spec('GetPaymentInstitutionPayoutMethodsForParty', 200) ->
+    {'list', 'string'};
+
+get_response_spec('GetPaymentInstitutionPayoutMethodsForParty', 400) ->
+    {'DefaultLogicError', 'DefaultLogicError'};
+
+get_response_spec('GetPaymentInstitutionPayoutMethodsForParty', 401) ->
+    undefined;
+
+get_response_spec('GetPaymentInstitutionPayoutMethodsForParty', 404) ->
+    {'GeneralError', 'GeneralError'};
+
 get_response_spec('GetPaymentInstitutionPayoutSchedules', 200) ->
     {'list', 'integer'};
 
@@ -646,6 +809,18 @@ get_response_spec('GetPaymentInstitutionPayoutSchedules', 401) ->
     undefined;
 
 get_response_spec('GetPaymentInstitutionPayoutSchedules', 404) ->
+    {'GeneralError', 'GeneralError'};
+
+get_response_spec('GetPaymentInstitutionPayoutSchedulesForParty', 200) ->
+    {'list', 'integer'};
+
+get_response_spec('GetPaymentInstitutionPayoutSchedulesForParty', 400) ->
+    {'DefaultLogicError', 'DefaultLogicError'};
+
+get_response_spec('GetPaymentInstitutionPayoutSchedulesForParty', 401) ->
+    undefined;
+
+get_response_spec('GetPaymentInstitutionPayoutSchedulesForParty', 404) ->
     {'GeneralError', 'GeneralError'};
 
 get_response_spec('GetPaymentInstitutions', 200) ->
