@@ -2,7 +2,7 @@ get:
   description: Получить платёж по указанному внешнему идентификатору для участника.
   tags:
     - Payments
-  operationId: getPaymentForPartyByExternalID
+  operationId: getPaymentByExternalIDForParty
   parameters:
     - $ref: '#/parameters/requestID'
     - $ref: '#/parameters/deadline'

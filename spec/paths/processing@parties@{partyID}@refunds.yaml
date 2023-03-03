@@ -2,7 +2,7 @@ get:
   description: Получить возврат по указанному внешнему идентификатору для участника.
   tags:
     - Payments
-  operationId: getRefundForPartyByExternalID
+  operationId: getRefundByExternalIDForParty
   parameters:
     - $ref: '#/parameters/requestID'
     - $ref: '#/parameters/deadline'
