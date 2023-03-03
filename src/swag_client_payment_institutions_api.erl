@@ -12,8 +12,14 @@
 -export([get_payment_institution_payout_methods/2]).
 -export([get_payment_institution_payout_methods/3]).
 
+-export([get_payment_institution_payout_methods_for_party/2]).
+-export([get_payment_institution_payout_methods_for_party/3]).
+
 -export([get_payment_institution_payout_schedules/2]).
 -export([get_payment_institution_payout_schedules/3]).
+
+-export([get_payment_institution_payout_schedules_for_party/2]).
+-export([get_payment_institution_payout_schedules_for_party/3]).
 
 -export([get_payment_institutions/2]).
 -export([get_payment_institutions/3]).
@@ -76,6 +82,24 @@ get_payment_institution_payout_methods(Endpoint, Params, Opts) ->
         Opts
     ), get_payment_institution_payout_methods).
 
+-spec get_payment_institution_payout_methods_for_party(Endpoint :: swag_client:endpoint(), Params :: map()) ->
+    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
+    {error, _Reason}.
+get_payment_institution_payout_methods_for_party(Endpoint, Params) ->
+    get_payment_institution_payout_methods_for_party(Endpoint, Params, []).
+
+-spec get_payment_institution_payout_methods_for_party(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
+    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
+    {error, _Reason}.
+get_payment_institution_payout_methods_for_party(Endpoint, Params, Opts) ->
+    process_response(swag_client_procession:process_request(
+        get,
+        swag_client_utils:get_url(Endpoint, "/v2/processing/parties/:partyID/payment-institutions/:paymentInstitutionID/terms/payouts/methods"),
+        Params,
+        get_request_spec(get_payment_institution_payout_methods_for_party),
+        Opts
+    ), get_payment_institution_payout_methods_for_party).
+
 -spec get_payment_institution_payout_schedules(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
     {error, _Reason}.
@@ -93,6 +117,24 @@ get_payment_institution_payout_schedules(Endpoint, Params, Opts) ->
         get_request_spec(get_payment_institution_payout_schedules),
         Opts
     ), get_payment_institution_payout_schedules).
+
+-spec get_payment_institution_payout_schedules_for_party(Endpoint :: swag_client:endpoint(), Params :: map()) ->
+    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
+    {error, _Reason}.
+get_payment_institution_payout_schedules_for_party(Endpoint, Params) ->
+    get_payment_institution_payout_schedules_for_party(Endpoint, Params, []).
+
+-spec get_payment_institution_payout_schedules_for_party(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
+    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
+    {error, _Reason}.
+get_payment_institution_payout_schedules_for_party(Endpoint, Params, Opts) ->
+    process_response(swag_client_procession:process_request(
+        get,
+        swag_client_utils:get_url(Endpoint, "/v2/processing/parties/:partyID/payment-institutions/:paymentInstitutionID/terms/payouts/schedules"),
+        Params,
+        get_request_spec(get_payment_institution_payout_schedules_for_party),
+        Opts
+    ), get_payment_institution_payout_schedules_for_party).
 
 -spec get_payment_institutions(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
@@ -210,11 +252,72 @@ get_request_spec('get_payment_institution_payout_methods') ->
 , {required, false}]
         }}
     ];
+get_request_spec('get_payment_institution_payout_methods_for_party') ->
+    [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'partyID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, true
+, {required, true}]
+        }},
+        {'paymentInstitutionID', #{
+            source => binding,
+            rules  => [{type, 'integer'}, {format, 'int32'}, true
+, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }},
+        {'currency', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, {pattern, "^[A-Z]{3}$"}, true
+, {required, false}]
+        }}
+    ];
 get_request_spec('get_payment_institution_payout_schedules') ->
     [
         {'X-Request-ID', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'paymentInstitutionID', #{
+            source => binding,
+            rules  => [{type, 'integer'}, {format, 'int32'}, true
+, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }},
+        {'currency', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, {pattern, "^[A-Z]{3}$"}, true
+, {required, false}]
+        }},
+        {'payoutMethod', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, {enum, ['BankAccount', 'InternationalBankAccount', 'Wallet']}, true
+, {required, false}]
+        }}
+    ];
+get_request_spec('get_payment_institution_payout_schedules_for_party') ->
+    [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'partyID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, true
 , {required, true}]
         }},
         {'paymentInstitutionID', #{
@@ -320,6 +423,18 @@ get_response_spec('get_payment_institution_payout_methods', 401) ->
 get_response_spec('get_payment_institution_payout_methods', 404) ->
     {'GeneralError', 'GeneralError'};
 
+get_response_spec('get_payment_institution_payout_methods_for_party', 200) ->
+    {'list', 'string'};
+
+get_response_spec('get_payment_institution_payout_methods_for_party', 400) ->
+    {'DefaultLogicError', 'DefaultLogicError'};
+
+get_response_spec('get_payment_institution_payout_methods_for_party', 401) ->
+    undefined;
+
+get_response_spec('get_payment_institution_payout_methods_for_party', 404) ->
+    {'GeneralError', 'GeneralError'};
+
 get_response_spec('get_payment_institution_payout_schedules', 200) ->
     {'list', 'integer'};
 
@@ -330,6 +445,18 @@ get_response_spec('get_payment_institution_payout_schedules', 401) ->
     undefined;
 
 get_response_spec('get_payment_institution_payout_schedules', 404) ->
+    {'GeneralError', 'GeneralError'};
+
+get_response_spec('get_payment_institution_payout_schedules_for_party', 200) ->
+    {'list', 'integer'};
+
+get_response_spec('get_payment_institution_payout_schedules_for_party', 400) ->
+    {'DefaultLogicError', 'DefaultLogicError'};
+
+get_response_spec('get_payment_institution_payout_schedules_for_party', 401) ->
+    undefined;
+
+get_response_spec('get_payment_institution_payout_schedules_for_party', 404) ->
     {'GeneralError', 'GeneralError'};
 
 get_response_spec('get_payment_institutions', 200) ->

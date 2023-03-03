@@ -3954,6 +3954,338 @@ get_raw() ->
         }
       }
     },
+    <<"/processing/parties/{partyID}/invoices">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"Invoices">> ],
+        <<"description">> => <<"Получить инвойс участника по указанному внешнему идентификатору.">>,
+        <<"operationId">> => <<"getInvoiceByExternalIDForParty">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>
+        }, #{
+          <<"name">> => <<"externalID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"Внешний идентификатор инвойса">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"Инвойс">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/Invoice">>
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Неверные данные">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Ошибка авторизации">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
+    <<"/processing/parties/{partyID}/payment-institutions/{paymentInstitutionID}/terms/payouts/methods">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"PaymentInstitutions">> ],
+        <<"description">> => <<"Получить cпособы вывода средств для платёжной организации участника">>,
+        <<"operationId">> => <<"getPaymentInstitutionPayoutMethodsForParty">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>
+        }, #{
+          <<"name">> => <<"paymentInstitutionID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Payment institution reference">>,
+          <<"required">> => true,
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int32">>
+        }, #{
+          <<"name">> => <<"currency">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"pattern">> => <<"^[A-Z]{3}$">>
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"Способ вывода средств">>,
+            <<"schema">> => #{
+              <<"type">> => <<"array">>,
+              <<"items">> => #{
+                <<"type">> => <<"string">>,
+                <<"enum">> => [ <<"BankAccount">>, <<"InternationalBankAccount">>, <<"Wallet">>, <<"PaymentInstitutionAccount">> ]
+              }
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Неверные данные">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Ошибка авторизации">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
+    <<"/processing/parties/{partyID}/payment-institutions/{paymentInstitutionID}/terms/payouts/schedules">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"PaymentInstitutions">> ],
+        <<"description">> => <<"Получить доступные расписания вывода средств для платёжной организации участника">>,
+        <<"operationId">> => <<"getPaymentInstitutionPayoutSchedulesForParty">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>
+        }, #{
+          <<"name">> => <<"paymentInstitutionID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Payment institution reference">>,
+          <<"required">> => true,
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int32">>
+        }, #{
+          <<"name">> => <<"currency">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"pattern">> => <<"^[A-Z]{3}$">>
+        }, #{
+          <<"name">> => <<"payoutMethod">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"Способ вывода средств">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"enum">> => [ <<"BankAccount">>, <<"InternationalBankAccount">>, <<"Wallet">> ]
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"Идентификаторы расписаний выводов">>,
+            <<"schema">> => #{
+              <<"type">> => <<"array">>,
+              <<"items">> => #{
+                <<"type">> => <<"integer">>,
+                <<"format">> => <<"int32">>
+              }
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Неверные данные">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Ошибка авторизации">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
+    <<"/processing/parties/{partyID}/payments">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"Payments">> ],
+        <<"description">> => <<"Получить платёж по указанному внешнему идентификатору для участника.">>,
+        <<"operationId">> => <<"getPaymentByExternalIDForParty">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>
+        }, #{
+          <<"name">> => <<"externalID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"Внешний идентификатор платежа">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"Платёж">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/Payment">>
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Неверные данные">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Ошибка авторизации">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
+    <<"/processing/parties/{partyID}/refunds">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"Payments">> ],
+        <<"description">> => <<"Получить возврат по указанному внешнему идентификатору для участника.">>,
+        <<"operationId">> => <<"getRefundByExternalIDForParty">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>
+        }, #{
+          <<"name">> => <<"externalID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"Внешний идентификатор возврата">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"Данные возврата">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/Refund">>
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Неверные данные">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Ошибка авторизации">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
     <<"/processing/parties/{partyID}/shops">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Shops">> ],
