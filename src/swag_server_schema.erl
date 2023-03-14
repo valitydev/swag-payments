@@ -4569,6 +4569,56 @@ get_raw() ->
         }
       }
     },
+    <<"/processing/parties/{partyID}/webhooks">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"Webhooks">> ],
+        <<"description">> => <<"Получить набор установленных webhook'ов участника">>,
+        <<"operationId">> => <<"getWebhooksForParty">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"Набор webhook'ов">>,
+            <<"schema">> => #{
+              <<"type">> => <<"array">>,
+              <<"items">> => #{
+                <<"$ref">> => <<"#/definitions/Webhook">>
+              }
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Неверные данные">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Ошибка авторизации">>
+          }
+        }
+      }
+    },
     <<"/processing/payment-institutions">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"PaymentInstitutions">> ],

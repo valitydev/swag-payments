@@ -539,5 +539,10 @@ get_operations() ->
             path => "/v2/processing/webhooks",
             method => <<"GET">>,
             handler => 'swag_server_webhooks_handler'
+        },
+        'GetWebhooksForParty' => #{
+            path => "/v2/processing/parties/:partyID/webhooks",
+            method => <<"GET">>,
+            handler => 'swag_server_webhooks_handler'
         }
     }.
