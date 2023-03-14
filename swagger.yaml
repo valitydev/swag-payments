@@ -3011,6 +3011,27 @@ paths:
           $ref: '#/responses/Unauthorized'
         '404':
           $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/webhooks':
+    get:
+      description: Получить набор установленных webhook'ов участника
+      tags:
+        - Webhooks
+      operationId: getWebhooksForParty
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+      responses:
+        '200':
+          description: Набор webhook'ов
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Webhook'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
   /processing/payment-institutions:
     get:
       description: Получить список платёжных организаций
