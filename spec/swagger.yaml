@@ -101,6 +101,13 @@ responses:
     schema:
       $ref: '#/definitions/ExternalIDConflictError'
 parameters:
+  accountID:
+    name: accountID
+    in: path
+    description: Account ID
+    required: true
+    type: integer
+    format: int64
   requestID:
     name: X-Request-ID
     in: header
@@ -229,14 +236,6 @@ parameters:
     required: true
     type: integer
     format: int32
-  serviceProviderID:
-    name: serviceProviderID
-    in: path
-    description: Идентификатор провайдера платёжных сервисов в системе
-    required: true
-    type: string
-    maxLength: 100
-    minLength: 1
   fromTime:
     name: fromTime
     in: query
@@ -623,7 +622,7 @@ tags:
         | **invalidPartyStatus**           | Ваш участник заблокирован или его операции приостановлены. В последнем случае вы можете их [возобновить](#operation/activateMyParty). |
         | **invalidShopStatus**            | Ваш магазин заблокирован или его операции приостановлены. В последнем случае вы можете их [возобновить](#operation/activateShop).     |
         | **invalidContractStatus**        | Ваш договор более не имеет силы, по причине истечения срока действия или расторжения.                                                 |
-        | **invalidShopID**                | Магазин с указанным идентификатором не существует или недоступен.                                                                     |
+        | **invalidShopID**                | Магазин с указанным идентификатором не существует или недоступен.                                                                    |
         | **invalidInvoiceCost**           | Стоимость инвойса не указана или неверна, в частности, не равна стоимости позиций в корзине.                                          |
         | **invalidInvoiceCart**           | Некорректная корзина в инвойсе, Например, пустая.                                                                                     |
         | **invalidInvoiceStatus**         | Неверный [статус инвойса](#tag/Invoices). Например, при попытке [оплатить](#operation/createPayment) отменённый инвойс.               |
@@ -644,7 +643,7 @@ tags:
         | **invalidDeadline**              | Неверный формат времени.                                                                                                              |
         | **chargebackInProgress**         | Попытка возврата при открытом возвратном платеже.                                                                                     |
         | **invalidRequest**               | Прочие неверные данные запроса.                                                                                                       |
-        | **invalidPartyID**               | Участник с указанным идентификатором не существует или недоступен.                                                                    |
+        | **invalidPartyID**               | Участник с указанным идентификатором не существует или недоступен.                                                                  |
         | **ambiguousPartyID**             | Невозможно однозначно определить идентификатор участника, укажите идентификатор в запросе явно.                                       |
         | **invalidAllocation**            | Некорректное распределение денежных средств, Например, больше одной транзакции в пользу одного из магазинов.                          |
         | **allocationNotPermitted**       | Распределение недоступно в рамках договора.                                                                                           |

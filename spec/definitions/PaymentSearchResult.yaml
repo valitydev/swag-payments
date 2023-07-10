@@ -14,9 +14,6 @@ allOf:
       id:
         description: Идентификатор платежа
         type: string
-      shortID:
-        description: Cокращенный идентификатор платежа и инвойса (spid)
-        type: string
       invoiceID:
         description: 'Идентификатор инвойса, в рамках которого был создан платеж'
         type: string
@@ -61,5 +58,3 @@ allOf:
           - $ref: '#/definitions/PaymentMakeRecurrent'
       cart:
         $ref: '#/definitions/InvoiceCart'
-      allocation:
-        $ref: '#/definitions/Allocation'
