@@ -1,4 +1,4 @@
-description: Тело транзакции с указанием комиссии
+description: Transaction body with fee indication
 allOf:
   - 
     $ref: '#/definitions/AllocationTransaction'
