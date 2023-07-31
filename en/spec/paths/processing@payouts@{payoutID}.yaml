@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/payoutID'
   responses:
     '200':
-      description: Найдена выплата
+      description: Payout found
       schema:
         $ref: '#/definitions/Payout'
     '404':
