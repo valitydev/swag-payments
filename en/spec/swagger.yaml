@@ -463,46 +463,120 @@ tags:
     name: Payments
     x-displayName: Payments
     description: >
-      Реальное списание денег с плательщиков осуществляется вызовом метода создания платежа. Перед запуском платежей необходимо создать инвойс, в рамках которого система будет проводить попытки списания, а также указать токен платежного средства плательщика. Таким образом, система предоставляет вам интерфейс, позволяющий со стороны вашего серверного кода инициировать и контролировать процесс списания денег. Данный процесс может быть, как синхронным, когда вы ожидаете ответа системы, так и асинхронным, когда после запуска платежа вы ожидаете уведомлений на установленный для соответствующего магазина webhook.
-      ## Варианты проведения оплаты
-      Система предоставляет два метода выполнения операции оплаты: одно- и двухстадийный, PaymentFlowInstant и PaymentFlowHold.
-      Одностадийная оплата (PaymentFlowInstant) выполняется вызовом одного метода API, по результатам которого проходит авторизация и последующее списание средств в пользу магазина в рамках одной транзакции.
-      Двухстадийная оплата (PaymentFlowHold) подразумевает вызов двух методов: отдельно на авторизацию, отдельно на списание. После успешной авторизации сумма операции будет блокирована на счету плательщика, то есть он не сможет ей воспользоваться.
-      Подтвердить списание (capturePayment) можно на равную или меньшую сумму авторизации. В случае указания меньшей суммы остаток средств будет автоматически возвращен плательщику. Подтвердить или отменить успешную авторизацию можно как вручную, вызвав соответствующий метод API (capturePayment или cancelPayment), так и автоматически, согласно выбранной стратегии onHoldExpiration. Срок ручного подтверждения устанавливается нами в настройках системы и, как правило, составляет от 3 до 7 календарных дней.
-      ## Платежная сессия
-      Система обеспечивает идемпотентность списания денег с платежного средства, предоставляя уникальный идентификатор платежной сессии. Данный идентификатор предоставляется в процессе создания [токена платежного средства](#tag/Tokens) и гарантирует идемпотентность запросов на списание средств, обеспечивая защиту от ошибочных повторных списаний.
-      ## Ограничение времени обработки платежа
-      При создании платежа в рамках системы, в поле `processingDeadline` можно задать время выполнения платежа, по истечении которого, система попытается прекратить обработку платежа и перевести его в статус `failed` с ошибкой `processing_deadline_reached`.
+      The actual debiting the payer’s funds is made by calling of payment
+      creation method. Before payments the invoice, within which the system
+      will attempt to debit, has to be created and payer’s payment token has to
+      be specified. This way the system provides you an interface that allows
+      your server code to initiate and control the debiting process. This
+      process can be both synchronous, when you are waiting for system
+      response, and asynchronous, when you are waiting for notifications on the
+      webhook set up for the corresponding shop after the payments are launched.
 
-      Ограничение на время обработки следует рассматривать как рекомендацию, поскольку в зависимости от платежного средства и текущего состояния платежа у системы может не быть возможности прекратить обработку. Если значение поля не установлено, то система выберет его самостоятельно, так чтобы было достаточно времени для прохождения платежа в обычных условиях.
+      ## Payment options
 
-      Ограничение времени обработки платежа, аналогично заголовку `X-Request-Deadline`, может указываться в формате, описанном в RFC 3339, или в относительных величинах.
+      The system provides two payment methods:
+      one-step and two-step, PaymentFlowInstant and PaymentFlowHold.
+
+      One-step payment (PaymentFlowInstant) is performed by calling of one API
+      method. The result of it is authorisation and further debiting in favour
+      of a shop within one transaction.
+
+      Two-step payment (PaymentFlowHold) means the call of two methods: one for
+      authorisation and one for debiting. After the successful authorisation
+      the transaction amount will be blocked on a payer’s account so a payer
+      can’t use it.
+
+      The debiting (capturePayment) can be confirmed on equal or less
+      authorisation amount. If the less amount is specified, the balance will
+      be refunded to a payer. The successful authorisation can be confirmed or
+      cancelled both manually by calling the corresponding API method (capturePayment or cancelPayment) and automatically according to the
+      chosen strategy onHoldExpiration. The manual confirmation period is set
+      in the system settings by yourself and it is usually from 3 to 7 calendar
+      days.
+
+      ## Payment session
+
+      The system ensures the idempotency of debiting funds from payment
+      instrument by providing the unique payment session ID. This ID is
+      provided during the creation of [payment instrument tokens](#tag/Tokens)
+      and guarantees the idempotency of debit requests, providing the
+      protection from erroneous repeated debits.
+
+      ## Payment processing time limit
+
+      When the payment is created within the system, you can set up the payment
+      processing time in the field `processingDeadline`. When it is expired,
+      the system is trying to stop processing the payment and changing its
+      status to `failed` with the error `processing_deadline_reached`.
+
+
+      Processing time limit should be considered as a recommendation as the
+      system can fail to stop processing on the basis of the payment instrument
+      and the current payment status. If a field value is not set up, the
+      system will choose it by itself to have enough time for payment transfer
+      in general conditions.
+
+
+      Payment processing time limit, similarly to the header
+      `X-Request-Deadline`, can be specified in format described in RFC 3339 or
+      in relative values.
+
       ## Authorization
-      Запросы API платежей авторизуются либо токеном доступа к инвойсу, по которому создан платеж, либо вашим API-ключом.
+
+      Payment request APIs are authorised by an invoice access token that is
+      used to create the payment or by API key.
+
   - 
     name: Tokens
     x-displayName: Payment tokens
     description: >
-      Система предоставляет вам возможность самостоятельно инициировать списание денег с платежных карт плательщиков и берет на себя процессы сертификации и соответствия стандартам PCS-DSS. Стандарт декларирует запрет на обработку и хранение данных держателей карт (ДДК) на стороне мерчанта. Используемые нами подходы к реализации интерфейса подразумевают возможность верстки и отдачи HTML формы для ввода ДДК на стороне вашего серверного кода. Чтобы обеспечить соответствие стандартам мы предоставляем разработанную нами JS-библиотеку, которая после встраивания в HTML-код вашей платежной формы в асинхронном режиме собирает ДДК и отправляет на интерфейс системы для дальнейшего шифрования и токенизации. В ответ JS-библиотека возвращает на вашу платежную форму уникальный токен платежной карты, который в дальнейшем вы можете использовать для запуска платежей.
+      The system provides you the possibility to initiate the funds withdrawal
+      from payer’s charge cards by yourself and undertakes the processes of the
+      certification and PCS-DSS standard compliance. The standard declares the
+      prohibition on cardholder data processing and storage on the merchant’s
+      side. The approaches used in interface implementation provide the
+      opportunity of HTLM form layout and output for cardholder data on your
+      server side code. To ensure the standard compliance we provide our
+      developed JS-library that collects cardholder data in asynchronous mode
+      and sends it to the system interface for further cryptography and
+      tokenization after it is embedded in HTLM code of your payment form. In
+      response, JS-library returns an unique payment card token, that can be
+      used to run payments, to your payment form.
 
-      В процессе создания токена предоставляется [платежная сессия](#tag/Payments), обеспечивающая идемпотентность списания денег с платежного средства.
+
+      The [payment session](#tag/Payments), that ensures the idempodency of
+      funds withdrawal from the payment instrument, is provided during the
+      token creation.
+
   - 
     name: Categories
     x-displayName: Shop categories
     description: >
-      Для описания групп товаров и услуг, предоставляемых магазинами, используются категории. Категории могут влиять на предоставление статистики, упорядочивание магазинов, а также на финансовые условия системы.
+       Categories are used to describe groups of goods and services offered by
+       shops. Categories can influence on statistics provision, shops
+       organisation and also system financial terms.
   - 
     name: Contracts
     x-displayName: Contracts
     description: >
-      Договор содержит данные юридического соглашения, на основе которого система предоставляет всевозможные услуги мерчанту. В договоре, в частности описывается набор условий, по которым предоставляются сервисы системы, например, комиссии на проведение транзакций, условия вывода средств и данных юридического лица.
-      Любые изменения данных магазинов требуют верификации на стороне системы путем создания заявок на изменение.
+      A contract contains all details of a legal agreement on basis of which
+      the system provides all possible services to a merchant. In particular a
+      set of conditions, on basis of which the system services are provided, is
+      written in the contract. The examples of this can be the transaction
+      fees, conditions of withdrawal and legal entity data.
+
+      Any changes of the shops require system verification by creating change
+      requests.
   - 
     name: Payouts
     x-displayName: Withdrawal of funds
     description: >
-      Для получения автоматических выплат по принятым платежам на ваш банковский счет необходимо в рамках договора с системой указать данные для вывода средств. В дальнейшем по указанным данным система будет инициировать банковские переводы на основе суммы платежей, принятой по всем активным магазинам.
-      Любые изменения данных требуют верификации на стороне системы путем создания заявок на изменение.
+      You have to specify payout data within the contract with the system to
+      receive automatic payouts of all accepted ones to your bank account. The
+      system will then initiate bank transfers based on the payment amounts
+      accepted for all active shops.
+
+      Any data changes require system verification by creating change requests.
   - 
     name: Webhooks
     x-displayName: Webhooks
