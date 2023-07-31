@@ -1,5 +1,5 @@
 post:
-  description: Отменить указанный платеж.
+  description: Cancel the specified payment
   tags:
     - Payments
   operationId: cancelPayment
