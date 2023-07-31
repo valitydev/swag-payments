@@ -11,7 +11,7 @@ properties:
     description: Contract ID
     type: string
   createdAt:
-    description: Дата и время создания договора
+    description: Date and time of contract creation
     type: string
     format: date-time
   status:
