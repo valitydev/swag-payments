@@ -21,7 +21,7 @@ post:
         $ref: '#/definitions/PaymentResourceParams'
   responses:
     '201':
-      description: Токен и сессия созданы
+      description: Token and session created
       schema:
         $ref: '#/definitions/PaymentResourceResult'
     '401':
