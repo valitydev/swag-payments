@@ -4,58 +4,59 @@ info:
   title: Vality Payments API
   description: |
 
-    ## Описание
+    ## Description
 
-    Vality Payments API предназначен для мерчантов, принимающих платежи из своего пользовательского
-    интерфейса, например веб-сайта или мобильного приложения, и является единственной точкой
-    взаимодействия с системой для проведения операций оплаты товаров и услуг.
+    API is designed for the merchants who accept payments via user interface
+    such as a website or a mobile app and it is the only interaction point with
+    the system for goods and services payment transactions.
 
-    ## Детали взаимодействия
+    ## Interaction details
 
-    При любом обращении к API в заголовке `X-Request-ID` соответствующего запроса необходимо
-    передать его уникальный идентификатор:
+    Whenever an API is accessed, its unique ID must be passed in the header
+    X-Request-ID of the corresponding request:
 
     ```
      X-Request-ID: 37d735d4-0f42-4f05-89fa-eaa478fb5aa9
     ```
 
-    ### Тип содержимого и кодировка
+    ### Content type and coding
 
-    Система принимает и возвращает данные в формате JSON и кодировке UTF-8:
+    The system accepts and returns data in JSON format and UTF-8 coding:
 
     ```
       Content-Type: application/json; charset=utf-8
     ```
 
-    ### Формат дат
+    ### Date formats
 
-    Система принимает и возвращает значения отметок времени в формате `date-time`, описанном в
-    [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339):
+    The system accepts and returns timestamp values in the format date-time,
+    described in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339):
 
     ```
       2017-01-01T00:00:00Z
       2017-01-01T00:00:01+00:00
     ```
 
-    ### Максимальное время обработки запроса
+    ### Maximum request processing time
 
-    При любом обращении к API в заголовке `X-Request-Deadline` соответствующего запроса можно
-    передать параметр отсечки по времени, определяющий максимальное время ожидания завершения
-    операции по запросу:
+    Whenever an API is accessed, the time cutoff parameters, that define
+    maximum request processing time of the transaction completion, can be
+    passed in the header `X-Request-Deadline` of the corresponding request:
 
     ```
      X-Request-Deadline: 10s
     ```
+    The system stops processing the request upon the specified time. It is
+    recommended to specify a value that is not more than one minute and not
+    less than three seconds.
 
-    По истечении указанного времени система прекращает обработку запроса. Рекомендуется указывать
-    значение не более одной минуты, но не менее трёх секунд.
+    `X-Request-Deadline` can be:
 
-    `X-Request-Deadline` может:
+    * specified in the format `date-time` according to
+    [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339);
+    * specified in relative values: in milliseconds (`150000ms`), in seconds
+    (`540s`) or in minutes (`3.5m`).
 
-    * задаваться в формате `date-time` согласно
-      [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339);
-    * задаваться в относительных величинах: в миллисекундах (`150000ms`), секундах (`540s`) или
-      минутах (`3.5m`).
 basePath: /v2
 schemes:
   - https
@@ -69,25 +70,27 @@ securityDefinitions:
     name: Authorization
     in: header
     description: |
-      Взаимодействие между мерчантом и системой осуществляется по защищенному протоколу (HTTPS).
-      HTTP-запросы по нешифрованному каналу не поддерживаются.
+      Interaction between the merchant and the system is performed via a secure
+      protocol (HTTPS).
+      HTTP requests via unencrypted channel are not supported.
 
-      Содержимое API-ключа следует передать в заголовке `Authorization`:
+      The contents of the API key should be passed in the `Authorization`
+      header:
 
       ```
       Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M...
       ```
 
-      Ключи не разделяются на тестовые и боевые. Для проведения тестовых транзакций используйте
-      идентификатор тестового магазина.
+      Keys are not divided into test and production keys. Use the test shop ID
+      for test transactions.
 
-      **Важно! Не передавайте API-ключ третьим лицам!**
+      **Important: Do not pass the API-key to third parties!**
 security:
   - 
     bearer: [ ]
 responses:
   NotFound:
-    description: Заданный ресурс не найден
+    description: Target resource not found
     schema:
       $ref: '#/definitions/GeneralError'
   Unauthorized:
@@ -128,7 +131,7 @@ parameters:
   paymentID:
     name: paymentID
     in: path
-    description: Идентификатор платежа в рамках инвойса
+    description: Invoice payment identifier
     required: true
     type: string
     maxLength: 40
@@ -136,7 +139,7 @@ parameters:
   refundID:
     name: refundID
     in: path
-    description: Идентификатор возврата в рамках платежа
+    description: Refund identifier within the payment
     required: true
     type: string
     maxLength: 40
@@ -144,7 +147,7 @@ parameters:
   chargebackID:
     name: chargebackID
     in: path
-    description: Идентификатор возвратного платежа в рамках платежа
+    description: Chargeback identifier within the payment
     required: true
     type: string
     maxLength: 40
@@ -161,7 +164,8 @@ parameters:
     name: residence
     in: query
     description: >-
-      Резиденция, alpha-3 код по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
+      Residence, alpha-3 code according to standard
+      [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
     required: false
     type: string
     pattern: '^[A-Z]{3}$'
@@ -176,7 +180,7 @@ parameters:
   customerBindingID:
     name: customerBindingID
     in: path
-    description: Идентификатор привязки к кастомера
+    description: Customer binding identifier
     required: true
     type: string
     maxLength: 40
@@ -192,7 +196,7 @@ parameters:
   adjustmentID:
     name: adjustmentID
     in: path
-    description: Идентификатор поправки к договору
+    description: Contract adjustment identifier
     required: true
     type: string
     maxLength: 40
@@ -231,7 +235,7 @@ parameters:
   serviceProviderID:
     name: serviceProviderID
     in: path
-    description: Идентификатор провайдера платёжных сервисов в системе
+    description: Service provider identifier
     required: true
     type: string
     maxLength: 100
@@ -262,7 +266,7 @@ parameters:
   offset:
     name: offset
     in: query
-    description: Смещение выборки
+    description: Query offset
     required: false
     type: integer
     minimum: 0
@@ -290,133 +294,171 @@ parameters:
   tradeBlocID:
     name: tradeBlocID
     in: path
-    description: Идентификатор торгового блока
+    description: Trade bloc identifier
     required: true
     type: string
 tags:
   - 
     name: Parties
-    x-displayName: Участники
+    x-displayName: Parties
     description: >
-      Участник системы - совокупность данных о вашей организации, составе и условиях заключенных договоров, а также информация о связанных с организацией магазинах.
+      A system party is a data set about your company, structure and
+      conditions of concluded contracts, and also the information about the
+      shops associated with the company.
   - 
     name: Shops
     x-displayName: Shops
     description: >
-      Магазин - это отображение вашего веб-сайта или точки продаж в системе. К магазину привязываются финансовые условия, которые определяют, в частности, процент комиссии системы. Каждый магазин в системе имеет привязанные счета, на которых аккумулируются отправленные плательщиками деньги. В каждой валюте может существовать только один счет. Категория магазина определяет группы товаров или услуг, которые в нем представлены. К магазину может быть привязан банковский терминал на стороне банка-эквайера. Любые изменения данных магазинов требуют верификации на стороне системы.
-      Для тестовых платежей используются магазины, созданные в тестовой категории. Первый тестовый магазин система создает автоматически при регистрации участника.
-      Ваш веб-сайт или точка продаж могут иметь более одного магазина, ближайшим аналогом можно представить банковские POS-терминалы на точке продаж.
-      ## Асинхронные уведомления
-      Для любого магазина можно указать URL для получения асинхронных оповещений об изменении состояния данных при помощи установки webhook'а. Например, вы можете установить webhook, указав URL вашего приложения, на который система будет отправлять данных об изменении состояния инвойса. Для проверки подлинности присланных на URL вашего приложения данных используется соответствующий публичный ключ, который создаётся при установке этого webhook'а и получить который можно в вашем личном кабинете.
+      A shop is a display of your website or a point of sales in the system.
+      Financial terms, that determine, particularly, the system fee percentage,
+      are linked to the shop. Each shop has its linked accounts that accumulate
+      money sent by payers. Only one account can be in each currency. The shop
+      category is determined by the group of offered goods and services. A
+      banking terminal can be linked to a shop on the side of an acquiring
+      bank. Any changes of these shops require system verification.
+
+      Shops created in the test category are used for test payment. The system
+      creates a test shop automatically during the participant registration.
+
+      Your website or point of sales may have more than one shop. The closest
+      analogue can be POS-terminals at a point of sales.
+
+      ## Asynchronous notifications
+
+      It is possible to specify a URL for any shop to receive asynchronous
+      notifications about data status change by setting up webhook. For
+      example, you can set up webhook by specifying URL of your application to
+      which the system will send data about invoice changes. The corresponding
+      public key, created during the webhook setup, is used to verify integrity
+      of data sent to your application URL. You can receive this key in your
+      account.
+
   - 
     name: Invoices
     x-displayName: Invoices
     description: |
-      Инвойс - это базовая модель для работы с системой по приему платежей. Перед
-      рендерингом платежной формы, запуском транзакций на списание денег,
-      холдированием средств на карте плательщика и запуском других подобных
-      бизнес-процессов, необходимо создать инвойс и узнать его идентификатор.
+      An invoice is a fundamental model for work with payment acceptance
+      system. It is necessary to create an invoice and find out its ID before
+      rendering the payment form launching debit transactions, holding funds on
+      the payer’s card and launching other similar business processes.
 
-      В общем случае, инвойс является контейнером для платежей, данных о товарах
-      и магазине. Инвойсы имеют настраиваемый ограниченный срок жизни. После
-      истечения срока жизни состояние инвойса изменить невозможно.
+      In general, an invoice is a container for payments, data about goods and
+      a shop. Invoices have customizable limited lifetime. Once lifetime is
+      expired, invoice status is impossible to change.
 
 
-      ## Состояния и статусы инвойса
+      ## Invoice statuses
 
-      ### Таблица состояний инвойса:
-        | Состояние  | Обозначение |  Описание                                                                                                |
-        | --         | --          | --                                                                                                       |
-        | Не оплачен | `unpaid`    | Инвойс создан, но финансовые обязательства ещё не погашены.                                              |
-        | Отменён    | `cancelled` | Инвойс отменён с указанием причины, все обязательства по нему недействительны.                           |
-        | Оплачен    | `paid`      | Финансовые обязательства по инвойсу погашены, но товары или услуги плательщику ещё не предоставлены.     |
-        | Погашен    | `fulfilled` | Все обязательства, как плательщика, так и мерчанта, погашены.                                            |
+      ### Table of invoice statuses:
 
-      В узлах диаграммы указаны статусы инвойса, стрелки помечены процессами,
-      успешное завершение которых порождает переход из одного статуса в другой.
+      | Status     | Indication  |  Description                                                                                                  |
+      | --         | --          | --                                                                                                            |
+      | Unpaid     | `unpaid`    | An invoice has been created but financial obligations are not fulfilled.                                      |
+      | Cancelled  | `cancelled` | An invoice is cancelled with reason, all obligations under it are null and void.                              |
+      | Paid       | `paid`      | Financial obligations under an invoice are paid but goods or services has not been provided yet to the payer. |
+      | Fulfilled  | `fulfilled` | All obligations, both payer’s and merchant’s ones, are fulfilled.                                             |
+
+      Invoice statuses are indicated in the diagram nodes, narrows are marked
+      by the processes. Successful completion of processes generates change
+      from one status to another.
 
       ![Invoice State diagram](wsd/img/invoice.svg)
 
-      ## Метаданные инвойса и платежа
+      ## Invoice and payment metadata
 
-      Система предоставляет вам возможность заполнить и сохранить любые
-      необходимые метаданные как в структуре инвойса, так и в структуре любого платежа.
-      Данные описываются массивом JSON. В дальнейшем система предоставит
-      вам эти данные при запросе данных инвойса или платежа по его идентификатору
-      либо пришлет в асинхронном режиме на webhook, установленный для соответствующего
-      магазина, если он есть.
+      The system provides you a possibility to fill and save any necessary
+      metadata both in invoice and payment pattern. Data is described by the
+      JSON array. Later the system will provide this data to you when you
+      request invoice or payment data by its ID or it will send it to webhook
+      in asynchronous mode that is set up for the relevant shop if there is one.
 
-      ## События инвойса
+      ## Invoice events
 
-      Любые изменения состояния данных в системе порождают события. Можно получить как
-      полный список событий, приведших к определенному состоянию данных, так и
-      последнее событие, описывающее текущее состояние объекта. Например, для
-      того, чтобы узнать состояние инвойса, и таким образом принять решение об
-      отгрузке товара или предоставлении услуги плательщику, можно запросить у
-      системы все события, произошедшие в рамках указанного ID инвойса, либо
-      самое последнее из них.
+      Any data status changes generate events. You can receive a full list of
+      events that led to the specific data status or the latest event that
+      describes the current data status. For example, you can request all
+      events or the latest one within the specified invoice ID to find out an
+      invoice status so that to make a decision about the shipment of goods or
+      providing services to the payer.
 
       ## Authorization
 
-      Операции:
+      Operations:
 
-      * создания инвойса,
+      * invoice creation,
 
-      * отмены инвойса,
+      * invoice cancellation,
 
-      * погашения инвойса,
+      * invoice fulfillment,
 
-      * получения *нового* токена доступа к инвойсу (уже после создания инвойса)
-
-
-      авторизуются вашим API-ключом.
-
-      ### Токен доступа к инвойсу
-
-      Токен доступа к инвойсу авторизует ограниченное количество операций,
-      необходимых для проведения [платежей](#tag/Payments) по указанному
-      инвойсу, в частности:
-
-      * [токенизация](#tag/Tokens) платёжных инструментов,
-
-      * создание платежей по этому и только этому инвойсу,
-
-      * получение состояния и событий этого инвойса.
+      * getting a *new* invoice access token (after invoice creation)
 
 
-      Срок действия токена составляет 3 суток от момента создания, после
-      истечения которого использовать его для авторизации операций будет более
-      невозможно.
+      are authorised with your API key.
 
-      ## Распределение денежных средств
+      ### Invoice access token
 
-      В рамках одного инвойса можно указать распределение денежных средств
-      между несколькими магазинами. При необходимости можно добавить комиссию,
-      которая будет начисляться магазину переданному при создании инвойса (далее магазин инвойса).
-      Общая сумма всех транзакций распределения не должна превышать сумму инвойса.
-      В распределении не должно быть больше одной транзакции для каждого магазина.
-      Транзакции распределения бывают следующих типов:
+      The invoice access token authorises a limited amount of transactions
+      needed to make [payments](#tag/Payments) by the specified invoice, in
+      particular:
 
-      * С телом AllocationBodyAmount, в котором передается сумма, перечисляемая магазину.
-      Чтобы добавить комиссию нужно создать транзакцию в пользу магазина инвойса.
+      * [tokenization](#tag/Tokens) of payment instrument,
 
-      * С телом AllocationBodyTotal, в котором передается общая сумма транзакции и комиссия к ней,
-      при этом комиссия может быть следующих типов:
-        * AllocationFeeFixed или значение комиссии в пользу магазина инвойса.
-        * AllocationFeeShare или процент от общей суммы транзакции в пользу магазина инвойса.
+      * payment creation by this and only this invoice,
+
+      * getting the invoice status.
+
+
+      The token is valid for 3 days from the creation. After this it will be
+      impossible to use it to authorise transactions.
+
+      ## Money distribution data
+
+      You can specify the distribution of funds among several shops within one
+      invoice. If necessary, you can add a fee that will be charged to the shop
+      specified during the invoice creation (hereinafter invoice shop). Total
+      amount of all distribution transactions shouldn’t exceed the invoice
+      amount. There shouldn’t be more than one transaction per one shop in the
+      distribution. The distribution transactions can be:
+
+      * With AllocationBodyAmount body which transmits the amount to be
+      transferred to the shop. You must create a transaction in favour of an
+      invoice shop to add a fee.
+
+      * With AllocationBodyTotal body which transmits the total amount of transactions and its fee that can be:
+        * AllocationFeeFixed or fee amount in favour of an invoice shop.
+        * AllocationFeeShare or some percent of the total amount of transaction in favour of an invoice shop.
+
   - 
     name: InvoiceTemplates
-    x-displayName: Шаблоны инвойсов
+    x-displayName: Invoice templates
     description: >
-      Шаблоны инвойсов позволяют упростить выставление инвойсов. Шаблон инвойса привязан к конкретному магазину и содержит спецификацию, по которой можно создавать инвойсы, указывая только конкретнyю стоимость товаров и услуг и/или метаданные инвойса. В случае, если шаблон содержит фиксированную стоимость, её также можно опустить при создании инвойса. Если при создании инвойса по шаблону не указать метаданные инвойса, они будут взяты из значения в шаблоне (если шаблон содержит метаданные).
+      Invoice templates make invoicing easy. An invoice template is linked to
+      the shop and contains specification that can be used for invoice creation
+      by specifying the cost of goods and services and/or invoice metadata. If
+      a template contains the fixed cost, it can be removed during invoice
+      creation. If invoice metadata is not specified when an invoice is created
+      by a template, they will be taken from a template (if metadata is
+      contained in a template).
 
-      Cоздание, модификация и удаление шаблона инвойса не требуют верификации на стороне системы и заявок на эти изменения.
+
+      The creation, update and deletion of an invoice template doesn’t require
+      the system verification and requests for these changes.
+
       ## Authorization
-      Создание, модификация и удаление шаблона инвойса авторизуются вашим API-ключом.
-      ### Токен доступа к шаблону инвойса
-      Токен доступа к шаблону инвойса создается в результате операции создания шаблона. Он авторизует:
-      * получение шаблона инвойса по его идентификатору,
-      * создание инвойса по данному шаблону.
+
+      The creation, update and deletion of an invoice template is authorised by
+      your API key.
+
+      ### Invoice template access token
+
+      An invoice template access token is created in the result of template
+      creation transaction. It authorises:
+
+      * the getting of invoice template by its ID,
+
+      * invoice creation by the template.
+
   - 
     name: Payments
     x-displayName: Payments
