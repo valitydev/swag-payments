@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/partyID'
     - 
       name: externalID
-      description: Внешний идентификатор инвойса
+      description: External invoice identifier
       in: query
       required: true
       type: string
