@@ -20,7 +20,7 @@ get:
       minLength: 1
   responses:
     '200':
-      description: Инвойс
+      description: Invoice
       schema:
         $ref: '#/definitions/Invoice'
     '404':
