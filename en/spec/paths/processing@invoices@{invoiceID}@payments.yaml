@@ -37,7 +37,7 @@ post:
       $ref: '#/parameters/invoiceID'
     - 
       name: paymentParams
-      description: Параметры создаваемого платежа
+      description: Parameters of the payment to be created
       in: body
       required: true
       schema:
