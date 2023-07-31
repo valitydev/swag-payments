@@ -23,7 +23,7 @@ post:
     '401':
       $ref: '#/responses/Unauthorized'
     '429':
-      description: Превышен лимит количества установленных webhook'ов
+      description: The limit on the number of installed webhooks has been exceeded
       schema:
         type: object
         required:
@@ -34,7 +34,7 @@ post:
             type: string
             example: Webhook limit exceeded
     '400':
-      description: Ошибочные данные webhook'а
+      description: Invalid webhook data
       schema:
         type: object
         required:
