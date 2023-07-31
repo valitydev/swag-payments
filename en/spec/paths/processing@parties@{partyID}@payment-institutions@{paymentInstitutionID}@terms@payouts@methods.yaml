@@ -17,12 +17,12 @@ get:
       in: query
       required: false
       description: >-
-        Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+        Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
       type: string
       pattern: '^[A-Z]{3}$'
   responses:
     '200':
-      description: Способ вывода средств
+      description: Payout method
       schema:
         type: array
         items:
