@@ -1,5 +1,5 @@
 get:
-  description: Получить платёж по указанному внешнему идентификатору для участника.
+  description: Get payment by specified external identifier.
   tags:
     - Payments
   operationId: getPaymentByExternalIDForParty
@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/partyID'
     - 
       name: externalID
-      description: Внешний идентификатор платежа
+      description: External payment identifier
       in: query
       required: true
       type: string
