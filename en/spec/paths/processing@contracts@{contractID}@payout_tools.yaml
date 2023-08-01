@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/contractID'
   responses:
     '200':
-      description: Набор средств вывода
+      description: Set of payout tools
       schema:
         type: array
         items:
