@@ -14,7 +14,7 @@ get:
       $ref: '#/parameters/customerBindingID'
   responses:
     '200':
-      description: Данные привязки
+      description: Binding data
       schema:
         $ref: '#/definitions/CustomerBinding'
     '404':
