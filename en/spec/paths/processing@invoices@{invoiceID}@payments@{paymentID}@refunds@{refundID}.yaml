@@ -1,5 +1,5 @@
 get:
-  description: Получить данные определённого возврата указанного платежа.
+  description: Get data on the refund of the specified payment.
   tags:
     - Payments
   operationId: getRefundByID
