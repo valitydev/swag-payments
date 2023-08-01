@@ -1,5 +1,5 @@
 get:
-  description: Получить список торговых блоков
+  description: Get a list of trade blocks
   tags:
     - TradeBlocs
   operationId: getTradeBlocs
@@ -10,7 +10,7 @@ get:
       $ref: '#/parameters/deadline'
   responses:
     '200':
-      description: Список Торговых Блоков
+      description: List of trade blocs
       schema:
         type: array
         items:
