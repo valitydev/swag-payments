@@ -52,7 +52,7 @@ post:
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибочные данные для запуска платежа
+      description: Invalid data to start the payment
       schema:
         type: object
         required:
