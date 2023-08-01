@@ -8,7 +8,7 @@ required:
   - id
 properties:
   id:
-    description: Идентификатор провайдера в системе
+    description: Service provider's identifier
     type: string
     maxLength: 100
   brandName:
