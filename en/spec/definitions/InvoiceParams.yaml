@@ -20,7 +20,7 @@ properties:
       - 
         $ref: '#/definitions/ExternalID'
       - 
-        description: Внешний идентификатор инвойса
+        description: External invoice identifier
   dueDate:
     description: |
       Дата и время окончания действия инвойса, после наступления которых его
