@@ -1,4 +1,4 @@
-description: Транзакция распределения денежных средств
+description: Cash allocation transaction
 type: object
 discriminator: allocationBodyType
 required:
