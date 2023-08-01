@@ -1,4 +1,4 @@
-description: Устав организации
+description: Articles of association
 type: object
 allOf:
   - 
