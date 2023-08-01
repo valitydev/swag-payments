@@ -1,5 +1,5 @@
 get:
-  description: Получить набор установленных webhook'ов участника
+  description: Get a list of installed webhooks
   tags:
     - Webhooks
   operationId: getWebhooksForParty
