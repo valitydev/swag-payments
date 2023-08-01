@@ -1,5 +1,5 @@
 get:
-  description: Получить платёж по указанному внешнему идентификатору.
+  description: Receive payment by the specified external identifier.
   tags:
     - Payments
   operationId: getPaymentByExternalID
