@@ -1,4 +1,4 @@
-description: Магазин как назначение транзакции
+description: The shop as the target of the transaction
 allOf:
   - 
     $ref: '#/definitions/AllocationTarget'
