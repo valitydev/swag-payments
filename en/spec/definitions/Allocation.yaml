@@ -1,5 +1,5 @@
 description: |
-  Распределение денежных средств
+  Allocation of cash
 type: array
 minItems: 1
 maxItems: 100
