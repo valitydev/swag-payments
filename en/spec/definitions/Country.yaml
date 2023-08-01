@@ -14,5 +14,5 @@ properties:
   tradeBlocs:
     type: array
     items:
-      description: Идентификаторы Торговых Блоков
+      description: Trade bloc identifiers
       type: string
