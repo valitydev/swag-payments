@@ -1,5 +1,5 @@
 get:
-  description: Получить инвойс участника по указанному внешнему идентификатору.
+  description: Get an invoice by external identifier.
   tags:
     - Invoices
   operationId: getInvoiceByExternalIDForParty
