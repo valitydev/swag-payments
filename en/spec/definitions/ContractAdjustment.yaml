@@ -1,14 +1,14 @@
-description: Данные поправки к договору
+description: Data of contract adjustment
 type: object
 required:
   - id
   - createdAt
 properties:
   id:
-    description: Идентификатор поправки
+    description: Contract adjustment identifier
     type: string
   createdAt:
-    description: Дата и время создания поправки
+    description: Date and time of contract adjustment creation
     type: string
     format: date-time
   validSince:
