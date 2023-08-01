@@ -4,13 +4,13 @@ allOf:
     $ref: '#/definitions/TokenizedCardData'
   - 
     type: object
-    description: Платежные данные Samsung Pay
+    description: Samsung Pay data
     required:
       - serviceID
       - referenceID
     properties:
       serviceID:
-        description: Идентификатор сервиса в Samsung Pay
+        description: Samsung  Pay service identifier
         type: string
       referenceID:
         description: Идентификатор токена в Samsung Pay
