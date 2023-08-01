@@ -23,7 +23,7 @@ x-merge-properties:
           - 
             $ref: '#/definitions/ExternalID'
           - 
-            description: Внешний идентификатор инвойса
+            description: External invoice identifier
       createdAt:
         description: Created at
         type: string
