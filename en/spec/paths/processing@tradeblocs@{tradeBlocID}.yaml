@@ -1,5 +1,5 @@
 get:
-  description: Получить данные торгового блока по его ID
+  description: Get trade block data by ID
   tags:
     - TradeBlocs
   operationId: getTradeBlocByID
