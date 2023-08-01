@@ -6,12 +6,12 @@ required:
 properties:
   m:
     description: >
-      Мантисса.
+      Mantissa.
     type: integer
     format: int64
     minimum: 0
   exp:
     description: >
-      Порядок.
+      Exponent.
     type: integer
     format: int64
