@@ -1,5 +1,5 @@
 get:
-  description: Поиск возвратов
+  description: Search for refunds
   tags:
     - Search
   operationId: searchRefunds
