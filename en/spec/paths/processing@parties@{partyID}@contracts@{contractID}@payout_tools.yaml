@@ -14,7 +14,7 @@ get:
       $ref: '#/parameters/partyID'
   responses:
     '200':
-      description: Набор средств вывода
+      description: Set of payout tools
       schema:
         type: array
         items:
