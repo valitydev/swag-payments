@@ -1,9 +1,9 @@
 post:
   description: |
-    Создать новый одноразовый токен платежного средства, предоставленного плательщиком, а
-    также новую уникальную платежную сессию.
-    Токен платежного средства и идентификатор сессии необходим для создания
-    платежа по инвойсу и имеет ограниченное время жизни.
+    Create a new one-time payment token provided by the payer, as well as a new
+    unique payment session.
+    The payment instrument token and session identifier are required to create a
+    invoice payment and has a limited lifetime.
   tags:
     - Tokens
   operationId: createPaymentResource
