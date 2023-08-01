@@ -3,14 +3,14 @@ required:
   - paymentSystem
 properties:
   cardNumberMask:
-    description: Маскированый номер карты
+    description: Masked card number
     type: string
     pattern: '^\d{0,6}\*+\d{0,4}$'
   first6:
     description: |
-      Первые цифры номера карты.
+      First digits of the card number.
 
-      Отсутствуют для токенизированных платежных средств.
+      Absent for tokenized payment methods.
     type: string
     pattern: '^\d{6}$'
   last4:
