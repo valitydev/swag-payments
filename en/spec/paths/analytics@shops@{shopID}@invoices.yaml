@@ -138,7 +138,7 @@ get:
     - 
       name: first6
       in: query
-      description: Первые 6 цифр номера карты
+      description: First 6 digits of the card number
       required: false
       type: string
       pattern: '^\d{6}$'
