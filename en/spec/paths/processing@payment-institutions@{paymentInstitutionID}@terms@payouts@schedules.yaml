@@ -22,7 +22,7 @@ get:
       name: payoutMethod
       in: query
       required: false
-      description: Способ вывода средств
+      description: Payout method
       type: string
       enum:
         - BankAccount
@@ -30,7 +30,7 @@ get:
         - Wallet
   responses:
     '200':
-      description: Идентификаторы расписаний выводов
+      description: Payout schedule identifiers
       schema:
         type: array
         items:
