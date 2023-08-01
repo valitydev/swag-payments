@@ -11,14 +11,14 @@ allOf:
     properties:
       total:
         description: >
-          Общая сумма транзакции (включает в себя комиссию) в минорных денежных единицах, например в копейках в случае указания российских рублей в качестве валюты.
+          Total transaction amount (includes fees) in minor monetary units, e.g. cents if US dollars are specified as the currency.
         type: integer
         format: int64
         minimum: 1
       amount:
         description: >
-          Сумма перечисляемая выбранному назначению в минорных денежных единицах,
-          например в копейках в случае указания российских рублей в качестве валюты.
+          The amount transferred to the selected destination in minor monetary units,
+          e.g. cents if US dollars are specified as the currency.
         type: integer
         format: int64
         minimum: 1
