@@ -20,7 +20,7 @@ get:
       pattern: '^[A-Z]{3}$'
   responses:
     '200':
-      description: Способ вывода средств
+      description: Payout method
       schema:
         type: array
         items:
