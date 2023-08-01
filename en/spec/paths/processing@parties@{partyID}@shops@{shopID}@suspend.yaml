@@ -1,7 +1,7 @@
 put:
   description: |
-    Приостановить действие магазина. Этот тип заявок обрабатывается платформой
-    автоматически и исполняется сразу же после отправки.
+    Suspend the shop. This type of requests is processed by the platform
+    automatically and is executed immediately after sending.
   operationId: suspendShopForParty
   tags:
     - Shops
