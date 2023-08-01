@@ -1,5 +1,5 @@
 get:
-  description: Поиск выплат
+  description: Search for payouts
   tags:
     - Search
   operationId: searchPayouts
