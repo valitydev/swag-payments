@@ -1,4 +1,4 @@
-description: Позиция товара или услуги
+description: Product or service item
 type: object
 required:
   - product
@@ -11,21 +11,20 @@ properties:
     maxLength: 1000
   quantity:
     description: |
-      Количество единиц товаров или услуг, предлагаемых в этой
-      позиции
+      Number of units of goods or services offered in this item
     type: integer
     format: int64
     minimum: 1
     default: 1
   price:
     description: |
-      The price of the good or service offered, in minor monetary units, e.g., cents if U.S. dollars are specified as the currency
+      The price of the good or service offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
     type: integer
     format: int64
     minimum: 1
   cost:
     description: |
-      Суммарная стоимость позиции с учётом количества единиц товаров или услуг
+      The total value of the item, taking into account the number of units of goods or services
     type: integer
     format: int64
     minimum: 1
