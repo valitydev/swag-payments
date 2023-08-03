@@ -10,7 +10,7 @@ allOf:
       - provider
     properties:
       id:
-        description: Identifier of the wallet
+        description: E-wallet identifier
         type: string
       provider:
         x-rebillyMerge:
