@@ -21,15 +21,15 @@ properties:
       - active
       - terminated
   validSince:
-    description: Дата и время вступления договора в силу
+    description: Contract effective date and time
     type: string
     format: date-time
   validUntil:
-    description: Дата и время прекращения силы договора
+    description: Contract expiration date and time
     type: string
     format: date-time
   terminatedAt:
-    description: Дата и время расторжения договора
+    description: Contract termination date and time
     type: string
     format: date-time
   contractor:
