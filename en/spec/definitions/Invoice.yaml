@@ -29,7 +29,7 @@ x-merge-properties:
         type: string
         format: date-time
       dueDate:
-        description: Дата и время окончания действия
+        description: Expiration date and time
         type: string
         format: date-time
       amount:
