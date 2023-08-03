@@ -14,7 +14,7 @@ get:
       $ref: '#/parameters/partyID'
   responses:
     '200':
-      description: Набор поправок к договору
+      description: List of contract adjustments
       schema:
         type: array
         items:
