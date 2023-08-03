@@ -8,7 +8,7 @@ required:
   - type
 properties:
   type:
-    description: Тип схемы налогообложения
+    description: Tax mode
     type: string
     enum:
       - InvoiceLineTaxVAT
