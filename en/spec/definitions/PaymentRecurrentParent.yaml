@@ -1,5 +1,5 @@
 type: object
-description: Родительский платеж, на основе которого создан текущий рекуррентный платеж
+description: Parent payment, on the basis of which the current recurrent payment was created
 required:
   - invoiceID
   - paymentID
