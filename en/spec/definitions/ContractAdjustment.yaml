@@ -12,10 +12,10 @@ properties:
     type: string
     format: date-time
   validSince:
-    description: Дата и время вступления поправки в силу
+    description: Contract adjustment effective date and time
     type: string
     format: date-time
   validUntil:
-    description: Дата и время прекращения силы поправки
+    description: Contract adjustment expiration date and time
     type: string
     format: date-time
