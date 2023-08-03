@@ -1,5 +1,5 @@
 get:
-  description: Получить данные страны по ее ID
+  description: Get country data by country identifier
   tags:
     - Countries
   operationId: getCountryByID
