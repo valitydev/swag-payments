@@ -1,4 +1,4 @@
-description: Данные договора с участником
+description: Contract details
 type: object
 required:
   - id
