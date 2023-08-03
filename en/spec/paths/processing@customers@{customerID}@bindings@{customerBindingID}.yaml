@@ -1,5 +1,5 @@
 get:
-  description: Получить информацию о привязке к плательщику.
+  description: Get customer binding data.
   tags:
     - Customers
   operationId: getBinding
