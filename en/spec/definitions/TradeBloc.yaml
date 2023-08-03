@@ -1,4 +1,4 @@
-description: Торговый Блок
+description: Trade bloc
 type: object
 required:
   - id
