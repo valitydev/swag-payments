@@ -1,5 +1,5 @@
 get:
-  description: Получить список категорий
+  description: Get list of categories
   tags:
     - Categories
   operationId: getCategories
