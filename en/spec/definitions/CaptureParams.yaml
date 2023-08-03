@@ -4,13 +4,11 @@ allOf:
     $ref: '#/definitions/Reason'
   - 
     type: object
-    description: Данные подтверждаемой суммы платежа
+    description: Data of captured payment amount
     properties:
       amount:
         description: |
-          Подтверждаемая сумма платежа, в минорных денежных единицах,
-          например в копейках в случае указания российских рублей в качестве
-          валюты.
+          Captured payment amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
         type: integer
         format: int64
         minimum: 1
@@ -23,11 +21,11 @@ allOf:
           - 
             $ref: '#/definitions/InvoiceCart'
           - 
-            description: Корзина с набором позиций **предоставляемых** товаров или услуг
+            description: A shopping cart with a set of items of **provided** goods or services
       allocation:
         x-rebillyMerge:
           - 
             $ref: '#/definitions/Allocation'
           - 
             description: >
-               Итоговое распределение денежных средств
+              Final cash allocation
