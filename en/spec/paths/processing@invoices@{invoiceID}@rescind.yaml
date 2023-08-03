@@ -19,7 +19,7 @@ post:
         $ref: '#/definitions/Reason'
   responses:
     '204':
-      description: Инвойс аннулирован
+      description: Invoice rescinded
     '404':
       $ref: '#/responses/NotFound'
     '401':
