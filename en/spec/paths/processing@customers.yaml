@@ -1,5 +1,5 @@
 post:
-  description: Создать нового плательщика.
+  description: Create a new customer.
   tags:
     - Customers
   operationId: createCustomer
@@ -10,7 +10,7 @@ post:
       $ref: '#/parameters/deadline'
     - 
       name: customerParams
-      description: Параметры создаваемого плательщика
+      description: Parameters of the customer to be created
       in: body
       required: true
       schema:
@@ -23,7 +23,7 @@ post:
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибочные данные плательщика
+      description: Invalid customer data
       schema:
         type: object
         required:
