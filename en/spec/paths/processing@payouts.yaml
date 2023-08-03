@@ -1,7 +1,6 @@
 post:
   description: |
-    Создать новую выплату и отправить её на
-    премодерацию.
+    Create a new payout and send it to pre-moderation.
   operationId: createPayout
   tags:
     - Payouts
