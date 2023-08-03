@@ -1,5 +1,5 @@
 get:
-  description: Получить данные провайдера платёжных сервисов по его ID
+  description: Get data of payment service provider by its identifier
   tags:
     - PaymentInstitutions
   operationId: getServiceProviderByID
@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/serviceProviderID'
   responses:
     '200':
-      description: Провайдер платёжных сервисов найден
+      description: Payment service provider found
       schema:
         $ref: '#/definitions/ServiceProvider'
     '404':
