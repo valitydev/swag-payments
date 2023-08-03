@@ -1,5 +1,5 @@
 get:
-  description: Получить данные категории по ее ID
+  description: Get category data by identifier
   tags:
     - Categories
   operationId: getCategoryByRef
