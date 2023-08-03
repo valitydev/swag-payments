@@ -4,8 +4,7 @@ allOf:
   - 
     type: object
     description: |
-      Данные счёта плательщика в банковской организации, ведущей деятельность под
-      юрисдикцией РФ.
+      Data of a settlement account in a banking organization operating under the jurisdiction of the Russian Federation.
     required:
       - account
       - bankBik
