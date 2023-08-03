@@ -1,5 +1,5 @@
 get:
-  description: Receive all refunds of the specified payment.
+  description: Get all refunds of the specified payment.
   tags:
     - Payments
   operationId: getRefunds
@@ -14,7 +14,7 @@ get:
       $ref: '#/parameters/paymentID'
   responses:
     '200':
-      description: Данные возвратов по платежу
+      description: Refunds data on payment
       schema:
         type: array
         items:
@@ -26,7 +26,7 @@ get:
     '400':
       $ref: '#/responses/DefaultLogicError'
 post:
-  description: Создать возврат указанного платежа
+  description: Create a refund of the specified payment
   tags:
     - Payments
   operationId: createRefund
