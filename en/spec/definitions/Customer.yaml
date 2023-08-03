@@ -13,7 +13,7 @@ properties:
       - 
         $ref: '#/definitions/ExternalID'
       - 
-        description: Внешний идентификатор плательщика
+        description: External customer identifier
   shopID:
     description: Shop ID
     type: string
@@ -31,5 +31,5 @@ properties:
       - ready
       - unready
   metadata:
-    description: Связанные с плательщиком метаданные
+    description: Customer metadata
     type: object
