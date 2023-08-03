@@ -27,7 +27,7 @@ post:
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибка отмены платежа
+      description: Payment cancel error
       schema:
         type: object
         required:
