@@ -12,7 +12,7 @@ get:
       $ref: '#/parameters/invoiceID'
   responses:
     '200':
-      description: Данные платежей по инвойсу
+      description: List of invoice payments
       schema:
         type: array
         items:
@@ -24,7 +24,7 @@ get:
     '400':
       $ref: '#/responses/DefaultLogicError'
 post:
-  description: Создать новый платеж по указанному инвойсу.
+  description: Create a new payment for the specified invoice.
   tags:
     - Payments
   operationId: createPayment
