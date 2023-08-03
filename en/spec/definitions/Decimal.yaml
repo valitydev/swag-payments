@@ -1,4 +1,4 @@
-description: Дробное десятичное число произвольной точности
+description: Fractional decimal number of arbitrary precision
 type: object
 required:
   - m
