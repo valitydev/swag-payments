@@ -1,5 +1,5 @@
 get:
-  description: Получение данных по выплате
+  description: Get payout data
   tags:
     - Payouts
   operationId: getPayout
