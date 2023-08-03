@@ -1,5 +1,5 @@
 get:
-  description: Получить данные плательщика по его идентификатору.
+  description: Get a customer data by its identifier.
   operationId: getCustomerById
   tags:
     - Customers
@@ -22,7 +22,7 @@ get:
     '400':
       $ref: '#/responses/DefaultLogicError'
 delete:
-  description: Удалить плательщика по его идентификатору
+  description: Delete a customer by its identifier
   operationId: deleteCustomer
   tags:
     - Customers
@@ -41,7 +41,7 @@ delete:
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибка удаления плательщика
+      description: Customer deletion error
       schema:
         type: object
         required:
