@@ -20,10 +20,10 @@ allOf:
         description: Cокращенный идентификатор платежа и инвойса (spid)
         type: string
       invoiceID:
-        description: 'Идентификатор инвойса, в рамках которого был создан платеж'
+        description: 'Identifier of the invoice within which the payment was created'
         type: string
       shopID:
-        description: 'Идентификатор магазина, в рамках которого был создан платеж'
+        description: 'Identifier of the shop within which the payment was created'
         type: string
       createdAt:
         description: Created at
@@ -31,9 +31,7 @@ allOf:
         format: date-time
       amount:
         description: |
-          Стоимость предлагаемых товаров или услуг, в минорных денежных
-          единицах, например в копейках в случае указания российских рублей в
-          качестве валюты.
+          The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
         type: integer
         format: int64
         minimum: 0
@@ -54,7 +52,7 @@ allOf:
         description: Payment metadata
         type: object
       statusChangedAt:
-        description: Дата и время изменения статуса платежа
+        description: Date and time of payment status change
         type: string
         format: date-time
       transactionInfo:
