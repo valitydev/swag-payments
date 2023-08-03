@@ -10,20 +10,20 @@ post:
       $ref: '#/parameters/deadline'
     - 
       name: invoiceTemplateCreateParams
-      description: Параметры шаблона инвойса.
+      description: Invoice template parameters.
       in: body
       required: true
       schema:
         $ref: '#/definitions/InvoiceTemplateCreateParams'
   responses:
     '201':
-      description: Шаблон инвойса создан.
+      description: Invoice template created.
       schema:
         $ref: '#/definitions/InvoiceTemplateAndToken'
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибочные данные для создания шаблона
+      description: Invalid data for invoice template creation
       schema:
         type: object
         required:
