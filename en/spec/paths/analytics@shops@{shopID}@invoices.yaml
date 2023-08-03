@@ -19,7 +19,7 @@ get:
     - 
       name: invoiceStatus
       in: query
-      description: Статус инвойса для поиска
+      description: Invoice status for search
       required: false
       type: string
       enum:
@@ -30,7 +30,7 @@ get:
     - 
       name: paymentStatus
       in: query
-      description: Статус платежа для поиска
+      description: Payment status for search
       required: false
       type: string
       enum:
@@ -91,7 +91,7 @@ get:
     - 
       name: payerEmail
       in: query
-      description: 'Email, указанный при оплате'
+      description: 'Payer''s e-mail'
       required: false
       type: string
       format: email
