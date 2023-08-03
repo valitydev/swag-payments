@@ -1,5 +1,5 @@
 description: |
-  Признак создания родительского рекуррентного платежа.
-  Успешно проведеный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах.
+  An indication of the creation of a parent recurrence payment.
+  Successful payment with this attribute can be used as a parent payment in other recurring payments.
 type: boolean
 default: false
