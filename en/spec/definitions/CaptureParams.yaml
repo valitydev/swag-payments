@@ -21,7 +21,7 @@ allOf:
           - 
             $ref: '#/definitions/InvoiceCart'
           - 
-            description: A shopping cart with a set of items of **provided** goods or services
+            description: A shopping cart with a list of items of **provided** goods or services
       allocation:
         x-rebillyMerge:
           - 
