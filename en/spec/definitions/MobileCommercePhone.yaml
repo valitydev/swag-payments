@@ -6,7 +6,7 @@ required:
   - ctn
 properties:
   cc:
-    description: Код страны (1-3 цифры)
+    description: Country code (1-3 digits)
     type: string
     pattern: '^\d{1,3}$'
     example: "7"
