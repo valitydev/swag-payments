@@ -1,5 +1,5 @@
 get:
-  description: Получить данные расписания выводов по ее ID
+  description: Get payout schedule data by its identifier
   tags:
     - Payouts
   operationId: getScheduleByRef
