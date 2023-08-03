@@ -1,7 +1,7 @@
 description: |
-  Схема налогообложения предлагаемого товара или услуги.
+  The tax mode for the proposed good or service.
 
-  Указывается, только если предлагаемый товар или услуга облагается налогом.
+  To be specified only if the proposed good or service is taxable.
 type: object
 discriminator: type
 required:
