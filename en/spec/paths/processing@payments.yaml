@@ -1,5 +1,5 @@
 get:
-  description: Receive payment by the specified external identifier.
+  description: Get payment by the specified external identifier.
   tags:
     - Payments
   operationId: getPaymentByExternalID
