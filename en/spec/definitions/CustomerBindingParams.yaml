@@ -7,6 +7,6 @@ properties:
       - 
         $ref: '#/definitions/ExternalID'
       - 
-        description: Внешний идентификатор привязки
+        description: External customer binding identifier
   paymentResource:
     $ref: '#/definitions/PaymentResource'
