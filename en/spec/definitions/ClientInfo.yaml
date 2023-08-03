@@ -1,10 +1,10 @@
-description: Данные клиентского устройства плательщика
+description: Payer's client device data
 type: object
 required:
   - fingerprint
 properties:
   fingerprint:
-    description: Уникальный отпечаток user agent'а плательщика
+    description: Payer's user agent unique fingerprint
     type: string
     maxLength: 1000
   ip:
