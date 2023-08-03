@@ -40,7 +40,7 @@ allOf:
         maxLength: 1000
       postAddress:
         description: |
-          Почтовый адрес для отправки корреспонденции
+          Postal address for sending correspondence
         type: string
         maxLength: 1000
       representativePosition:
