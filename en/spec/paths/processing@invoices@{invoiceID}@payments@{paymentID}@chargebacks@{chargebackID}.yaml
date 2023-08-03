@@ -1,5 +1,5 @@
 get:
-  description: Получить данные определённого чарджбэка для указанного платежа.
+  description: Get data on the chargeback of the specified payment.
   tags:
     - Payments
   operationId: getChargebackByID
