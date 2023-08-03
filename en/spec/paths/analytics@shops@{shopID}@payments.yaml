@@ -96,7 +96,7 @@ get:
     - 
       name: payerFingerprint
       in: query
-      description: Уникальный отпечаток user agent'а плательщика
+      description: Payer's user agent unique fingerprint
       required: false
       type: string
       maxLength: 1000
