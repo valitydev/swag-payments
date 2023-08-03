@@ -16,19 +16,19 @@ post:
     - 
       name: capturePayment
       in: body
-      description: Параметры подтверждения платежа
+      description: Payment capture parameters
       required: true
       schema:
         $ref: '#/definitions/CaptureParams'
   responses:
     '202':
-      description: Запрос на подтверждение платежа принят
+      description: Request to capture payment accepted
     '404':
       $ref: '#/responses/NotFound'
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибка подтверждения платежа
+      description: Payment capture error
       schema:
         type: object
         required:
