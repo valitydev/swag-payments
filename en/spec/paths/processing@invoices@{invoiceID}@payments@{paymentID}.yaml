@@ -1,5 +1,5 @@
 get:
-  description: Получить данные платежа по указанному инвойсу.
+  description: Get payment for the specified invoice.
   tags:
     - Payments
   operationId: getPaymentByID
