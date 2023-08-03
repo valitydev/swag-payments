@@ -6,7 +6,7 @@ required:
   - accountType
 properties:
   accountType:
-    description: Вид банковского счета
+    description: Bank account type
     type: string
     enum:
       - InvoiceRussianBankAccount
