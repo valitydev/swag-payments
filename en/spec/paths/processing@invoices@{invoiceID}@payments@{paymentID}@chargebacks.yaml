@@ -1,5 +1,5 @@
 get:
-  description: Получить все чарджбэки по указанному платежу.
+  description: Get all chargebacks on the specified payment.
   tags:
     - Payments
   operationId: getChargebacks
@@ -14,7 +14,7 @@ get:
       $ref: '#/parameters/paymentID'
   responses:
     '200':
-      description: Данные чарджбэков по платежу
+      description: Chargebacks data on payment
       schema:
         type: array
         items:
