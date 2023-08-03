@@ -10,8 +10,8 @@ allOf:
       - referenceID
     properties:
       serviceID:
-        description: Samsung  Pay service identifier
+        description: Samsung Pay service identifier
         type: string
       referenceID:
-        description: Идентификатор токена в Samsung Pay
+        description: Samsung Pay reference indentifier
         type: string
