@@ -14,8 +14,7 @@ allOf:
             $ref: '#/definitions/PaymentTerminalProvider'
       metadata:
         description: |
-          Произвольные метаданные, дополнительно описывающие данный платёжный
-          инструмент.
+          Arbitrary metadata further describing this payment instrument.
         type: object
         example:
           type: BankAccountRUS
