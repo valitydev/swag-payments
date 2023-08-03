@@ -13,5 +13,5 @@ allOf:
         description: Идентификатор мерчанта в системе
         type: string
       paymentToken:
-        description: Совокупность открытых и зашифрованных платежных данных
+        description: Aggregate of open and encrypted payment data
         type: object
