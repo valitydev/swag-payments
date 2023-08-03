@@ -2,7 +2,7 @@ allOf:
   - 
     $ref: '#/definitions/InvoiceLineTaxMode'
   - 
-    description: Налог на добавленную стоимость в юрисдикции РФ
+    description: Value added tax in the jurisdiction of the Russian Federation
     type: object
     required:
       - rate
