@@ -1,4 +1,4 @@
-description: Описание ошибки, возникшей в процессе привязки
+description: Description of the error that occurred during the binding process
 type: object
 required:
   - code
