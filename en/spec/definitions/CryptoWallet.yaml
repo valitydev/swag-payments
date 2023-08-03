@@ -8,7 +8,7 @@ allOf:
       - cryptoCurrencies
     properties:
       cryptoCurrencies:
-        description: Список криптовалют
+        description: List of cryptocurrencies
         type: array
         items:
           x-rebillyMerge:
