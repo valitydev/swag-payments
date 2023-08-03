@@ -16,7 +16,7 @@ allOf:
         pattern: '^\d{20}$'
         example: 12345678912345678912
       bankBik:
-        description: БИК банковской организации
+        description: BIK of the banking organization
         type: string
         pattern: '^\d{9}$'
         example: 123456789
