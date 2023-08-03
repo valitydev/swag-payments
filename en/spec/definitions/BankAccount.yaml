@@ -1,5 +1,5 @@
 description: |
-  Data of a settlement account in a banking organization operating under the jurisdiction of the Russian Federation. The bank account in a banking organization operating under the jurisdiction of the Russian Federation.
+  Data of a settlement account in a banking organization operating under the jurisdiction of the Russian Federation.
 type: object
 required:
   - account
