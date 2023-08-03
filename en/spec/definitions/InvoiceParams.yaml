@@ -23,17 +23,14 @@ properties:
         description: External invoice identifier
   dueDate:
     description: |
-      Дата и время окончания действия инвойса, после наступления которых его
-      уже невозможно будет оплатить
+      The date and time of expiration of the invoice, after which it can no longer be paid
     type: string
     format: date-time
   amount:
     description: |
-      Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,
-      например в копейках в случае указания российских рублей в качестве валюты.
+      The value of the goods or services offered, in minor monetary units, such as cents if US dollars are specified as the currency.
 
-      Если стоимость не указана, то стоимостью инвойса будет считаться суммарная
-      стоимость позиций в корзине.
+      If no value is specified, the value of the invoice will be the total value of the items in the shopping cart.
     type: integer
     format: int64
     minimum: 1
@@ -56,7 +53,7 @@ properties:
   bankAccount:
     $ref: '#/definitions/InvoiceBankAccount'
   metadata:
-    description: 'Метаданные, которые необходимо связать с инвойсом'
+    description: 'Invoice metadata'
     type: object
   clientInfo:
     $ref: '#/definitions/InvoiceClientInfo'
