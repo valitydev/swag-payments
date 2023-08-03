@@ -1,5 +1,5 @@
 post:
-  description: Запустить новую привязку к плательшику.
+  description: Start a new payer binding.
   tags:
     - Customers
   operationId: createBinding
@@ -12,14 +12,14 @@ post:
       $ref: '#/parameters/customerID'
     - 
       name: bindingParams
-      description: Параметры создаваемой привязки
+      description: Parameters of the created binding
       in: body
       required: true
       schema:
         $ref: '#/definitions/CustomerBindingParams'
   responses:
     '201':
-      description: Привязка запущена
+      description: Binding started
       schema:
         $ref: '#/definitions/CustomerBinding'
     '404':
@@ -27,7 +27,7 @@ post:
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибочные данные для привязки
+      description: Invalid binding data
       schema:
         type: object
         required:
@@ -54,7 +54,7 @@ post:
     '409':
       $ref: '#/responses/ExternalIDConflict'
 get:
-  description: Получить все привязки к плательщику.
+  description: Get all payer bindings.
   tags:
     - Customers
   operationId: getBindings
@@ -67,7 +67,7 @@ get:
       $ref: '#/parameters/customerID'
   responses:
     '200':
-      description: Список привязок
+      description: List of bindings
       schema:
         type: array
         items:
