@@ -15,13 +15,13 @@ post:
     - 
       name: cancelPayment
       in: body
-      description: Произвольная причина совершения операции
+      description: Reason for the operation
       required: true
       schema:
         $ref: '#/definitions/Reason'
   responses:
     '202':
-      description: Запрос на отмену платежа принят
+      description: Payment cancelation request received
     '404':
       $ref: '#/responses/NotFound'
     '401':
