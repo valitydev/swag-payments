@@ -16,7 +16,7 @@ x-merge-properties:
           - 
             $ref: '#/definitions/ExternalID'
       createdAt:
-        description: Дата и время осуществления
+        description: Creation date and time
         type: string
         format: date-time
       amount:
