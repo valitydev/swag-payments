@@ -50,7 +50,7 @@ get:
     - 
       name: paymentTerminalProvider
       in: query
-      description: Провайдер платежного терминала
+      description: Payment terminal provider
       required: false
       type: string
     - 
