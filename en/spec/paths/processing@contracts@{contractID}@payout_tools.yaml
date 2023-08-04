@@ -1,5 +1,5 @@
 get:
-  description: Получить данные всех средств вывода
+  description: Get all payout tools to the specified contract
   operationId: getPayoutTools
   tags:
     - Payouts
