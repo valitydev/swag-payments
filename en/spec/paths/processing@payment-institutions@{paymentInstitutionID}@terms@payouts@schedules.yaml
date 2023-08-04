@@ -1,5 +1,5 @@
 get:
-  description: Получить доступные расписания вывода средств для платёжной организации
+  description: Get available payout schedules for the payment organization
   tags:
     - PaymentInstitutions
   operationId: getPaymentInstitutionPayoutSchedules
