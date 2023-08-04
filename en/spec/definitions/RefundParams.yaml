@@ -31,4 +31,4 @@ properties:
         $ref: '#/definitions/Allocation'
       - 
         description: >
-           Распределение денежных средств, которое должно формироваться из позиций, по которым производится возврат. Сумма всех транзакций распределения должна совпадать с суммой возврата.
+          Cash allocation, which should be formed from the items for which a refund is made. The sum of all allocation transactions must match the refund amount.
