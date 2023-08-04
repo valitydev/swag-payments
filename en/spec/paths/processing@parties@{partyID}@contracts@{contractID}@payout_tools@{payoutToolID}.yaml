@@ -1,5 +1,5 @@
 get:
-  description: Получить данные средства вывода по его идентификатору
+  description: Get a payout tool data by its identifier
   operationId: getPayoutToolByIDForParty
   tags:
     - Payouts
