@@ -1,6 +1,5 @@
 description: |
-  Область охвата, включающая события по плательщикам в рамках определённого
-  магазина
+  Scope that includes customer events within a specific shop
 allOf:
   - 
     $ref: '#/definitions/WebhookScope'
