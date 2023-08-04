@@ -23,14 +23,12 @@ properties:
     maxLength: 1000
   amount:
     description: |
-      Сумма выплаты в минорных денежных
-      единицах, например в копейках в случае указания российских рублей в
-      качестве валюты.
+      Payout amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
     type: integer
     format: int64
     minimum: 1
   fee:
-    description: 'Комиссия системы, в минорных денежных единицах'
+    description: 'System fee in minor monetary units'
     type: integer
     format: int64
     minimum: 0
