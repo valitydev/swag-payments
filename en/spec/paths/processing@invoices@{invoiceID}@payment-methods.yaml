@@ -1,5 +1,5 @@
 get:
-  description: Получить доступные для инвойса методы оплаты.
+  description: Get the payment methods available for the invoice.
   tags:
     - Invoices
   operationId: getInvoicePaymentMethods
