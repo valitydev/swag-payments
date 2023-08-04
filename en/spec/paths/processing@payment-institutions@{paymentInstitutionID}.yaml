@@ -1,5 +1,5 @@
 get:
-  description: Получить данные платёжной организации по ее ID
+  description: Get data of the payment institution by its identifier
   tags:
     - PaymentInstitutions
   operationId: getPaymentInstitutionByRef
