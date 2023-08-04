@@ -1,4 +1,4 @@
-description: Данные международного банковского счёта
+description: International bank account data
 type: object
 properties:
   number:
