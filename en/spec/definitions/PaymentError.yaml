@@ -1,5 +1,5 @@
 description: |
-  [Ошибка, возникшая в процессе проведения платежа](#tag/Error-Codes)
+  [Error occurred during the payment process](#tag/Error-Codes)
 type: object
 required:
   - code
