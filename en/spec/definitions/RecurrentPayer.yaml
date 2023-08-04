@@ -1,5 +1,5 @@
 type: object
-description: Многоразовое платежное средство на основе другого платежа
+description: Recurring payment tool based on another payment
 allOf:
   - 
     $ref: '#/definitions/Payer'
