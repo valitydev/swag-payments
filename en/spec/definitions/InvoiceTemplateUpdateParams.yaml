@@ -14,5 +14,5 @@ properties:
     $ref: '#/definitions/InvoiceTemplateDetails'
   metadata:
     description: >
-      Метаданные, которые будут связаны с инвойсом, созданным по шаблону, в случае, если иные метаданные не указаны в запросе на создание инвойса.
+      Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.
     type: object
