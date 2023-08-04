@@ -5,7 +5,7 @@ allOf:
   - 
     type: object
     description: |
-      Оповещение о завершении последнего запрошенного взаимодействия с плательщиком
+      Notification on completion of the last requested interaction with the customer
     required:
       - paymentID
     properties:
