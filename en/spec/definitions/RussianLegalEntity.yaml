@@ -54,8 +54,7 @@ allOf:
         maxLength: 100
       representativeDocument:
         description: |
-          Идентификационные данные документа, на основании которого действует
-          [ЕИО](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) или его представитель
+          Identification data of the document
         type: string
         maxLength: 1000
       bankAccount:
