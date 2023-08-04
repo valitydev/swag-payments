@@ -1,6 +1,5 @@
 description: |
-  Область охвата, включающая события по инвойсам в рамках определённого
-  магазина
+  Scope that includes invoice events within a specific shop
 allOf:
   - 
     $ref: '#/definitions/WebhookScope'
@@ -16,7 +15,7 @@ allOf:
         maxLength: 40
         minLength: 1
       eventTypes:
-        description: Набор типов событий инвойсов, о которых следует оповещать
+        description: Set of invoice event types to be notified about
         type: array
         items:
           type: string
