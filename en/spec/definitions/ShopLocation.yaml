@@ -1,4 +1,4 @@
-description: Местоположение магазина, по которому можно его найти
+description: The location of the shop, by which it can be found
 type: object
 discriminator: locationType
 required:
