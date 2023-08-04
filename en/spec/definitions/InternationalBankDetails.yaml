@@ -1,11 +1,11 @@
-description: Данные международной банковской организации
+description: International banking organization data
 type: object
 properties:
   bic:
     description: |
       Business Identifier Code [ISO 9362](https://en.wikipedia.org/wiki/ISO_9362).
 
-      _* Если `bic` задан, прочие данные не обязательны к заполнению._
+      _* If `bic` is specified, other data is optional._
     type: string
     pattern: '^([A-Z0-9]{8}|[A-Z0-9]{11})$'
     example: |
@@ -13,9 +13,9 @@ properties:
   abartn:
     description: |
       [ABA Routing Transit Number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)
-      банковской организации, специфичный для банковской системы USA.
+      banking organization specific to the USA banking system.
 
-      _* Если `abartn` задан, прочие данные не обязательны к заполнению._
+      _* If `abartn` is specified, other data is optional._
     type: string
     pattern: '^[0-9]{9}$'
     example: "129131673"
@@ -32,9 +32,8 @@ properties:
       - 
         $ref: '#/definitions/CountryCode'
       - 
-        description: |2
-           Код страны резиденции банковской организации, обозначается
-          alpha-3 код по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
+        description: |
+          Country code of residence of the banking organization, alpha-3 code according to [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
   address:
     description: Address of the legal entity of the banking organization
     type: string
