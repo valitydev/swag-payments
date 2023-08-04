@@ -1,4 +1,4 @@
-description: Юридическое лицо, ведущее деятельность под юрисдикцией РФ
+description: Legal entity operating under the jurisdiction of the Russian Federation
 type: object
 allOf:
   - 
@@ -18,19 +18,17 @@ allOf:
     properties:
       registeredName:
         description: |
-          Зарегистрированное наименование юридического лица
+          Registered name of the legal entity
         type: string
         maxLength: 100
       registeredNumber:
         description: |
-          Регистрационный номер,
-          [ОГРН](https://ru.wikipedia.org/wiki/Основной_государственный_регистрационный_номер) или
-          [ОГРНИП](https://ru.wikipedia.org/wiki/Основной_государственный_регистрационный_номер_индивидуального_предпринимателя)
+          OGRN – Major State Registration Number of the entry made in the Register about formation of a Russian company (consists of 12 digits).
         type: string
         pattern: '^(\d{13}|\d{15})$'
       inn:
         description: |
-          [ИНН](https://ru.wikipedia.org/wiki/Идентификационный_номер_налогоплательщика)
+          [Russian taxpayer personal identification number (INN)](https://www.nalog.gov.ru/eng/exchinf/inn/)
         type: string
         pattern: '^(\d{10}|\d{12})$'
       actualAddress:
