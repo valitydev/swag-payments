@@ -18,7 +18,7 @@ properties:
     type: string
     format: date-time
   cancellationDetails:
-    description: Детали отмены выплаты
+    description: Details of the canceled payout
     type: string
     maxLength: 1000
   amount:
