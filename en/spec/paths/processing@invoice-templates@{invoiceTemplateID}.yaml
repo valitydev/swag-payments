@@ -22,7 +22,7 @@ get:
     '400':
       $ref: '#/responses/DefaultLogicError'
 put:
-  description: Модифицировать шаблон инвойса.
+  description: Change the invoice template.
   tags:
     - InvoiceTemplates
   operationId: updateInvoiceTemplate
@@ -35,14 +35,14 @@ put:
       $ref: '#/parameters/invoiceTemplateID'
     - 
       name: invoiceTemplateUpdateParams
-      description: Параметры модифицируемого инвойса.
+      description: Invoice template parameters.
       in: body
       required: true
       schema:
         $ref: '#/definitions/InvoiceTemplateUpdateParams'
   responses:
     '200':
-      description: Шаблон инвойса модифицирован.
+      description: The invoice template has been changed.
       schema:
         $ref: '#/definitions/InvoiceTemplate'
     '404':
@@ -50,7 +50,7 @@ put:
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибочные данные для изменения шаблона
+      description: Invalid data for invoice template change
       schema:
         type: object
         required:
@@ -72,7 +72,7 @@ put:
             type: string
             example: Invalid party status
 delete:
-  description: Удалить шаблон инвойса.
+  description: Remove invoice template.
   tags:
     - InvoiceTemplates
   operationId: deleteInvoiceTemplate
@@ -85,13 +85,13 @@ delete:
       $ref: '#/parameters/invoiceTemplateID'
   responses:
     '204':
-      description: Шаблон инвойса удален.
+      description: Invoice template removed.
     '404':
       $ref: '#/responses/NotFound'
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибочные данные для удаления шаблона
+      description: Invalid data for invoice template deletion
       schema:
         type: object
         required:
