@@ -1,5 +1,5 @@
 post:
-  description: Создать новый инвойс по шаблону.
+  description: Create a new invoice using the invoice template.
   tags:
     - InvoiceTemplates
   operationId: createInvoiceWithTemplate
@@ -12,7 +12,7 @@ post:
       $ref: '#/parameters/invoiceTemplateID'
     - 
       name: invoiceParamsWithTemplate
-      description: Параметры создаваемого инвойса
+      description: Invoice parameters
       in: body
       required: true
       schema:
@@ -27,7 +27,7 @@ post:
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибочные данные для создания инвойса
+      description: Invalid data for invoice creation
       schema:
         type: object
         required:
