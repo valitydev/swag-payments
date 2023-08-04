@@ -1,4 +1,4 @@
-description: Зарегистрированный пользователь системы
+description: Registered user of the system
 allOf:
   - 
     $ref: '#/definitions/Contractor'
@@ -8,5 +8,5 @@ allOf:
       - email
     properties:
       email:
-        description: Электронная почта, идентифицирующая пользователя
+        description: User-identifying e-mail
         type: string
