@@ -1,5 +1,5 @@
 type: object
-description: Многоразовое платежное средство
+description: Reusable payment tool
 allOf:
   - 
     $ref: '#/definitions/Payer'
