@@ -1,5 +1,5 @@
 get:
-  description: Получить данные инвойса по его идентификатору.
+  description: Get an invoice by its identifier.
   tags:
     - Invoices
   operationId: getInvoiceByID
