@@ -29,7 +29,7 @@ properties:
         $ref: '#/definitions/Currency'
   categoryID:
     description: |
-      Идентификатор категории товаров и услуг, предлагаемых в этом магазине
+      Сategory identifier of goods and services offered in this shop
     type: integer
     format: int32
   location:
@@ -38,13 +38,11 @@ properties:
     $ref: '#/definitions/ShopDetails'
   contractID:
     description: |
-      Идентификатор договора, на основании которого производится обслуживание
-      магазина
+      Contract identifier on the basis of which the shop is serviced
     type: string
   payoutToolID:
     description: |
-      Идентификатор средства вывода в рамках контракта, используемое в процессе
-      вывода по магазину
+      Payout tool identifier within the contract used in the withdrawal process by shop
     type: string
   scheduleID:
     description: Payout schedule identifier
