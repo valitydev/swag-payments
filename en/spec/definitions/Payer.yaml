@@ -5,7 +5,7 @@ properties:
     description: Payment tool type
     type: string
   sessionInfo:
-    description: Данные текущей сессии плательщика
+    description: Payer's current session data
     type: object
     properties:
       redirectUrl:
