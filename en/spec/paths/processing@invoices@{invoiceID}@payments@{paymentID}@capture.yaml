@@ -1,6 +1,6 @@
 post:
   description: >
-    Подтвердить указанный платеж. В случае передачи суммы подтверждения, меньшей, чем оригинальная, оставшаяся часть платежа будет возвращена.(см. [Варианты проведения оплаты](#tag/Payments))
+    Capture the specified payment. In case the capture amount is less than the original amount, the remainder of the payment will be refunded.(see. [Payment options](#tag/Payments))
   tags:
     - Payments
   operationId: capturePayment
