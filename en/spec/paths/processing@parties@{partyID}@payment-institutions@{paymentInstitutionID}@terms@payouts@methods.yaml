@@ -1,5 +1,5 @@
 get:
-  description: Получить cпособы вывода средств для платёжной организации участника
+  description: Get payout methods for the payment institution
   tags:
     - PaymentInstitutions
   operationId: getPaymentInstitutionPayoutMethodsForParty
