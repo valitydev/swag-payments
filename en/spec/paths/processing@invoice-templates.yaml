@@ -1,5 +1,5 @@
 post:
-  description: Создать новый шаблон инвойса.
+  description: Create an new invoice template.
   tags:
     - InvoiceTemplates
   operationId: createInvoiceTemplate
