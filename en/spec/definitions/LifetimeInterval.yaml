@@ -1,5 +1,5 @@
 type: object
-description: Время жизни инвойса с момента его создания.
+description: The life time of an invoice from the time it was created.
 required:
   - days
   - months
