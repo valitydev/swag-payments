@@ -1,17 +1,17 @@
-description: Ключевые данные юридического соглашения
+description: Legal agreement details
 type: object
 required:
   - id
   - signedAt
 properties:
   id:
-    description: Идентификатор юридического соглашения, например номер договора
+    description: Legal agreement Identifier, e.g. contract number
     type: string
   signedAt:
-    description: Дата и время заключения юридического соглашения
+    description: Date and time of conclusion of the legal agreement
     type: string
     format: date-time
   validUntil:
-    description: Дата и время окончания действия юридического соглашения
+    description: Date and time of termination of the legal agreement
     type: string
     format: date-time
