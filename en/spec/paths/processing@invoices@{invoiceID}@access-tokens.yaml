@@ -1,6 +1,6 @@
 post:
   operationId: createInvoiceAccessToken
-  description: Создать новый токен для доступа к указанному инвойсу.
+  description: Create a new token to access the specified invoice.
   tags:
     - Invoices
   parameters:
@@ -12,7 +12,7 @@ post:
       $ref: '#/parameters/invoiceID'
   responses:
     '201':
-      description: Токен для доступа к инвойсу создан.
+      description: Access token created.
       schema:
         $ref: '#/definitions/AccessToken'
     '404':
