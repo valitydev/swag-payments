@@ -21,7 +21,7 @@ properties:
     description: Is the shop blocked?
     type: boolean
   isSuspended:
-    description: Приостановлены ли операции в рамках магазина?
+    description: Are operations suspended within the shop?
     type: boolean
   currency:
     x-rebillyMerge:
@@ -47,6 +47,6 @@ properties:
       вывода по магазину
     type: string
   scheduleID:
-    description: Идентификатор расписания выводов
+    description: Payout schedule identifier
     type: integer
     format: int32
