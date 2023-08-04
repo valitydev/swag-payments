@@ -8,7 +8,7 @@ allOf:
       - operators
     properties:
       operators:
-        description: Список операторов мобильной связи
+        description: List of mobile operators
         type: array
         items:
           x-rebillyMerge:
