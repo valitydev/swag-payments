@@ -1,5 +1,5 @@
 get:
-  description: Получить данные поправки к договору по её идентификатору
+  description: Get contract adjustment data by its identifier
   operationId: getContractAdjustmentByID
   tags:
     - Contracts
