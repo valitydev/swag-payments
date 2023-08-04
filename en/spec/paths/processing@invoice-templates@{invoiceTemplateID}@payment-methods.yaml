@@ -1,5 +1,5 @@
 get:
-  description: Получить доступные для инвойса методы оплаты по шаблону инвойса.
+  description: Get the available payment methods for the invoice from the invoice template.
   tags:
     - InvoiceTemplates
   operationId: getInvoicePaymentMethodsByTemplateID
