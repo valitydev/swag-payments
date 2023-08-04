@@ -4,7 +4,7 @@ required:
   - details
 properties:
   currency:
-    description: Валюта, в которой производится вывод
+    description: Payout currency
     type: string
   details:
     $ref: '#/definitions/PayoutToolDetails'
