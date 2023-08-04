@@ -16,7 +16,7 @@ allOf:
         maxLength: 40
         minLength: 1
       eventTypes:
-        description: Набор типов событий плательщиков, о которых следует оповещать
+        description: Set of customer event types to be notified about
         type: array
         items:
           type: string
