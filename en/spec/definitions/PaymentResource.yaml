@@ -1,18 +1,18 @@
 type: object
-description: Данные одноразового платежного средства
+description: Disposable payment tool data
 properties:
   paymentToolToken:
     description: |
-      Токен платежного средства, предоставленного плательщиком.
+      A payment tool token provided by the payer.
 
-      _Обязателен при создании платежа или привязки, может быть получен в процессе [токенизации](#operation/createPaymentResource)_.
+      _Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.
     type: string
     maxLength: 2000
   paymentSession:
     description: |
-      Идентификатор платежной сессии.
+      Payment session identifier.
 
-      _Обязателен при создании платежа или привязки, может быть получен в процессе [токенизации](#operation/createPaymentResource)_.
+      _Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.
     type: string
     maxLength: 1000
   paymentToolDetails:
