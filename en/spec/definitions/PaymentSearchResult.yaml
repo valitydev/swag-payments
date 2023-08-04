@@ -17,7 +17,7 @@ allOf:
         description: Payment ID
         type: string
       shortID:
-        description: Cокращенный идентификатор платежа и инвойса (spid)
+        description: Shortened payment and invoice identifier (spid)
         type: string
       invoiceID:
         description: 'Identifier of the invoice within which the payment was created'
