@@ -1,5 +1,5 @@
 get:
-  description: Получить данные договора по его ID
+  description: Get contract by identifier
   operationId: getContractByID
   tags:
     - Contracts
