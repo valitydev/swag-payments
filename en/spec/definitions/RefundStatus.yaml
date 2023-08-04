@@ -18,7 +18,7 @@ properties:
       - message
     properties:
       code:
-        description: Код ошибки, пригодный для обработки автоматическими системами
+        description: Error code for automatic processing
         type: string
       message:
         description: Human-readable error description
