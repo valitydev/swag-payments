@@ -9,9 +9,9 @@ allOf:
       - dueDate
     properties:
       shortPaymentID:
-        description: Номер счета для оплаты через платежный терминал
+        description: Account number for payment via payment terminal
         type: string
       dueDate:
-        description: Дата и время окончания действия счета
+        description: Expiration date and time
         type: string
 
