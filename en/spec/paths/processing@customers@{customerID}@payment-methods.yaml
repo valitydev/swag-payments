@@ -1,5 +1,5 @@
 get:
-  description: Получить доступные для плательщика методы оплаты.
+  description: Get the payment methods available for the customer.
   tags:
     - Customers
   operationId: getCustomerPaymentMethods
