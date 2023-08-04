@@ -1,4 +1,4 @@
-description: Местоположение в Интернете
+description: Shop location as a url on the Internet
 type: object
 allOf:
   - 
