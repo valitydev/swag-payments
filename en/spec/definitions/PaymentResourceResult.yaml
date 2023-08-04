@@ -1,5 +1,5 @@
 type: object
-description: Данные одноразового платежного средства
+description: Disposable payment tool data
 required:
   - paymentSession
   - paymentToolToken
