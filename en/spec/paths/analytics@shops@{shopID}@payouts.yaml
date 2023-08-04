@@ -36,7 +36,7 @@ get:
         - Wallet
         - PaymentInstitutionAccount
       description: >
-        Тип выплаты для поиска * PayoutAccount - выплата на банковский счёт * Wallet - выплата на кошелёк * PaymentInstitutionAccount - выплата на счёт платежной организации
+        Type of payout to search * PayoutAccount - payout to bank account * Wallet - payout to wallet * PaymentInstitutionAccount - payout to payment institution account
   responses:
     '200':
       description: Payouts found
