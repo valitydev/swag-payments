@@ -1,5 +1,5 @@
 get:
-  description: Получить список платёжных организаций
+  description: Get a list of payment institutions
   tags:
     - PaymentInstitutions
   operationId: getPaymentInstitutions
