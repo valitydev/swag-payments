@@ -11,8 +11,7 @@ properties:
       - failed
   error:
     description: |
-      Данные ошибки, возникшей в процессе проведения возврата, в случае если
-      возврат был неуспешен
+      Data of the error that occurred during the refund process, if the refund was unsuccessful
     type: object
     required:
       - code
@@ -22,5 +21,5 @@ properties:
         description: Код ошибки, пригодный для обработки автоматическими системами
         type: string
       message:
-        description: Описание ошибки, пригодное для восприятия человеком
+        description: Human-readable error description
         type: string
