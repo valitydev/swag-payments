@@ -9,7 +9,7 @@ allOf:
       - url
     properties:
       url:
-        description: URL сайта магазина
+        description: Shop URL
         type: string
         format: uri
         maxLength: 1000
