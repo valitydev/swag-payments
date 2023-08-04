@@ -8,14 +8,14 @@ allOf:
       - onHoldExpiration
     properties:
       onHoldExpiration:
-        description: Политика управления удержанием денежных средств
+        description: Cash withholding management policy
         type: string
         default: cancel
         enum:
           - cancel
           - capture
       heldUntil:
-        description: 'Дата и время, до которого происходит удержание денежных средств'
+        description: 'Date and time of withholding of funds'
         type: string
         format: date-time
         readOnly: true
