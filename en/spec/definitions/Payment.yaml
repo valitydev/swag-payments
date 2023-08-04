@@ -19,7 +19,7 @@ x-merge-properties:
           - 
             $ref: '#/definitions/ExternalID'
       invoiceID:
-        description: 'Идентификатор инвойса, в рамках которого был создан платеж'
+        description: 'Identifier of the invoice within which the payment was created'
         type: string
       createdAt:
         description: Created at
@@ -27,8 +27,7 @@ x-merge-properties:
         format: date-time
       amount:
         description: >
-          Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,
-          например в копейках в случае указания российских рублей в качестве валюты.
+          The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
         type: integer
         format: int64
         minimum: 1
