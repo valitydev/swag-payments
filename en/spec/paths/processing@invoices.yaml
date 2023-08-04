@@ -28,7 +28,7 @@ get:
     '400':
       $ref: '#/responses/DefaultLogicError'
 post:
-  description: Создать новый инвойс.
+  description: Create a new invoice.
   tags:
     - Invoices
   operationId: createInvoice
