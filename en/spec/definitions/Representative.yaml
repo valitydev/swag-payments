@@ -1,4 +1,4 @@
-description: ЕИО/Представитель
+description: EEC/Representative
 type: object
 required:
   - position
