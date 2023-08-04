@@ -36,7 +36,7 @@ allOf:
         format: int64
         minimum: 0
       fee:
-        description: Комиссия системы в минорных денежных единицах
+        description: System fee in minor monetary units
         type: integer
         format: int64
         minimum: 0
