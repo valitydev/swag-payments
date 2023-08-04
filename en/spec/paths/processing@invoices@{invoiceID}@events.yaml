@@ -1,5 +1,5 @@
 get:
-  description: Получить историю указанного инвойса в виде набора событий.
+  description: Get the history of the specified invoice as a list of events.
   tags:
     - Invoices
   operationId: getInvoiceEvents
@@ -22,9 +22,9 @@ get:
       name: eventID
       in: query
       description: |
-        Идентификатор события.
+        Event identifier.
 
-        Все события, возникшие в системе _после_ указанного, попадут в выборку.
+        All events that occurred in the system _after_ the specified event will be included in the selection.
       required: false
       type: integer
       format: int32
