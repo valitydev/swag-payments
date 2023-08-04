@@ -1,4 +1,4 @@
-description: Настройки выгрузки автоматической отчетности
+description: Preferences for automatic reporting
 type: object
 properties:
   serviceAcceptanceActPreferences:
