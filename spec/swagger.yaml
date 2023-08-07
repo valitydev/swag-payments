@@ -3,7 +3,6 @@ info:
   version: 2.0.1
   title: Vality Payments API
   description: >
-
     ## Description
 
     API is designed for the merchants who accept payments via user interface
@@ -53,8 +52,10 @@ info:
 
     `X-Request-Deadline` can be:
 
+
     * specified in the format `date-time` according to
     [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339);
+
     * specified in relative values: in milliseconds (`150000ms`), in seconds
     (`540s`) or in minutes (`3.5m`).
 basePath: /v2
@@ -72,17 +73,23 @@ securityDefinitions:
     description: >
       Interaction between the merchant and the system is performed via a secure
       protocol (HTTPS).
+
+
       HTTP requests via unencrypted channel are not supported.
+
 
       The contents of the API key should be passed in the `Authorization`
       header:
+
 
       ```
       Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M...
       ```
 
+
       Keys are not divided into test and production keys. Use the test shop ID
       for test transactions.
+
 
       **Important: Do not pass the API-key to third parties!**
 security:
