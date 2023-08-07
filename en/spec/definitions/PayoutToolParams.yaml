@@ -7,4 +7,4 @@ properties:
     description: Payout currency
     type: string
   details:
-    $ref: '#/definitions/PayoutToolDetails'
+    $ref: "#/definitions/PayoutToolDetails"
