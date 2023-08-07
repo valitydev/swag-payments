@@ -1,10 +1,10 @@
 type: object
 discriminator: detailsType
-description: Детали платежного средства
+description: Payment tool details
 readOnly: true
 required:
   - detailsType
 properties:
   detailsType:
-    description: Тип информации о платежном средстве
+    description: Type of payment tool
     type: string

@@ -1,13 +1,13 @@
-description: Местоположение в Интернете
+description: Shop location as a url on the Internet
 type: object
 allOf:
-  - $ref: '#/definitions/ShopLocation'
+  - $ref: "#/definitions/ShopLocation"
   - type: object
     required:
       - url
     properties:
       url:
-        description: URL сайта магазина
+        description: Shop URL
         type: string
         format: uri
         maxLength: 1000

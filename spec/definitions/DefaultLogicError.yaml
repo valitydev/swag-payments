@@ -4,12 +4,12 @@ required:
   - message
 properties:
   code:
-    description: |
-      [Код ошибки](#tag/Error-Codes)
+    description: >
+      [Error code](#tag/Error-Codes)
     type: string
     enum:
       - invalidRequest
       - invalidDeadline
   message:
-    description: Человекочитаемое описание ошибки
+    description: Human-readable description of the error
     type: string

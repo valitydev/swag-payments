@@ -7,24 +7,23 @@ required:
 properties:
   id:
     x-rebillyMerge:
-      - $ref: '#/definitions/PayoutID'
+      - $ref: "#/definitions/PayoutID"
   shopID:
-    description: Идентификатор магазина
+    description: Shop ID
     type: string
   partyID:
     x-rebillyMerge:
-      - $ref: '#/definitions/PartyID'
+      - $ref: "#/definitions/PartyID"
   payoutToolID:
-    description: Идентификатор инструмента выплаты
+    description: Payout tool ID
     type: string
   amount:
-    description: |
-        Сумма выплаты в минорных денежных
-        единицах, например в копейках в случае указания российских рублей в
-        качестве валюты.
+    description: >
+      Payout amount, in minor monetary units, e.g. cents if US dollars are
+      specified as the currency.
     type: integer
     format: int64
     minimum: 1
   currency:
     x-rebillyMerge:
-      - $ref: '#/definitions/Currency'
+      - $ref: "#/definitions/Currency"

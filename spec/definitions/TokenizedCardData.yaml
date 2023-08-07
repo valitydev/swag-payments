@@ -1,8 +1,8 @@
 type: object
 allOf:
-  - $ref: '#/definitions/PaymentTool'
+  - $ref: "#/definitions/PaymentTool"
   - type: object
-    description: Токенизированная банковская карта
+    description: Tokenized bank card
     discriminator: provider
     properties:
       provider:

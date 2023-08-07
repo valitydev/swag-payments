@@ -1,27 +1,27 @@
 type: object
 allOf:
-  - $ref: '#/definitions/PaymentTool'
+  - $ref: "#/definitions/PaymentTool"
   - type: object
-    description: Банковская карта
+    description: Bank card
     required:
       - cardNumber
       - expDate
     properties:
       cardNumber:
-        description: Номер банковской карты
+        description: Bankcard number
         type: string
         pattern: '^\d{12,19}$'
       expDate:
-        description: Срок действия банковской карты
+        description: Bank card expiration date
         type: string
         pattern: '^\d{2}\/(\d{2}|\d{4})$'
       cvv:
-        description: Код верификации
+        description: Verification code
         type: string
         pattern: '^\d{3,4}$'
       cardHolder:
-        description: Имя держателя карты
+        description: Cardholder name
         type: string
-        pattern: '^[[:alpha:][:space:][:punct:]]+$'
+        pattern: "^[[:alpha:][:space:][:punct:]]+$"
         minLength: 1
         maxLength: 100

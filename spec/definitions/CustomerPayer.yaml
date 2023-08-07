@@ -1,15 +1,15 @@
 type: object
-description: Многоразовое платежное средство
+description: Reusable payment tool
 allOf:
-  - $ref: '#/definitions/Payer'
+  - $ref: "#/definitions/Payer"
   - type: object
     required:
       - customerID
     properties:
       customerID:
-        description: Идентификатор плательщика
+        description: Customer ID
         type: string
         maxLength: 40
         minLength: 1
       paymentToolDetails:
-        $ref: '#/definitions/PaymentToolDetails'
+        $ref: "#/definitions/PaymentToolDetails"

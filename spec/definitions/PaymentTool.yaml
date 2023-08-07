@@ -2,7 +2,7 @@ type: object
 discriminator: paymentToolType
 properties:
   paymentToolType:
-    description: Тип платежного средства
+    description: Payment tool type
     type: string
     enum:
       - CardData

@@ -1,13 +1,13 @@
 type: object
 allOf:
-  - $ref: '#/definitions/PaymentMethod'
+  - $ref: "#/definitions/PaymentMethod"
   - type: object
     required:
       - operators
     properties:
       operators:
-        description: Список операторов мобильной связи
+        description: List of mobile operators
         type: array
         items:
           x-rebillyMerge:
-            - $ref: '#/definitions/MobileOperator'
+            - $ref: "#/definitions/MobileOperator"

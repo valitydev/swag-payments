@@ -4,38 +4,38 @@ required:
   - shopID
   - lifetime
   - details
-  # name and createdAt are optional for now: were added only in BUSINESS-157
 properties:
   id:
-    description: Идентификатор шаблона инвойса
+    description: Invoice template ID
     type: string
   externalID:
     x-rebillyMerge:
-      - $ref: '#/definitions/ExternalID'
-      - description: Внешний идентификатор шаблона инвойса
+      - $ref: "#/definitions/ExternalID"
+      - description: External invoice template identifier
   shopID:
-    description: Идентификатор магазина
+    description: Shop ID
     type: string
     maxLength: 40
     minLength: 1
   name:
-    description: Название шаблона
+    description: Template name
     type: string
     maxLength: 100
   description:
-    description: Описание предлагаемых товаров или услуг
+    description: Description of the goods or services offered
     type: string
     maxLength: 1000
   createdAt:
-    description: Дата создания шаблона
+    description: Template creation date
     type: string
     format: date-time
   lifetime:
-    $ref: '#/definitions/LifetimeInterval'
+    $ref: "#/definitions/LifetimeInterval"
   details:
-    $ref: '#/definitions/InvoiceTemplateDetails'
+    $ref: "#/definitions/InvoiceTemplateDetails"
   metadata:
     description: >
-      Метаданные, которые будут связаны с инвойсом, созданным по шаблону, в
-      случае, если иные метаданные не указаны в запросе на создание инвойса.
+      Metadata that will be associated with the invoice created by the
+      template, in case other metadata is not specified in the invoice creation
+      request.
     type: object

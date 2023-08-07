@@ -2,18 +2,18 @@ type: object
 discriminator: payerType
 properties:
   payerType:
-    description: Тип платежного средства
+    description: Payment tool type
     type: string
   sessionInfo:
-    description: Данные текущей сессии плательщика
+    description: Payer's current session data
     type: object
     properties:
       redirectUrl:
-        description: |
-          URL ресурса, на который нужно перенаправить плательщика по завершении
-          с ним взаимодействия в браузере, например проведения предавторизации платежа
-          по протоколу 3D Secure 2.0 и выше, в том случае, если подобное взаимодействие
-          потребуется.
+        description: >
+          URL of the resource to which the payer should be redirected upon
+          completion of interaction with it in the browser, for example,
+          preauthorization of payment using 3D Secure 2.0 protocol, if such
+          interaction is required.
         type: string
         format: uri-template
         maxLength: 2000

@@ -1,4 +1,4 @@
 type: object
 allOf:
-  - $ref: '#/definitions/PaymentToolDetails'
-  - $ref: '#/definitions/MobileCommerceDetails'
+  - $ref: "#/definitions/PaymentToolDetails"
+  - $ref: "#/definitions/MobileCommerceDetails"

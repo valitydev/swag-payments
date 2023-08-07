@@ -3,11 +3,11 @@ required:
   - status
 properties:
   status:
-    description: Статус привязки
+    description: Binding status
     type: string
     enum:
       - pending
       - succeeded
       - failed
   error:
-    $ref: '#/definitions/CustomerBindingError'
+    $ref: "#/definitions/CustomerBindingError"

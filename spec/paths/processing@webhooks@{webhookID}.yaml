@@ -1,39 +1,38 @@
 get:
-  description: Получить webhook по его идентификатору.
+  description: Get a webhook by identifier.
   tags:
     - Webhooks
   operationId: getWebhookByID
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/webhookID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/webhookID"
   responses:
-    '200':
-      description: Данные webhook'а
+    "200":
+      description: Webhook's data
       schema:
-        $ref: '#/definitions/Webhook'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
-
+        $ref: "#/definitions/Webhook"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
 delete:
-  description: Снять указанный webhook.
+  description: Remove the specified webhook.
   tags:
     - Webhooks
   operationId: deleteWebhookByID
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/webhookID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/webhookID"
   responses:
-    '204':
-      description: Webhook успешно снят
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+    "204":
+      description: Webhook successfully removed
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

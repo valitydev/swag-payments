@@ -1,22 +1,22 @@
 type: object
 allOf:
-  - $ref: '#/definitions/PaymentMethod'
+  - $ref: "#/definitions/PaymentMethod"
   - type: object
     required:
       - paymentSystems
     properties:
       paymentSystems:
-        description: Список платежных систем
+        description: List of payment systems
         type: array
         items:
           x-rebillyMerge:
-            - $ref: '#/definitions/BankCardPaymentSystem'
+            - $ref: "#/definitions/BankCardPaymentSystem"
       tokenProviders:
-        description: Список провайдеров платежных токенов
+        description: List of payment token providers
         type: array
         items:
           x-rebillyMerge:
-            - $ref: '#/definitions/BankCardTokenProvider'
+            - $ref: "#/definitions/BankCardTokenProvider"
       tokenProviderData:
         allOf:
-          - $ref: '#/definitions/BankCardTokenProviderData'
+          - $ref: "#/definitions/BankCardTokenProviderData"

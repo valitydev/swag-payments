@@ -1,54 +1,53 @@
 get:
-  description: Получить все возвраты указанного платежа.
+  description: Get all refunds of the specified payment.
   tags:
     - Payments
   operationId: getRefunds
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceID'
-    - $ref: '#/parameters/paymentID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceID"
+    - $ref: "#/parameters/paymentID"
   responses:
-    '200':
-      description: Данные возвратов по платежу
+    "200":
+      description: Refunds data on payment
       schema:
         type: array
         items:
-          $ref: '#/definitions/Refund'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
-
+          $ref: "#/definitions/Refund"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
 post:
-  description: Создать возврат указанного платежа
+  description: Create a refund of the specified payment
   tags:
     - Payments
   operationId: createRefund
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceID'
-    - $ref: '#/parameters/paymentID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceID"
+    - $ref: "#/parameters/paymentID"
     - name: refundParams
-      description: Параметры создаваемого возврата платежа
+      description: Parameters of the payment refund to be created
       in: body
       required: true
       schema:
-        $ref: '#/definitions/RefundParams'
+        $ref: "#/definitions/RefundParams"
   responses:
-    '201':
-      description: Возврат создан
+    "201":
+      description: Refund created
       schema:
-        $ref: '#/definitions/Refund'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      description: Ошибочные данные для возврата
+        $ref: "#/definitions/Refund"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid refund data
       schema:
         type: object
         required:
@@ -56,8 +55,8 @@ post:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyStatus
@@ -76,8 +75,8 @@ post:
               - chargebackInProgress
               - refundCartConflict
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Operation not permitted
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
+    "409":
+      $ref: "#/responses/ExternalIDConflict"

@@ -1,18 +1,18 @@
 type: object
 allOf:
-  - $ref: '#/definitions/PaymentTool'
+  - $ref: "#/definitions/PaymentTool"
   - type: object
-    description: Электронный кошелёк
+    description: E-wallet
     required:
       - id
       - provider
     properties:
       id:
-        description: Идентификатор кошелька
+        description: E-wallet identifier
         type: string
       provider:
         x-rebillyMerge:
-          - $ref: '#/definitions/DigitalWalletProvider'
+          - $ref: "#/definitions/DigitalWalletProvider"
       token:
-        description: Токен
+        description: Token
         type: string

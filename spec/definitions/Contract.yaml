@@ -1,4 +1,4 @@
-description: Данные договора с участником
+description: Contract details
 type: object
 required:
   - id
@@ -8,36 +8,36 @@ required:
   - paymentInstitutionID
 properties:
   id:
-    description: Идентификатор договора
+    description: Contract ID
     type: string
   createdAt:
-    description: Дата и время создания договора
+    description: Date and time of contract creation
     type: string
     format: date-time
   status:
-    description: Статус договора
+    description: Contract status
     type: string
     enum:
       - active
       - terminated
   validSince:
-    description: Дата и время вступления договора в силу
+    description: Contract effective date and time
     type: string
     format: date-time
   validUntil:
-    description: Дата и время прекращения силы договора
+    description: Contract expiration date and time
     type: string
     format: date-time
   terminatedAt:
-    description: Дата и время расторжения договора
+    description: Contract termination date and time
     type: string
     format: date-time
   contractor:
-    $ref: '#/definitions/Contractor'
+    $ref: "#/definitions/Contractor"
   legalAgreement:
-    $ref: '#/definitions/LegalAgreement'
+    $ref: "#/definitions/LegalAgreement"
   paymentInstitutionID:
     type: integer
     format: int32
   reportingPreferences:
-    $ref: '#/definitions/ReportingPreferences'
+    $ref: "#/definitions/ReportingPreferences"

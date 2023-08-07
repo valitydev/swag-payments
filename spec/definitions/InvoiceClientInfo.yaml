@@ -1,10 +1,10 @@
-description: 'Дополнительная информация о клиенте'
+description: Additional client information
 type: object
 required:
   - trustLevel
 properties:
   trustLevel:
-    description: 'Надёжен ли плательщик?'
+    description: Is the payer reliable?
     type: string
     enum:
       - wellKnown

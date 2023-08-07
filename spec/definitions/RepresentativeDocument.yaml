@@ -1,4 +1,4 @@
-description: Документ, на основании которого действует ЕИО/представитель
+description: Document on the basis of which the EIO/representative acts
 type: object
 discriminator: representativeDocumentType
 required:

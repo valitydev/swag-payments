@@ -3,5 +3,5 @@ required:
   - url
 properties:
   url:
-    description: URL файла
+    description: URL of the file
     type: string

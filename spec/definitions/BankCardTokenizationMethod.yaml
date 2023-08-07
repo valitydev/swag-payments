@@ -1,4 +1,4 @@
-description: Метод токенизации
+description: Tokenization method
 type: string
 enum:
   - dpan

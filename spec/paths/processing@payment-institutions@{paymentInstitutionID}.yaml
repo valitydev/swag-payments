@@ -1,20 +1,20 @@
 get:
-  description: Получить данные платёжной организации по ее ID
+  description: Get data of the payment institution by identifier
   tags:
     - PaymentInstitutions
   operationId: getPaymentInstitutionByRef
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/paymentInstitutionID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/paymentInstitutionID"
   responses:
-    '200':
+    "200":
       description: Payment institution found
       schema:
-        $ref: '#/definitions/PaymentInstitution'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/PaymentInstitution"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

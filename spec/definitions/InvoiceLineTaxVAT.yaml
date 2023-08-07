@@ -1,12 +1,12 @@
 allOf:
-  - $ref: '#/definitions/InvoiceLineTaxMode'
-  - description: Налог на добавленную стоимость в юрисдикции РФ
+  - $ref: "#/definitions/InvoiceLineTaxMode"
+  - description: Value added tax in the jurisdiction of the Russian Federation
     type: object
     required:
       - rate
     properties:
       rate:
-        description: Ставка налога
+        description: Tax rate
         type: string
         enum:
           - 0%

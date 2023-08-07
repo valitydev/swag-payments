@@ -1,11 +1,11 @@
 get:
-  description: Получить данные расписания выводов по ее ID
+  description: Get payout schedule data by identifier
   tags:
     - Payouts
   operationId: getScheduleByRef
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
     - name: scheduleID
       in: path
       description: Schedule reference
@@ -13,13 +13,13 @@ get:
       type: integer
       format: int32
   responses:
-    '200':
+    "200":
       description: Schedule found
       schema:
-        $ref: '#/definitions/Schedule'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/Schedule"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

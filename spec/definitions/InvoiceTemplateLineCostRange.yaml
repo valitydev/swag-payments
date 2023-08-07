@@ -1,6 +1,6 @@
 type: object
 allOf:
-  - $ref: '#/definitions/InvoiceTemplateLineCost'
+  - $ref: "#/definitions/InvoiceTemplateLineCost"
   - type: object
     required:
       - currency
@@ -8,6 +8,6 @@ allOf:
     properties:
       currency:
         x-rebillyMerge:
-          - $ref: '#/definitions/Currency'
+          - $ref: "#/definitions/Currency"
       range:
-        $ref: '#/definitions/CostAmountRange'
+        $ref: "#/definitions/CostAmountRange"

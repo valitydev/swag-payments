@@ -1,4 +1,4 @@
-description: Платёжная организация
+description: Payment Institution
 type: object
 required:
   - id
@@ -19,7 +19,7 @@ properties:
     type: array
     items:
       x-rebillyMerge:
-        - $ref: '#/definitions/CountryCode'
+        - $ref: "#/definitions/CountryCode"
   realm:
     x-rebillyMerge:
-      - $ref: '#/definitions/RealmMode'
+      - $ref: "#/definitions/RealmMode"

@@ -2,17 +2,17 @@ type: object
 properties:
   externalID:
     x-rebillyMerge:
-      - $ref: '#/definitions/ExternalID'
+      - $ref: "#/definitions/ExternalID"
   amount:
-    description: |
-      Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,
-      например в копейках в случае указания российских рублей в качестве валюты.
+    description: >
+      The price of the goods or services offered, in minor monetary units, e.g.
+      cents if U.S. dollars are specified as the currency
     type: integer
     format: int64
     minimum: 1
   currency:
     x-rebillyMerge:
-      - $ref: '#/definitions/Currency'
+      - $ref: "#/definitions/Currency"
   metadata:
-    description: 'Метаданные, которые необходимо связать с инвойсом'
+    description: "Invoice metadata"
     type: object

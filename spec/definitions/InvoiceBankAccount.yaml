@@ -1,12 +1,13 @@
 type: object
-description: |
-  Информация о банковском счете плательщика, к операциям с которым относится данный инвойс
+description: >
+  Information on the bank account of the payer, to which transactions this
+  invoice relates
 discriminator: accountType
 required:
   - accountType
 properties:
   accountType:
-    description: Вид банковского счета
+    description: Bank account type
     type: string
     enum:
       - InvoiceRussianBankAccount

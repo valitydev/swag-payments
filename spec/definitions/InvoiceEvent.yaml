@@ -12,4 +12,4 @@ properties:
   changes:
     type: array
     items:
-      $ref: '#/definitions/InvoiceChange'
+      $ref: "#/definitions/InvoiceChange"

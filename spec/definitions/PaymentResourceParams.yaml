@@ -4,6 +4,6 @@ required:
   - clientInfo
 properties:
   paymentTool:
-    $ref: '#/definitions/PaymentTool'
+    $ref: "#/definitions/PaymentTool"
   clientInfo:
-    $ref: '#/definitions/ClientInfo'
+    $ref: "#/definitions/ClientInfo"

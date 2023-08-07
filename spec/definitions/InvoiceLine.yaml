@@ -1,4 +1,4 @@
-description: Позиция товара или услуги
+description: Product or service item
 type: object
 required:
   - product
@@ -6,30 +6,30 @@ required:
   - price
 properties:
   product:
-    description: Описание предлагаемого товара или услуги
+    description: Description of the goods or services offered
     type: string
     maxLength: 1000
   quantity:
-    description: |
-      Количество единиц товаров или услуг, предлагаемых в этой
-      позиции
+    description: >
+      Number of units of goods or services offered in this item
     type: integer
     format: int64
     minimum: 1
     default: 1
   price:
-    description: |
-      Цена предлагаемого товара или услуги, в минорных денежных единицах, например
-      в копейках в случае указания российских рублей в качестве валюты
+    description: >
+      The price of the good or service offered, in minor monetary units, e.g.
+      cents if U.S. dollars are specified as the currency
     type: integer
     format: int64
     minimum: 1
   cost:
-    description: |
-      Суммарная стоимость позиции с учётом количества единиц товаров или услуг
+    description: >
+      The total value of the item, taking into account the number of units of
+      goods or services
     type: integer
     format: int64
     minimum: 1
     readOnly: true
   taxMode:
-    $ref: '#/definitions/InvoiceLineTaxMode'
+    $ref: "#/definitions/InvoiceLineTaxMode"

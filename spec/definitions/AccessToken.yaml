@@ -3,6 +3,6 @@ required:
   - payload
 properties:
   payload:
-    description: |
-      Содержимое токена для доступа
+    description: >
+      Access token payload
     type: string

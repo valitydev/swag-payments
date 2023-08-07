@@ -1,13 +1,13 @@
 type: object
 allOf:
-  - $ref: '#/definitions/InvoiceTemplateDetails'
+  - $ref: "#/definitions/InvoiceTemplateDetails"
   - type: object
     required:
       - cart
       - currency
     properties:
       cart:
-        $ref: '#/definitions/InvoiceCart'
+        $ref: "#/definitions/InvoiceCart"
       currency:
         x-rebillyMerge:
-          - $ref: '#/definitions/Currency'
+          - $ref: "#/definitions/Currency"

@@ -1,29 +1,29 @@
 post:
-  description: Создать новый инвойс по шаблону.
+  description: Create a new invoice using the invoice template.
   tags:
     - InvoiceTemplates
   operationId: createInvoiceWithTemplate
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceTemplateID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceTemplateID"
     - name: invoiceParamsWithTemplate
-      description: Параметры создаваемого инвойса
+      description: Invoice parameters
       in: body
       required: true
       schema:
-          $ref: '#/definitions/InvoiceParamsWithTemplate'
+        $ref: "#/definitions/InvoiceParamsWithTemplate"
   responses:
-    '201':
-      description: Инвойс создан
+    "201":
+      description: Invoice created
       schema:
-        $ref: '#/definitions/InvoiceAndToken'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      description: Ошибочные данные для создания инвойса
+        $ref: "#/definitions/InvoiceAndToken"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid data for invoice creation
       schema:
         type: object
         required:
@@ -31,8 +31,8 @@ post:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyStatus
@@ -41,8 +41,8 @@ post:
               - invalidDeadline
               - invoiceTermsViolated
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid party status
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
+    "409":
+      $ref: "#/responses/ExternalIDConflict"

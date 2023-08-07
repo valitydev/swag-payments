@@ -1,28 +1,28 @@
 post:
-  description: Отменить указанный платеж.
+  description: Cancel the specified payment
   tags:
     - Payments
   operationId: cancelPayment
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceID'
-    - $ref: '#/parameters/paymentID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceID"
+    - $ref: "#/parameters/paymentID"
     - name: cancelPayment
       in: body
-      description: Произвольная причина совершения операции
+      description: Reason for the operation
       required: true
       schema:
-        $ref: '#/definitions/Reason'
+        $ref: "#/definitions/Reason"
   responses:
-    '202':
-      description: Запрос на отмену платежа принят
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      description: Ошибка отмены платежа
+    "202":
+      description: Payment cancelation request received
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Payment cancel error
       schema:
         type: object
         required:
@@ -30,8 +30,8 @@ post:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPaymentStatus
@@ -41,6 +41,6 @@ post:
               - invalidRequest
               - invalidDeadline
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid payment status

@@ -8,40 +8,41 @@ x-merge-properties:
       - currency
     properties:
       id:
-        description: Идентификатор возврата
+        description: Refund ID
         type: string
       externalID:
         x-rebillyMerge:
-          - $ref: '#/definitions/ExternalID'
+          - $ref: "#/definitions/ExternalID"
       createdAt:
-        description: Дата и время осуществления
+        description: Creation date and time
         type: string
         format: date-time
       amount:
         description: >
-          Сумма возврата, в минорных денежных единицах,
-          например в копейках в случае указания российских рублей в качестве
-          валюты.
+          Refund amount, in minor monetary units, e.g. cents if US dollars are
+          specified as the currency.
         type: integer
         format: int64
         minimum: 1
       currency:
         x-rebillyMerge:
-          - $ref: '#/definitions/Currency'
+          - $ref: "#/definitions/Currency"
       reason:
-        description: Причина осуществления возврата
+        description: Refund reason
         type: string
       cart:
         x-rebillyMerge:
-          - $ref: '#/definitions/InvoiceCart'
+          - $ref: "#/definitions/InvoiceCart"
           - description: >
-              Итоговая корзина предоставляемых товаров и услуг, которая должна формироваться
-              из корзины инвойса исключением позиций, по которым производился возврат.
-              Сумма корзины должна совпадать с суммой платежа за вычетом суммы возврата.
+              The final cart of goods and services provided, which should be
+              formed from the invoice cart excluding the items for which a
+              refund has been made. The amount of the cart should be the same
+              as the amount of the payment less the amount of the refund.
       allocation:
         x-rebillyMerge:
-          - $ref: '#/definitions/Allocation'
+          - $ref: "#/definitions/Allocation"
           - description: >
-              Итоговое распределение денежных средств, которое должно формироваться
-              из распределения инвойса исключением позиций, по которым производится возврат.
-  - $ref: '#/definitions/RefundStatus'
+              The final cash distribution, which should be formed from the
+              invoice distribution excluding the items for which a refund is
+              made.
+  - $ref: "#/definitions/RefundStatus"

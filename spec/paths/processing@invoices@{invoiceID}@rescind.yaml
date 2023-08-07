@@ -1,27 +1,27 @@
 post:
-  description: Перевести инвойс в состояние "Отменен" со статусом "Аннулирован".
+  description: Set the invoice to "Rescind"
   tags:
     - Invoices
   operationId: rescindInvoice
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceID"
     - name: rescindInvoice
       in: body
-      description: Произвольная причина совершения операции
+      description: Reason for the operation
       required: true
       schema:
-        $ref: '#/definitions/Reason'
+        $ref: "#/definitions/Reason"
   responses:
-    '204':
-      description: Инвойс аннулирован
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      description: Ошибка отмены инвойса
+    "204":
+      description: Invoice rescinded
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invoice rescind error
       schema:
         type: object
         required:
@@ -29,8 +29,8 @@ post:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidInvoiceStatus
@@ -40,6 +40,6 @@ post:
               - invalidRequest
               - invalidDeadline
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid invoice status

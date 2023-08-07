@@ -3,7 +3,7 @@ required:
   - status
 properties:
   status:
-    description: Статус платежа
+    description: Payment status
     type: string
     enum:
       - pending
@@ -13,4 +13,4 @@ properties:
       - refunded
       - failed
   error:
-    $ref: '#/definitions/PaymentError'
+    $ref: "#/definitions/PaymentError"

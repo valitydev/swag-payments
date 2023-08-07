@@ -1,27 +1,27 @@
 get:
-  description: Получить платёж по указанному внешнему идентификатору для участника.
+  description: Get payment by specified external identifier.
   tags:
     - Payments
   operationId: getPaymentByExternalIDForParty
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/partyID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/partyID"
     - name: externalID
-      description: Внешний идентификатор платежа
+      description: External payment identifier
       in: query
       required: true
       type: string
       maxLength: 40
       minLength: 1
   responses:
-    '200':
-      description: Платёж
+    "200":
+      description: Payment
       schema:
-        $ref: '#/definitions/Payment'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/Payment"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

@@ -1,22 +1,22 @@
 get:
-  description: Получить доступные для инвойса методы оплаты.
+  description: Get the payment methods available for the invoice.
   tags:
     - Invoices
   operationId: getInvoicePaymentMethods
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceID"
   responses:
-    '200':
-      description: Список методов оплаты
+    "200":
+      description: Payment methods
       schema:
         type: array
         items:
-          $ref: '#/definitions/PaymentMethod'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/PaymentMethod"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

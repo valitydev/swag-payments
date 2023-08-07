@@ -12,53 +12,55 @@ x-merge-properties:
       - metadata
     properties:
       id:
-        description: Идентификатор инвойса
+        description: Invoice ID
         type: string
       shopID:
-        description: Идентификатор магазина
+        description: Shop ID
         type: string
       externalID:
         x-rebillyMerge:
-          - $ref: '#/definitions/ExternalID'
-          - description: Внешний идентификатор инвойса
+          - $ref: "#/definitions/ExternalID"
+          - description: External invoice identifier
       createdAt:
-        description: Дата и время создания
+        description: Created at
         type: string
         format: date-time
       dueDate:
-        description: Дата и время окончания действия
+        description: Expiration date and time
         type: string
         format: date-time
       amount:
-        description: |
-          Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,
-          например в копейках в случае указания российских рублей в качестве валюты.
+        description: >
+          The price of the goods or services offered, in minor monetary units,
+          e.g. cents if U.S. dollars are specified as the currency
         type: integer
         format: int64
         minimum: 1
       currency:
         x-rebillyMerge:
-          - $ref: '#/definitions/Currency'
+          - $ref: "#/definitions/Currency"
       product:
-        description: Наименование предлагаемых товаров или услуг
+        description: Name of the offered goods or services
         type: string
         maxLength: 100
       description:
-        description: Описание предлагаемых товаров или услуг
+        description: Description of the goods or services offered
         type: string
         maxLength: 1000
       invoiceTemplateID:
-        description: Идентификатор шаблона (для инвойсов, созданных по шаблону).
+        description: >
+          Invoice template identifier (for invoices created from an
+          invoice template).
         type: string
       cart:
-        $ref: '#/definitions/InvoiceCart'
+        $ref: "#/definitions/InvoiceCart"
       allocation:
-        $ref: '#/definitions/Allocation'
+        $ref: "#/definitions/Allocation"
       bankAccount:
-        $ref: '#/definitions/InvoiceBankAccount'
+        $ref: "#/definitions/InvoiceBankAccount"
       metadata:
-        description: Связанные с инвойсом метаданные
+        description: Invoice metadata
         type: object
       clientInfo:
-        $ref: '#/definitions/InvoiceClientInfo'
-  - $ref: '#/definitions/InvoiceStatus'
+        $ref: "#/definitions/InvoiceClientInfo"
+  - $ref: "#/definitions/InvoiceStatus"

@@ -1,29 +1,29 @@
 post:
-  description: Запустить новую привязку к плательшику.
+  description: Start a new payer binding.
   tags:
     - Customers
   operationId: createBinding
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/customerID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/customerID"
     - name: bindingParams
-      description: Параметры создаваемой привязки
+      description: Parameters of the created binding
       in: body
       required: true
       schema:
-        $ref: '#/definitions/CustomerBindingParams'
+        $ref: "#/definitions/CustomerBindingParams"
   responses:
-    '201':
-      description: Привязка запущена
+    "201":
+      description: Binding started
       schema:
-        $ref: '#/definitions/CustomerBinding'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      description: Ошибочные данные для привязки
+        $ref: "#/definitions/CustomerBinding"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid binding data
       schema:
         type: object
         required:
@@ -31,8 +31,8 @@ post:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPaymentResource
@@ -44,31 +44,30 @@ post:
               - invalidRequest
               - invalidDeadline
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid payment resource
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
-
+    "409":
+      $ref: "#/responses/ExternalIDConflict"
 get:
-  description: Получить все привязки к плательщику.
+  description: Get all payer bindings.
   tags:
     - Customers
   operationId: getBindings
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/customerID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/customerID"
   responses:
-    '200':
-      description: Список привязок
+    "200":
+      description: List of bindings
       schema:
         type: array
         items:
-          $ref: '#/definitions/CustomerBinding'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/CustomerBinding"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

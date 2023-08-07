@@ -4,12 +4,12 @@ required:
   - lowerBound
 properties:
   upperBound:
-    description: Верхняя (включительная) граница стоимости товаров или услуг.
+    description: An upper (inclusive) limit on the value of goods or services.
     type: integer
     format: int64
     minimum: 1
   lowerBound:
-    description: Нижняя (включительная) граница стоимости товаров или услуг.
+    description: A lower (inclusive) limit on the value of goods or services.
     type: integer
     format: int64
     minimum: 1
