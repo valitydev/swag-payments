@@ -1,7 +1,7 @@
 description: Allocation body amount
 allOf:
   - 
-    $ref: '#/definitions/AllocationTransaction'
+    $ref: "#/definitions/AllocationTransaction"
   - 
     type: object
     required:
@@ -10,12 +10,11 @@ allOf:
     properties:
       amount:
         description: >
-          The amount transferred to the selected destination in minor monetary units,
-          e.g. cents if US dollars are specified as the currency.
+          The amount transferred to the selected destination in minor monetary units, e.g. cents if US dollars are specified as the currency.
         type: integer
         format: int64
         minimum: 1
       currency:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/Currency'
+            $ref: "#/definitions/Currency"
