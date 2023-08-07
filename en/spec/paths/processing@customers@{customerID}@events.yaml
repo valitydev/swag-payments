@@ -5,11 +5,11 @@ get:
   operationId: getCustomerEvents
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/customerID'
+      $ref: "#/parameters/customerID"
     - 
       name: limit
       in: query
@@ -21,23 +21,22 @@ get:
     - 
       name: eventID
       in: query
-      description: |
+      description: >
         Event identifier.
-
         All events that occurred in the system _after_ the specified event will be included in the selection.
       required: false
       type: integer
       format: int32
   responses:
-    '200':
-      description: A set of events
+    "200":
+      description: A list of events
       schema:
         type: array
         items:
-          $ref: '#/definitions/CustomerEvent'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/CustomerEvent"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
