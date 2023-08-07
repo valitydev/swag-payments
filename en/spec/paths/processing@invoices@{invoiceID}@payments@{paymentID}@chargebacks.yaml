@@ -5,23 +5,23 @@ get:
   operationId: getChargebacks
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/invoiceID'
+      $ref: "#/parameters/invoiceID"
     - 
-      $ref: '#/parameters/paymentID'
+      $ref: "#/parameters/paymentID"
   responses:
-    '200':
+    "200":
       description: Chargebacks data on payment
       schema:
         type: array
         items:
-          $ref: '#/definitions/Chargeback'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/Chargeback"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
