@@ -1,21 +1,21 @@
 get:
-  description: Get data of payment service provider by its identifier
+  description: Get data of payment service provider by identifier
   tags:
     - PaymentInstitutions
   operationId: getServiceProviderByID
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/serviceProviderID'
+      $ref: "#/parameters/serviceProviderID"
   responses:
-    '200':
+    "200":
       description: Payment service provider found
       schema:
-        $ref: '#/definitions/ServiceProvider'
-    '404':
-      $ref: '#/responses/NotFound'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/ServiceProvider"
+    "404":
+      $ref: "#/responses/NotFound"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
