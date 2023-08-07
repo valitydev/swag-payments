@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/TokenizedCardData'
+    $ref: "#/definitions/TokenizedCardData"
   - 
     type: object
     description: Yandex Pay data
