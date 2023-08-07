@@ -5,26 +5,26 @@ get:
   operationId: getRefunds
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/invoiceID'
+      $ref: "#/parameters/invoiceID"
     - 
-      $ref: '#/parameters/paymentID'
+      $ref: "#/parameters/paymentID"
   responses:
-    '200':
+    "200":
       description: Refunds data on payment
       schema:
         type: array
         items:
-          $ref: '#/definitions/Refund'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/Refund"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
 post:
   description: Create a refund of the specified payment
   tags:
@@ -32,30 +32,30 @@ post:
   operationId: createRefund
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/invoiceID'
+      $ref: "#/parameters/invoiceID"
     - 
-      $ref: '#/parameters/paymentID'
+      $ref: "#/parameters/paymentID"
     - 
       name: refundParams
       description: Parameters of the payment refund to be created
       in: body
       required: true
       schema:
-        $ref: '#/definitions/RefundParams'
+        $ref: "#/definitions/RefundParams"
   responses:
-    '201':
+    "201":
       description: Refund created
       schema:
-        $ref: '#/definitions/Refund'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
+        $ref: "#/definitions/Refund"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
       description: Invalid refund data
       schema:
         type: object
@@ -64,7 +64,7 @@ post:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
@@ -87,5 +87,5 @@ post:
             description: Human-readable description of the error
             type: string
             example: Operation not permitted
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
+    "409":
+      $ref: "#/responses/ExternalIDConflict"
