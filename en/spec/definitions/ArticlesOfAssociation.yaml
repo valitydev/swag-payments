@@ -2,4 +2,4 @@ description: Articles of association
 type: object
 allOf:
   - 
-    $ref: '#/definitions/RepresentativeDocument'
+    $ref: "#/definitions/RepresentativeDocument"
