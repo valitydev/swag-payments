@@ -9,7 +9,7 @@ properties:
     type: object
     properties:
       redirectUrl:
-        description: |
+        description: >
           URL of the resource to which the payer should be redirected upon completion of interaction with it in the browser, for example, preauthorization of payment using 3D Secure 2.0 protocol, if such interaction is required.
         type: string
         format: uri-template
