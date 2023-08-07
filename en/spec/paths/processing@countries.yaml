@@ -5,15 +5,15 @@ get:
   operationId: getCountries
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
   responses:
-    '200':
+    "200":
       description: Country list
       schema:
         type: array
         items:
-          $ref: '#/definitions/Country'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/Country"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
