@@ -1,6 +1,8 @@
 post:
   description: >
-    Capture the specified payment. In case the capture amount is less than the original amount, the remainder of the payment will be refunded.(see. [Payment options](#tag/Payments))
+    Capture the specified payment. In case the capture amount is less than the
+    original amount, the remainder of the payment will be refunded.
+    (see. [Payment options](#tag/Payments))
   tags:
     - Payments
   operationId: capturePayment
