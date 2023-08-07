@@ -1,7 +1,7 @@
 description: Registered user of the system
 allOf:
   - 
-    $ref: '#/definitions/Contractor'
+    $ref: "#/definitions/Contractor"
   - 
     type: object
     required:
