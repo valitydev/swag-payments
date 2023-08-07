@@ -5,11 +5,11 @@ get:
   operationId: getPaymentByExternalIDForParty
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/partyID'
+      $ref: "#/parameters/partyID"
     - 
       name: externalID
       description: External payment identifier
@@ -19,13 +19,13 @@ get:
       maxLength: 40
       minLength: 1
   responses:
-    '200':
+    "200":
       description: Payment
       schema:
-        $ref: '#/definitions/Payment'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/Payment"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
