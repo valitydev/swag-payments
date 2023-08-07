@@ -20,8 +20,8 @@ properties:
     items:
       x-rebillyMerge:
         - 
-          $ref: '#/definitions/CountryCode'
+          $ref: "#/definitions/CountryCode"
   realm:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/RealmMode'
+        $ref: "#/definitions/RealmMode"
