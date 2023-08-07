@@ -21,7 +21,7 @@ x-merge-properties:
       externalID:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/ExternalID'
+            $ref: "#/definitions/ExternalID"
           - 
             description: External invoice identifier
       createdAt:
@@ -33,7 +33,7 @@ x-merge-properties:
         type: string
         format: date-time
       amount:
-        description: |
+        description: >
           The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
         type: integer
         format: int64
@@ -41,7 +41,7 @@ x-merge-properties:
       currency:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/Currency'
+            $ref: "#/definitions/Currency"
       product:
         description: Name of the offered goods or services
         type: string
@@ -51,18 +51,19 @@ x-merge-properties:
         type: string
         maxLength: 1000
       invoiceTemplateID:
-        description: Invoice template identifier (for invoices created from an invoice template).
+        description: >
+          Invoice template identifier (for invoices created from an invoice template).
         type: string
       cart:
-        $ref: '#/definitions/InvoiceCart'
+        $ref: "#/definitions/InvoiceCart"
       allocation:
-        $ref: '#/definitions/Allocation'
+        $ref: "#/definitions/Allocation"
       bankAccount:
-        $ref: '#/definitions/InvoiceBankAccount'
+        $ref: "#/definitions/InvoiceBankAccount"
       metadata:
         description: Invoice metadata
         type: object
       clientInfo:
-        $ref: '#/definitions/InvoiceClientInfo'
+        $ref: "#/definitions/InvoiceClientInfo"
   - 
-    $ref: '#/definitions/InvoiceStatus'
+    $ref: "#/definitions/InvoiceStatus"
