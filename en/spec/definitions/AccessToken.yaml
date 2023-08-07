@@ -3,6 +3,6 @@ required:
   - payload
 properties:
   payload:
-    description: |
+    description: >
       Access token payload
     type: string
