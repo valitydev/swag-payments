@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/UserInteraction'
+    $ref: "#/definitions/UserInteraction"
   - 
     type: object
     required:
