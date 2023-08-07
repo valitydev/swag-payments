@@ -5,19 +5,19 @@ get:
     - Contracts
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/contractID'
+      $ref: "#/parameters/contractID"
   responses:
-    '200':
+    "200":
       description: Contract found
       schema:
-        $ref: '#/definitions/Contract'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/Contract"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
