@@ -4,7 +4,6 @@ required:
   - shopID
   - lifetime
   - details
-#name and createdAt are optional for now: were added only in BUSINESS-157
 properties:
   id:
     description: Invoice template ID
@@ -12,7 +11,7 @@ properties:
   externalID:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/ExternalID'
+        $ref: "#/definitions/ExternalID"
       - 
         description: External invoice template identifier
   shopID:
@@ -33,9 +32,9 @@ properties:
     type: string
     format: date-time
   lifetime:
-    $ref: '#/definitions/LifetimeInterval'
+    $ref: "#/definitions/LifetimeInterval"
   details:
-    $ref: '#/definitions/InvoiceTemplateDetails'
+    $ref: "#/definitions/InvoiceTemplateDetails"
   metadata:
     description: >
       Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.
