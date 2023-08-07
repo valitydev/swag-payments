@@ -1,4 +1,4 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/InvoiceTemplateLineCost'
+    $ref: "#/definitions/InvoiceTemplateLineCost"
