@@ -9,9 +9,9 @@ properties:
     type: string
     maxLength: 1000
   lifetime:
-    $ref: '#/definitions/LifetimeInterval'
+    $ref: "#/definitions/LifetimeInterval"
   details:
-    $ref: '#/definitions/InvoiceTemplateDetails'
+    $ref: "#/definitions/InvoiceTemplateDetails"
   metadata:
     description: >
       Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.
