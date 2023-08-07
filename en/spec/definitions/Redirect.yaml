@@ -1,11 +1,11 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/UserInteraction'
+    $ref: "#/definitions/UserInteraction"
   - 
     type: object
     required:
       - request
     properties:
       request:
-        $ref: '#/definitions/BrowserRequest'
+        $ref: "#/definitions/BrowserRequest"
