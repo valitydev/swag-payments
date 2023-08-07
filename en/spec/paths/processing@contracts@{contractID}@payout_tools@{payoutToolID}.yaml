@@ -1,25 +1,25 @@
 get:
-  description: Get a payout tool data by its identifier
+  description: Get a payout tool data by identifier
   operationId: getPayoutToolByID
   tags:
     - Payouts
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/contractID'
+      $ref: "#/parameters/contractID"
     - 
-      $ref: '#/parameters/payoutToolID'
+      $ref: "#/parameters/payoutToolID"
   responses:
-    '200':
+    "200":
       description: Payout tool details
       schema:
-        $ref: '#/definitions/PayoutTool'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/PayoutTool"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
