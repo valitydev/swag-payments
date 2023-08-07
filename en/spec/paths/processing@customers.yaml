@@ -5,24 +5,24 @@ post:
   operationId: createCustomer
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
       name: customerParams
       description: Parameters of the customer to be created
       in: body
       required: true
       schema:
-        $ref: '#/definitions/CustomerParams'
+        $ref: "#/definitions/CustomerParams"
   responses:
-    '201':
+    "201":
       description: Customer created
       schema:
-        $ref: '#/definitions/CustomerAndToken'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
+        $ref: "#/definitions/CustomerAndToken"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
       description: Invalid customer data
       schema:
         type: object
@@ -31,7 +31,7 @@ post:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
@@ -47,5 +47,5 @@ post:
             description: Human-readable description of the error
             type: string
             example: Operation not permitted
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
+    "409":
+      $ref: "#/responses/ExternalIDConflict"
