@@ -1,7 +1,7 @@
 description: The shop as the target of the transaction
 allOf:
   - 
-    $ref: '#/definitions/AllocationTarget'
+    $ref: "#/definitions/AllocationTarget"
   - 
     type: object
     required:
