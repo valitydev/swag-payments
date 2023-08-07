@@ -6,7 +6,7 @@ required:
   - allocationBodyType
 properties:
   target:
-    $ref: '#/definitions/AllocationTarget'
+    $ref: "#/definitions/AllocationTarget"
   allocationBodyType:
     description: Transaction body
     type: string
@@ -14,4 +14,4 @@ properties:
       - AllocationBodyAmount
       - AllocationBodyTotal
   cart:
-    $ref: '#/definitions/InvoiceCart'
+    $ref: "#/definitions/InvoiceCart"
