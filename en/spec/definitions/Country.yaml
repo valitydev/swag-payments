@@ -1,4 +1,4 @@
-description: 'Country'
+description: "Country"
 type: object
 required:
   - id
@@ -7,7 +7,7 @@ properties:
   id:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/CountryCode'
+        $ref: "#/definitions/CountryCode"
   name:
     type: string
     maxLength: 200
