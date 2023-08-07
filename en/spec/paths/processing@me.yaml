@@ -4,15 +4,15 @@ get:
   operationId: getMyParty
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
   responses:
-    '200':
+    "200":
       description: Get my party
       schema:
-        $ref: '#/definitions/Party'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/Party"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
