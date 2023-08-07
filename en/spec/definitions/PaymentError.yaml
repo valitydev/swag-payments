@@ -1,5 +1,5 @@
-description: |
-  [Error occurred during the payment process](#tag/Error-Codes)
+description: >
+  [Error](#tag/Error-Codes) occurred during the payment process
 type: object
 required:
   - code
@@ -8,4 +8,4 @@ properties:
     description: Basic error code
     type: string
   subError:
-    $ref: '#/definitions/SubError'
+    $ref: "#/definitions/SubError"
