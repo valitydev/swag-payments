@@ -43,13 +43,13 @@ allOf:
         maxLength: 1000
       representativePosition:
         description: |
-          Наименование должности
-          [ЕИО](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) или его представителя
+          Job title
+          [EIO](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) or its representative
         type: string
         maxLength: 100
       representativeFullName:
         description: |
-          ФИО [ЕИО](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) или его представителя
+          Full name of [EIO](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) or its representative
         type: string
         maxLength: 100
       representativeDocument:
