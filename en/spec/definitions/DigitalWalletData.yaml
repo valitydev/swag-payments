@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PaymentTool'
+    $ref: "#/definitions/PaymentTool"
   - 
     type: object
     description: E-wallet
@@ -15,7 +15,7 @@ allOf:
       provider:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/DigitalWalletProvider'
+            $ref: "#/definitions/DigitalWalletProvider"
       token:
         description: Token
         type: string
