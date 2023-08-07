@@ -1,10 +1,10 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/CustomerChange'
+    $ref: "#/definitions/CustomerChange"
   - 
     type: object
-    description: |
+    description: >
       Require interaction with the customer to continue the binding process
     required:
       - customerBindingID
@@ -14,4 +14,4 @@ allOf:
         description: Customer binding identifier
         type: string
       userInteraction:
-        $ref: '#/definitions/UserInteraction'
+        $ref: "#/definitions/UserInteraction"
