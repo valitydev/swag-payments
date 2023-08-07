@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PaymentMethod'
+    $ref: "#/definitions/PaymentMethod"
   - 
     type: object
     required:
@@ -13,15 +13,15 @@ allOf:
         items:
           x-rebillyMerge:
             - 
-              $ref: '#/definitions/BankCardPaymentSystem'
+              $ref: "#/definitions/BankCardPaymentSystem"
       tokenProviders:
         description: List of payment token providers
         type: array
         items:
           x-rebillyMerge:
             - 
-              $ref: '#/definitions/BankCardTokenProvider'
+              $ref: "#/definitions/BankCardTokenProvider"
       tokenProviderData:
         allOf:
           - 
-            $ref: '#/definitions/BankCardTokenProviderData'
+            $ref: "#/definitions/BankCardTokenProviderData"
