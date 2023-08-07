@@ -8,15 +8,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    steps:  
+
+    steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: "16"
 
       - name: Cache Node Modules and NPM Cache
         id: cache
@@ -26,13 +26,13 @@ jobs:
             node_modules
             ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      
+
       - name: Install deps
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
-      
+
       - name: Run tests
         run: npm test
-      
+
       - name: Bundle spec and build docsite
         run: npm run build

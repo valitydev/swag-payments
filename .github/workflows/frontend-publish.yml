@@ -1,8 +1,8 @@
-name: 'Frontend: Publish'
+name: "Frontend: Publish"
 
 on:
   push:
-    branches: ['master', 'main', 'v2']
+    branches: ["master", "main", "v2"]
 
 jobs:
   configured:

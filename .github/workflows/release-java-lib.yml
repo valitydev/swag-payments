@@ -1,7 +1,7 @@
 name: Release java libraries
 on:
   push:
-    branches: ['master', 'main', 'v2']
+    branches: ["master", "main", "v2"]
 
 jobs:
   deploy:
