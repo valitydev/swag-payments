@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/InvoiceChange'
+    $ref: "#/definitions/InvoiceChange"
   - 
     type: object
     required:
@@ -13,4 +13,4 @@ allOf:
       refundID:
         type: string
   - 
-    $ref: '#/definitions/RefundStatus'
+    $ref: "#/definitions/RefundStatus"
