@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PaymentFlow'
+    $ref: "#/definitions/PaymentFlow"
   - 
     type: object
     required:
@@ -15,7 +15,7 @@ allOf:
           - cancel
           - capture
       heldUntil:
-        description: 'Date and time of withholding of funds'
+        description: Date and time of withholding of funds
         type: string
         format: date-time
         readOnly: true
