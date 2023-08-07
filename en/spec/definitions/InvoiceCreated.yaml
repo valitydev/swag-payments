@@ -1,11 +1,11 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/InvoiceChange'
+    $ref: "#/definitions/InvoiceChange"
   - 
     type: object
     required:
       - invoice
     properties:
       invoice:
-        $ref: '#/definitions/Invoice'
+        $ref: "#/definitions/Invoice"
