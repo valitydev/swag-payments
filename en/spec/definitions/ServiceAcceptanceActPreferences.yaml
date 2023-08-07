@@ -9,4 +9,4 @@ properties:
     type: integer
     format: int32
   signer:
-    $ref: '#/definitions/Representative'
+    $ref: "#/definitions/Representative"
