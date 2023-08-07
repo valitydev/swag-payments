@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PaymentTool'
+    $ref: "#/definitions/PaymentTool"
   - 
     type: object
     description: Tokenized bank card
