@@ -1,46 +1,46 @@
 get:
-  description: Get a customer data by its identifier.
+  description: Get a customer data by identifier.
   operationId: getCustomerById
   tags:
     - Customers
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/customerID'
+      $ref: "#/parameters/customerID"
   responses:
-    '200':
+    "200":
       description: Customer details
       schema:
-        $ref: '#/definitions/Customer'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/Customer"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
 delete:
-  description: Delete a customer by its identifier
+  description: Delete a customer by identifier
   operationId: deleteCustomer
   tags:
     - Customers
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/customerID'
+      $ref: "#/parameters/customerID"
   responses:
-    '204':
+    "204":
       description: Customer removed
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
       description: Customer deletion error
       schema:
         type: object
@@ -49,7 +49,7 @@ delete:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
