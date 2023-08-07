@@ -1,7 +1,7 @@
 description: Legal entity
 allOf:
   - 
-    $ref: '#/definitions/Contractor'
+    $ref: "#/definitions/Contractor"
   - 
     type: object
     discriminator: entityType
