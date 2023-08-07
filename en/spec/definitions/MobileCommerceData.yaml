@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PaymentTool'
+    $ref: "#/definitions/PaymentTool"
   - 
     type: object
     required:
@@ -10,4 +10,4 @@ allOf:
     discriminator: mobileCommerceType
     properties:
       mobilePhone:
-        $ref: '#/definitions/MobileCommercePhone'
+        $ref: "#/definitions/MobileCommercePhone"
