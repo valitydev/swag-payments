@@ -1,14 +1,14 @@
 description: Transaction fee in relative values
 allOf:
   - 
-    $ref: '#/definitions/AllocationFee'
+    $ref: "#/definitions/AllocationFee"
   - 
     type: object
     required:
       - share
     properties:
       share:
-        $ref: '#/definitions/Decimal'
+        $ref: "#/definitions/Decimal"
       amount:
         description: >
           The value of the fee in minor monetary units, e.g. cents if US dollars are specified as the transaction currency.
