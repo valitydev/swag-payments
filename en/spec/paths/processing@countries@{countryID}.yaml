@@ -5,17 +5,17 @@ get:
   operationId: getCountryByID
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/countryID'
+      $ref: "#/parameters/countryID"
   responses:
-    '200':
+    "200":
       description: Country found
       schema:
-        $ref: '#/definitions/Country'
-    '404':
-      $ref: '#/responses/NotFound'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/Country"
+    "404":
+      $ref: "#/responses/NotFound"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
