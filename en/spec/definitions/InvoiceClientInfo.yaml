@@ -1,10 +1,10 @@
-description: 'Additional client information'
+description: Additional client information
 type: object
 required:
   - trustLevel
 properties:
   trustLevel:
-    description: 'Is the payer reliable?'
+    description: Is the payer reliable?
     type: string
     enum:
       - wellKnown
