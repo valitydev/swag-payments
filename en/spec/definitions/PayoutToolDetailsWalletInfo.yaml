@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PayoutToolDetails'
+    $ref: "#/definitions/PayoutToolDetails"
   - 
     type: object
     required:
@@ -12,4 +12,3 @@ allOf:
         type: string
         maxLength: 40
         minLength: 1
-
