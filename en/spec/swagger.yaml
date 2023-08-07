@@ -1,62 +1,27 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   version: 2.0.1
   title: Vality Payments API
-  description: |
-
+  description: >
     ## Description
-
-    API is designed for the merchants who accept payments via user interface
-    such as a website or a mobile app and it is the only interaction point with
-    the system for goods and services payment transactions.
-
+    API is designed for the merchants who accept payments via user interface such as a website or a mobile app and it is the only interaction point with the system for goods and services payment transactions.
     ## Interaction details
-
-    Whenever an API is accessed, its unique ID must be passed in the header
-    X-Request-ID of the corresponding request:
-
-    ```
-     X-Request-ID: 37d735d4-0f42-4f05-89fa-eaa478fb5aa9
-    ```
-
+    Whenever an API is accessed, its unique ID must be passed in the header X-Request-ID of the corresponding request:
+    ``` X-Request-ID: 37d735d4-0f42-4f05-89fa-eaa478fb5aa9 ```
     ### Content type and coding
-
     The system accepts and returns data in JSON format and UTF-8 coding:
-
-    ```
-      Content-Type: application/json; charset=utf-8
-    ```
-
+    ``` Content-Type: application/json; charset=utf-8 ```
     ### Date formats
-
-    The system accepts and returns timestamp values in the format date-time,
-    described in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339):
-
-    ```
-      2017-01-01T00:00:00Z
-      2017-01-01T00:00:01+00:00
-    ```
-
+    The system accepts and returns timestamp values in the format date-time, described in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339):
+    ``` 2017-01-01T00:00:00Z 2017-01-01T00:00:01+00:00 ```
     ### Maximum request processing time
-
-    Whenever an API is accessed, the time cutoff parameters, that define
-    maximum request processing time of the transaction completion, can be
-    passed in the header `X-Request-Deadline` of the corresponding request:
-
-    ```
-     X-Request-Deadline: 10s
-    ```
-    The system stops processing the request upon the specified time. It is
-    recommended to specify a value that is not more than one minute and not
-    less than three seconds.
-
+    Whenever an API is accessed, the time cutoff parameters, that define maximum request processing time of the transaction completion, can be passed in the header `X-Request-Deadline` of the corresponding request:
+    ``` X-Request-Deadline: 10s ```
+    The system stops processing the request upon the specified time. It is recommended to specify a value that is not more than one minute and not less than three seconds.
     `X-Request-Deadline` can be:
 
-    * specified in the format `date-time` according to
-    [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339);
-    * specified in relative values: in milliseconds (`150000ms`), in seconds
-    (`540s`) or in minutes (`3.5m`).
-
+    * specified in the format `date-time` according to [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339);
+    * specified in relative values: in milliseconds (`150000ms`), in seconds (`540s`) or in minutes (`3.5m`).
 basePath: /v2
 schemes:
   - https
@@ -69,20 +34,16 @@ securityDefinitions:
     type: apiKey
     name: Authorization
     in: header
-    description: |
-      Interaction between the merchant and the system is performed via a secure
-      protocol (HTTPS).
+    description: >
+      Interaction between the merchant and the system is performed via a secure protocol (HTTPS).
+
       HTTP requests via unencrypted channel are not supported.
 
-      The contents of the API key should be passed in the `Authorization`
-      header:
+      The contents of the API key should be passed in the `Authorization` header:
 
-      ```
-      Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M...
-      ```
+      ``` Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M... ```
 
-      Keys are not divided into test and production keys. Use the test shop ID
-      for test transactions.
+      Keys are not divided into test and production keys. Use the test shop ID for test transactions.
 
       **Important: Do not pass the API-key to third parties!**
 security:
@@ -92,17 +53,17 @@ responses:
   NotFound:
     description: Target resource not found
     schema:
-      $ref: '#/definitions/GeneralError'
+      $ref: "#/definitions/GeneralError"
   Unauthorized:
     description: Authorization error
   DefaultLogicError:
     description: Invalid data
     schema:
-      $ref: '#/definitions/DefaultLogicError'
+      $ref: "#/definitions/DefaultLogicError"
   ExternalIDConflict:
     description: The passed value `externalID` has already been used by you with other query parameters
     schema:
-      $ref: '#/definitions/ExternalIDConflictError'
+      $ref: "#/definitions/ExternalIDConflictError"
 parameters:
   requestID:
     name: X-Request-ID
@@ -163,12 +124,11 @@ parameters:
   residence:
     name: residence
     in: query
-    description: >-
-      Residence, alpha-3 code according to standard
-      [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
+    description: >
+      Residence, alpha-3 code according to standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
     required: false
     type: string
-    pattern: '^[A-Z]{3}$'
+    pattern: "^[A-Z]{3}$"
   customerID:
     name: customerID
     in: path
@@ -288,9 +248,9 @@ parameters:
     name: countryID
     in: path
     required: true
-    description: ' Alpha-3 country code by standard [ISO 3166-1] (https://en.wikipedia.org/wiki/ISO_3166-1)'
+    description: " Alpha-3 country code by standard [ISO 3166-1] (https://en.wikipedia.org/wiki/ISO_3166-1)"
     type: string
-    pattern: '^[A-Z]{3}$'
+    pattern: "^[A-Z]{3}$"
   tradeBlocID:
     name: tradeBlocID
     in: path
@@ -302,53 +262,24 @@ tags:
     name: Parties
     x-displayName: Parties
     description: >
-      A system party is a data set about your company, structure and
-      conditions of concluded contracts, and also the information about the
-      shops associated with the company.
+      A system party is a data set about your company, structure and conditions of concluded contracts, and also the information about the shops associated with the company.
   - 
     name: Shops
     x-displayName: Shops
     description: >
-      A shop is a display of your website or a point of sales in the system.
-      Financial terms, that determine, particularly, the system fee percentage,
-      are linked to the shop. Each shop has its linked accounts that accumulate
-      money sent by payers. Only one account can be in each currency. The shop
-      category is determined by the group of offered goods and services. A
-      banking terminal can be linked to a shop on the side of an acquiring
-      bank. Any changes of these shops require system verification.
-
-      Shops created in the test category are used for test payment. The system
-      creates a test shop automatically during the participant registration.
-
-      Your website or point of sales may have more than one shop. The closest
-      analogue can be POS-terminals at a point of sales.
-
+      A shop is a display of your website or a point of sales in the system. Financial terms, that determine, particularly, the system fee percentage, are linked to the shop. Each shop has its linked accounts that accumulate money sent by payers. Only one account can be in each currency. The shop category is determined by the group of offered goods and services. A banking terminal can be linked to a shop on the side of an acquiring bank. Any changes of these shops require system verification.
+      Shops created in the test category are used for test payment. The system creates a test shop automatically during the participant registration.
+      Your website or point of sales may have more than one shop. The closest analogue can be POS-terminals at a point of sales.
       ## Asynchronous notifications
-
-      It is possible to specify a URL for any shop to receive asynchronous
-      notifications about data status change by setting up webhook. For
-      example, you can set up webhook by specifying URL of your application to
-      which the system will send data about invoice changes. The corresponding
-      public key, created during the webhook setup, is used to verify integrity
-      of data sent to your application URL. You can receive this key in your
-      account.
-
+      It is possible to specify a URL for any shop to receive asynchronous notifications about data status change by setting up webhook. For example, you can set up webhook by specifying URL of your application to which the system will send data about invoice changes. The corresponding public key, created during the webhook setup, is used to verify integrity of data sent to your application URL. You can receive this key in your account.
   - 
     name: Invoices
     x-displayName: Invoices
-    description: |
-      An invoice is a fundamental model for work with payment acceptance
-      system. It is necessary to create an invoice and find out its ID before
-      rendering the payment form launching debit transactions, holding funds on
-      the payer’s card and launching other similar business processes.
-
-      In general, an invoice is a container for payments, data about goods and
-      a shop. Invoices have customizable limited lifetime. Once lifetime is
-      expired, invoice status is impossible to change.
-
+    description: >
+      An invoice is a fundamental model for work with payment acceptance system. It is necessary to create an invoice and find out its ID before rendering the payment form launching debit transactions, holding funds on the payer’s card and launching other similar business processes.
+      In general, an invoice is a container for payments, data about goods and a shop. Invoices have customizable limited lifetime. Once lifetime is expired, invoice status is impossible to change.
 
       ## Invoice statuses
-
       ### Table of invoice statuses:
 
       | Status     | Indication  |  Description                                                                                                  |
@@ -358,273 +289,118 @@ tags:
       | Paid       | `paid`      | Financial obligations under an invoice are paid but goods or services has not been provided yet to the payer. |
       | Fulfilled  | `fulfilled` | All obligations, both payer’s and merchant’s ones, are fulfilled.                                             |
 
-      Invoice statuses are indicated in the diagram nodes, narrows are marked
-      by the processes. Successful completion of processes generates change
-      from one status to another.
-
+      Invoice statuses are indicated in the diagram nodes, narrows are marked by the processes. Successful completion of processes generates change from one status to another.
       ![Invoice State diagram](wsd/img/invoice.svg)
-
       ## Invoice and payment metadata
-
-      The system provides you a possibility to fill and save any necessary
-      metadata both in invoice and payment pattern. Data is described by the
-      JSON array. Later the system will provide this data to you when you
-      request invoice or payment data by its ID or it will send it to webhook
-      in asynchronous mode that is set up for the relevant shop if there is one.
-
+      The system provides you a possibility to fill and save any necessary metadata both in invoice and payment pattern. Data is described by the JSON array. Later the system will provide this data to you when you request invoice or payment data by its ID or it will send it to webhook in asynchronous mode that is set up for the relevant shop if there is one.
       ## Invoice events
-
-      Any data status changes generate events. You can receive a full list of
-      events that led to the specific data status or the latest event that
-      describes the current data status. For example, you can request all
-      events or the latest one within the specified invoice ID to find out an
-      invoice status so that to make a decision about the shipment of goods or
-      providing services to the payer.
-
+      Any data status changes generate events. You can receive a full list of events that led to the specific data status or the latest event that describes the current data status. For example, you can request all events or the latest one within the specified invoice ID to find out an invoice status so that to make a decision about the shipment of goods or providing services to the payer.
       ## Authorization
-
       Operations:
-
       * invoice creation,
-
       * invoice cancellation,
-
       * invoice fulfillment,
-
       * getting a *new* invoice access token (after invoice creation)
 
-
       are authorised with your API key.
-
       ### Invoice access token
-
-      The invoice access token authorises a limited amount of transactions
-      needed to make [payments](#tag/Payments) by the specified invoice, in
-      particular:
-
+      The invoice access token authorises a limited amount of transactions needed to make [payments](#tag/Payments) by the specified invoice, in particular:
       * [tokenization](#tag/Tokens) of payment instrument,
-
       * payment creation by this and only this invoice,
-
       * getting the invoice status.
 
-
-      The token is valid for 3 days from the creation. After this it will be
-      impossible to use it to authorise transactions.
-
+      The token is valid for 3 days from the creation. After this it will be impossible to use it to authorise transactions.
       ## Money distribution data
-
-      You can specify the distribution of funds among several shops within one
-      invoice. If necessary, you can add a fee that will be charged to the shop
-      specified during the invoice creation (hereinafter invoice shop). Total
-      amount of all distribution transactions shouldn’t exceed the invoice
-      amount. There shouldn’t be more than one transaction per one shop in the
-      distribution. The distribution transactions can be:
-
-      * With AllocationBodyAmount body which transmits the amount to be
-      transferred to the shop. You must create a transaction in favour of an
-      invoice shop to add a fee.
-
+      You can specify the distribution of funds among several shops within one invoice. If necessary, you can add a fee that will be charged to the shop specified during the invoice creation (hereinafter invoice shop). Total amount of all distribution transactions shouldn’t exceed the invoice amount. There shouldn’t be more than one transaction per one shop in the distribution. The distribution transactions can be:
+      * With AllocationBodyAmount body which transmits the amount to be transferred to the shop. You must create a transaction in favour of an invoice shop to add a fee.
       * With AllocationBodyTotal body which transmits the total amount of transactions and its fee that can be:
-        * AllocationFeeFixed or fee amount in favour of an invoice shop.
-        * AllocationFeeShare or some percent of the total amount of transaction in favour of an invoice shop.
-
+      * AllocationFeeFixed or fee amount in favour of an invoice shop.
+      * AllocationFeeShare or some percent of the total amount of transaction in favour of an invoice shop.
   - 
     name: InvoiceTemplates
     x-displayName: Invoice templates
     description: >
-      Invoice templates make invoicing easy. An invoice template is linked to
-      the shop and contains specification that can be used for invoice creation
-      by specifying the cost of goods and services and/or invoice metadata. If
-      a template contains the fixed cost, it can be removed during invoice
-      creation. If invoice metadata is not specified when an invoice is created
-      by a template, they will be taken from a template (if metadata is
-      contained in a template).
+      Invoice templates make invoicing easy. An invoice template is linked to the shop and contains specification that can be used for invoice creation by specifying the cost of goods and services and/or invoice metadata. If a template contains the fixed cost, it can be removed during invoice creation. If invoice metadata is not specified when an invoice is created by a template, they will be taken from a template (if metadata is contained in a template).
 
-
-      The creation, update and deletion of an invoice template doesn’t require
-      the system verification and requests for these changes.
-
+      The creation, update and deletion of an invoice template doesn’t require the system verification and requests for these changes.
       ## Authorization
-
-      The creation, update and deletion of an invoice template is authorised by
-      your API key.
-
+      The creation, update and deletion of an invoice template is authorised by your API key.
       ### Invoice template access token
-
-      An invoice template access token is created in the result of template
-      creation transaction. It authorises:
-
+      An invoice template access token is created in the result of template creation transaction. It authorises:
       * the getting of invoice template by its ID,
-
       * invoice creation by the template.
-
   - 
     name: Payments
     x-displayName: Payments
     description: >
-      The actual debiting the payer’s funds is made by calling of payment
-      creation method. Before payments the invoice, within which the system
-      will attempt to debit, has to be created and payer’s payment token has to
-      be specified. This way the system provides you an interface that allows
-      your server code to initiate and control the debiting process. This
-      process can be both synchronous, when you are waiting for system
-      response, and asynchronous, when you are waiting for notifications on the
-      webhook set up for the corresponding shop after the payments are launched.
-
+      The actual debiting the payer’s funds is made by calling of payment creation method. Before payments the invoice, within which the system will attempt to debit, has to be created and payer’s payment token has to be specified. This way the system provides you an interface that allows your server code to initiate and control the debiting process. This process can be both synchronous, when you are waiting for system response, and asynchronous, when you are waiting for notifications on the webhook set up for the corresponding shop after the payments are launched.
       ## Payment options
-
-      The system provides two payment methods:
-      one-step and two-step, PaymentFlowInstant and PaymentFlowHold.
-
-      One-step payment (PaymentFlowInstant) is performed by calling of one API
-      method. The result of it is authorisation and further debiting in favour
-      of a shop within one transaction.
-
-      Two-step payment (PaymentFlowHold) means the call of two methods: one for
-      authorisation and one for debiting. After the successful authorisation
-      the transaction amount will be blocked on a payer’s account so a payer
-      can’t use it.
-
-      The debiting (capturePayment) can be confirmed on equal or less
-      authorisation amount. If the less amount is specified, the balance will
-      be refunded to a payer. The successful authorisation can be confirmed or
-      cancelled both manually by calling the corresponding API method (capturePayment or cancelPayment) and automatically according to the
-      chosen strategy onHoldExpiration. The manual confirmation period is set
-      in the system settings by yourself and it is usually from 3 to 7 calendar
-      days.
-
+      The system provides two payment methods: one-step and two-step, PaymentFlowInstant and PaymentFlowHold.
+      One-step payment (PaymentFlowInstant) is performed by calling of one API method. The result of it is authorisation and further debiting in favour of a shop within one transaction.
+      Two-step payment (PaymentFlowHold) means the call of two methods: one for authorisation and one for debiting. After the successful authorisation the transaction amount will be blocked on a payer’s account so a payer can’t use it.
+      The debiting (capturePayment) can be confirmed on equal or less authorisation amount. If the less amount is specified, the balance will be refunded to a payer. The successful authorisation can be confirmed or cancelled both manually by calling the corresponding API method (capturePayment or cancelPayment) and automatically according to the chosen strategy onHoldExpiration. The manual confirmation period is set in the system settings by yourself and it is usually from 3 to 7 calendar days.
       ## Payment session
-
-      The system ensures the idempotency of debiting funds from payment
-      instrument by providing the unique payment session ID. This ID is
-      provided during the creation of [payment instrument tokens](#tag/Tokens)
-      and guarantees the idempotency of debit requests, providing the
-      protection from erroneous repeated debits.
-
+      The system ensures the idempotency of debiting funds from payment instrument by providing the unique payment session ID. This ID is provided during the creation of [payment instrument tokens](#tag/Tokens) and guarantees the idempotency of debit requests, providing the protection from erroneous repeated debits.
       ## Payment processing time limit
+      When the payment is created within the system, you can set up the payment processing time in the field `processingDeadline`. When it is expired, the system is trying to stop processing the payment and changing its status to `failed` with the error `processing_deadline_reached`.
 
-      When the payment is created within the system, you can set up the payment
-      processing time in the field `processingDeadline`. When it is expired,
-      the system is trying to stop processing the payment and changing its
-      status to `failed` with the error `processing_deadline_reached`.
+      Processing time limit should be considered as a recommendation as the system can fail to stop processing on the basis of the payment instrument and the current payment status. If a field value is not set up, the system will choose it by itself to have enough time for payment transfer in general conditions.
 
-
-      Processing time limit should be considered as a recommendation as the
-      system can fail to stop processing on the basis of the payment instrument
-      and the current payment status. If a field value is not set up, the
-      system will choose it by itself to have enough time for payment transfer
-      in general conditions.
-
-
-      Payment processing time limit, similarly to the header
-      `X-Request-Deadline`, can be specified in format described in RFC 3339 or
-      in relative values.
-
+      Payment processing time limit, similarly to the header `X-Request-Deadline`, can be specified in format described in RFC 3339 or in relative values.
       ## Authorization
-
-      Payment request APIs are authorised by an invoice access token that is
-      used to create the payment or by API key.
-
+      Payment request APIs are authorised by an invoice access token that is used to create the payment or by API key.
   - 
     name: Tokens
     x-displayName: Payment tokens
     description: >
-      The system provides you the possibility to initiate the funds withdrawal
-      from payer’s charge cards by yourself and undertakes the processes of the
-      certification and PCS-DSS standard compliance. The standard declares the
-      prohibition on cardholder data processing and storage on the merchant’s
-      side. The approaches used in interface implementation provide the
-      opportunity of HTLM form layout and output for cardholder data on your
-      server side code. To ensure the standard compliance we provide our
-      developed JS-library that collects cardholder data in asynchronous mode
-      and sends it to the system interface for further cryptography and
-      tokenization after it is embedded in HTLM code of your payment form. In
-      response, JS-library returns an unique payment card token, that can be
-      used to run payments, to your payment form.
+      The system provides you the possibility to initiate the funds withdrawal from payer’s charge cards by yourself and undertakes the processes of the certification and PCS-DSS standard compliance. The standard declares the prohibition on cardholder data processing and storage on the merchant’s side. The approaches used in interface implementation provide the opportunity of HTLM form layout and output for cardholder data on your server side code. To ensure the standard compliance we provide our developed JS-library that collects cardholder data in asynchronous mode and sends it to the system interface for further cryptography and tokenization after it is embedded in HTLM code of your payment form. In response, JS-library returns an unique payment card token, that can be used to run payments, to your payment form.
 
-
-      The [payment session](#tag/Payments), that ensures the idempodency of
-      funds withdrawal from the payment instrument, is provided during the
-      token creation.
-
+      The [payment session](#tag/Payments), that ensures the idempodency of funds withdrawal from the payment instrument, is provided during the token creation.
   - 
     name: Categories
     x-displayName: Shop categories
     description: >
-       Categories are used to describe groups of goods and services offered by
-       shops. Categories can influence on statistics provision, shops
-       organisation and also system financial terms.
+      Categories are used to describe groups of goods and services offered by shops. Categories can influence on statistics provision, shops organisation and also system financial terms.
   - 
     name: Contracts
     x-displayName: Contracts
     description: >
-      A contract contains all details of a legal agreement on basis of which
-      the system provides all possible services to a merchant. In particular a
-      set of conditions, on basis of which the system services are provided, is
-      written in the contract. The examples of this can be the transaction
-      fees, conditions of withdrawal and legal entity data.
-
-      Any changes of the shops require system verification by creating change
-      requests.
+      A contract contains all details of a legal agreement on basis of which the system provides all possible services to a merchant. In particular a list of conditions, on basis of which the system services are provided, is written in the contract. The examples of this can be the transaction fees, conditions of withdrawal and legal entity data.
+      Any changes of the shops require system verification by creating change requests.
   - 
     name: Payouts
     x-displayName: Withdrawal of funds
     description: >
-      You have to specify payout data within the contract with the system to
-      receive automatic payouts of all accepted ones to your bank account. The
-      system will then initiate bank transfers based on the payment amounts
-      accepted for all active shops.
-
+      You have to specify payout data within the contract with the system to receive automatic payouts of all accepted ones to your bank account. The system will then initiate bank transfers based on the payment amounts accepted for all active shops.
       Any data changes require system verification by creating change requests.
   - 
     name: Webhooks
     x-displayName: Webhooks
     description: >
-      This section describes the methods that allow to manage Webhooks or tools
-      to receive asynchronous notifications via HTTP requests when one or a
-      group of events of interest occur, for example, that the payment within
-      the created invoice has been successfully paid.
-
-      Attention! Only Webhooks Management API is a part of this specification.
-      You will need to read the specification [Vality Webhooks Events API]
-      (https://github.com/valitydev/swag-payments-webhook-events) in order to
-      implement notification handler.
-
+      This section describes the methods that allow to manage Webhooks or tools to receive asynchronous notifications via HTTP requests when one or a group of events of interest occur, for example, that the payment within the created invoice has been successfully paid.
+      Attention! Only Webhooks Management API is a part of this specification. You will need to read the specification [Vality Webhooks Events API] (https://github.com/valitydev/swag-payments-webhook-events) in order to implement notification handler.
   - 
     name: Search
     x-displayName: Search
     description: >
-      You should call the corresponding system method to get a list of all
-      invoices or payments of the specified shop. It is possible to filter
-      sampling by the status.
+      You should call the corresponding system method to get a list of all invoices or payments of the specified shop. It is possible to filter sampling by the status.
   - 
     name: PaymentInstitutions
     x-displayName: Payment Institutions
     description: >
-      A payment institution is an institution that provides services for
-      financial transactions that occur as a result of system business
-      processes.
+      A payment institution is an institution that provides services for financial transactions that occur as a result of system business processes.
   - 
     name: Error Codes
     x-displayName: Error codes
     description: >
       ## Business logic errors
-
       All business logic errors have as follows:
-
       ```json
-      {
-        "code": "string",
-        "message": "string"
-      }
+      { "code": "string", "message": "string" }
       ```
 
-      The error type is in the field `code` and additional information about
-      the error that occurred is in `message`. 
-
+      The error type is in the field `code` and additional information about the error that occurred is in `message`.
       There are the following error codes at the present moment:
-
       | Code                             | Description                                                                                                                                |
       |----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
       | **operationNotPermitted**        | Unavailable transaction within the current contract.                                                                                       |
@@ -657,34 +433,13 @@ tags:
       | **invalidAllocation**            | Invalid distribution of funds, for example, more than one transaction in favour of one of shops.                                           |
       | **allocationNotPermitted**       | The distribution is not available within the contract.                                                                                     |
       | **refundCartConflict**           | It is impossible to define the refund content as the refund distribution and cart are sent at the same time.                               |
-
       ## General errors
-
-      The errors that occur during the transaction attempts with the objects
-      that are not registered in the system. They look like
-
-        ```json
-        {
-            "message": "string"
-        }
-        ```
-
-      The information about the occurred error is in the field `message`. For
-      example:
-
-        ```json
-        {
-            "message": "Invoice not found"
-        }
-        ```
-
+      The errors that occur during the transaction attempts with the objects that are not registered in the system. They look like
+      ```json { "message": "string" } ```
+      The information about the occurred error is in the field `message`. For example:
+      ```json { "message": "Invoice not found" } ```
       ## Errors in processing requests
-
-      Different unpredictable situations can happen during the request
-      processing with the support of our system. The system sends a signal
-      about them according to the HTTP protocol using the corresponding
-      [statuses][5xx] that specify the server errors.
-
+      Different unpredictable situations can happen during the request processing with the support of our system. The system sends a signal about them according to the HTTP protocol using the corresponding [statuses][5xx] that specify the server errors.
       | Code    | Description                                                                                                                                                                                                                          |
       |---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
       | **500** | An unpredictable situation has occurred during request processing by the system. We recommend contacting the technical support if you receive such a response code.                                                                  |
@@ -693,11 +448,8 @@ tags:
 
       [5xx]: https://tools.ietf.org/html/rfc7231#section-6.6
 
-
       ## Payment errors
-
       The errors sent to the payment form (payers can see them):
-
       | Code                   | Description                                                                                                                                                                                      |
       |------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
       | InvalidPaymentTool     | Invalid payment instrument (invalid card number, missing account has been entered, etc.)                                                                                                         |
@@ -708,154 +460,73 @@ tags:
       | PaymentRejected        | the payment is rejected by other reasons                                                                                                                                                         |
 
       The errors sent to the personal merchant’s account (only you can see them):
-
       - timeout
-
-        Timeout of payment attempt
-
+      Timeout of payment attempt
       - rejected_by_inspector
-
-        Rejected by anti-fraud service
-
+      Rejected by anti-fraud service
       - preauthorization_failed
-
-        Preauthorisation error (3DS)
-
+      Preauthorisation error (3DS)
       - authorization_failed:
-
-        Provider payment authorisation error
-
-        - unknown
-
-          Unknown authorisation error
-
-        - merchant_blocked
-
-          A merchant is blocked
-
-        - operation_blocked
-
-          A payment transaction is blocked
-
-        - account_not_found
-
-          An account is not found
-
-        - account_blocked
-
-          An account is blocked
-
-        - account_stolen
-
-          An account is stolen
-
-        - insufficient_funds
-
-          Insufficient funds
-
-        - processing_deadline_reached
-
-          Payment fullfillment timeout (see [Payment processing time limit](#section/Payment-processing-time-limit))
-
-        - account_limit_exceeded:
-
-          Payer’s account limit is exceeded
-
-          - unknown
-
-            Limit object is unknown
-
-          - amount
-
-            Amount limit
-
-          - number
-
-            Attempt number limit
-
-        - provider_limit_exceeded:
-
-          The provider limit is exceeded for this merchant or system in general
-
-          - unknown
-
-            Limit object is unknown
-
-          - amount
-
-            Amount limit
-
-          - number
-
-            Attempt number limit
-
-        - payment_tool_rejected:
-
-          A payment instrument is rejected
-
-          - unknown
-
-            An unknown payment instrument
-
-          - bank_card_rejected:
-
-            A bank card is rejected
-
-            - unknown
-
-              The reason is unknown
-
-            - card_number_invalid
-
-              A card number is invalid
-
-            - card_expired
-
-              A card is expired
-
-            - card_holder_invalid
-
-              A cardholder is invalid
-
-            - cvv_invalid
-
-              CVV code is invalid
-
-            - issuer_not_found
-
-              An issuer is not found
-
-        - security_policy_violated
-
-          Security policy violations
-
-        - temporarily_unavailable
-
-          Temporary unavailability of the third parties
-
-        - rejected_by_issuer
-
-          Rejected by the issuer
-
+      Provider payment authorisation error
+      - unknown
+      Unknown authorisation error
+      - merchant_blocked
+      A merchant is blocked
+      - operation_blocked
+      A payment transaction is blocked
+      - account_not_found
+      An account is not found
+      - account_blocked
+      An account is blocked
+      - account_stolen
+      An account is stolen
+      - insufficient_funds
+      Insufficient funds
+      - processing_deadline_reached
+      Payment fullfillment timeout (see [Payment processing time limit](#section/Payment-processing-time-limit))
+      - account_limit_exceeded:
+      Payer’s account limit is exceeded
+      - unknown
+      Limit object is unknown
+      - amount
+      Amount limit
+      - number
+      Attempt number limit
+      - provider_limit_exceeded:
+      The provider limit is exceeded for this merchant or system in general
+      - unknown
+      Limit object is unknown
+      - amount
+      Amount limit
+      - number
+      Attempt number limit
+      - payment_tool_rejected:
+      A payment instrument is rejected
+      - unknown
+      An unknown payment instrument
+      - bank_card_rejected:
+      A bank card is rejected
+      - unknown
+      The reason is unknown
+      - card_number_invalid
+      A card number is invalid
+      - card_expired
+      A card is expired
+      - card_holder_invalid
+      A cardholder is invalid
+      - cvv_invalid
+      CVV code is invalid
+      - issuer_not_found
+      An issuer is not found
+      - security_policy_violated
+      Security policy violations
+      - temporarily_unavailable
+      Temporary unavailability of the third parties
+      - rejected_by_issuer
+      Rejected by the issuer
 
       For example, in the case of invalid CVV:
-
       ```
-
-      {
-         "code":"authorization_failed",
-         "subError":{
-            "code":"payment_tool_rejected",
-            "subError":{
-               "code":"bank_card_rejected",
-               "subError":{
-                  "code":"cvv_invalid"
-               }
-            }
-         }
-      }
-
+      { "code":"authorization_failed", "subError":{ "code":"payment_tool_rejected", "subError":{ "code":"bank_card_rejected", "subError":{ "code":"cvv_invalid" } } } }
       ```
-
       If you have an error that is not described here, contact the technical support.
-
