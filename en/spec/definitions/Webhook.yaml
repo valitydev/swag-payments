@@ -4,31 +4,30 @@ required:
   - url
 properties:
   id:
-    description: |
+    description: >
       Identifier of the webhook
     type: string
     readOnly: true
   active:
-    description: |
+    description: >
       Is notification delivery currently enabled?
     type: boolean
     readOnly: true
   scope:
-    $ref: '#/definitions/WebhookScope'
+    $ref: "#/definitions/WebhookScope"
   partyID:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/PartyID'
+        $ref: "#/definitions/PartyID"
   url:
-    description: |
+    description: >
       The URL that will receive notifications of events that have occurred
     type: string
     format: http-url
     maxLength: 1000
   publicKey:
-    description: |
-      The content of the public key used to check the authoritativeness of
-      notifications coming to `url`
+    description: >
+      The content of the public key used to check the authoritativeness of notifications coming to `url`
     type: string
     format: hexadecimal
     readOnly: true
