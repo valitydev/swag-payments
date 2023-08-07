@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PaymentTool'
+    $ref: "#/definitions/PaymentTool"
   - 
     type: object
     description: Bank card
@@ -24,6 +24,6 @@ allOf:
       cardHolder:
         description: Cardholder name
         type: string
-        pattern: '^[[:alpha:][:space:][:punct:]]+$'
+        pattern: "^[[:alpha:][:space:][:punct:]]+$"
         minLength: 1
         maxLength: 100
