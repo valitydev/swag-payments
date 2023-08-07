@@ -5,19 +5,19 @@ get:
   operationId: searchRefunds
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/shopID'
+      $ref: "#/parameters/shopID"
     - 
-      $ref: '#/parameters/fromTime'
+      $ref: "#/parameters/fromTime"
     - 
-      $ref: '#/parameters/toTime'
+      $ref: "#/parameters/toTime"
     - 
-      $ref: '#/parameters/limit'
+      $ref: "#/parameters/limit"
     - 
-      $ref: '#/parameters/offset'
+      $ref: "#/parameters/offset"
     - 
       name: invoiceID
       in: query
@@ -45,14 +45,14 @@ get:
     - 
       name: rrn
       in: query
-      description: 'Retrieval Reference Number'
+      description: Retrieval Reference Number
       required: false
       type: string
-      pattern: '^[a-zA-Z0-9]{12}$'
+      pattern: "^[a-zA-Z0-9]{12}$"
     - 
       name: approvalCode
       in: query
-      description: 'Authorization Approval Code'
+      description: Authorization Approval Code
       required: false
       type: string
       maxLength: 40
@@ -67,7 +67,7 @@ get:
         - succeeded
         - failed
   responses:
-    '200':
+    "200":
       description: Refunds found
       schema:
         type: object
@@ -77,10 +77,10 @@ get:
           result:
             type: array
             items:
-              $ref: '#/definitions/RefundSearchResult'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+              $ref: "#/definitions/RefundSearchResult"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
