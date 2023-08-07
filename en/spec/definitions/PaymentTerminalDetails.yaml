@@ -4,4 +4,4 @@ properties:
   provider:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/PaymentTerminalProvider'
+        $ref: "#/definitions/PaymentTerminalProvider"
