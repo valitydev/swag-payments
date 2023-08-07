@@ -2,4 +2,4 @@ description: Preferences for automatic reporting
 type: object
 properties:
   serviceAcceptanceActPreferences:
-    $ref: '#/definitions/ServiceAcceptanceActPreferences'
+    $ref: "#/definitions/ServiceAcceptanceActPreferences"
