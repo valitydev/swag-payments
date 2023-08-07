@@ -121,7 +121,7 @@ get_raw() ->
   }, #{
     <<"name">> => <<"Payouts">>,
     <<"description">> => <<"You have to specify payout data within the contract with the system to receive automatic payouts of all accepted ones to your bank account. The system will then initiate bank transfers based on the payment amounts accepted for all active shops.\nAny data changes require system verification by creating change requests.\n">>,
-    <<"x-displayName">> => <<"Withdrawal of funds">>
+    <<"x-displayName">> => <<"Payouts">>
   }, #{
     <<"name">> => <<"Webhooks">>,
     <<"description">> => <<"This section describes the methods that allow to manage Webhooks or tools to receive asynchronous notifications via HTTP requests when one or a group of events of interest occur, for example, that the payment within the created invoice has been successfully paid.\nAttention! Only Webhooks Management API is a part of this specification. You will need to read the specification [Vality Webhooks Events API] (https://github.com/valitydev/swag-payments-webhook-events) in order to implement notification handler.\n">>,
