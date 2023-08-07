@@ -81,63 +81,63 @@ get_raw() ->
     #{
   <<"swagger">> => <<"2.0">>,
   <<"info">> => #{
-    <<"description">> => <<"\n## Описание\n\nVality Payments API предназначен для мерчантов, принимающих платежи из своего пользовательского\nинтерфейса, например веб-сайта или мобильного приложения, и является единственной точкой\nвзаимодействия с системой для проведения операций оплаты товаров и услуг.\n\n## Детали взаимодействия\n\nПри любом обращении к API в заголовке `X-Request-ID` соответствующего запроса необходимо\nпередать его уникальный идентификатор:\n\n```\n X-Request-ID: 37d735d4-0f42-4f05-89fa-eaa478fb5aa9\n```\n\n### Тип содержимого и кодировка\n\nСистема принимает и возвращает данные в формате JSON и кодировке UTF-8:\n\n```\n  Content-Type: application/json; charset=utf-8\n```\n\n### Формат дат\n\nСистема принимает и возвращает значения отметок времени в формате `date-time`, описанном в\n[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339):\n\n```\n  2017-01-01T00:00:00Z\n  2017-01-01T00:00:01+00:00\n```\n\n### Максимальное время обработки запроса\n\nПри любом обращении к API в заголовке `X-Request-Deadline` соответствующего запроса можно\nпередать параметр отсечки по времени, определяющий максимальное время ожидания завершения\nоперации по запросу:\n\n```\n X-Request-Deadline: 10s\n```\n\nПо истечении указанного времени система прекращает обработку запроса. Рекомендуется указывать\nзначение не более одной минуты, но не менее трёх секунд.\n\n`X-Request-Deadline` может:\n\n* задаваться в формате `date-time` согласно\n  [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339);\n* задаваться в относительных величинах: в миллисекундах (`150000ms`), секундах (`540s`) или\n  минутах (`3.5m`).\n">>,
+    <<"description">> => <<"## Description\nAPI is designed for the merchants who accept payments via user interface such as a website or a mobile app and it is the only interaction point with the system for goods and services payment transactions.\n## Interaction details\nWhenever an API is accessed, its unique ID must be passed in the header X-Request-ID of the corresponding request:\n```\n X-Request-ID: 37d735d4-0f42-4f05-89fa-eaa478fb5aa9\n```\n### Content type and coding\nThe system accepts and returns data in JSON format and UTF-8 coding:\n```\n  Content-Type: application/json; charset=utf-8\n```\n### Date formats\nThe system accepts and returns timestamp values in the format date-time, described in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339):\n```\n  2017-01-01T00:00:00Z\n  2017-01-01T00:00:01+00:00\n```\n### Maximum request processing time\nWhenever an API is accessed, the time cutoff parameters, that define maximum request processing time of the transaction completion, can be passed in the header `X-Request-Deadline` of the corresponding request:\n```\n X-Request-Deadline: 10s\n```\nThe system stops processing the request upon the specified time. It is recommended to specify a value that is not more than one minute and not less than three seconds.\n`X-Request-Deadline` can be:\n\n* specified in the format `date-time` according to [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339);\n* specified in relative values: in milliseconds (`150000ms`), in seconds (`540s`) or in minutes (`3.5m`).\n">>,
     <<"version">> => <<"2.0.1">>,
     <<"title">> => <<"Vality Payments API">>
   },
   <<"basePath">> => <<"/v2">>,
   <<"tags">> => [ #{
     <<"name">> => <<"Parties">>,
-    <<"description">> => <<"Участник системы - совокупность данных о вашей организации, составе и условиях заключенных договоров, а также информация о связанных с организацией магазинах.\n">>,
-    <<"x-displayName">> => <<"Участники">>
+    <<"description">> => <<"A system party is a data set about your company, structure and conditions of concluded contracts, and also the information about the shops associated with the company.\n">>,
+    <<"x-displayName">> => <<"Parties">>
   }, #{
     <<"name">> => <<"Shops">>,
-    <<"description">> => <<"Магазин - это отображение вашего веб-сайта или точки продаж в системе. К магазину привязываются финансовые условия, которые определяют, в частности, процент комиссии системы. Каждый магазин в системе имеет привязанные счета, на которых аккумулируются отправленные плательщиками деньги. В каждой валюте может существовать только один счет. Категория магазина определяет группы товаров или услуг, которые в нем представлены. К магазину может быть привязан банковский терминал на стороне банка-эквайера. Любые изменения данных магазинов требуют верификации на стороне системы.\nДля тестовых платежей используются магазины, созданные в тестовой категории. Первый тестовый магазин система создает автоматически при регистрации участника.\nВаш веб-сайт или точка продаж могут иметь более одного магазина, ближайшим аналогом можно представить банковские POS-терминалы на точке продаж.\n## Асинхронные уведомления\nДля любого магазина можно указать URL для получения асинхронных оповещений об изменении состояния данных при помощи установки webhook'а. Например, вы можете установить webhook, указав URL вашего приложения, на который система будет отправлять данных об изменении состояния инвойса. Для проверки подлинности присланных на URL вашего приложения данных используется соответствующий публичный ключ, который создаётся при установке этого webhook'а и получить который можно в вашем личном кабинете.\n">>,
-    <<"x-displayName">> => <<"Магазины">>
+    <<"description">> => <<"A shop is a display of your website or a point of sales in the system. Financial terms, that determine, particularly, the system fee percentage, are linked to the shop. Each shop has its linked accounts that accumulate money sent by payers. Only one account can be in each currency. The shop category is determined by the group of offered goods and services. A banking terminal can be linked to a shop on the side of an acquiring bank. Any changes of these shops require system verification.\nShops created in the test category are used for test payment. The system creates a test shop automatically during the participant registration.\nYour website or point of sales may have more than one shop. The closest analogue can be POS-terminals at a point of sales.\n## Asynchronous notifications\nIt is possible to specify a URL for any shop to receive asynchronous notifications about data status change by setting up webhook. For example, you can set up webhook by specifying URL of your application to which the system will send data about invoice changes. The corresponding public key, created during the webhook setup, is used to verify integrity of data sent to your application URL. You can receive this key in your account.\n">>,
+    <<"x-displayName">> => <<"Shops">>
   }, #{
     <<"name">> => <<"Invoices">>,
-    <<"description">> => <<"Инвойс - это базовая модель для работы с системой по приему платежей. Перед\nрендерингом платежной формы, запуском транзакций на списание денег,\nхолдированием средств на карте плательщика и запуском других подобных\nбизнес-процессов, необходимо создать инвойс и узнать его идентификатор.\n\nВ общем случае, инвойс является контейнером для платежей, данных о товарах\nи магазине. Инвойсы имеют настраиваемый ограниченный срок жизни. После\nистечения срока жизни состояние инвойса изменить невозможно.\n\n\n## Состояния и статусы инвойса\n\n### Таблица состояний инвойса:\n  | Состояние  | Обозначение |  Описание                                                                                                |\n  | --         | --          | --                                                                                                       |\n  | Не оплачен | `unpaid`    | Инвойс создан, но финансовые обязательства ещё не погашены.                                              |\n  | Отменён    | `cancelled` | Инвойс отменён с указанием причины, все обязательства по нему недействительны.                           |\n  | Оплачен    | `paid`      | Финансовые обязательства по инвойсу погашены, но товары или услуги плательщику ещё не предоставлены.     |\n  | Погашен    | `fulfilled` | Все обязательства, как плательщика, так и мерчанта, погашены.                                            |\n\nВ узлах диаграммы указаны статусы инвойса, стрелки помечены процессами,\nуспешное завершение которых порождает переход из одного статуса в другой.\n\n![Invoice State diagram](wsd/img/invoice.svg)\n\n## Метаданные инвойса и платежа\n\nСистема предоставляет вам возможность заполнить и сохранить любые\nнеобходимые метаданные как в структуре инвойса, так и в структуре любого платежа.\nДанные описываются массивом JSON. В дальнейшем система предоставит\nвам эти данные при запросе данных инвойса или платежа по его идентификатору\nлибо пришлет в асинхронном режиме на webhook, установленный для соответствующего\nмагазина, если он есть.\n\n## События инвойса\n\nЛюбые изменения состояния данных в системе порождают события. Можно получить как\nполный список событий, приведших к определенному состоянию данных, так и\nпоследнее событие, описывающее текущее состояние объекта. Например, для\nтого, чтобы узнать состояние инвойса, и таким образом принять решение об\nотгрузке товара или предоставлении услуги плательщику, можно запросить у\nсистемы все события, произошедшие в рамках указанного ID инвойса, либо\nсамое последнее из них.\n\n## Authorization\n\nОперации:\n\n* создания инвойса,\n\n* отмены инвойса,\n\n* погашения инвойса,\n\n* получения *нового* токена доступа к инвойсу (уже после создания инвойса)\n\n\nавторизуются вашим API-ключом.\n\n### Токен доступа к инвойсу\n\nТокен доступа к инвойсу авторизует ограниченное количество операций,\nнеобходимых для проведения [платежей](#tag/Payments) по указанному\nинвойсу, в частности:\n\n* [токенизация](#tag/Tokens) платёжных инструментов,\n\n* создание платежей по этому и только этому инвойсу,\n\n* получение состояния и событий этого инвойса.\n\n\nСрок действия токена составляет 3 суток от момента создания, после\nистечения которого использовать его для авторизации операций будет более\nневозможно.\n\n## Распределение денежных средств\n\nВ рамках одного инвойса можно указать распределение денежных средств\nмежду несколькими магазинами. При необходимости можно добавить комиссию,\nкоторая будет начисляться магазину переданному при создании инвойса (далее магазин инвойса).\nОбщая сумма всех транзакций распределения не должна превышать сумму инвойса.\nВ распределении не должно быть больше одной транзакции для каждого магазина.\nТранзакции распределения бывают следующих типов:\n\n* С телом AllocationBodyAmount, в котором передается сумма, перечисляемая магазину.\nЧтобы добавить комиссию нужно создать транзакцию в пользу магазина инвойса.\n\n* С телом AllocationBodyTotal, в котором передается общая сумма транзакции и комиссия к ней,\nпри этом комиссия может быть следующих типов:\n  * AllocationFeeFixed или значение комиссии в пользу магазина инвойса.\n  * AllocationFeeShare или процент от общей суммы транзакции в пользу магазина инвойса.\n">>,
-    <<"x-displayName">> => <<"Инвойсы">>
+    <<"description">> => <<"An invoice is a fundamental model for work with payment acceptance system. It is necessary to create an invoice and find out its ID before rendering the payment form launching debit transactions, holding funds on the payer’s card and launching other similar business processes.\nIn general, an invoice is a container for payments, data about goods and a shop. Invoices have customizable limited lifetime. Once lifetime is expired, invoice status is impossible to change.\n\n## Invoice statuses\n### Table of invoice statuses:\n\n| Status     | Indication  |  Description                                                                                                  |\n| --         | --          | --                                                                                                            |\n| Unpaid     | `unpaid`    | An invoice has been created but financial obligations are not fulfilled.                                      |\n| Cancelled  | `cancelled` | An invoice is cancelled with reason, all obligations under it are null and void.                              |\n| Paid       | `paid`      | Financial obligations under an invoice are paid but goods or services has not been provided yet to the payer. |\n| Fulfilled  | `fulfilled` | All obligations, both payer’s and merchant’s ones, are fulfilled.                                             |\n\nInvoice statuses are indicated in the diagram nodes, narrows are marked by the processes. Successful completion of processes generates change from one status to another.\n![Invoice State diagram](wsd/img/invoice.svg)\n## Invoice and payment metadata\nThe system provides you a possibility to fill and save any necessary metadata both in invoice and payment pattern. Data is described by the JSON array. Later the system will provide this data to you when you request invoice or payment data by its ID or it will send it to webhook in asynchronous mode that is set up for the relevant shop if there is one.\n## Invoice events\nAny data status changes generate events. You can receive a full list of events that led to the specific data status or the latest event that describes the current data status. For example, you can request all events or the latest one within the specified invoice ID to find out an invoice status so that to make a decision about the shipment of goods or providing services to the payer.\n## Authorization\nOperations:\n* invoice creation,\n* invoice cancellation,\n* invoice fulfillment,\n* getting a *new* invoice access token (after invoice creation)\n\nare authorised with your API key.\n### Invoice access token\nThe invoice access token authorises a limited amount of transactions needed to make [payments](#tag/Payments) by the specified invoice, in particular:\n* [tokenization](#tag/Tokens) of payment instrument,\n* payment creation by this and only this invoice,\n* getting the invoice status.\n\nThe token is valid for 3 days from the creation. After this it will be impossible to use it to authorise transactions.\n## Money distribution data\nYou can specify the distribution of funds among several shops within one invoice. If necessary, you can add a fee that will be charged to the shop specified during the invoice creation (hereinafter invoice shop). Total amount of all distribution transactions shouldn’t exceed the invoice amount. There shouldn’t be more than one transaction per one shop in the distribution. The distribution transactions can be:\n* With AllocationBodyAmount body which transmits the amount to be transferred to the shop. You must create a transaction in favour of an invoice shop to add a fee.\n* With AllocationBodyTotal body which transmits the total amount of transactions and its fee that can be:\n\n  * AllocationFeeFixed or fee amount in favour of an invoice shop.\n\n  * AllocationFeeShare or some percent of the total amount of transaction in favour of an invoice shop.\n">>,
+    <<"x-displayName">> => <<"Invoices">>
   }, #{
     <<"name">> => <<"InvoiceTemplates">>,
-    <<"description">> => <<"Шаблоны инвойсов позволяют упростить выставление инвойсов. Шаблон инвойса привязан к конкретному магазину и содержит спецификацию, по которой можно создавать инвойсы, указывая только конкретнyю стоимость товаров и услуг и/или метаданные инвойса. В случае, если шаблон содержит фиксированную стоимость, её также можно опустить при создании инвойса. Если при создании инвойса по шаблону не указать метаданные инвойса, они будут взяты из значения в шаблоне (если шаблон содержит метаданные).\n\nCоздание, модификация и удаление шаблона инвойса не требуют верификации на стороне системы и заявок на эти изменения.\n## Authorization\nСоздание, модификация и удаление шаблона инвойса авторизуются вашим API-ключом.\n### Токен доступа к шаблону инвойса\nТокен доступа к шаблону инвойса создается в результате операции создания шаблона. Он авторизует:\n* получение шаблона инвойса по его идентификатору,\n* создание инвойса по данному шаблону.\n">>,
-    <<"x-displayName">> => <<"Шаблоны инвойсов">>
+    <<"description">> => <<"Invoice templates make invoicing easy. An invoice template is linked to the shop and contains specification that can be used for invoice creation by specifying the cost of goods and services and/or invoice metadata. If a template contains the fixed cost, it can be removed during invoice creation. If invoice metadata is not specified when an invoice is created by a template, they will be taken from a template (if metadata is contained in a template).\n\nThe creation, update and deletion of an invoice template doesn’t require the system verification and requests for these changes.\n## Authorization\nThe creation, update and deletion of an invoice template is authorised by your API key.\n### Invoice template access token\nAn invoice template access token is created in the result of template creation transaction. It authorises:\n* the getting of invoice template by its ID,\n* invoice creation by the template.\n">>,
+    <<"x-displayName">> => <<"Invoice templates">>
   }, #{
     <<"name">> => <<"Payments">>,
-    <<"description">> => <<"Реальное списание денег с плательщиков осуществляется вызовом метода создания платежа. Перед запуском платежей необходимо создать инвойс, в рамках которого система будет проводить попытки списания, а также указать токен платежного средства плательщика. Таким образом, система предоставляет вам интерфейс, позволяющий со стороны вашего серверного кода инициировать и контролировать процесс списания денег. Данный процесс может быть, как синхронным, когда вы ожидаете ответа системы, так и асинхронным, когда после запуска платежа вы ожидаете уведомлений на установленный для соответствующего магазина webhook.\n## Варианты проведения оплаты\nСистема предоставляет два метода выполнения операции оплаты: одно- и двухстадийный, PaymentFlowInstant и PaymentFlowHold.\nОдностадийная оплата (PaymentFlowInstant) выполняется вызовом одного метода API, по результатам которого проходит авторизация и последующее списание средств в пользу магазина в рамках одной транзакции.\nДвухстадийная оплата (PaymentFlowHold) подразумевает вызов двух методов: отдельно на авторизацию, отдельно на списание. После успешной авторизации сумма операции будет блокирована на счету плательщика, то есть он не сможет ей воспользоваться.\nПодтвердить списание (capturePayment) можно на равную или меньшую сумму авторизации. В случае указания меньшей суммы остаток средств будет автоматически возвращен плательщику. Подтвердить или отменить успешную авторизацию можно как вручную, вызвав соответствующий метод API (capturePayment или cancelPayment), так и автоматически, согласно выбранной стратегии onHoldExpiration. Срок ручного подтверждения устанавливается нами в настройках системы и, как правило, составляет от 3 до 7 календарных дней.\n## Платежная сессия\nСистема обеспечивает идемпотентность списания денег с платежного средства, предоставляя уникальный идентификатор платежной сессии. Данный идентификатор предоставляется в процессе создания [токена платежного средства](#tag/Tokens) и гарантирует идемпотентность запросов на списание средств, обеспечивая защиту от ошибочных повторных списаний.\n## Ограничение времени обработки платежа\nПри создании платежа в рамках системы, в поле `processingDeadline` можно задать время выполнения платежа, по истечении которого, система попытается прекратить обработку платежа и перевести его в статус `failed` с ошибкой `processing_deadline_reached`.\n\nОграничение на время обработки следует рассматривать как рекомендацию, поскольку в зависимости от платежного средства и текущего состояния платежа у системы может не быть возможности прекратить обработку. Если значение поля не установлено, то система выберет его самостоятельно, так чтобы было достаточно времени для прохождения платежа в обычных условиях.\n\nОграничение времени обработки платежа, аналогично заголовку `X-Request-Deadline`, может указываться в формате, описанном в RFC 3339, или в относительных величинах.\n## Authorization\nЗапросы API платежей авторизуются либо токеном доступа к инвойсу, по которому создан платеж, либо вашим API-ключом.\n">>,
-    <<"x-displayName">> => <<"Платежи">>
+    <<"description">> => <<"The actual debiting the payer’s funds is made by calling of payment creation method. Before payments the invoice, within which the system will attempt to debit, has to be created and payer’s payment token has to be specified. This way the system provides you an interface that allows your server code to initiate and control the debiting process. This process can be both synchronous, when you are waiting for system response, and asynchronous, when you are waiting for notifications on the webhook set up for the corresponding shop after the payments are launched.\n## Payment options\nThe system provides two payment methods: one-step and two-step, PaymentFlowInstant and PaymentFlowHold.\nOne-step payment (PaymentFlowInstant) is performed by calling of one API method. The result of it is authorisation and further debiting in favour of a shop within one transaction.\nTwo-step payment (PaymentFlowHold) means the call of two methods: one for authorisation and one for debiting. After the successful authorisation the transaction amount will be blocked on a payer’s account so a payer can’t use it.\nThe debiting (capturePayment) can be confirmed on equal or less authorisation amount. If the less amount is specified, the balance will be refunded to a payer. The successful authorisation can be confirmed or cancelled both manually by calling the corresponding API method (capturePayment or cancelPayment) and automatically according to the chosen strategy onHoldExpiration. The manual confirmation period is set in the system settings by yourself and it is usually from 3 to 7 calendar days.\n## Payment session\nThe system ensures the idempotency of debiting funds from payment instrument by providing the unique payment session ID. This ID is provided during the creation of [payment instrument tokens](#tag/Tokens) and guarantees the idempotency of debit requests, providing the protection from erroneous repeated debits.\n## Payment processing time limit\nWhen the payment is created within the system, you can set up the payment processing time in the field `processingDeadline`. When it is expired, the system is trying to stop processing the payment and changing its status to `failed` with the error `processing_deadline_reached`.\n\nProcessing time limit should be considered as a recommendation as the system can fail to stop processing on the basis of the payment instrument and the current payment status. If a field value is not set up, the system will choose it by itself to have enough time for payment transfer in general conditions.\n\nPayment processing time limit, similarly to the header `X-Request-Deadline`, can be specified in format described in RFC 3339 or in relative values.\n## Authorization\nPayment request APIs are authorised by an invoice access token that is used to create the payment or by API key.\n">>,
+    <<"x-displayName">> => <<"Payments">>
   }, #{
     <<"name">> => <<"Tokens">>,
-    <<"description">> => <<"Система предоставляет вам возможность самостоятельно инициировать списание денег с платежных карт плательщиков и берет на себя процессы сертификации и соответствия стандартам PCS-DSS. Стандарт декларирует запрет на обработку и хранение данных держателей карт (ДДК) на стороне мерчанта. Используемые нами подходы к реализации интерфейса подразумевают возможность верстки и отдачи HTML формы для ввода ДДК на стороне вашего серверного кода. Чтобы обеспечить соответствие стандартам мы предоставляем разработанную нами JS-библиотеку, которая после встраивания в HTML-код вашей платежной формы в асинхронном режиме собирает ДДК и отправляет на интерфейс системы для дальнейшего шифрования и токенизации. В ответ JS-библиотека возвращает на вашу платежную форму уникальный токен платежной карты, который в дальнейшем вы можете использовать для запуска платежей.\n\nВ процессе создания токена предоставляется [платежная сессия](#tag/Payments), обеспечивающая идемпотентность списания денег с платежного средства.\n">>,
-    <<"x-displayName">> => <<"Платежные токены">>
+    <<"description">> => <<"The system provides you the possibility to initiate the funds withdrawal from payer’s charge cards by yourself and undertakes the processes of the certification and PCS-DSS standard compliance. The standard declares the prohibition on cardholder data processing and storage on the merchant’s side. The approaches used in interface implementation provide the opportunity of HTLM form layout and output for cardholder data on your server side code. To ensure the standard compliance we provide our developed JS-library that collects cardholder data in asynchronous mode and sends it to the system interface for further cryptography and tokenization after it is embedded in HTLM code of your payment form. In response, JS-library returns an unique payment card token, that can be used to run payments, to your payment form.\n\nThe [payment session](#tag/Payments), that ensures the idempodency of funds withdrawal from the payment instrument, is provided during the token creation.\n">>,
+    <<"x-displayName">> => <<"Payment tokens">>
   }, #{
     <<"name">> => <<"Categories">>,
-    <<"description">> => <<"Для описания групп товаров и услуг, предоставляемых магазинами, используются категории. Категории могут влиять на предоставление статистики, упорядочивание магазинов, а также на финансовые условия системы.\n">>,
-    <<"x-displayName">> => <<"Категории магазинов">>
+    <<"description">> => <<"Categories are used to describe groups of goods and services offered by shops. Categories can influence on statistics provision, shops organisation and also system financial terms.\n">>,
+    <<"x-displayName">> => <<"Shop categories">>
   }, #{
     <<"name">> => <<"Contracts">>,
-    <<"description">> => <<"Договор содержит данные юридического соглашения, на основе которого система предоставляет всевозможные услуги мерчанту. В договоре, в частности описывается набор условий, по которым предоставляются сервисы системы, например, комиссии на проведение транзакций, условия вывода средств и данных юридического лица.\nЛюбые изменения данных магазинов требуют верификации на стороне системы путем создания заявок на изменение.\n">>,
-    <<"x-displayName">> => <<"Договоры">>
+    <<"description">> => <<"A contract contains all details of a legal agreement on basis of which the system provides all possible services to a merchant. In particular a list of conditions, on basis of which the system services are provided, is written in the contract. The examples of this can be the transaction fees, conditions of withdrawal and legal entity data.\nAny changes of the shops require system verification by creating change requests.\n">>,
+    <<"x-displayName">> => <<"Contracts">>
   }, #{
     <<"name">> => <<"Payouts">>,
-    <<"description">> => <<"Для получения автоматических выплат по принятым платежам на ваш банковский счет необходимо в рамках договора с системой указать данные для вывода средств. В дальнейшем по указанным данным система будет инициировать банковские переводы на основе суммы платежей, принятой по всем активным магазинам.\nЛюбые изменения данных требуют верификации на стороне системы путем создания заявок на изменение.\n">>,
-    <<"x-displayName">> => <<"Вывод средств">>
+    <<"description">> => <<"You have to specify payout data within the contract with the system to receive automatic payouts of all accepted ones to your bank account. The system will then initiate bank transfers based on the payment amounts accepted for all active shops.\nAny data changes require system verification by creating change requests.\n">>,
+    <<"x-displayName">> => <<"Withdrawal of funds">>
   }, #{
     <<"name">> => <<"Webhooks">>,
-    <<"description">> => <<"В данном разделе описаны методы, позволяющие управлять Webhook'ами, или инструментами для получения асинхронных оповещений посредством HTTP-запросов при наступлении одного или группы интересующих вас событий, например, о том, что платеж в рамках созданного инвойса был успешно оплачен.\nВнимание! Только Webhooks Management API является частью данной спецификации. Для реализации обработчика присылаемых уведомлений вам необходимо будет ознакомиться со спецификацей [Vality Webhooks Events API](https://github.com/valitydev/swag-payments-webhook-events).\n">>,
+    <<"description">> => <<"This section describes the methods that allow to manage Webhooks or tools to receive asynchronous notifications via HTTP requests when one or a group of events of interest occur, for example, that the payment within the created invoice has been successfully paid.\nAttention! Only Webhooks Management API is a part of this specification. You will need to read the specification [Vality Webhooks Events API] (https://github.com/valitydev/swag-payments-webhook-events) in order to implement notification handler.\n">>,
     <<"x-displayName">> => <<"Webhooks">>
   }, #{
     <<"name">> => <<"Search">>,
-    <<"description">> => <<"Для получения списка всех инвойсов/платежей указанного магазина необходимо вызвать соответствующий метод платформы. Имеется возможность отфильтровать выборку по определенным статусам.\n">>,
-    <<"x-displayName">> => <<"Поиск">>
+    <<"description">> => <<"You should call the corresponding system method to get a list of all invoices or payments of the specified shop. It is possible to filter sampling by the status.\n">>,
+    <<"x-displayName">> => <<"Search">>
   }, #{
     <<"name">> => <<"PaymentInstitutions">>,
-    <<"description">> => <<"Платёжная организация - организация, осуществляющая услуги по обслуживанию финансовых операций, которые возникают в результате осуществления бизнес-процессов системой.\n">>,
-    <<"x-displayName">> => <<"Платёжные организации">>
+    <<"description">> => <<"A payment institution is an institution that provides services for financial transactions that occur as a result of system business processes.\n">>,
+    <<"x-displayName">> => <<"Payment Institutions">>
   }, #{
     <<"name">> => <<"Error Codes">>,
-    <<"description">> => <<"\n## Ошибки бизнес-логики\nВсе ошибки бизнес-логики имеют следуюший вид:\n\n  ```json\n  {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n  ```\n\nВ поле `code` содержится тип ошибки, а в `message` - дополнительная информация по произошедшей ошибке.\nНа данный момент существуют следующие коды ошибок:\n\n  | Код                              | Описание                                                                                                                              |\n  | ---                              | --------                                                                                                                              |\n  | **operationNotPermitted**        | Недоступная в рамках действующего договора операция.                                                                                  |\n  | **invalidPartyStatus**           | Ваш участник заблокирован или его операции приостановлены. В последнем случае вы можете их [возобновить](#operation/activateMyParty). |\n  | **invalidShopStatus**            | Ваш магазин заблокирован или его операции приостановлены. В последнем случае вы можете их [возобновить](#operation/activateShop).     |\n  | **invalidContractStatus**        | Ваш договор более не имеет силы, по причине истечения срока действия или расторжения.                                                 |\n  | **invalidShopID**                | Магазин с указанным идентификатором не существует или недоступен.                                                                     |\n  | **invalidInvoiceCost**           | Стоимость инвойса не указана или неверна, в частности, не равна стоимости позиций в корзине.                                          |\n  | **invalidInvoiceCart**           | Некорректная корзина в инвойсе, Например, пустая.                                                                                     |\n  | **invalidInvoiceStatus**         | Неверный [статус инвойса](#tag/Invoices). Например, при попытке [оплатить](#operation/createPayment) отменённый инвойс.               |\n  | **invoiceTermsViolated**         | Инвойс нарушает ограничения, установленные в рамках действующего договора.                                                            |\n  | **invoicePaymentPending**        | Последний запущенный платёж по указанному инвойсу ещё не достиг финального статуса.                                                   |\n  | **invalidPaymentStatus**         | Неверный [статус платежа](#tag/Payments). Например, при попытке [подтвердить](#operation/capturePayment) неуспешный платёж.           |\n  | **invalidPaymentResource**       | Не поддерживаемый системой или не подключенный в рамках действующего договора платежный инструмент.                                   |\n  | **invalidPaymentToolToken**      | Неверное содержимое токена платёжного инструмента.                                                                                    |\n  | **invalidProcessingDeadline**    | Неверный формат ограничения времени авторизации платежа.                                                                              |\n  | **invalidPaymentSession**        | Невернoе содержимое платёжной сессии.                                                                                                 |\n  | **invalidRecurrentParent**       | Невернo указан родительский рекуррентный платеж.                                                                                      |\n  | **insufficentAccountBalance**    | Недостаточный объём денежных средств на счёте магазина, например, для проведения возврата.                                            |\n  | **invoicePaymentAmountExceeded** | Попытка возврата сверх суммы платежа.                                                                                                 |\n  | **inconsistentRefundCurrency**   | Попытка возврата средств в валюте, отличной от валюты платежа.                                                                        |\n  | **changesetConflict**            | Попытка внести изменения участника, конфликтующие с изменениями в других заявках, ожидающих рассмотрения.                             |\n  | **invalidChangeset**             | Неверные изменения участника, например, попытка создать магазин в валюте, недоступной в рамках договора.                              |\n  | **limitExceeded**                | Превышен разумный лимит выборки. В этом случае лучше запросить менее объёмный набор данных.                                           |\n  | **invalidDeadline**              | Неверный формат времени.                                                                                                              |\n  | **chargebackInProgress**         | Попытка возврата при открытом возвратном платеже.                                                                                     |\n  | **invalidRequest**               | Прочие неверные данные запроса.                                                                                                       |\n  | **invalidPartyID**               | Участник с указанным идентификатором не существует или недоступен.                                                                    |\n  | **ambiguousPartyID**             | Невозможно однозначно определить идентификатор участника, укажите идентификатор в запросе явно.                                       |\n  | **invalidAllocation**            | Некорректное распределение денежных средств, Например, больше одной транзакции в пользу одного из магазинов.                          |\n  | **allocationNotPermitted**       | Распределение недоступно в рамках договора.                                                                                           |\n  | **refundCartConflict**           | Невозможно однозначно определить содержание возврата, так как одновременно переданы распределение и корзина рефанда.                  |\n\n## Общие ошибки\nОшибки возникающие при попытках совершения операций с незарегистрированными в системе объектами. Имеют вид\n\n  ```json\n  {\n      \"message\": \"string\"\n  }\n  ```\n\nВ поле `message` содержится информация по произошедшей ошибке. Например:\n\n  ```json\n  {\n      \"message\": \"Invoice not found\"\n  }\n  ```\n\n## Ошибки обработки запросов\nВ процессе обработки запросов силами нашей системы могут происходить различные непредвиденные ситуации. Об их появлении система сигнализирует по протоколу HTTP соответствующими [статусами][5xx], обозначающими ошибки сервера.\n\n  |  Код    |  Описание  |\n  | ------- | ---------- |\n  | **500** | В процессе обработки системой запроса возникла непредвиденная ситуация. При получении подобного кода ответа мы рекомендуем обратиться в техническую поддержку. |\n  | **503** | Система временно недоступна и не готова обслуживать данный запрос. Запрос гарантированно не выполнен, при получении подобного кода ответа попробуйте выполнить его позднее, когда доступность системы будет восстановлена. |\n  | **504** | Система превысила допустимое время обработки запроса, результат запроса не определён. Попробуйте отправить запрос повторно или выяснить результат выполнения исходного запроса, если повторное исполнение запроса нежелательно. |\n\n[5xx]: https://tools.ietf.org/html/rfc7231#section-6.6\n\n## Ошибки платежа\nОшибки, передаваемые в платежную форму (отображаются плательщикам):\n\n  | Код                    | Описание                                                                                                                                      |\n  | ---                    | --------                                                                                                                                      |\n  | InvalidPaymentTool     | Неверный платежный инструмент (введен номер несуществующей карты, отсутствующего аккаунта и т.п.)                                             |\n  | AccountLimitsExceeded  | Превышены лимиты (например, в личном кабинете плательщика установлено ограничение по сумме платежа, стране списания)                          |\n  | InsufficientFunds      | Недостаточно средств на счете                                                                                                                 |\n  | PreauthorizationFailed | Предварительная авторизация отклонена (введен неверный код 3D-Secure, на форме 3D-Secure нажата ссылка отмены)                                |\n  | RejectedByIssuer       | Платёж отклонён эмитентом (установлены запреты по стране списания, запрет на покупки в интернете, платеж отклонен антифродом эмитента и т.п.) |\n  | PaymentRejected        | платёж отклонён по иным причинам                                                                                                              |\n\nОшибки, передаваемые в ЛК мерчанта (отображаются только вам):\n- timeout\n\n  Истекло время ожидания попытки оплаты\n\n- rejected_by_inspector\n\n  Отклонено сервисом противодействия мошенничеству\n\n- preauthorization_failed\n\n  Ошибка предавторизации (3DS)\n\n- authorization_failed:\n\n  Ошибка авторизации платежа у провайдера\n\n  - unknown\n\n    Неизвестная ошибка авторизации\n\n  - merchant_blocked\n\n    Мерчант заблокирован\n\n  - operation_blocked\n\n    Операция платежа заблокирована\n\n  - account_not_found\n\n    Аккаунт не найден\n\n  - account_blocked\n\n    Аккаунт заблокирован\n\n  - account_stolen\n\n    Аккаунт украден\n\n  - insufficient_funds\n\n    Не хватает средств\n\n  - processing_deadline_reached\n\n    Истекло время выполнения платежа (см. [Ограничение времени обработки платежа](#section/Ogranichenie-vremeni-obrabotki-platezha))\n\n  - account_limit_exceeded:\n\n    Превышен лимит на счете плательщика\n\n    - unknown\n\n      Объект лимита неизвестен\n\n    - amount\n\n      Лимит на сумму\n\n    - number\n\n      Лимит на количество попыток\n\n  - provider_limit_exceeded:\n\n    Превышен лимит на данного мерчанта или на систему в целом у провайдера\n\n    - unknown\n\n      Объект лимита неизвестен\n\n    - amount\n\n      Лимит на сумму\n\n    - number\n\n      Лимит на количество попыток\n\n  - payment_tool_rejected:\n\n    Платёжный интрумент отклонён\n\n    - unknown\n\n      Неизвестный платёжный интрумент\n\n    - bank_card_rejected:\n\n      Банковская карта отклонена\n\n      - unknown\n\n        Причина неизвестна\n\n      - card_number_invalid\n\n        Неверный номер карты\n\n      - card_expired\n\n        Истёк срок действия карты\n\n      - card_holder_invalid\n\n        Неверный владелец карты\n\n      - cvv_invalid\n\n        Неверный CVV код\n\n      - issuer_not_found\n\n        Эмитент не найден\n\n  - security_policy_violated\n\n    Нарушения политики безопасности\n\n  - temporarily_unavailable\n\n    Временная недоступность третьих сторон\n\n  - rejected_by_issuer\n\n    Отклонено эмитентом\n\n\nНапример, в случае некорректного CVV:\n```\n{\n    \"code\": \"authorization_failed\",\n    \"subError\": {\n        \"code\": \"payment_tool_rejected\",\n        \"subError\": {\n            \"code\": \"bank_card_rejected\",\n            \"subError\": {\n                \"code\": \"cvv_invalid\"\n            }\n        }\n    }\n}\n```\nЕсли вы получили ошибку, которой нет в данном описании, обратитесь в техническую поддержку.\n">>,
-    <<"x-displayName">> => <<"Коды ошибок">>
+    <<"description">> => <<"## Business logic errors\nAll business logic errors have as follows:\n```json\n{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}\n```\n\nThe error type is in the field `code` and additional information about the error that occurred is in `message`. \nThere are the following error codes at the present moment:\n| Code                             | Description                                                                                                                                |\n|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|\n| **operationNotPermitted**        | Unavailable transaction within the current contract.                                                                                       |\n| **invalidPartyStatus**           | Your participant is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateMyParty) them. |\n| **invalidShopStatus**            | Your shop is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateShop) them.           |\n| **invalidContractStatus**        | Your contract is not valid anymore due to its expiration or termination.                                                                   |\n| **invalidShopID**                | The shop with the specified ID doesn’t exist or unavailable.                                                                               |\n| **invalidInvoiceCost**           | Invoice cost is not specified or invalid, particularly, it isn’t equal to the item cost in the cart.                                       |\n| **invalidInvoiceCart**           | Incorrect cart in invoice, for example, empty.                                                                                             |\n| **invalidInvoiceStatus**         | Invalid [invoice status](#tag/Invoices). For example, in an attempt to [pay](#operation/createPayment) the cancelled invoice.              |\n| **invoiceTermsViolated**         | An invoice violates limitations set within the current contract.                                                                           |\n| **invoicePaymentPending**        | The last pending payment by the specified invoice has not reached the final status yet.                                                    |\n| **invalidPaymentStatus**         | Invalid [payment status](#tag/Payments). For example, in an attempt to [confirm](#operation/capturePayment) unsuccessful payment.          |\n| **invalidPaymentResource**       | The payment instrument that is not supported or connected to the system within the current contract.                                       |\n| **invalidPaymentToolToken**      | Invalid content of payment instrument token.                                                                                               |\n| **invalidProcessingDeadline**    | Invalid format of the payment authorisation time limit.                                                                                    |\n| **invalidPaymentSession**        | Invalid content of the payment session.                                                                                                    |\n| **invalidRecurrentParent**       | Invalid parent recurrent payment is specified.                                                                                             |\n| **insufficentAccountBalance**    | Insufficient account balance on the shop account, for example, for the refund.                                                             |\n| **invoicePaymentAmountExceeded** | Refund attempt exceeds the payment amount.                                                                                                 |\n| **inconsistentRefundCurrency**   | Refund attempt in the currency is different from the payment currency.                                                                     |\n| **changesetConflict**            | An attempt to make changes to the participant that conflicts with changes in other pending requests.                                       |\n| **invalidChangeset**             | Invalid changes to the participant, for example, an attempt to create a shop in the currency that is unavailable within the contract.      |\n| **limitExceeded**                | The reasonable sampling time limit is exceeded. In this case it is better to request less volume of data.                                  |\n| **invalidDeadline**              | Invalid time format.                                                                                                                       |\n| **chargebackInProgress**         | Refund attempt while the chargeback is in progress.                                                                                        |\n| **invalidRequest**               | Other invalid request data.                                                                                                                |\n| **invalidPartyID**               | The participant with the specified ID doesn't exist or unavailable.                                                                        |\n| **ambiguousPartyID**             | It is impossible to define the participant ID, specify the ID more clearly in the request.                                                 |\n| **invalidAllocation**            | Invalid distribution of funds, for example, more than one transaction in favour of one of shops.                                           |\n| **allocationNotPermitted**       | The distribution is not available within the contract.                                                                                     |\n| **refundCartConflict**           | It is impossible to define the refund content as the refund distribution and cart are sent at the same time.                               |\n## General errors\nThe errors that occur during the transaction attempts with the objects that are not registered in the system. They look like\n\n  ```json\n  {\n      \"message\": \"string\"\n  }\n  ```\n\nThe information about the occurred error is in the field `message`. For example:\n\n  ```json\n  {\n      \"message\": \"Invoice not found\"\n  }\n  ```\n\n## Errors in processing requests\nDifferent unpredictable situations can happen during the request processing with the support of our system. The system sends a signal about them according to the HTTP protocol using the corresponding [statuses][5xx] that specify the server errors.\n| Code    | Description                                                                                                                                                                                                                          |\n|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| **500** | An unpredictable situation has occurred during request processing by the system. We recommend contacting the technical support if you receive such a response code.                                                                  |\n| **503** | The system is temporarily unavailable and not ready to serve this request. The request isn’t guaranteed fulfilled, if you receive such a response code, try to resend it later when the availability of the system will be restored. |\n| **504** | The system has exceeded the time allowable for request processing, the result of the request is undefined. Try to resend the request or find our the result of the original request if the repeated request is undesirable.          |\n\n[5xx]: https://tools.ietf.org/html/rfc7231#section-6.6\n\n## Payment errors\nThe errors sent to the payment form (payers can see them):\n| Code                   | Description                                                                                                                                                                                      |\n|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| InvalidPaymentTool     | Invalid payment instrument (invalid card number, missing account has been entered, etc.)                                                                                                         |\n| AccountLimitsExceeded  | Limits are exceeded (for example, the payment amount or withdrawal country limits are set up in the personal account)                                                                            |\n| InsufficientFunds      | Insufficient funds on the account                                                                                                                                                                |\n| PreauthorizationFailed | Pre-authorisation is failed (invalid SD-Secure code has been entered, cancellation link has been clicked in SD-Secure form)                                                                      |\n| RejectedByIssuer       | The payment is rejected by the issuer (it has been prohibited to withdraw inside the country or to purchase in the Internet, the payment is rejected by the issuer’s anti-fraud entity and etc.) |\n| PaymentRejected        | the payment is rejected by other reasons                                                                                                                                                         |\n\nThe errors sent to the personal merchant’s account (only you can see them):\n- timeout\n\n  Timeout of payment attempt\n\n- rejected_by_inspector\n\n  Rejected by anti-fraud service\n\n- preauthorization_failed\n\n  Preauthorisation error (3DS)\n\n- authorization_failed:\n\n  Provider payment authorisation error\n\n  - unknown\n\n    Unknown authorisation error\n\n  - merchant_blocked\n\n    A merchant is blocked\n\n  - operation_blocked\n\n    A payment transaction is blocked\n\n  - account_not_found\n\n    An account is not found\n\n  - account_blocked\n\n    An account is blocked\n\n  - account_stolen\n\n    An account is stolen\n\n  - insufficient_funds\n\n    Insufficient funds\n\n  - processing_deadline_reached\n\n    Payment fullfillment timeout (see [Payment processing time limit](#section/Payment-processing-time-limit))\n\n  - account_limit_exceeded:\n\n    Payer’s account limit is exceeded\n\n    - unknown\n\n      Limit object is unknown\n\n    - amount\n\n      Amount limit\n\n    - number\n\n      Attempt number limit\n\n  - provider_limit_exceeded:\n\n    The provider limit is exceeded for this merchant or system in general\n\n    - unknown\n\n      Limit object is unknown\n\n    - amount\n\n      Amount limit\n\n    - number\n\n      Attempt number limit\n\n  - payment_tool_rejected:\n\n    A payment instrument is rejected\n\n    - unknown\n\n      An unknown payment instrument\n\n    - bank_card_rejected:\n\n      A bank card is rejected\n\n      - unknown\n\n        The reason is unknown\n\n      - card_number_invalid\n\n        A card number is invalid\n\n      - card_expired\n\n        A card is expired\n\n      - card_holder_invalid\n\n        A cardholder is invalid\n\n      - cvv_invalid\n\n        CVV code is invalid\n\n      - issuer_not_found\n\n        An issuer is not found\n\n  - security_policy_violated\n\n    Security policy violations\n\n  - temporarily_unavailable\n\n    Temporary unavailability of the third parties\n\n  - rejected_by_issuer\n\n    Rejected by the issuer\n\n\nFor example, in the case of invalid CVV:\n```\n{\n   \"code\":\"authorization_failed\",\n   \"subError\":{\n      \"code\":\"payment_tool_rejected\",\n      \"subError\":{\n         \"code\":\"bank_card_rejected\",\n         \"subError\":{\n            \"code\":\"cvv_invalid\"\n         }\n      }\n   }\n}\n```\nIf you have an error that is not described here, contact the technical support.\n">>,
+    <<"x-displayName">> => <<"Error codes">>
   } ],
   <<"schemes">> => [ <<"https">> ],
   <<"consumes">> => [ <<"application/json; charset=utf-8">> ],
@@ -149,12 +149,12 @@ get_raw() ->
     <<"/analytics/shops/{shopID}/invoices">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Search">> ],
-        <<"description">> => <<"Поиск инвойсов">>,
+        <<"description">> => <<"Search of invoices">>,
         <<"operationId">> => <<"searchInvoices">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -162,7 +162,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -170,7 +170,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"shopID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -178,21 +178,21 @@ get_raw() ->
         }, #{
           <<"name">> => <<"fromTime">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Начало временного отрезка">>,
+          <<"description">> => <<"Start of the time period">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>
         }, #{
           <<"name">> => <<"toTime">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Конец временного отрезка">>,
+          <<"description">> => <<"End of the time period">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>
         }, #{
           <<"name">> => <<"limit">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Лимит выборки">>,
+          <<"description">> => <<"Selection limit">>,
           <<"required">> => true,
           <<"type">> => <<"integer">>,
           <<"maximum">> => 1000,
@@ -201,41 +201,41 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceStatus">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Статус инвойса для поиска">>,
+          <<"description">> => <<"Invoice status for search">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"unpaid">>, <<"cancelled">>, <<"paid">>, <<"fulfilled">> ]
         }, #{
           <<"name">> => <<"paymentStatus">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Статус платежа для поиска">>,
+          <<"description">> => <<"Payment status for search">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"pending">>, <<"processed">>, <<"captured">>, <<"cancelled">>, <<"refunded">>, <<"failed">> ]
         }, #{
           <<"name">> => <<"paymentFlow">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Flow платежа">>,
+          <<"description">> => <<"Payment flow">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"instant">>, <<"hold">> ]
         }, #{
           <<"name">> => <<"paymentMethod">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Метод оплаты">>,
+          <<"description">> => <<"Payment method">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"bankCard">>, <<"paymentTerminal">> ]
         }, #{
           <<"name">> => <<"paymentTerminalProvider">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Провайдер платежного терминала">>,
+          <<"description">> => <<"Payment terminal provider">>,
           <<"required">> => false,
           <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -243,7 +243,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор платежа">>,
+          <<"description">> => <<"Payment ID">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -251,7 +251,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"payerEmail">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Email, указанный при оплате">>,
+          <<"description">> => <<"Payer's e-mail">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 100,
@@ -259,7 +259,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"payerIP">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"IP-адрес плательщика">>,
+          <<"description">> => <<"Payer IP-address">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 45,
@@ -267,14 +267,14 @@ get_raw() ->
         }, #{
           <<"name">> => <<"payerFingerprint">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Уникальный отпечаток user agent'а плательщика">>,
+          <<"description">> => <<"Payer's user agent unique fingerprint">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 1000
         }, #{
           <<"name">> => <<"customerID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор плательщика">>,
+          <<"description">> => <<"Customer ID">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -282,26 +282,26 @@ get_raw() ->
         }, #{
           <<"name">> => <<"bankCardTokenProvider">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Провайдер платежных токенов.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>,
+          <<"description">> => <<"Payment token provider.\nThe list of providers available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"bankCardPaymentSystem">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Платежная система.\n\nНабор систем, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>,
+          <<"description">> => <<"Payment system.\nThe list of systems available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"first6">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Первые 6 цифр номера карты">>,
+          <<"description">> => <<"First 6 digits of the card number">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"pattern">> => <<"^\\d{6}$">>
         }, #{
           <<"name">> => <<"last4">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Последние цифры номера карты">>,
+          <<"description">> => <<"Card last digits">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"pattern">> => <<"^\\d{0,4}$">>
@@ -315,7 +315,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentAmount">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Сумма платежа">>,
+          <<"description">> => <<"Amount">>,
           <<"required">> => false,
           <<"type">> => <<"integer">>,
           <<"minimum">> => 1,
@@ -323,7 +323,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceAmount">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Сумма инвойса">>,
+          <<"description">> => <<"Invoice amount">>,
           <<"required">> => false,
           <<"type">> => <<"integer">>,
           <<"minimum">> => 1,
@@ -331,28 +331,28 @@ get_raw() ->
         }, #{
           <<"name">> => <<"continuationToken">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Токен, сигнализирующий о том, что в ответе передана только часть данных.\nДля получения следующей части нужно повторно обратиться к сервису, указав тот-же набор условий и полученый токен.\nЕсли токена нет, получена последняя часть данных.\n">>,
+          <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response.\nTo receive the next part of the data, it is necessary to reapply to the service, specifying the same list of conditions and the received token. If there is no token, the last part of data is received.\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Найденные инвойсы">>,
+            <<"description">> => <<"Invoices found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_200">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -363,12 +363,12 @@ get_raw() ->
     <<"/analytics/shops/{shopID}/payments">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Search">> ],
-        <<"description">> => <<"Поиск платежей">>,
+        <<"description">> => <<"Search for payments">>,
         <<"operationId">> => <<"searchPayments">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -376,7 +376,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -384,7 +384,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"shopID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -392,21 +392,21 @@ get_raw() ->
         }, #{
           <<"name">> => <<"fromTime">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Начало временного отрезка">>,
+          <<"description">> => <<"Start of the time period">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>
         }, #{
           <<"name">> => <<"toTime">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Конец временного отрезка">>,
+          <<"description">> => <<"End of the time period">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>
         }, #{
           <<"name">> => <<"limit">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Лимит выборки">>,
+          <<"description">> => <<"Selection limit">>,
           <<"required">> => true,
           <<"type">> => <<"integer">>,
           <<"maximum">> => 1000,
@@ -415,34 +415,34 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentStatus">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Статус платежа для поиска">>,
+          <<"description">> => <<"Payment status for search">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"pending">>, <<"processed">>, <<"captured">>, <<"cancelled">>, <<"refunded">>, <<"failed">> ]
         }, #{
           <<"name">> => <<"paymentFlow">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Flow платежа">>,
+          <<"description">> => <<"Payment flow">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"instant">>, <<"hold">> ]
         }, #{
           <<"name">> => <<"paymentMethod">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Метод оплаты">>,
+          <<"description">> => <<"Payment method">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"bankCard">>, <<"paymentTerminal">> ]
         }, #{
           <<"name">> => <<"paymentTerminalProvider">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Провайдер платежного терминала">>,
+          <<"description">> => <<"Payment terminal provider">>,
           <<"required">> => false,
           <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -450,7 +450,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор платежа">>,
+          <<"description">> => <<"Payment ID">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -458,7 +458,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"payerEmail">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Email, указанный при оплате">>,
+          <<"description">> => <<"Payer's e-mail">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 100,
@@ -466,7 +466,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"payerIP">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"IP-адрес плательщика">>,
+          <<"description">> => <<"Payer IP-address">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 45,
@@ -474,14 +474,14 @@ get_raw() ->
         }, #{
           <<"name">> => <<"payerFingerprint">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Уникальный отпечаток user agent'а плательщика">>,
+          <<"description">> => <<"Payer's user agent unique fingerprint">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 1000
         }, #{
           <<"name">> => <<"customerID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор плательщика">>,
+          <<"description">> => <<"Customer ID">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -489,14 +489,14 @@ get_raw() ->
         }, #{
           <<"name">> => <<"first6">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Первые 6 цифр номера карты">>,
+          <<"description">> => <<"First 6 digits of the card number">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"pattern">> => <<"^\\d{6}$">>
         }, #{
           <<"name">> => <<"last4">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Последние цифры номера карты">>,
+          <<"description">> => <<"Card last digits">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"pattern">> => <<"^\\d{0,4}$">>
@@ -518,19 +518,19 @@ get_raw() ->
         }, #{
           <<"name">> => <<"bankCardTokenProvider">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Провайдер платежных токенов.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>,
+          <<"description">> => <<"Payment token provider.\nThe list of providers available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"bankCardPaymentSystem">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Платежная система.\n\nНабор систем, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>,
+          <<"description">> => <<"Payment system.\nThe list of systems available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"paymentAmount">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Сумма платежа">>,
+          <<"description">> => <<"Amount">>,
           <<"required">> => false,
           <<"type">> => <<"integer">>,
           <<"minimum">> => 1,
@@ -538,28 +538,28 @@ get_raw() ->
         }, #{
           <<"name">> => <<"continuationToken">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Токен, сигнализирующий о том, что в ответе передана только часть данных.\nДля получения следующей части нужно повторно обратиться к сервису, указав тот-же набор условий и полученый токен.\nЕсли токена нет, получена последняя часть данных.\n">>,
+          <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response.\nTo receive the next part of the data, it is necessary to reapply to the service, specifying the same list of conditions and the received token. If there is no token, the last part of data is received.\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Найденные платежи">>,
+            <<"description">> => <<"Payments found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_200_1">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -570,12 +570,12 @@ get_raw() ->
     <<"/analytics/shops/{shopID}/payouts">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Search">> ],
-        <<"description">> => <<"Поиск выплат">>,
+        <<"description">> => <<"Search for payouts">>,
         <<"operationId">> => <<"searchPayouts">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -583,7 +583,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -591,7 +591,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"shopID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -599,21 +599,21 @@ get_raw() ->
         }, #{
           <<"name">> => <<"fromTime">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Начало временного отрезка">>,
+          <<"description">> => <<"Start of the time period">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>
         }, #{
           <<"name">> => <<"toTime">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Конец временного отрезка">>,
+          <<"description">> => <<"End of the time period">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>
         }, #{
           <<"name">> => <<"limit">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Лимит выборки">>,
+          <<"description">> => <<"Selection limit">>,
           <<"required">> => true,
           <<"type">> => <<"integer">>,
           <<"maximum">> => 1000,
@@ -622,14 +622,14 @@ get_raw() ->
         }, #{
           <<"name">> => <<"offset">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Смещение выборки">>,
+          <<"description">> => <<"Query offset">>,
           <<"required">> => false,
           <<"type">> => <<"integer">>,
           <<"minimum">> => 0
         }, #{
           <<"name">> => <<"payoutID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор выплаты">>,
+          <<"description">> => <<"Payout ID">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -637,29 +637,29 @@ get_raw() ->
         }, #{
           <<"name">> => <<"payoutToolType">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Тип выплаты для поиска\n  * PayoutAccount - выплата на банковский счёт\n  * Wallet - выплата на кошелёк\n  * PaymentInstitutionAccount - выплата на счёт платежной организации\n">>,
+          <<"description">> => <<"Type of payout to search * PayoutAccount - payout to bank account * Wallet - payout to wallet * PaymentInstitutionAccount - payout to payment institution account\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"PayoutAccount">>, <<"Wallet">>, <<"PaymentInstitutionAccount">> ]
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Найденные выплаты">>,
+            <<"description">> => <<"Payouts found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_200_2">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -670,12 +670,12 @@ get_raw() ->
     <<"/analytics/shops/{shopID}/refunds">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Search">> ],
-        <<"description">> => <<"Поиск возвратов">>,
+        <<"description">> => <<"Search for refunds">>,
         <<"operationId">> => <<"searchRefunds">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -683,7 +683,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -691,7 +691,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"shopID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -699,21 +699,21 @@ get_raw() ->
         }, #{
           <<"name">> => <<"fromTime">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Начало временного отрезка">>,
+          <<"description">> => <<"Start of the time period">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>
         }, #{
           <<"name">> => <<"toTime">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Конец временного отрезка">>,
+          <<"description">> => <<"End of the time period">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>
         }, #{
           <<"name">> => <<"limit">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Лимит выборки">>,
+          <<"description">> => <<"Selection limit">>,
           <<"required">> => true,
           <<"type">> => <<"integer">>,
           <<"maximum">> => 1000,
@@ -722,14 +722,14 @@ get_raw() ->
         }, #{
           <<"name">> => <<"offset">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Смещение выборки">>,
+          <<"description">> => <<"Query offset">>,
           <<"required">> => false,
           <<"type">> => <<"integer">>,
           <<"minimum">> => 0
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -737,7 +737,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор платежа">>,
+          <<"description">> => <<"Payment ID">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -745,7 +745,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"refundID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор возврата">>,
+          <<"description">> => <<"Refund ID">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -768,29 +768,29 @@ get_raw() ->
         }, #{
           <<"name">> => <<"refundStatus">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Статус возврата">>,
+          <<"description">> => <<"Refund status">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"pending">>, <<"succeeded">>, <<"failed">> ]
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Найденные возвраты">>,
+            <<"description">> => <<"Refunds found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_200_3">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -801,12 +801,12 @@ get_raw() ->
     <<"/processing/categories">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Categories">> ],
-        <<"description">> => <<"Получить список категорий">>,
+        <<"description">> => <<"Get list of categories">>,
         <<"operationId">> => <<"getCategories">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -814,7 +814,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -831,13 +831,13 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       }
@@ -845,12 +845,12 @@ get_raw() ->
     <<"/processing/categories/{categoryID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Categories">> ],
-        <<"description">> => <<"Получить данные категории по ее ID">>,
+        <<"description">> => <<"Get category data by identifier">>,
         <<"operationId">> => <<"getCategoryByRef">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -858,7 +858,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -879,16 +879,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -899,12 +899,12 @@ get_raw() ->
     <<"/processing/contracts">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Contracts">> ],
-        <<"description">> => <<"Получить данные всех договоров участника">>,
+        <<"description">> => <<"Get data from all of the contracts">>,
         <<"operationId">> => <<"getContracts">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -912,7 +912,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -929,13 +929,13 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       }
@@ -943,12 +943,12 @@ get_raw() ->
     <<"/processing/contracts/{contractID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Contracts">> ],
-        <<"description">> => <<"Получить данные договора по его ID">>,
+        <<"description">> => <<"Get contract by identifier">>,
         <<"operationId">> => <<"getContractByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -956,7 +956,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -964,7 +964,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"contractID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор договора">>,
+          <<"description">> => <<"Contract ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -978,16 +978,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -998,12 +998,12 @@ get_raw() ->
     <<"/processing/contracts/{contractID}/adjustments">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Contracts">> ],
-        <<"description">> => <<"Получить данные всех поправок к указанному договору">>,
+        <<"description">> => <<"Get all adjustments to the specified contract">>,
         <<"operationId">> => <<"getContractAdjustments">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1011,7 +1011,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1019,7 +1019,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"contractID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор договора">>,
+          <<"description">> => <<"Contract ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1027,7 +1027,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Набор поправок к договору">>,
+            <<"description">> => <<"List of contract adjustments">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -1036,16 +1036,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1056,12 +1056,12 @@ get_raw() ->
     <<"/processing/contracts/{contractID}/adjustments/{adjustmentID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Contracts">> ],
-        <<"description">> => <<"Получить данные поправки к договору по её идентификатору">>,
+        <<"description">> => <<"Get contract adjustment data by identifier">>,
         <<"operationId">> => <<"getContractAdjustmentByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1069,7 +1069,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1077,7 +1077,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"contractID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор договора">>,
+          <<"description">> => <<"Contract ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1085,7 +1085,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"adjustmentID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор поправки к договору">>,
+          <<"description">> => <<"Contract adjustment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1093,22 +1093,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные поправки к договору">>,
+            <<"description">> => <<"Data of contract adjustment">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ContractAdjustment">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1119,12 +1119,12 @@ get_raw() ->
     <<"/processing/contracts/{contractID}/payout_tools">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Получить данные всех средств вывода">>,
+        <<"description">> => <<"Get all payout tools to the specified contract">>,
         <<"operationId">> => <<"getPayoutTools">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1132,7 +1132,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1140,7 +1140,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"contractID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор договора">>,
+          <<"description">> => <<"Contract ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1148,7 +1148,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Набор средств вывода">>,
+            <<"description">> => <<"List of payout tools">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -1157,16 +1157,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1177,12 +1177,12 @@ get_raw() ->
     <<"/processing/contracts/{contractID}/payout_tools/{payoutToolID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Получить данные средства вывода по его идентификатору">>,
+        <<"description">> => <<"Get a payout tool data by identifier">>,
         <<"operationId">> => <<"getPayoutToolByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1190,7 +1190,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1198,7 +1198,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"contractID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор договора">>,
+          <<"description">> => <<"Contract ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1206,7 +1206,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"payoutToolID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор средства вывода">>,
+          <<"description">> => <<"Payout tool ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1214,22 +1214,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные средства вывода">>,
+            <<"description">> => <<"Payout tool details">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/PayoutTool">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1240,12 +1240,12 @@ get_raw() ->
     <<"/processing/countries">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Countries">> ],
-        <<"description">> => <<"Получить список стран">>,
+        <<"description">> => <<"Get list of countries">>,
         <<"operationId">> => <<"getCountries">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1253,7 +1253,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1261,7 +1261,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Список стран">>,
+            <<"description">> => <<"Country list">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -1270,7 +1270,7 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
@@ -1281,12 +1281,12 @@ get_raw() ->
     <<"/processing/countries/{countryID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Countries">> ],
-        <<"description">> => <<"Получить данные страны по ее ID">>,
+        <<"description">> => <<"Get country data by country identifier">>,
         <<"operationId">> => <<"getCountryByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1294,7 +1294,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1302,26 +1302,26 @@ get_raw() ->
         }, #{
           <<"name">> => <<"countryID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Alpha-3 код страны по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)">>,
+          <<"description">> => <<" Alpha-3 country code by standard [ISO 3166-1] (https://en.wikipedia.org/wiki/ISO_3166-1)">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Страна найдена">>,
+            <<"description">> => <<"Country found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Country">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1332,12 +1332,12 @@ get_raw() ->
     <<"/processing/customers">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Customers">> ],
-        <<"description">> => <<"Создать нового плательщика.">>,
+        <<"description">> => <<"Create a new customer.">>,
         <<"operationId">> => <<"createCustomer">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1345,7 +1345,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1353,7 +1353,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"customerParams">>,
-          <<"description">> => <<"Параметры создаваемого плательщика">>,
+          <<"description">> => <<"Parameters of the customer to be created">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/CustomerParams">>
@@ -1361,22 +1361,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Плательщик создан">>,
+            <<"description">> => <<"Customer created">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/CustomerAndToken">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибочные данные плательщика">>,
+            <<"description">> => <<"Invalid customer data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"409">> => #{
-            <<"description">> => <<"Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса">>,
+            <<"description">> => <<"The passed value `externalID` has already been used by you with other query parameters">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ExternalIDConflictError">>
             }
@@ -1387,12 +1387,12 @@ get_raw() ->
     <<"/processing/customers/{customerID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Customers">> ],
-        <<"description">> => <<"Получить данные плательщика по его идентификатору.">>,
+        <<"description">> => <<"Get a customer data by identifier.">>,
         <<"operationId">> => <<"getCustomerById">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1400,7 +1400,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1408,7 +1408,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"customerID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор кастомера">>,
+          <<"description">> => <<"Customer ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1416,22 +1416,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные плательщика">>,
+            <<"description">> => <<"Customer details">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Customer">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1440,12 +1440,12 @@ get_raw() ->
       },
       <<"delete">> => #{
         <<"tags">> => [ <<"Customers">> ],
-        <<"description">> => <<"Удалить плательщика по его идентификатору">>,
+        <<"description">> => <<"Delete a customer by identifier">>,
         <<"operationId">> => <<"deleteCustomer">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1453,7 +1453,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1461,7 +1461,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"customerID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор кастомера">>,
+          <<"description">> => <<"Customer ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1469,19 +1469,19 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"204">> => #{
-            <<"description">> => <<"Плательщик удален">>
+            <<"description">> => <<"Customer removed">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибка удаления плательщика">>,
+            <<"description">> => <<"Customer deletion error">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_1">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1492,12 +1492,12 @@ get_raw() ->
     <<"/processing/customers/{customerID}/access-tokens">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Customers">> ],
-        <<"description">> => <<"Создать новый токен для доступа к указанному плательщику.\n">>,
+        <<"description">> => <<"Create a new token to access the specified customer.\n">>,
         <<"operationId">> => <<"createCustomerAccessToken">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1505,7 +1505,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1513,7 +1513,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"customerID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор кастомера">>,
+          <<"description">> => <<"Customer ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1521,22 +1521,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Токен для доступа создан">>,
+            <<"description">> => <<"Access token created">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/AccessToken">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1547,12 +1547,12 @@ get_raw() ->
     <<"/processing/customers/{customerID}/bindings">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Customers">> ],
-        <<"description">> => <<"Получить все привязки к плательщику.">>,
+        <<"description">> => <<"Get all payer bindings.">>,
         <<"operationId">> => <<"getBindings">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1560,7 +1560,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1568,7 +1568,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"customerID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор кастомера">>,
+          <<"description">> => <<"Customer ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1576,7 +1576,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Список привязок">>,
+            <<"description">> => <<"List of bindings">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -1585,16 +1585,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1603,12 +1603,12 @@ get_raw() ->
       },
       <<"post">> => #{
         <<"tags">> => [ <<"Customers">> ],
-        <<"description">> => <<"Запустить новую привязку к плательшику.">>,
+        <<"description">> => <<"Start a new payer binding.">>,
         <<"operationId">> => <<"createBinding">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1616,7 +1616,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1624,7 +1624,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"customerID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор кастомера">>,
+          <<"description">> => <<"Customer ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1632,7 +1632,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"bindingParams">>,
-          <<"description">> => <<"Параметры создаваемой привязки">>,
+          <<"description">> => <<"Parameters of the created binding">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/CustomerBindingParams">>
@@ -1640,28 +1640,28 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Привязка запущена">>,
+            <<"description">> => <<"Binding started">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/CustomerBinding">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибочные данные для привязки">>,
+            <<"description">> => <<"Invalid binding data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_2">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
           },
           <<"409">> => #{
-            <<"description">> => <<"Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса">>,
+            <<"description">> => <<"The passed value `externalID` has already been used by you with other query parameters">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ExternalIDConflictError">>
             }
@@ -1672,12 +1672,12 @@ get_raw() ->
     <<"/processing/customers/{customerID}/bindings/{customerBindingID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Customers">> ],
-        <<"description">> => <<"Получить информацию о привязке к плательщику.">>,
+        <<"description">> => <<"Get customer binding data.">>,
         <<"operationId">> => <<"getBinding">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1685,7 +1685,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1693,7 +1693,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"customerID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор кастомера">>,
+          <<"description">> => <<"Customer ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1701,7 +1701,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"customerBindingID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор привязки к кастомера">>,
+          <<"description">> => <<"Customer binding identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1709,22 +1709,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные привязки">>,
+            <<"description">> => <<"Binding data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/CustomerBinding">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1735,12 +1735,12 @@ get_raw() ->
     <<"/processing/customers/{customerID}/events">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Customers">> ],
-        <<"description">> => <<"Получить историю указанного плательщика в виде набора событий.">>,
+        <<"description">> => <<"Get the history of the specified customer as a list of events.">>,
         <<"operationId">> => <<"getCustomerEvents">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1748,7 +1748,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1756,7 +1756,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"customerID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор кастомера">>,
+          <<"description">> => <<"Customer ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1764,7 +1764,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"limit">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Лимит выборки">>,
+          <<"description">> => <<"Selection limit">>,
           <<"required">> => true,
           <<"type">> => <<"integer">>,
           <<"minimum">> => 1,
@@ -1772,14 +1772,14 @@ get_raw() ->
         }, #{
           <<"name">> => <<"eventID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор события.\n\nВсе события, возникшие в системе _после_ указанного, попадут в выборку.\n">>,
+          <<"description">> => <<"Event identifier.\nAll events that occurred in the system _after_ the specified event will be included in the selection.\n">>,
           <<"required">> => false,
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int32">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Набор событий">>,
+            <<"description">> => <<"A list of events">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -1788,16 +1788,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1808,12 +1808,12 @@ get_raw() ->
     <<"/processing/customers/{customerID}/payment-methods">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Customers">> ],
-        <<"description">> => <<"Получить доступные для плательщика методы оплаты.">>,
+        <<"description">> => <<"Get the payment methods available for the customer.">>,
         <<"operationId">> => <<"getCustomerPaymentMethods">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1821,7 +1821,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1829,7 +1829,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"customerID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор кастомера">>,
+          <<"description">> => <<"Customer ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1837,7 +1837,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Список методов оплаты">>,
+            <<"description">> => <<"Payment methods">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -1846,16 +1846,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1866,12 +1866,12 @@ get_raw() ->
     <<"/processing/invoice-templates">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"InvoiceTemplates">> ],
-        <<"description">> => <<"Создать новый шаблон инвойса.">>,
+        <<"description">> => <<"Create an new invoice template.">>,
         <<"operationId">> => <<"createInvoiceTemplate">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1879,7 +1879,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1887,7 +1887,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"invoiceTemplateCreateParams">>,
-          <<"description">> => <<"Параметры шаблона инвойса.">>,
+          <<"description">> => <<"Invoice template parameters.">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/InvoiceTemplateCreateParams">>
@@ -1895,22 +1895,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Шаблон инвойса создан.">>,
+            <<"description">> => <<"Invoice template created.">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/InvoiceTemplateAndToken">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибочные данные для создания шаблона">>,
+            <<"description">> => <<"Invalid data for invoice template creation">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_3">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"409">> => #{
-            <<"description">> => <<"Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса">>,
+            <<"description">> => <<"The passed value `externalID` has already been used by you with other query parameters">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ExternalIDConflictError">>
             }
@@ -1921,12 +1921,12 @@ get_raw() ->
     <<"/processing/invoice-templates/{invoiceTemplateID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"InvoiceTemplates">> ],
-        <<"description">> => <<"Получить шаблон инвойса по его идентификатору.">>,
+        <<"description">> => <<"Get an invoice template by identifier.">>,
         <<"operationId">> => <<"getInvoiceTemplateByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1934,7 +1934,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1942,7 +1942,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceTemplateID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор шаблона инвойса">>,
+          <<"description">> => <<"Invoice template ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1950,22 +1950,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Шаблон инвойса">>,
+            <<"description">> => <<"Invoice template">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/InvoiceTemplate">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -1974,12 +1974,12 @@ get_raw() ->
       },
       <<"put">> => #{
         <<"tags">> => [ <<"InvoiceTemplates">> ],
-        <<"description">> => <<"Модифицировать шаблон инвойса.">>,
+        <<"description">> => <<"Change the invoice template.">>,
         <<"operationId">> => <<"updateInvoiceTemplate">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -1987,7 +1987,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -1995,7 +1995,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceTemplateID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор шаблона инвойса">>,
+          <<"description">> => <<"Invoice template ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2003,7 +2003,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"invoiceTemplateUpdateParams">>,
-          <<"description">> => <<"Параметры модифицируемого инвойса.">>,
+          <<"description">> => <<"Invoice template parameters.">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/InvoiceTemplateUpdateParams">>
@@ -2011,22 +2011,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Шаблон инвойса модифицирован.">>,
+            <<"description">> => <<"The invoice template has been changed.">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/InvoiceTemplate">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибочные данные для изменения шаблона">>,
+            <<"description">> => <<"Invalid data for invoice template change">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_4">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2035,12 +2035,12 @@ get_raw() ->
       },
       <<"delete">> => #{
         <<"tags">> => [ <<"InvoiceTemplates">> ],
-        <<"description">> => <<"Удалить шаблон инвойса.">>,
+        <<"description">> => <<"Remove invoice template.">>,
         <<"operationId">> => <<"deleteInvoiceTemplate">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2048,7 +2048,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2056,7 +2056,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceTemplateID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор шаблона инвойса">>,
+          <<"description">> => <<"Invoice template ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2064,19 +2064,19 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"204">> => #{
-            <<"description">> => <<"Шаблон инвойса удален.">>
+            <<"description">> => <<"Invoice template removed.">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибочные данные для удаления шаблона">>,
+            <<"description">> => <<"Invalid data for invoice template deletion">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_1">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2087,12 +2087,12 @@ get_raw() ->
     <<"/processing/invoice-templates/{invoiceTemplateID}/invoices">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"InvoiceTemplates">> ],
-        <<"description">> => <<"Создать новый инвойс по шаблону.">>,
+        <<"description">> => <<"Create a new invoice using the invoice template.">>,
         <<"operationId">> => <<"createInvoiceWithTemplate">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2100,7 +2100,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2108,7 +2108,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceTemplateID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор шаблона инвойса">>,
+          <<"description">> => <<"Invoice template ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2116,7 +2116,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"invoiceParamsWithTemplate">>,
-          <<"description">> => <<"Параметры создаваемого инвойса">>,
+          <<"description">> => <<"Invoice parameters">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/InvoiceParamsWithTemplate">>
@@ -2124,28 +2124,28 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Инвойс создан">>,
+            <<"description">> => <<"Invoice created">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/InvoiceAndToken">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибочные данные для создания инвойса">>,
+            <<"description">> => <<"Invalid data for invoice creation">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_5">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
           },
           <<"409">> => #{
-            <<"description">> => <<"Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса">>,
+            <<"description">> => <<"The passed value `externalID` has already been used by you with other query parameters">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ExternalIDConflictError">>
             }
@@ -2156,12 +2156,12 @@ get_raw() ->
     <<"/processing/invoice-templates/{invoiceTemplateID}/payment-methods">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"InvoiceTemplates">> ],
-        <<"description">> => <<"Получить доступные для инвойса методы оплаты по шаблону инвойса.">>,
+        <<"description">> => <<"Get the available payment methods for the invoice from the invoice template.">>,
         <<"operationId">> => <<"getInvoicePaymentMethodsByTemplateID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2169,7 +2169,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2177,7 +2177,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceTemplateID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор шаблона инвойса">>,
+          <<"description">> => <<"Invoice template ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2185,7 +2185,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Список методов оплаты">>,
+            <<"description">> => <<"Payment methods">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -2194,16 +2194,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2214,12 +2214,12 @@ get_raw() ->
     <<"/processing/invoices">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Invoices">> ],
-        <<"description">> => <<"Получить инвойс по указанному внешнему идентификатору.">>,
+        <<"description">> => <<"Get invoice by specified external identifier.">>,
         <<"operationId">> => <<"getInvoiceByExternalID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2227,7 +2227,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2235,7 +2235,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"externalID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Внешний идентификатор инвойса">>,
+          <<"description">> => <<"External invoice identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2243,22 +2243,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Инвойс">>,
+            <<"description">> => <<"Invoice">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Invoice">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2267,12 +2267,12 @@ get_raw() ->
       },
       <<"post">> => #{
         <<"tags">> => [ <<"Invoices">> ],
-        <<"description">> => <<"Создать новый инвойс.">>,
+        <<"description">> => <<"Create a new invoice.">>,
         <<"operationId">> => <<"createInvoice">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2280,7 +2280,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2288,7 +2288,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"invoiceParams">>,
-          <<"description">> => <<"Параметры создаваемого инвойса">>,
+          <<"description">> => <<"Invoice parameters">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/InvoiceParams">>
@@ -2296,22 +2296,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Инвойс создан">>,
+            <<"description">> => <<"Invoice created">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/InvoiceAndToken">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибочные данные для создания инвойса">>,
+            <<"description">> => <<"Invalid data for invoice creation">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_6">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"409">> => #{
-            <<"description">> => <<"Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса">>,
+            <<"description">> => <<"The passed value `externalID` has already been used by you with other query parameters">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ExternalIDConflictError">>
             }
@@ -2322,12 +2322,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Invoices">> ],
-        <<"description">> => <<"Получить данные инвойса по его идентификатору.">>,
+        <<"description">> => <<"Get an invoice by identifier.">>,
         <<"operationId">> => <<"getInvoiceByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2335,7 +2335,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2343,7 +2343,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2351,22 +2351,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные инвойса">>,
+            <<"description">> => <<"Invoice details">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Invoice">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2377,12 +2377,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/access-tokens">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Invoices">> ],
-        <<"description">> => <<"Создать новый токен для доступа к указанному инвойсу.">>,
+        <<"description">> => <<"Create a new token to access the specified invoice.">>,
         <<"operationId">> => <<"createInvoiceAccessToken">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2390,7 +2390,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2398,7 +2398,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2406,22 +2406,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Токен для доступа к инвойсу создан.">>,
+            <<"description">> => <<"Access token created.">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/AccessToken">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2432,12 +2432,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/events">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Invoices">> ],
-        <<"description">> => <<"Получить историю указанного инвойса в виде набора событий.">>,
+        <<"description">> => <<"Get the history of the specified invoice as a list of events.">>,
         <<"operationId">> => <<"getInvoiceEvents">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2445,7 +2445,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2453,7 +2453,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2461,7 +2461,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"limit">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Лимит выборки">>,
+          <<"description">> => <<"Selection limit">>,
           <<"required">> => true,
           <<"type">> => <<"integer">>,
           <<"minimum">> => 1,
@@ -2469,14 +2469,14 @@ get_raw() ->
         }, #{
           <<"name">> => <<"eventID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Идентификатор события.\n\nВсе события, возникшие в системе _после_ указанного, попадут в выборку.\n">>,
+          <<"description">> => <<"Event identifier.\nAll events that occurred in the system _after_ the specified event will be included in the selection.\n">>,
           <<"required">> => false,
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int32">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Набор событий">>,
+            <<"description">> => <<"A list of events">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -2485,16 +2485,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2505,12 +2505,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/fulfill">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Invoices">> ],
-        <<"description">> => <<"Погасить указанный инвойс.">>,
+        <<"description">> => <<"To fulfill the specified invoice.">>,
         <<"operationId">> => <<"fulfillInvoice">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2518,7 +2518,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2526,7 +2526,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2534,7 +2534,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"fulfillInvoice">>,
-          <<"description">> => <<"Произвольная причина совершения операции">>,
+          <<"description">> => <<"Reason for the operation">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/Reason">>
@@ -2545,16 +2545,16 @@ get_raw() ->
             <<"description">> => <<"Инвойс погашен">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибка погашения инвойса">>,
+            <<"description">> => <<"Invoice fulfillment error">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_7">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2565,12 +2565,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/payment-methods">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Invoices">> ],
-        <<"description">> => <<"Получить доступные для инвойса методы оплаты.">>,
+        <<"description">> => <<"Get the payment methods available for the invoice.">>,
         <<"operationId">> => <<"getInvoicePaymentMethods">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2578,7 +2578,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2586,7 +2586,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2594,7 +2594,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Список методов оплаты">>,
+            <<"description">> => <<"Payment methods">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -2603,16 +2603,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2623,12 +2623,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/payments">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Получить все платежи по указанному инвойсу.">>,
+        <<"description">> => <<"Get all payments for the specified invoice.">>,
         <<"operationId">> => <<"getPayments">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2636,7 +2636,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2644,7 +2644,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2652,7 +2652,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные платежей по инвойсу">>,
+            <<"description">> => <<"List of invoice payments">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -2661,16 +2661,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2679,12 +2679,12 @@ get_raw() ->
       },
       <<"post">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Создать новый платеж по указанному инвойсу.">>,
+        <<"description">> => <<"Create a new payment for the specified invoice.">>,
         <<"operationId">> => <<"createPayment">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2692,7 +2692,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2700,7 +2700,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2708,7 +2708,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"paymentParams">>,
-          <<"description">> => <<"Параметры создаваемого платежа">>,
+          <<"description">> => <<"Parameters of the payment to be created">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/PaymentParams">>
@@ -2716,28 +2716,28 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Платёж создан">>,
+            <<"description">> => <<"Payment created">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Payment">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибочные данные для запуска платежа">>,
+            <<"description">> => <<"Invalid data to start the payment">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_8">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
           },
           <<"409">> => #{
-            <<"description">> => <<"Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса">>,
+            <<"description">> => <<"The passed value `externalID` has already been used by you with other query parameters">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ExternalIDConflictError">>
             }
@@ -2748,12 +2748,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/payments/{paymentID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Получить данные платежа по указанному инвойсу.">>,
+        <<"description">> => <<"Get payment for the specified invoice.">>,
         <<"operationId">> => <<"getPaymentByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2761,7 +2761,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2769,7 +2769,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2777,7 +2777,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор платежа в рамках инвойса">>,
+          <<"description">> => <<"Invoice payment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2785,22 +2785,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные платежа">>,
+            <<"description">> => <<"Payment details">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Payment">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2811,12 +2811,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/payments/{paymentID}/cancel">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Отменить указанный платеж.">>,
+        <<"description">> => <<"Cancel the specified payment">>,
         <<"operationId">> => <<"cancelPayment">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2824,7 +2824,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2832,7 +2832,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2840,7 +2840,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор платежа в рамках инвойса">>,
+          <<"description">> => <<"Invoice payment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2848,7 +2848,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"cancelPayment">>,
-          <<"description">> => <<"Произвольная причина совершения операции">>,
+          <<"description">> => <<"Reason for the operation">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/Reason">>
@@ -2856,19 +2856,19 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"202">> => #{
-            <<"description">> => <<"Запрос на отмену платежа принят">>
+            <<"description">> => <<"Payment cancelation request received">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибка отмены платежа">>,
+            <<"description">> => <<"Payment cancel error">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_9">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2879,12 +2879,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/payments/{paymentID}/capture">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Подтвердить указанный платеж. В случае передачи суммы подтверждения, меньшей, чем оригинальная, оставшаяся часть платежа будет возвращена.(см. [Варианты проведения оплаты](#tag/Payments))\n">>,
+        <<"description">> => <<"Capture the specified payment. In case the capture amount is less than the original amount, the remainder of the payment will be refunded. (see. [Payment options](#tag/Payments))\n">>,
         <<"operationId">> => <<"capturePayment">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2892,7 +2892,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2900,7 +2900,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2908,7 +2908,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор платежа в рамках инвойса">>,
+          <<"description">> => <<"Invoice payment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2916,7 +2916,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"capturePayment">>,
-          <<"description">> => <<"Параметры подтверждения платежа">>,
+          <<"description">> => <<"Payment capture parameters">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/CaptureParams">>
@@ -2924,19 +2924,19 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"202">> => #{
-            <<"description">> => <<"Запрос на подтверждение платежа принят">>
+            <<"description">> => <<"Request to capture payment accepted">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибка подтверждения платежа">>,
+            <<"description">> => <<"Payment capture error">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_10">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -2947,12 +2947,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/payments/{paymentID}/chargebacks">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Получить все чарджбэки по указанному платежу.">>,
+        <<"description">> => <<"Get all chargebacks on the specified payment.">>,
         <<"operationId">> => <<"getChargebacks">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -2960,7 +2960,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2968,7 +2968,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2976,7 +2976,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор платежа в рамках инвойса">>,
+          <<"description">> => <<"Invoice payment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -2984,7 +2984,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные чарджбэков по платежу">>,
+            <<"description">> => <<"Chargebacks data on payment">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -2993,16 +2993,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3013,12 +3013,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/payments/{paymentID}/chargebacks/{chargebackID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Получить данные определённого чарджбэка для указанного платежа.">>,
+        <<"description">> => <<"Get data on the chargeback of the specified payment.">>,
         <<"operationId">> => <<"getChargebackByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3026,7 +3026,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3034,7 +3034,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3042,7 +3042,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор платежа в рамках инвойса">>,
+          <<"description">> => <<"Invoice payment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3050,7 +3050,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"chargebackID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор возвратного платежа в рамках платежа">>,
+          <<"description">> => <<"Chargeback identifier within the payment">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3058,22 +3058,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные чарджбэка">>,
+            <<"description">> => <<"Chargeback details">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Chargeback">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3084,12 +3084,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/payments/{paymentID}/refunds">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Получить все возвраты указанного платежа.">>,
+        <<"description">> => <<"Get all refunds of the specified payment.">>,
         <<"operationId">> => <<"getRefunds">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3097,7 +3097,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3105,7 +3105,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3113,7 +3113,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор платежа в рамках инвойса">>,
+          <<"description">> => <<"Invoice payment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3121,7 +3121,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные возвратов по платежу">>,
+            <<"description">> => <<"Refunds data on payment">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -3130,16 +3130,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3148,12 +3148,12 @@ get_raw() ->
       },
       <<"post">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Создать возврат указанного платежа">>,
+        <<"description">> => <<"Create a refund of the specified payment">>,
         <<"operationId">> => <<"createRefund">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3161,7 +3161,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3169,7 +3169,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3177,7 +3177,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор платежа в рамках инвойса">>,
+          <<"description">> => <<"Invoice payment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3185,7 +3185,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"refundParams">>,
-          <<"description">> => <<"Параметры создаваемого возврата платежа">>,
+          <<"description">> => <<"Parameters of the payment refund to be created">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/RefundParams">>
@@ -3193,28 +3193,28 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Возврат создан">>,
+            <<"description">> => <<"Refund created">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Refund">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибочные данные для возврата">>,
+            <<"description">> => <<"Invalid refund data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_11">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
           },
           <<"409">> => #{
-            <<"description">> => <<"Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса">>,
+            <<"description">> => <<"The passed value `externalID` has already been used by you with other query parameters">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ExternalIDConflictError">>
             }
@@ -3225,12 +3225,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/payments/{paymentID}/refunds/{refundID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Получить данные определённого возврата указанного платежа.">>,
+        <<"description">> => <<"Get data on the refund of the specified payment.">>,
         <<"operationId">> => <<"getRefundByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3238,7 +3238,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3246,7 +3246,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3254,7 +3254,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"paymentID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор платежа в рамках инвойса">>,
+          <<"description">> => <<"Invoice payment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3262,7 +3262,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"refundID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор возврата в рамках платежа">>,
+          <<"description">> => <<"Refund identifier within the payment">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3270,22 +3270,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные возврата">>,
+            <<"description">> => <<"Refund details">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Refund">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3296,12 +3296,12 @@ get_raw() ->
     <<"/processing/invoices/{invoiceID}/rescind">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Invoices">> ],
-        <<"description">> => <<"Перевести инвойс в состояние \"Отменен\" со статусом \"Аннулирован\".">>,
+        <<"description">> => <<"Set the invoice to \"Rescind\"">>,
         <<"operationId">> => <<"rescindInvoice">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3309,7 +3309,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3317,7 +3317,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"invoiceID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор инвойса">>,
+          <<"description">> => <<"Invoice ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3325,7 +3325,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"rescindInvoice">>,
-          <<"description">> => <<"Произвольная причина совершения операции">>,
+          <<"description">> => <<"Reason for the operation">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/Reason">>
@@ -3333,19 +3333,19 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"204">> => #{
-            <<"description">> => <<"Инвойс аннулирован">>
+            <<"description">> => <<"Invoice rescinded">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибка отмены инвойса">>,
+            <<"description">> => <<"Invoice rescind error">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_12">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3360,7 +3360,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3368,7 +3368,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3382,13 +3382,13 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       }
@@ -3401,7 +3401,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3409,7 +3409,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3420,13 +3420,13 @@ get_raw() ->
             <<"description">> => <<"Party activated">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       }
@@ -3439,7 +3439,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3447,7 +3447,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3458,13 +3458,13 @@ get_raw() ->
             <<"description">> => <<"Party suspended">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       }
@@ -3476,7 +3476,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3484,7 +3484,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3492,7 +3492,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
@@ -3504,16 +3504,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3529,7 +3529,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3537,7 +3537,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3545,7 +3545,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
@@ -3554,16 +3554,16 @@ get_raw() ->
             <<"description">> => <<"Party activated">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3574,12 +3574,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/contracts">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Contracts">> ],
-        <<"description">> => <<"Получить данные всех договоров участника">>,
+        <<"description">> => <<"Get data from all of the contracts">>,
         <<"operationId">> => <<"getContractsForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3587,7 +3587,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3595,7 +3595,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
@@ -3610,16 +3610,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3630,12 +3630,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/contracts/{contractID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Contracts">> ],
-        <<"description">> => <<"Получить данные договора по его ID">>,
+        <<"description">> => <<"Get contract data by identifier">>,
         <<"operationId">> => <<"getContractByIDForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3643,7 +3643,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3651,7 +3651,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"contractID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор договора">>,
+          <<"description">> => <<"Contract ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3659,7 +3659,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
@@ -3671,16 +3671,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3691,12 +3691,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/contracts/{contractID}/adjustments">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Contracts">> ],
-        <<"description">> => <<"Получить данные всех поправок к указанному договору">>,
+        <<"description">> => <<"Get all adjustments to the specified contract">>,
         <<"operationId">> => <<"getContractAdjustmentsForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3704,7 +3704,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3712,7 +3712,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"contractID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор договора">>,
+          <<"description">> => <<"Contract ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3720,13 +3720,13 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Набор поправок к договору">>,
+            <<"description">> => <<"List of contract adjustments">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -3735,16 +3735,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3755,12 +3755,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/contracts/{contractID}/adjustments/{adjustmentID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Contracts">> ],
-        <<"description">> => <<"Получить данные поправки к договору по её идентификатору">>,
+        <<"description">> => <<"Get contract adjustment data by identifier">>,
         <<"operationId">> => <<"getContractAdjustmentByIDForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3768,7 +3768,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3776,7 +3776,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"contractID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор договора">>,
+          <<"description">> => <<"Contract ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3784,7 +3784,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"adjustmentID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор поправки к договору">>,
+          <<"description">> => <<"Contract adjustment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3792,28 +3792,28 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные поправки к договору">>,
+            <<"description">> => <<"Data of contract adjustment">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ContractAdjustment">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3824,12 +3824,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/contracts/{contractID}/payout_tools">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Получить данные всех средств вывода">>,
+        <<"description">> => <<"Get all payout tools to the specified contract">>,
         <<"operationId">> => <<"getPayoutToolsForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3837,7 +3837,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3845,7 +3845,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"contractID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор договора">>,
+          <<"description">> => <<"Contract ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3853,13 +3853,13 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Набор средств вывода">>,
+            <<"description">> => <<"List of payout tools">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -3868,16 +3868,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3888,12 +3888,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/contracts/{contractID}/payout_tools/{payoutToolID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Получить данные средства вывода по его идентификатору">>,
+        <<"description">> => <<"Get a payout tool data by identifier">>,
         <<"operationId">> => <<"getPayoutToolByIDForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3901,7 +3901,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3909,7 +3909,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"contractID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор договора">>,
+          <<"description">> => <<"Contract ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3917,7 +3917,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"payoutToolID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор средства вывода">>,
+          <<"description">> => <<"Payout tool ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3925,28 +3925,28 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные средства вывода">>,
+            <<"description">> => <<"Payout tool details">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/PayoutTool">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -3957,12 +3957,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/invoices">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Invoices">> ],
-        <<"description">> => <<"Получить инвойс участника по указанному внешнему идентификатору.">>,
+        <<"description">> => <<"Get an invoice by external identifier.">>,
         <<"operationId">> => <<"getInvoiceByExternalIDForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -3970,7 +3970,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3978,13 +3978,13 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"externalID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Внешний идентификатор инвойса">>,
+          <<"description">> => <<"External invoice identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -3992,22 +3992,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Инвойс">>,
+            <<"description">> => <<"Invoice">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Invoice">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4018,12 +4018,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/payment-institutions/{paymentInstitutionID}/terms/payouts/methods">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Получить cпособы вывода средств для платёжной организации участника">>,
+        <<"description">> => <<"Get payout methods for the payment institution">>,
         <<"operationId">> => <<"getPaymentInstitutionPayoutMethodsForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4031,7 +4031,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4039,7 +4039,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         }, #{
@@ -4052,14 +4052,14 @@ get_raw() ->
         }, #{
           <<"name">> => <<"currency">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Способ вывода средств">>,
+            <<"description">> => <<"Payout method">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -4069,16 +4069,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4089,12 +4089,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/payment-institutions/{paymentInstitutionID}/terms/payouts/schedules">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Получить доступные расписания вывода средств для платёжной организации участника">>,
+        <<"description">> => <<"Get available payout schedules for the payment institution">>,
         <<"operationId">> => <<"getPaymentInstitutionPayoutSchedulesForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4102,7 +4102,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4110,7 +4110,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         }, #{
@@ -4123,21 +4123,21 @@ get_raw() ->
         }, #{
           <<"name">> => <<"currency">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         }, #{
           <<"name">> => <<"payoutMethod">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Способ вывода средств">>,
+          <<"description">> => <<"Payout method">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"BankAccount">>, <<"InternationalBankAccount">>, <<"Wallet">> ]
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Идентификаторы расписаний выводов">>,
+            <<"description">> => <<"Payout schedule identifiers">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -4147,16 +4147,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4167,12 +4167,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/payments">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Получить платёж по указанному внешнему идентификатору для участника.">>,
+        <<"description">> => <<"Get payment by specified external identifier.">>,
         <<"operationId">> => <<"getPaymentByExternalIDForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4180,7 +4180,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4188,13 +4188,13 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"externalID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Внешний идентификатор платежа">>,
+          <<"description">> => <<"External payment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4202,22 +4202,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Платёж">>,
+            <<"description">> => <<"Payment">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Payment">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4228,12 +4228,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/refunds">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Получить возврат по указанному внешнему идентификатору для участника.">>,
+        <<"description">> => <<"Get refund by specified external identifier.">>,
         <<"operationId">> => <<"getRefundByExternalIDForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4241,7 +4241,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4249,13 +4249,13 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"externalID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Внешний идентификатор возврата">>,
+          <<"description">> => <<"External refund identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4263,22 +4263,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные возврата">>,
+            <<"description">> => <<"Refund details">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Refund">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4294,7 +4294,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4302,7 +4302,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4310,7 +4310,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
@@ -4325,16 +4325,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4350,7 +4350,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4358,7 +4358,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4366,7 +4366,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"shopID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4374,7 +4374,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
@@ -4386,16 +4386,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4411,7 +4411,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4419,7 +4419,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4427,7 +4427,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"shopID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4435,7 +4435,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
@@ -4444,16 +4444,16 @@ get_raw() ->
             <<"description">> => <<"Shop activated">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4464,12 +4464,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/shops/{shopID}/suspend">> => #{
       <<"put">> => #{
         <<"tags">> => [ <<"Shops">> ],
-        <<"description">> => <<"Приостановить действие магазина. Этот тип заявок обрабатывается платформой\nавтоматически и исполняется сразу же после отправки.\n">>,
+        <<"description">> => <<"Suspend the shop. This type of requests is processed by the platform automatically and is executed immediately after sending.\n">>,
         <<"operationId">> => <<"suspendShopForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4477,7 +4477,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4485,7 +4485,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"shopID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4493,7 +4493,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
@@ -4502,16 +4502,16 @@ get_raw() ->
             <<"description">> => <<"Shop suspended">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4527,7 +4527,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4535,7 +4535,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4543,7 +4543,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
@@ -4552,16 +4552,16 @@ get_raw() ->
             <<"description">> => <<"Party suspended">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4572,12 +4572,12 @@ get_raw() ->
     <<"/processing/parties/{partyID}/webhooks">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Webhooks">> ],
-        <<"description">> => <<"Получить набор установленных webhook'ов участника">>,
+        <<"description">> => <<"Get a list of installed webhooks">>,
         <<"operationId">> => <<"getWebhooksForParty">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4585,7 +4585,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4593,13 +4593,13 @@ get_raw() ->
         }, #{
           <<"name">> => <<"partyID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Набор webhook'ов">>,
+            <<"description">> => <<"A list of webhooks">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -4608,13 +4608,13 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       }
@@ -4622,12 +4622,12 @@ get_raw() ->
     <<"/processing/payment-institutions">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Получить список платёжных организаций">>,
+        <<"description">> => <<"Get a list of payment institutions">>,
         <<"operationId">> => <<"getPaymentInstitutions">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4635,7 +4635,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4643,14 +4643,14 @@ get_raw() ->
         }, #{
           <<"name">> => <<"residence">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Резиденция, alpha-3 код по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)">>,
+          <<"description">> => <<"Residence, alpha-3 code according to standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         }, #{
           <<"name">> => <<"realm">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Режим рабочего окружения платежной организации">>,
+          <<"description">> => <<"Payment institution's mode">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"test">>, <<"live">> ]
@@ -4666,13 +4666,13 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       }
@@ -4680,12 +4680,12 @@ get_raw() ->
     <<"/processing/payment-institutions/{paymentInstitutionID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Получить данные платёжной организации по ее ID">>,
+        <<"description">> => <<"Get data of the payment institution by identifier">>,
         <<"operationId">> => <<"getPaymentInstitutionByRef">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4693,7 +4693,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4714,16 +4714,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4734,12 +4734,12 @@ get_raw() ->
     <<"/processing/payment-institutions/{paymentInstitutionID}/terms/payments">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Получить условия проведения платежей для платёжной организации">>,
+        <<"description">> => <<"Get payment terms and conditions for the payment institution">>,
         <<"operationId">> => <<"getPaymentInstitutionPaymentTerms">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4747,7 +4747,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4768,16 +4768,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4788,12 +4788,12 @@ get_raw() ->
     <<"/processing/payment-institutions/{paymentInstitutionID}/terms/payouts/methods">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Получить cпособы вывода средств для платёжной организации">>,
+        <<"description">> => <<"Get payout methods for the payment institution">>,
         <<"operationId">> => <<"getPaymentInstitutionPayoutMethods">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4801,7 +4801,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4816,14 +4816,14 @@ get_raw() ->
         }, #{
           <<"name">> => <<"currency">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Способ вывода средств">>,
+            <<"description">> => <<"Payout method">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -4833,16 +4833,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4853,12 +4853,12 @@ get_raw() ->
     <<"/processing/payment-institutions/{paymentInstitutionID}/terms/payouts/schedules">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Получить доступные расписания вывода средств для платёжной организации">>,
+        <<"description">> => <<"Get available payout schedules for the payment organization">>,
         <<"operationId">> => <<"getPaymentInstitutionPayoutSchedules">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4866,7 +4866,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4881,21 +4881,21 @@ get_raw() ->
         }, #{
           <<"name">> => <<"currency">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         }, #{
           <<"name">> => <<"payoutMethod">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Способ вывода средств">>,
+          <<"description">> => <<"Payout method">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"enum">> => [ <<"BankAccount">>, <<"InternationalBankAccount">>, <<"Wallet">> ]
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Идентификаторы расписаний выводов">>,
+            <<"description">> => <<"Payout schedule identifiers">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -4905,16 +4905,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -4925,12 +4925,12 @@ get_raw() ->
     <<"/processing/payment-resources">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Tokens">> ],
-        <<"description">> => <<"Создать новый одноразовый токен платежного средства, предоставленного плательщиком, а\nтакже новую уникальную платежную сессию.\nТокен платежного средства и идентификатор сессии необходим для создания\nплатежа по инвойсу и имеет ограниченное время жизни.\n">>,
+        <<"description">> => <<"Create a new one-time payment token provided by the payer, as well as a new unique payment session. The payment instrument token and session identifier are required to create a invoice payment and has a limited lifetime.\n">>,
         <<"operationId">> => <<"createPaymentResource">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4938,7 +4938,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4946,7 +4946,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"paymentResource">>,
-          <<"description">> => <<"Данные для создания платежного средства">>,
+          <<"description">> => <<"Data for the creation of a payment resource">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/PaymentResourceParams">>
@@ -4954,19 +4954,19 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Токен и сессия созданы">>,
+            <<"description">> => <<"Token and session created">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/PaymentResourceResult">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       }
@@ -4974,12 +4974,12 @@ get_raw() ->
     <<"/processing/payments">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Получить платёж по указанному внешнему идентификатору.">>,
+        <<"description">> => <<"Get payment by the specified external identifier.">>,
         <<"operationId">> => <<"getPaymentByExternalID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -4987,7 +4987,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -4995,7 +4995,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"externalID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Внешний идентификатор платежа">>,
+          <<"description">> => <<"External payment identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5003,22 +5003,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Платёж">>,
+            <<"description">> => <<"Payment">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Payment">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5029,12 +5029,12 @@ get_raw() ->
     <<"/processing/payouts">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Создать новую выплату и отправить её на\nпремодерацию.\n">>,
+        <<"description">> => <<"Create a new payout and send it to pre-moderation.\n">>,
         <<"operationId">> => <<"createPayout">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5042,7 +5042,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5057,19 +5057,19 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Выплата создана">>,
+            <<"description">> => <<"Payout created">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Payout">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_13">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       }
@@ -5077,12 +5077,12 @@ get_raw() ->
     <<"/processing/payouts/{payoutID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Получение данных по выплате">>,
+        <<"description">> => <<"Get payout data">>,
         <<"operationId">> => <<"getPayout">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5090,7 +5090,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5098,7 +5098,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"payoutID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор вывода">>,
+          <<"description">> => <<"Withdrawal ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5106,22 +5106,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Найдена выплата">>,
+            <<"description">> => <<"Payout found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Payout">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5132,12 +5132,12 @@ get_raw() ->
     <<"/processing/refunds">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
-        <<"description">> => <<"Получить возврат по указанному внешнему идентификатору.">>,
+        <<"description">> => <<"Get refund by specified external identifier.">>,
         <<"operationId">> => <<"getRefundByExternalID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5145,7 +5145,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5153,7 +5153,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"externalID">>,
           <<"in">> => <<"query">>,
-          <<"description">> => <<"Внешний идентификатор возврата">>,
+          <<"description">> => <<"External refund identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5161,22 +5161,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные возврата">>,
+            <<"description">> => <<"Refund details">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Refund">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5187,12 +5187,12 @@ get_raw() ->
     <<"/processing/schedules/{scheduleID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Получить данные расписания выводов по ее ID">>,
+        <<"description">> => <<"Get payout schedule data by identifier">>,
         <<"operationId">> => <<"getScheduleByRef">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5200,7 +5200,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5221,16 +5221,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5241,12 +5241,12 @@ get_raw() ->
     <<"/processing/service-providers/{serviceProviderID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Получить данные провайдера платёжных сервисов по его ID">>,
+        <<"description">> => <<"Get data of payment service provider by identifier">>,
         <<"operationId">> => <<"getServiceProviderByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5254,7 +5254,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5262,7 +5262,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"serviceProviderID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор провайдера платёжных сервисов в системе">>,
+          <<"description">> => <<"Service provider identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 100,
@@ -5270,19 +5270,19 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Провайдер платёжных сервисов найден">>,
+            <<"description">> => <<"Payment service provider found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ServiceProvider">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5298,7 +5298,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5306,7 +5306,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5323,13 +5323,13 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       }
@@ -5342,7 +5342,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5350,7 +5350,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5358,7 +5358,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"shopID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5372,16 +5372,16 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5397,7 +5397,7 @@ get_raw() ->
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5405,7 +5405,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5413,7 +5413,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"shopID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5424,16 +5424,16 @@ get_raw() ->
             <<"description">> => <<"Shop activated">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5444,12 +5444,12 @@ get_raw() ->
     <<"/processing/shops/{shopID}/suspend">> => #{
       <<"put">> => #{
         <<"tags">> => [ <<"Shops">> ],
-        <<"description">> => <<"Приостановить действие магазина. Этот тип заявок обрабатывается платформой\nавтоматически и исполняется сразу же после отправки.\n">>,
+        <<"description">> => <<"Suspend the shop. This type of requests is processed by the platform automatically and is executed immediately after sending.\n">>,
         <<"operationId">> => <<"suspendShop">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5457,7 +5457,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5465,7 +5465,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"shopID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5476,16 +5476,16 @@ get_raw() ->
             <<"description">> => <<"Shop suspended">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5496,12 +5496,12 @@ get_raw() ->
     <<"/processing/tradeblocs">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"TradeBlocs">> ],
-        <<"description">> => <<"Получить список торговых блоков">>,
+        <<"description">> => <<"Get a list of trade blocks">>,
         <<"operationId">> => <<"getTradeBlocs">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5509,7 +5509,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5517,7 +5517,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Список Торговых Блоков">>,
+            <<"description">> => <<"List of trade blocs">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -5526,7 +5526,7 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
@@ -5537,12 +5537,12 @@ get_raw() ->
     <<"/processing/tradeblocs/{tradeBlocID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"TradeBlocs">> ],
-        <<"description">> => <<"Получить данные торгового блока по его ID">>,
+        <<"description">> => <<"Get trade block data by ID">>,
         <<"operationId">> => <<"getTradeBlocByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5550,7 +5550,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5558,25 +5558,25 @@ get_raw() ->
         }, #{
           <<"name">> => <<"tradeBlocID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор торгового блока">>,
+          <<"description">> => <<"Trade bloc identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Торговый Блок найден">>,
+            <<"description">> => <<"Trade bloc found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/TradeBloc">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5587,12 +5587,12 @@ get_raw() ->
     <<"/processing/webhooks">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Webhooks">> ],
-        <<"description">> => <<"Получить набор установленных webhook'ов.">>,
+        <<"description">> => <<"Get list of installed webhooks.">>,
         <<"operationId">> => <<"getWebhooks">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5600,7 +5600,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5608,7 +5608,7 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Набор webhook'ов">>,
+            <<"description">> => <<"A list of webhooks">>,
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
@@ -5617,24 +5617,24 @@ get_raw() ->
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           }
         }
       },
       <<"post">> => #{
         <<"tags">> => [ <<"Webhooks">> ],
-        <<"description">> => <<"Установить новый webhook.">>,
+        <<"description">> => <<"Set up a new webhook.">>,
         <<"operationId">> => <<"createWebhook">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5642,7 +5642,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5650,7 +5650,7 @@ get_raw() ->
         }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"webhookParams">>,
-          <<"description">> => <<"Параметры устанавливаемого webhook'а">>,
+          <<"description">> => <<"Parameters of the installed webhook">>,
           <<"required">> => true,
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/Webhook">>
@@ -5658,22 +5658,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"201">> => #{
-            <<"description">> => <<"Webhook установлен">>,
+            <<"description">> => <<"Webhook is set">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Webhook">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Ошибочные данные webhook'а">>,
+            <<"description">> => <<"Invalid webhook data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_400_14">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"429">> => #{
-            <<"description">> => <<"Превышен лимит количества установленных webhook'ов">>,
+            <<"description">> => <<"The limit on the number of installed webhooks has been exceeded">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/inline_response_429">>
             }
@@ -5684,12 +5684,12 @@ get_raw() ->
     <<"/processing/webhooks/{webhookID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Webhooks">> ],
-        <<"description">> => <<"Получить webhook по его идентификатору.">>,
+        <<"description">> => <<"Get a webhook by identifier.">>,
         <<"operationId">> => <<"getWebhookByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5697,7 +5697,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5705,7 +5705,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"webhookID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор webhook'а">>,
+          <<"description">> => <<"Webhook identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5713,22 +5713,22 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"200">> => #{
-            <<"description">> => <<"Данные webhook'а">>,
+            <<"description">> => <<"Webhook's data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Webhook">>
             }
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5737,12 +5737,12 @@ get_raw() ->
       },
       <<"delete">> => #{
         <<"tags">> => [ <<"Webhooks">> ],
-        <<"description">> => <<"Снять указанный webhook.">>,
+        <<"description">> => <<"Remove the specified webhook.">>,
         <<"operationId">> => <<"deleteWebhookByID">>,
         <<"parameters">> => [ #{
           <<"name">> => <<"X-Request-ID">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 32,
@@ -5750,7 +5750,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"X-Request-Deadline">>,
           <<"in">> => <<"header">>,
-          <<"description">> => <<"Максимальное время обработки запроса">>,
+          <<"description">> => <<"Maximum request processing time">>,
           <<"required">> => false,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5758,7 +5758,7 @@ get_raw() ->
         }, #{
           <<"name">> => <<"webhookID">>,
           <<"in">> => <<"path">>,
-          <<"description">> => <<"Идентификатор webhook'а">>,
+          <<"description">> => <<"Webhook identifier">>,
           <<"required">> => true,
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
@@ -5766,19 +5766,19 @@ get_raw() ->
         } ],
         <<"responses">> => #{
           <<"204">> => #{
-            <<"description">> => <<"Webhook успешно снят">>
+            <<"description">> => <<"Webhook successfully removed">>
           },
           <<"400">> => #{
-            <<"description">> => <<"Неверные данные">>,
+            <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/DefaultLogicError">>
             }
           },
           <<"401">> => #{
-            <<"description">> => <<"Ошибка авторизации">>
+            <<"description">> => <<"Authorization error">>
           },
           <<"404">> => #{
-            <<"description">> => <<"Заданный ресурс не найден">>,
+            <<"description">> => <<"Target resource not found">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/GeneralError">>
             }
@@ -5789,7 +5789,7 @@ get_raw() ->
   },
   <<"securityDefinitions">> => #{
     <<"bearer">> => #{
-      <<"description">> => <<"Взаимодействие между мерчантом и системой осуществляется по защищенному протоколу (HTTPS).\nHTTP-запросы по нешифрованному каналу не поддерживаются.\n\nСодержимое API-ключа следует передать в заголовке `Authorization`:\n\n```\nAuthorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M...\n```\n\nКлючи не разделяются на тестовые и боевые. Для проведения тестовых транзакций используйте\nидентификатор тестового магазина.\n\n**Важно! Не передавайте API-ключ третьим лицам!**\n">>,
+      <<"description">> => <<"Interaction between the merchant and the system is performed via a secure protocol (HTTPS).\n\nHTTP requests via unencrypted channel are not supported.\n\nThe contents of the API key should be passed in the `Authorization` header:\n\n``` Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M... ```\n\nKeys are not divided into test and production keys. Use the test shop ID for test transactions.\n\n**Important: Do not pass the API-key to third parties!**\n">>,
       <<"type">> => <<"apiKey">>,
       <<"name">> => <<"Authorization">>,
       <<"in">> => <<"header">>
@@ -5802,7 +5802,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"payload">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Содержимое токена для доступа\n">>
+          <<"description">> => <<"Access token payload\n">>
         }
       },
       <<"example">> => #{
@@ -5811,7 +5811,7 @@ get_raw() ->
     },
     <<"Allocation">> => #{
       <<"type">> => <<"array">>,
-      <<"description">> => <<"Распределение денежных средств\n">>,
+      <<"description">> => <<"Allocation of cash\n">>,
       <<"items">> => #{
         <<"$ref">> => <<"#/definitions/AllocationTransaction">>
       },
@@ -5828,17 +5828,17 @@ get_raw() ->
           <<"amount">> => #{
             <<"type">> => <<"integer">>,
             <<"format">> => <<"int64">>,
-            <<"description">> => <<"Сумма перечисляемая выбранному назначению в минорных денежных единицах,\nнапример в копейках в случае указания российских рублей в качестве валюты.\n">>,
+            <<"description">> => <<"The amount transferred to the selected destination in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
             <<"minimum">> => 1
           },
           <<"currency">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+            <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
             <<"pattern">> => <<"^[A-Z]{3}$">>
           }
         }
       } ],
-      <<"description">> => <<"Тело транзакции в абсолютных значениях">>
+      <<"description">> => <<"Allocation body amount">>
     },
     <<"AllocationBodyTotal">> => #{
       <<"allOf">> => [ #{
@@ -5850,19 +5850,19 @@ get_raw() ->
           <<"total">> => #{
             <<"type">> => <<"integer">>,
             <<"format">> => <<"int64">>,
-            <<"description">> => <<"Общая сумма транзакции (включает в себя комиссию) в минорных денежных единицах, например в копейках в случае указания российских рублей в качестве валюты.\n">>,
+            <<"description">> => <<"Total transaction amount (includes fees) in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
             <<"minimum">> => 1
           },
           <<"amount">> => #{
             <<"type">> => <<"integer">>,
             <<"format">> => <<"int64">>,
-            <<"description">> => <<"Сумма перечисляемая выбранному назначению в минорных денежных единицах,\nнапример в копейках в случае указания российских рублей в качестве валюты.\n">>,
+            <<"description">> => <<"The amount transferred to the selected destination in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
             <<"readOnly">> => true,
             <<"minimum">> => 1
           },
           <<"currency">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+            <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
             <<"pattern">> => <<"^[A-Z]{3}$">>
           },
           <<"fee">> => #{
@@ -5870,7 +5870,7 @@ get_raw() ->
           }
         }
       } ],
-      <<"description">> => <<"Тело транзакции с указанием комиссии">>
+      <<"description">> => <<"Transaction body with fee indication">>
     },
     <<"AllocationFee">> => #{
       <<"type">> => <<"object">>,
@@ -5885,7 +5885,7 @@ get_raw() ->
           <<"enum">> => [ <<"AllocationFeeFixed">>, <<"AllocationFeeShare">> ]
         }
       },
-      <<"description">> => <<"Комиссия транзакции">>,
+      <<"description">> => <<"Transaction fee">>,
       <<"x-discriminator-is-enum">> => true
     },
     <<"AllocationFeeFixed">> => #{
@@ -5898,12 +5898,12 @@ get_raw() ->
           <<"amount">> => #{
             <<"type">> => <<"integer">>,
             <<"format">> => <<"int64">>,
-            <<"description">> => <<"Значение комиссии в минорных денежных единицах, например в копейках в случае указания российских рублей в качестве валюты транзакции.\n">>,
+            <<"description">> => <<"The value of the fee in minor monetary units, e.g. cents if US dollars are specified as the transaction currency.\n">>,
             <<"minimum">> => 1
           }
         }
       } ],
-      <<"description">> => <<"Комиссия транзакции в абсолютных значениях">>
+      <<"description">> => <<"Transaction fee in absolute values">>
     },
     <<"AllocationFeeShare">> => #{
       <<"allOf">> => [ #{
@@ -5918,13 +5918,13 @@ get_raw() ->
           <<"amount">> => #{
             <<"type">> => <<"integer">>,
             <<"format">> => <<"int64">>,
-            <<"description">> => <<"Значение комиссии в минорных денежных единицах, например в копейках в случае указания российских рублей в качестве валюты транзакции.\n">>,
+            <<"description">> => <<"The value of the fee in minor monetary units, e.g. cents if US dollars are specified as the transaction currency.\n">>,
             <<"readOnly">> => true,
             <<"minimum">> => 1
           }
         }
       } ],
-      <<"description">> => <<"Комиссия транзакции в относительных значениях">>
+      <<"description">> => <<"Transaction fee in relative values">>
     },
     <<"AllocationTarget">> => #{
       <<"type">> => <<"object">>,
@@ -5936,7 +5936,7 @@ get_raw() ->
           <<"enum">> => [ <<"AllocationTargetShop">> ]
         }
       },
-      <<"description">> => <<"Назначение транзакции">>,
+      <<"description">> => <<"Target of the transaction">>,
       <<"example">> => #{
         <<"allocationTargetType">> => <<"AllocationTargetShop">>
       },
@@ -5951,13 +5951,13 @@ get_raw() ->
         <<"properties">> => #{
           <<"shopID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор магазина">>,
+            <<"description">> => <<"Shop ID">>,
             <<"minLength">> => 1,
             <<"maxLength">> => 40
           }
         }
       } ],
-      <<"description">> => <<"Магазин как назначение транзакции">>
+      <<"description">> => <<"The shop as the target of the transaction">>
     },
     <<"AllocationTransaction">> => #{
       <<"type">> => <<"object">>,
@@ -5969,14 +5969,14 @@ get_raw() ->
         },
         <<"allocationBodyType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тело транзакции">>,
+          <<"description">> => <<"Transaction body">>,
           <<"enum">> => [ <<"AllocationBodyAmount">>, <<"AllocationBodyTotal">> ]
         },
         <<"cart">> => #{
           <<"$ref">> => <<"#/definitions/InvoiceCart">>
         }
       },
-      <<"description">> => <<"Транзакция распределения денежных средств">>,
+      <<"description">> => <<"Cash allocation transaction">>,
       <<"example">> => #{
         <<"allocationBodyType">> => <<"AllocationBodyAmount">>,
         <<"cart">> => <<"">>,
@@ -5995,22 +5995,22 @@ get_raw() ->
         <<"properties">> => #{
           <<"merchantID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор мерчанта в Apple Pay">>
+            <<"description">> => <<"Apple Pay merchant identifier">>
           },
           <<"paymentToken">> => #{
             <<"type">> => <<"object">>,
-            <<"description">> => <<"Совокупность открытых и зашифрованных платежных данных">>,
+            <<"description">> => <<"Aggregate of open and encrypted payment data">>,
             <<"properties">> => #{ }
           }
         },
-        <<"description">> => <<"Платежные данные Apple Pay">>
+        <<"description">> => <<"Apple Pay data">>
       } ]
     },
     <<"ArticlesOfAssociation">> => #{
       <<"allOf">> => [ #{
         <<"$ref">> => <<"#/definitions/RepresentativeDocument">>
       }, #{ } ],
-      <<"description">> => <<"Устав организации">>
+      <<"description">> => <<"Articles of association">>
     },
     <<"BankAccount">> => #{
       <<"type">> => <<"object">>,
@@ -6018,12 +6018,12 @@ get_raw() ->
       <<"properties">> => #{
         <<"account">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Номер счёта">>,
+          <<"description">> => <<"Account number">>,
           <<"pattern">> => <<"^\\d{20}$">>
         },
         <<"bankName">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Наименование юридического лица банковской организации">>,
+          <<"description">> => <<"Name of the legal entity of the banking organization">>,
           <<"maxLength">> => 100
         },
         <<"bankPostAccount">> => #{
@@ -6032,11 +6032,11 @@ get_raw() ->
         },
         <<"bankBik">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"БИК банковской организации">>,
+          <<"description">> => <<"BIK of the banking organization">>,
           <<"pattern">> => <<"^\\d{9}$">>
         }
       },
-      <<"description">> => <<"Данные расчётного счёта в банковской организации, ведущей деятельность под\nюрисдикцией РФ.\n">>
+      <<"description">> => <<"Data of a settlement account in a banking organization operating under the jurisdiction of the Russian Federation.\n">>
     },
     <<"BankCard">> => #{
       <<"allOf">> => [ #{
@@ -6047,18 +6047,18 @@ get_raw() ->
         <<"properties">> => #{
           <<"paymentSystems">> => #{
             <<"type">> => <<"array">>,
-            <<"description">> => <<"Список платежных систем">>,
+            <<"description">> => <<"List of payment systems">>,
             <<"items">> => #{
               <<"type">> => <<"string">>,
-              <<"description">> => <<"Платежная система.\n\nНабор систем, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>
+              <<"description">> => <<"Payment system.\nThe list of systems available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>
             }
           },
           <<"tokenProviders">> => #{
             <<"type">> => <<"array">>,
-            <<"description">> => <<"Список провайдеров платежных токенов">>,
+            <<"description">> => <<"List of payment token providers">>,
             <<"items">> => #{
               <<"type">> => <<"string">>,
-              <<"description">> => <<"Провайдер платежных токенов.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>
+              <<"description">> => <<"Payment token provider.\nThe list of providers available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>
             }
           },
           <<"tokenProviderData">> => #{
@@ -6072,46 +6072,46 @@ get_raw() ->
       <<"properties">> => #{
         <<"cardNumberMask">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Маскированый номер карты">>,
+          <<"description">> => <<"Masked card number">>,
           <<"pattern">> => <<"^\\d{0,6}\\*+\\d{0,4}$">>
         },
         <<"first6">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Первые цифры номера карты.\n\nОтсутствуют для токенизированных платежных средств.\n">>,
+          <<"description">> => <<"First digits of the card number.\nAbsent for tokenized payment methods.\n">>,
           <<"pattern">> => <<"^\\d{6}$">>
         },
         <<"last4">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Последние цифры номера карты">>,
+          <<"description">> => <<"Card last digits">>,
           <<"pattern">> => <<"^\\d{0,4}$">>
         },
         <<"paymentSystem">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Платежная система.\n\nНабор систем, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>
+          <<"description">> => <<"Payment system.\nThe list of systems available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>
         },
         <<"tokenProvider">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Провайдер платежных токенов.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>
+          <<"description">> => <<"Payment token provider.\nThe list of providers available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>
         },
         <<"tokenizationMethod">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Метод токенизации">>,
+          <<"description">> => <<"Tokenization method">>,
           <<"enum">> => [ <<"dpan">>, <<"none">> ]
         }
       }
     },
     <<"BankCardPaymentSystem">> => #{
       <<"type">> => <<"string">>,
-      <<"description">> => <<"Платежная система.\n\nНабор систем, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>
+      <<"description">> => <<"Payment system.\nThe list of systems available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>
     },
     <<"BankCardTokenizationMethod">> => #{
       <<"type">> => <<"string">>,
-      <<"description">> => <<"Метод токенизации">>,
+      <<"description">> => <<"Tokenization method">>,
       <<"enum">> => [ <<"dpan">>, <<"none">> ]
     },
     <<"BankCardTokenProvider">> => #{
       <<"type">> => <<"string">>,
-      <<"description">> => <<"Провайдер платежных токенов.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>
+      <<"description">> => <<"Payment token provider.\nThe list of providers available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>
     },
     <<"BankCardTokenProviderData">> => #{
       <<"type">> => <<"object">>,
@@ -6119,23 +6119,23 @@ get_raw() ->
       <<"properties">> => #{
         <<"merchantID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор мерчанта в платёжной организации.\nМожет быть использован для передачи провайдеру платежных токенов. Например, ожидается,\nчто этот параметр передается как gatewayMerchantID для GooglePay и/или YandexPay,\nа затем используется для привязки токена к указанному магазину.\n">>
+          <<"description">> => <<"Merchant identifier in a payment organization.\nCan be used to pass payment tokens to the provider. For example, this parameter is expected to be passed as gatewayMerchantID for GooglePay and or YandexPay and then used to bind the token to the specified shop.\n">>
         },
         <<"merchantName">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Имя мерчанта в платежной организации.\nМожет быть использовано, например,  как `merchantInfo.merchantName` в GooglePay\nили `merchant.name` в YandexPay или `displayName` в ApplePay.\n">>
+          <<"description">> => <<"The name of the merchant in the payment organization.\nCan be used, for example, as `merchantInfo.merchantName` in GooglePay or `merchant.name` in YandexPay or `displayName` in ApplePay.\n">>
         },
         <<"orderID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор оплачиваемого счета в платёжной организации.\nМожет быть использован, например,  как `orderNumber`  в SamsungPay или `order.id` в YandexPay.\nИспользование системного идентификатора может оказаться полезным при отладке или сверке данных\nс данными провайдера.\n">>
+          <<"description">> => <<"The identifier of the paid account in the payment organization.\nCan be used, for example, as `orderNumber` in SamsungPay or `order.id` in YandexPay.\nUsing the system identifier can be useful when debugging or reconciling data with provider data.\n">>
         },
         <<"realm">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Режим рабочего окружения платежной организации">>,
+          <<"description">> => <<"Payment institution's mode">>,
           <<"enum">> => [ <<"test">>, <<"live">> ]
         }
       },
-      <<"description">> => <<"Данные для интеграции с провайдерами платежных токенов.\nЭти параметры заданы в нашей системе и могут быть использованы для построении запросов к провайдеру токенов\nили корректного отображения платежной формы.\nДля более подробной информации ознакомьтесь с нашими руководствами по интеграции:\n  * [GooglePay](https://developer.rbk.money/docs/payments/googlepay),\n  * [ApplePay](https://developer.rbk.money/docs/payments/applepay).\n">>
+      <<"description">> => <<"Data for integration with payment token providers. These parameters are set in our system and can be used to build requests to the token provider or to display the payment form correctly.\n">>
     },
     <<"BrowserGetRequest">> => #{
       <<"allOf">> => [ #{
@@ -6146,7 +6146,7 @@ get_raw() ->
         <<"properties">> => #{
           <<"uriTemplate">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Шаблон значения URL для перехода в браузере\n\nШаблон представлен согласно стандарту\n[RFC6570](https://tools.ietf.org/html/rfc6570).\n">>
+            <<"description">> => <<"URL value template for browser navigation\nThe template is represented according to the standard [RFC6570](https://tools.ietf.org/html/rfc6570).\n">>
           }
         }
       } ]
@@ -6160,7 +6160,7 @@ get_raw() ->
         <<"properties">> => #{
           <<"uriTemplate">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Шаблон значения URL для отправки формы\n\nШаблон представлен согласно стандарту\n[RFC6570](https://tools.ietf.org/html/rfc6570).\n">>
+            <<"description">> => <<"URL value template for form submission\nThe template is represented according to the standard [RFC6570](https://tools.ietf.org/html/rfc6570).\n">>
           },
           <<"form">> => #{
             <<"$ref">> => <<"#/definitions/UserInteractionForm">>
@@ -6175,7 +6175,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"requestType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип браузерной операции">>
+          <<"description">> => <<"Type of browser operation">>
         }
       }
     },
@@ -6188,17 +6188,17 @@ get_raw() ->
           <<"amount">> => #{
             <<"type">> => <<"integer">>,
             <<"format">> => <<"int64">>,
-            <<"description">> => <<"Подтверждаемая сумма платежа, в минорных денежных единицах,\nнапример в копейках в случае указания российских рублей в качестве\nвалюты.\n">>,
+            <<"description">> => <<"Captured payment amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
             <<"minimum">> => 1
           },
           <<"currency">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+            <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
             <<"pattern">> => <<"^[A-Z]{3}$">>
           },
           <<"cart">> => #{
             <<"type">> => <<"array">>,
-            <<"description">> => <<"Корзина с набором позиций **предоставляемых** товаров или услуг">>,
+            <<"description">> => <<"A shopping cart with a list of items of **provided** goods or services">>,
             <<"items">> => #{
               <<"$ref">> => <<"#/definitions/InvoiceLine">>
             },
@@ -6207,7 +6207,7 @@ get_raw() ->
           },
           <<"allocation">> => #{
             <<"type">> => <<"array">>,
-            <<"description">> => <<"Итоговое распределение денежных средств\n">>,
+            <<"description">> => <<"Final cash allocation\n">>,
             <<"items">> => #{
               <<"$ref">> => <<"#/definitions/AllocationTransaction">>
             },
@@ -6215,7 +6215,7 @@ get_raw() ->
             <<"minItems">> => 1
           }
         },
-        <<"description">> => <<"Данные подтверждаемой суммы платежа">>
+        <<"description">> => <<"Data of captured payment amount">>
       } ]
     },
     <<"CardData">> => #{
@@ -6227,28 +6227,28 @@ get_raw() ->
         <<"properties">> => #{
           <<"cardNumber">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Номер банковской карты">>,
+            <<"description">> => <<"Bankcard number">>,
             <<"pattern">> => <<"^\\d{12,19}$">>
           },
           <<"expDate">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Срок действия банковской карты">>,
+            <<"description">> => <<"Bank card expiration date">>,
             <<"pattern">> => <<"^\\d{2}\\/(\\d{2}|\\d{4})$">>
           },
           <<"cvv">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Код верификации">>,
+            <<"description">> => <<"Verification code">>,
             <<"pattern">> => <<"^\\d{3,4}$">>
           },
           <<"cardHolder">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Имя держателя карты">>,
+            <<"description">> => <<"Cardholder name">>,
             <<"minLength">> => 1,
             <<"maxLength">> => 100,
             <<"pattern">> => <<"^[[:alpha:][:space:][:punct:]]+$">>
           }
         },
-        <<"description">> => <<"Банковская карта">>
+        <<"description">> => <<"Bank card">>
       } ]
     },
     <<"Category">> => #{
@@ -6280,43 +6280,43 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор чарджбэка">>
+          <<"description">> => <<"Chargeback ID">>
         },
         <<"createdAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время создания">>
+          <<"description">> => <<"Date and time of creation">>
         },
         <<"body">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Сумма чарджбэка, в минорных денежных единицах, например в копейках в случае указания российских рублей в качестве валюты.\n">>,
+          <<"description">> => <<"Chargeback amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
           <<"minimum">> => 1
         },
         <<"levy">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Сумма штрафа за чарджбэк, в минорных денежных единицах, например в копейках в случае указания российских рублей в качестве валюты.\n">>,
+          <<"description">> => <<"Chargeback levy amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
           <<"minimum">> => 1
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"reasonCode">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Код причины чарджбэка">>,
+          <<"description">> => <<"Chargeback reason code">>,
           <<"maxLength">> => 1000
         },
         <<"stage">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Стадия чарджбэка">>,
+          <<"description">> => <<"Chargeback stage">>,
           <<"enum">> => [ <<"chargeback">>, <<"pre-arbitration">>, <<"arbitration">> ]
         },
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус чарджбэка">>,
+          <<"description">> => <<"Chargeback status">>,
           <<"enum">> => [ <<"pending">>, <<"rejected">>, <<"accepted">>, <<"cancelled">> ]
         }
       },
@@ -6337,23 +6337,23 @@ get_raw() ->
       <<"properties">> => #{
         <<"fingerprint">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный отпечаток user agent'а плательщика">>,
+          <<"description">> => <<"Payer's user agent unique fingerprint">>,
           <<"maxLength">> => 1000
         },
         <<"ip">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"ip-address">>,
-          <<"description">> => <<"IP-адрес плательщика">>,
+          <<"description">> => <<"Payer IP-address">>,
           <<"maxLength">> => 45
         },
         <<"url">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"uri">>,
-          <<"description">> => <<"URL с которого была получена платежная форма клиентом">>,
+          <<"description">> => <<"URL from which the payment form was received by the client">>,
           <<"maxLength">> => 1000
         }
       },
-      <<"description">> => <<"Данные клиентского устройства плательщика">>,
+      <<"description">> => <<"Payer's client device data">>,
       <<"example">> => #{
         <<"ip">> => <<"ip">>,
         <<"fingerprint">> => <<"fingerprint">>,
@@ -6366,16 +6366,16 @@ get_raw() ->
         <<"email">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"email">>,
-          <<"description">> => <<"Адрес электронной почты">>,
+          <<"description">> => <<"Email address">>,
           <<"maxLength">> => 100
         },
         <<"phoneNumber">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"^\\+\\d{4,15}$">>,
-          <<"description">> => <<"Номер мобильного телефона с международным префиксом согласно\n[E.164](https://en.wikipedia.org/wiki/E.164).\n">>
+          <<"description">> => <<"Mobile phone number with international prefix according to [E.164](https://en.wikipedia.org/wiki/E.164).\n">>
         }
       },
-      <<"description">> => <<"Контактные данные">>,
+      <<"description">> => <<"Contact details">>,
       <<"example">> => #{
         <<"phoneNumber">> => <<"phoneNumber">>,
         <<"email">> => <<"email">>
@@ -6383,7 +6383,7 @@ get_raw() ->
     },
     <<"ContinuationToken">> => #{
       <<"type">> => <<"string">>,
-      <<"description">> => <<"Токен, сигнализирующий о том, что в ответе передана только часть данных.\nДля получения следующей части нужно повторно обратиться к сервису, указав тот-же набор условий и полученый токен.\nЕсли токена нет, получена последняя часть данных.\n">>
+      <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response.\nTo receive the next part of the data, it is necessary to reapply to the service, specifying the same list of conditions and the received token. If there is no token, the last part of data is received.\n">>
     },
     <<"Contract">> => #{
       <<"type">> => <<"object">>,
@@ -6391,32 +6391,32 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор договора">>
+          <<"description">> => <<"Contract ID">>
         },
         <<"createdAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время создания договора">>
+          <<"description">> => <<"Date and time of contract creation">>
         },
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус договора">>,
+          <<"description">> => <<"Contract status">>,
           <<"enum">> => [ <<"active">>, <<"terminated">> ]
         },
         <<"validSince">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время вступления договора в силу">>
+          <<"description">> => <<"Contract effective date and time">>
         },
         <<"validUntil">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время прекращения силы договора">>
+          <<"description">> => <<"Contract expiration date and time">>
         },
         <<"terminatedAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время расторжения договора">>
+          <<"description">> => <<"Contract termination date and time">>
         },
         <<"contractor">> => #{
           <<"$ref">> => <<"#/definitions/Contractor">>
@@ -6432,7 +6432,7 @@ get_raw() ->
           <<"$ref">> => <<"#/definitions/ReportingPreferences">>
         }
       },
-      <<"description">> => <<"Данные договора с участником">>,
+      <<"description">> => <<"Contract details">>,
       <<"example">> => #{
         <<"contractor">> => #{
           <<"contractorType">> => <<"LegalEntity">>
@@ -6469,25 +6469,25 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор поправки">>
+          <<"description">> => <<"Contract adjustment identifier">>
         },
         <<"createdAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время создания поправки">>
+          <<"description">> => <<"Date and time of contract adjustment creation">>
         },
         <<"validSince">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время вступления поправки в силу">>
+          <<"description">> => <<"Contract adjustment effective date and time">>
         },
         <<"validUntil">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время прекращения силы поправки">>
+          <<"description">> => <<"Contract adjustment expiration date and time">>
         }
       },
-      <<"description">> => <<"Данные поправки к договору">>,
+      <<"description">> => <<"Data of contract adjustment">>,
       <<"example">> => #{
         <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
         <<"validSince">> => <<"2000-01-23T04:56:07.000+00:00">>,
@@ -6502,11 +6502,11 @@ get_raw() ->
       <<"properties">> => #{
         <<"contractorType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип лица, выступающего стороной договора">>,
+          <<"description">> => <<"Contractor type">>,
           <<"enum">> => [ <<"LegalEntity">>, <<"PrivateEntity">>, <<"RegisteredUser">> ]
         }
       },
-      <<"description">> => <<"Данные лица, выступающего стороной договора">>,
+      <<"description">> => <<"Contractor data">>,
       <<"example">> => #{
         <<"contractorType">> => <<"LegalEntity">>
       },
@@ -6519,13 +6519,13 @@ get_raw() ->
         <<"upperBound">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Верхняя (включительная) граница стоимости товаров или услуг.">>,
+          <<"description">> => <<"An upper (inclusive) limit on the value of goods or services.">>,
           <<"minimum">> => 1
         },
         <<"lowerBound">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Нижняя (включительная) граница стоимости товаров или услуг.">>,
+          <<"description">> => <<"A lower (inclusive) limit on the value of goods or services.">>,
           <<"minimum">> => 1
         }
       }
@@ -6537,7 +6537,7 @@ get_raw() ->
         <<"id">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"RUS">>,
-          <<"description">> => <<"Alpha-3 код страны по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)">>,
+          <<"description">> => <<"Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"name">> => #{
@@ -6548,11 +6548,11 @@ get_raw() ->
           <<"type">> => <<"array">>,
           <<"items">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификаторы Торговых Блоков">>
+            <<"description">> => <<"Trade bloc identifiers">>
           }
         }
       },
-      <<"description">> => <<"Страна">>,
+      <<"description">> => <<"Country">>,
       <<"example">> => #{
         <<"tradeBlocs">> => [ <<"tradeBlocs">>, <<"tradeBlocs">> ],
         <<"name">> => <<"name">>,
@@ -6562,12 +6562,12 @@ get_raw() ->
     <<"CountryCode">> => #{
       <<"type">> => <<"string">>,
       <<"pattern">> => <<"^[A-Z]{3}$">>,
-      <<"description">> => <<"Alpha-3 код страны по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)">>,
+      <<"description">> => <<"Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
       <<"example">> => <<"RUS">>
     },
     <<"CryptoCurrency">> => #{
       <<"type">> => <<"string">>,
-      <<"description">> => <<"Криптовалютное платёжное средство.\n\nНабор криптовалют, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>,
+      <<"description">> => <<"Cryptocurrency payment method.\nThe list of cryptocurrencies available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>,
       <<"example">> => <<"BTC">>
     },
     <<"CryptoCurrencyTransferRequest">> => #{
@@ -6580,17 +6580,17 @@ get_raw() ->
           <<"cryptoAddress">> => #{
             <<"type">> => <<"string">>,
             <<"example">> => <<"2NBjv8rkUViGXAQar7n2BsdZjNQgupKtdPJ">>,
-            <<"description">> => <<"Адрес криптовалютного кошелька">>
+            <<"description">> => <<"Cryptocurrency wallet address">>
           },
           <<"symbolicCode">> => #{
             <<"type">> => <<"string">>,
             <<"example">> => <<"BTC">>,
-            <<"description">> => <<"Символьный код криптовалюты">>
+            <<"description">> => <<"Cryptocurrency symbolic code">>
           },
           <<"cryptoAmount">> => #{
             <<"type">> => <<"string">>,
             <<"example">> => <<"0.0012">>,
-            <<"description">> => <<"Сумма денежных средств в криптовалюте">>,
+            <<"description">> => <<"Amount of cash in cryptocurrency">>,
             <<"pattern">> => <<"^[0-9]+[.][0-9]+$">>
           }
         }
@@ -6605,11 +6605,11 @@ get_raw() ->
         <<"properties">> => #{
           <<"cryptoCurrencies">> => #{
             <<"type">> => <<"array">>,
-            <<"description">> => <<"Список криптовалют">>,
+            <<"description">> => <<"List of cryptocurrencies">>,
             <<"items">> => #{
               <<"type">> => <<"string">>,
               <<"example">> => <<"BTC">>,
-              <<"description">> => <<"Криптовалютное платёжное средство.\n\nНабор криптовалют, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>
+              <<"description">> => <<"Cryptocurrency payment method.\nThe list of cryptocurrencies available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>
             }
           }
         }
@@ -6628,14 +6628,14 @@ get_raw() ->
         <<"cryptoCurrency">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"BTC">>,
-          <<"description">> => <<"Криптовалютное платёжное средство.\n\nНабор криптовалют, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>
+          <<"description">> => <<"Cryptocurrency payment method.\nThe list of cryptocurrencies available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>
         }
       }
     },
     <<"Currency">> => #{
       <<"type">> => <<"string">>,
       <<"pattern">> => <<"^[A-Z]{3}$">>,
-      <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>
+      <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>
     },
     <<"Customer">> => #{
       <<"type">> => <<"object">>,
@@ -6643,22 +6643,22 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор плательщика">>,
+          <<"description">> => <<"Customer ID">>,
           <<"readOnly">> => true
         },
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Внешний идентификатор плательщика">>,
+          <<"description">> => <<"External customer identifier">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"shopID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор магазина">>
+          <<"description">> => <<"Shop ID">>
         },
         <<"partyID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
@@ -6667,13 +6667,13 @@ get_raw() ->
         },
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус плательщика">>,
+          <<"description">> => <<"Customer status">>,
           <<"readOnly">> => true,
           <<"enum">> => [ <<"ready">>, <<"unready">> ]
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
-          <<"description">> => <<"Связанные с плательщиком метаданные">>,
+          <<"description">> => <<"Customer metadata">>,
           <<"properties">> => #{ }
         }
       },
@@ -6725,11 +6725,11 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор привязки">>
+          <<"description">> => <<"Customer binding identifier">>
         },
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Внешний идентификатор привязки">>,
+          <<"description">> => <<"External customer binding identifier">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
@@ -6738,7 +6738,7 @@ get_raw() ->
         },
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус привязки">>,
+          <<"description">> => <<"Binding status">>,
           <<"enum">> => [ <<"pending">>, <<"succeeded">>, <<"failed">> ]
         },
         <<"error">> => #{
@@ -6774,7 +6774,7 @@ get_raw() ->
           <<"type">> => <<"string">>
         }
       },
-      <<"description">> => <<"Описание ошибки, возникшей в процессе привязки">>,
+      <<"description">> => <<"Description of the error that occurred during the binding process">>,
       <<"example">> => #{
         <<"code">> => <<"code">>,
         <<"message">> => <<"message">>
@@ -6789,13 +6789,13 @@ get_raw() ->
         <<"properties">> => #{
           <<"customerBindingID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор привязки">>
+            <<"description">> => <<"Customer binding identifier">>
           },
           <<"userInteraction">> => #{
             <<"$ref">> => <<"#/definitions/UserInteraction">>
           }
         },
-        <<"description">> => <<"Оповещение о завершении последнего запрошенного взаимодействия с плательщиком\nв рамках привязки\n">>
+        <<"description">> => <<"Notification on completion of the last requested interaction with the customer within the bindings\n">>
       } ]
     },
     <<"CustomerBindingInteractionRequested">> => #{
@@ -6807,13 +6807,13 @@ get_raw() ->
         <<"properties">> => #{
           <<"customerBindingID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор привязки">>
+            <<"description">> => <<"Customer binding identifier">>
           },
           <<"userInteraction">> => #{
             <<"$ref">> => <<"#/definitions/UserInteraction">>
           }
         },
-        <<"description">> => <<"Требование провести взаимодействие с плательщиком для продолжения процесса\nпривязки\n">>
+        <<"description">> => <<"Require interaction with the customer to continue the binding process\n">>
       } ]
     },
     <<"CustomerBindingParams">> => #{
@@ -6822,7 +6822,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Внешний идентификатор привязки">>,
+          <<"description">> => <<"External customer binding identifier">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
@@ -6861,7 +6861,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус привязки">>,
+          <<"description">> => <<"Binding status">>,
           <<"enum">> => [ <<"pending">>, <<"succeeded">>, <<"failed">> ]
         },
         <<"error">> => #{
@@ -6933,17 +6933,17 @@ get_raw() ->
       <<"properties">> => #{
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Внешний идентификатор плательщика">>,
+          <<"description">> => <<"External customer identifier">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"shopID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор магазина">>
+          <<"description">> => <<"Shop ID">>
         },
         <<"partyID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
@@ -6952,7 +6952,7 @@ get_raw() ->
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
-          <<"description">> => <<"Связанные с плательщиком метаданные">>,
+          <<"description">> => <<"Customer metadata">>,
           <<"properties">> => #{ }
         }
       },
@@ -6976,7 +6976,7 @@ get_raw() ->
         <<"properties">> => #{
           <<"customerID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор плательщика">>,
+            <<"description">> => <<"Customer ID">>,
             <<"minLength">> => 1,
             <<"maxLength">> => 40
           },
@@ -6985,7 +6985,7 @@ get_raw() ->
           }
         }
       } ],
-      <<"description">> => <<"Многоразовое платежное средство">>
+      <<"description">> => <<"Reusable payment tool">>
     },
     <<"CustomersTopic">> => #{
       <<"allOf">> => [ #{
@@ -6996,13 +6996,13 @@ get_raw() ->
         <<"properties">> => #{
           <<"shopID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор магазина">>,
+            <<"description">> => <<"Shop ID">>,
             <<"minLength">> => 1,
             <<"maxLength">> => 40
           },
           <<"eventTypes">> => #{
             <<"type">> => <<"array">>,
-            <<"description">> => <<"Набор типов событий плательщиков, о которых следует оповещать">>,
+            <<"description">> => <<"List of customer event types to be notified about">>,
             <<"items">> => #{
               <<"type">> => <<"string">>,
               <<"enum">> => [ <<"CustomerCreated">>, <<"CustomerDeleted">>, <<"CustomerReady">>, <<"CustomerBindingStarted">>, <<"CustomerBindingSucceeded">>, <<"CustomerBindingFailed">> ]
@@ -7010,7 +7010,7 @@ get_raw() ->
           }
         }
       } ],
-      <<"description">> => <<"Область охвата, включающая события по плательщикам в рамках определённого\nмагазина\n">>
+      <<"description">> => <<"Scope that includes customer events within a specific shop\n">>
     },
     <<"Decimal">> => #{
       <<"type">> => <<"object">>,
@@ -7019,16 +7019,16 @@ get_raw() ->
         <<"m">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Мантисса.\n">>,
+          <<"description">> => <<"Mantissa.\n">>,
           <<"minimum">> => 0
         },
         <<"exp">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Порядок.\n">>
+          <<"description">> => <<"Exponent.\n">>
         }
       },
-      <<"description">> => <<"Дробное десятичное число произвольной точности">>
+      <<"description">> => <<"Fractional decimal number of arbitrary precision">>
     },
     <<"DefaultLogicError">> => #{
       <<"type">> => <<"object">>,
@@ -7036,12 +7036,12 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidRequest">>, <<"invalidDeadline">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -7054,11 +7054,11 @@ get_raw() ->
         <<"properties">> => #{
           <<"providers">> => #{
             <<"type">> => <<"array">>,
-            <<"description">> => <<"Список провайдеров электронных денежных средств">>,
+            <<"description">> => <<"List of E-wallet providers">>,
             <<"items">> => #{
               <<"type">> => <<"string">>,
               <<"example">> => <<"QIWI">>,
-              <<"description">> => <<"Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>
+              <<"description">> => <<"E-wallet provider.\nThe list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\nAdditional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).\n">>
             }
           }
         }
@@ -7073,19 +7073,19 @@ get_raw() ->
         <<"properties">> => #{
           <<"id">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор кошелька">>
+            <<"description">> => <<"E-wallet identifier">>
           },
           <<"provider">> => #{
             <<"type">> => <<"string">>,
             <<"example">> => <<"QIWI">>,
-            <<"description">> => <<"Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>
+            <<"description">> => <<"E-wallet provider.\nThe list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\nAdditional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).\n">>
           },
           <<"token">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Токен">>
+            <<"description">> => <<"Token">>
           }
         },
-        <<"description">> => <<"Электронный кошелёк">>
+        <<"description">> => <<"E-wallet">>
       } ]
     },
     <<"DigitalWalletDetails">> => #{
@@ -7095,20 +7095,20 @@ get_raw() ->
         <<"provider">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"QIWI">>,
-          <<"description">> => <<"Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>
+          <<"description">> => <<"E-wallet provider.\nThe list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\nAdditional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).\n">>
         }
       }
     },
     <<"DigitalWalletProvider">> => #{
       <<"type">> => <<"string">>,
-      <<"description">> => <<"Провайдер электронных денежных средств.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>,
+      <<"description">> => <<"E-wallet provider.\nThe list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\nAdditional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).\n">>,
       <<"example">> => <<"QIWI">>
     },
     <<"ExternalID">> => #{
       <<"type">> => <<"string">>,
       <<"minLength">> => 1,
       <<"maxLength">> => 40,
-      <<"description">> => <<"Уникальный в рамках платформы идентификатор сущности для данного участника.\n\nИспользуется для обеспечения идемпотентности запроса.\n">>
+      <<"description">> => <<"A platform-unique entity identifier for this party.\nIt is used to ensure request idempotency.\n">>
     },
     <<"ExternalIDConflictError">> => #{
       <<"type">> => <<"object">>,
@@ -7116,17 +7116,17 @@ get_raw() ->
       <<"properties">> => #{
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Переданное значение `externalID`, для которого обнаружен конфликт параметров запроса">>,
+          <<"description">> => <<"The passed value of `externalID` for which a request parameter conflict was detected\n">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор сущности, созданной предыдущим запросом с указанным `externalID`">>
+          <<"description">> => <<"Identifier of the content, created by a previous query with the specified `externalID'\n">>
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -7148,15 +7148,15 @@ get_raw() ->
         <<"properties">> => #{
           <<"gatewayMerchantID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор мерчанта в системе">>
+            <<"description">> => <<"Merchant identifier in the system">>
           },
           <<"paymentToken">> => #{
             <<"type">> => <<"object">>,
-            <<"description">> => <<"Совокупность открытых и зашифрованных платежных данных">>,
+            <<"description">> => <<"Aggregate of open and encrypted payment data">>,
             <<"properties">> => #{ }
           }
         },
-        <<"description">> => <<"Платежные данные Google Pay">>
+        <<"description">> => <<"Google Pay data">>
       } ]
     },
     <<"InternationalBankAccount">> => #{
@@ -7165,13 +7165,13 @@ get_raw() ->
         <<"number">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"123006951">>,
-          <<"description">> => <<"Номер счёта\n">>,
+          <<"description">> => <<"Account number\n">>,
           <<"pattern">> => <<"^[0-9A-Z]{8,40}$">>
         },
         <<"iban">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"GR1601101250000000012300695">>,
-          <<"description">> => <<"International Bank Account Number [ISO 13616](https://en.wikipedia.org/wiki/International_Bank_Account_Number)\n\n_* Если `iban` задан, `bankDetails` не обязательны к заполнению._\n">>,
+          <<"description">> => <<"International Bank Account Number [ISO 13616](https://en.wikipedia.org/wiki/International_Bank_Account_Number)\n_* If `iban` is specified, `bankDetails` is not required._\n">>,
           <<"pattern">> => <<"^[A-Z0-9]{3,35}$">>
         },
         <<"bankDetails">> => #{
@@ -7181,7 +7181,7 @@ get_raw() ->
           <<"$ref">> => <<"#/definitions/InternationalCorrespondentBankAccount">>
         }
       },
-      <<"description">> => <<"Данные международного банковского счёта">>
+      <<"description">> => <<"International bank account data">>
     },
     <<"InternationalBankDetails">> => #{
       <<"type">> => <<"object">>,
@@ -7189,39 +7189,39 @@ get_raw() ->
         <<"bic">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"RZBAATWW\n">>,
-          <<"description">> => <<"Business Identifier Code [ISO 9362](https://en.wikipedia.org/wiki/ISO_9362).\n\n_* Если `bic` задан, прочие данные не обязательны к заполнению._\n">>,
+          <<"description">> => <<"Business Identifier Code [ISO 9362](https://en.wikipedia.org/wiki/ISO_9362).\n_* If `bic` is specified, other data is optional._\n">>,
           <<"pattern">> => <<"^([A-Z0-9]{8}|[A-Z0-9]{11})$">>
         },
         <<"abartn">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"129131673">>,
-          <<"description">> => <<"[ABA Routing Transit Number](https://en.wikipedia.org/wiki/ABA_routing_transit_number)\nбанковской организации, специфичный для банковской системы USA.\n\n_* Если `abartn` задан, прочие данные не обязательны к заполнению._\n">>,
+          <<"description">> => <<"[ABA Routing Transit Number](https://en.wikipedia.org/wiki/ABA_routing_transit_number) banking organization specific to the USA banking system.\n_* If `abartn` is specified, other data is optional._\n">>,
           <<"pattern">> => <<"^[0-9]{9}$">>
         },
         <<"name">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"RAIFFEISEN BANK INTERNATIONAL AG\n">>,
-          <<"description">> => <<"Наименование юридического лица банковской организации">>,
+          <<"description">> => <<"Name of the legal entity of the banking organization">>,
           <<"maxLength">> => 100
         },
         <<"countryCode">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"RUS">>,
-          <<"description">> => <<"Код страны резиденции банковской организации, обозначается\nalpha-3 код по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
+          <<"description">> => <<"Country code of residence of the banking organization, alpha-3 code according to [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"address">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"1030, VIENNA, AM STADTPARK 9\n">>,
-          <<"description">> => <<"Адрес юридического лица банковской организации">>,
+          <<"description">> => <<"Address of the legal entity of the banking organization">>,
           <<"maxLength">> => 1000
         }
       },
-      <<"description">> => <<"Данные международной банковской организации">>
+      <<"description">> => <<"International banking organization data">>
     },
     <<"InternationalCorrespondentBankAccount">> => #{
       <<"allOf">> => [ #{
-        <<"description">> => <<"Данные корреспондентского счёта указанного банка">>
+        <<"description">> => <<"Correspondent account data of the specified bank">>
       }, #{
         <<"$ref">> => <<"#/definitions/InternationalBankAccount">>
       } ]
@@ -7235,34 +7235,34 @@ get_raw() ->
         <<"properties">> => #{
           <<"legalName">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Наименование">>
+            <<"description">> => <<"Name">>
           },
           <<"tradingName">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Торговое наименование (если применимо)">>
+            <<"description">> => <<"Trade name (if applicable)">>
           },
           <<"registeredOffice">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Адрес места регистрации">>
+            <<"description">> => <<"Registration postal address">>
           },
           <<"principalPlaceOfBusiness">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Адрес места нахождения (если отличается от регистрации)">>
+            <<"description">> => <<"Location address (if different from the address of registration)\n">>
           },
           <<"registeredNumber">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Регистрационный номер">>,
+            <<"description">> => <<"Registration number">>,
             <<"maxLength">> => 100
           },
           <<"country">> => #{
             <<"type">> => <<"string">>,
             <<"example">> => <<"RUS">>,
-            <<"description">> => <<"Alpha-3 код страны по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)">>,
+            <<"description">> => <<"Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
             <<"pattern">> => <<"^[A-Z]{3}$">>
           }
         }
       } ],
-      <<"description">> => <<"Международное юридическое лицо">>
+      <<"description">> => <<"International legal entity">>
     },
     <<"Invoice">> => #{
       <<"type">> => <<"object">>,
@@ -7270,52 +7270,52 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор инвойса">>
+          <<"description">> => <<"Invoice ID">>
         },
         <<"shopID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор магазина">>
+          <<"description">> => <<"Shop ID">>
         },
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Внешний идентификатор инвойса">>,
+          <<"description">> => <<"External invoice identifier">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"createdAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время создания">>
+          <<"description">> => <<"Created at">>
         },
         <<"dueDate">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время окончания действия">>
+          <<"description">> => <<"Expiration date and time">>
         },
         <<"amount">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,\nнапример в копейках в случае указания российских рублей в качестве валюты.\n">>,
+          <<"description">> => <<"The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency\n">>,
           <<"minimum">> => 1
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"product">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Наименование предлагаемых товаров или услуг">>,
+          <<"description">> => <<"Name of the offered goods or services">>,
           <<"maxLength">> => 100
         },
         <<"description">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Описание предлагаемых товаров или услуг">>,
+          <<"description">> => <<"Description of the goods or services offered">>,
           <<"maxLength">> => 1000
         },
         <<"invoiceTemplateID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор шаблона (для инвойсов, созданных по шаблону).">>
+          <<"description">> => <<"Invoice template identifier (for invoices created from an invoice template).\n">>
         },
         <<"cart">> => #{
           <<"$ref">> => <<"#/definitions/InvoiceCart">>
@@ -7328,7 +7328,7 @@ get_raw() ->
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
-          <<"description">> => <<"Связанные с инвойсом метаданные">>,
+          <<"description">> => <<"Invoice metadata">>,
           <<"properties">> => #{ }
         },
         <<"clientInfo">> => #{
@@ -7336,12 +7336,12 @@ get_raw() ->
         },
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус инвойса">>,
+          <<"description">> => <<"Invoice status">>,
           <<"enum">> => [ <<"unpaid">>, <<"cancelled">>, <<"paid">>, <<"fulfilled">> ]
         },
         <<"reason">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Причина отмены или погашения инвойса">>,
+          <<"description">> => <<"Reason for invoice cancellation or redemption">>,
           <<"maxLength">> => 1000
         }
       },
@@ -7416,11 +7416,11 @@ get_raw() ->
       <<"properties">> => #{
         <<"accountType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Вид банковского счета">>,
+          <<"description">> => <<"Bank account type">>,
           <<"enum">> => [ <<"InvoiceRussianBankAccount">> ]
         }
       },
-      <<"description">> => <<"Информация о банковском счете плательщика, к операциям с которым относится данный инвойс\n">>,
+      <<"description">> => <<"Information on the bank account of the payer, to which transactions this invoice relates\n">>,
       <<"example">> => #{
         <<"accountType">> => <<"InvoiceRussianBankAccount">>
       },
@@ -7428,7 +7428,7 @@ get_raw() ->
     },
     <<"InvoiceCart">> => #{
       <<"type">> => <<"array">>,
-      <<"description">> => <<"Корзина с набором позиций товаров или услуг\n">>,
+      <<"description">> => <<"Products and services cart\n">>,
       <<"items">> => #{
         <<"$ref">> => <<"#/definitions/InvoiceLine">>
       },
@@ -7456,11 +7456,11 @@ get_raw() ->
       <<"properties">> => #{
         <<"trustLevel">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Надёжен ли плательщик?">>,
+          <<"description">> => <<"Is the payer reliable?">>,
           <<"enum">> => [ <<"wellKnown">>, <<"unknown">> ]
         }
       },
-      <<"description">> => <<"Дополнительная информация о клиенте">>,
+      <<"description">> => <<"Additional client information">>,
       <<"example">> => #{
         <<"trustLevel">> => <<"wellKnown">>
       }
@@ -7512,26 +7512,26 @@ get_raw() ->
       <<"properties">> => #{
         <<"product">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Описание предлагаемого товара или услуги">>,
+          <<"description">> => <<"Description of the goods or services offered">>,
           <<"maxLength">> => 1000
         },
         <<"quantity">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Количество единиц товаров или услуг, предлагаемых в этой\nпозиции\n">>,
+          <<"description">> => <<"Number of units of goods or services offered in this item\n">>,
           <<"minimum">> => 1,
           <<"default">> => 1
         },
         <<"price">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Цена предлагаемого товара или услуги, в минорных денежных единицах, например\nв копейках в случае указания российских рублей в качестве валюты\n">>,
+          <<"description">> => <<"The price of the good or service offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency\n">>,
           <<"minimum">> => 1
         },
         <<"cost">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Суммарная стоимость позиции с учётом количества единиц товаров или услуг\n">>,
+          <<"description">> => <<"The total value of the item, taking into account the number of units of goods or services\n">>,
           <<"readOnly">> => true,
           <<"minimum">> => 1
         },
@@ -7539,7 +7539,7 @@ get_raw() ->
           <<"$ref">> => <<"#/definitions/InvoiceLineTaxMode">>
         }
       },
-      <<"description">> => <<"Позиция товара или услуги">>,
+      <<"description">> => <<"Product or service item">>,
       <<"example">> => #{
         <<"product">> => <<"product">>,
         <<"quantity">> => 1,
@@ -7557,11 +7557,11 @@ get_raw() ->
       <<"properties">> => #{
         <<"type">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип схемы налогообложения">>,
+          <<"description">> => <<"Tax mode">>,
           <<"enum">> => [ <<"InvoiceLineTaxVAT">> ]
         }
       },
-      <<"description">> => <<"Схема налогообложения предлагаемого товара или услуги.\n\nУказывается, только если предлагаемый товар или услуга облагается налогом.\n">>,
+      <<"description">> => <<"The tax mode for the proposed good or service.\nTo be specified only if the proposed good or service is taxable.\n">>,
       <<"example">> => #{
         <<"type">> => <<"InvoiceLineTaxVAT">>
       },
@@ -7576,11 +7576,11 @@ get_raw() ->
         <<"properties">> => #{
           <<"rate">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Ставка налога">>,
+            <<"description">> => <<"Tax rate">>,
             <<"enum">> => [ <<"0%">>, <<"10%">>, <<"18%">>, <<"20%">>, <<"10/110">>, <<"18/118">>, <<"20/120">> ]
           }
         },
-        <<"description">> => <<"Налог на добавленную стоимость в юрисдикции РФ">>
+        <<"description">> => <<"Value added tax in the jurisdiction of the Russian Federation">>
       } ]
     },
     <<"InvoiceParams">> => #{
@@ -7589,46 +7589,46 @@ get_raw() ->
       <<"properties">> => #{
         <<"shopID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"partyID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Внешний идентификатор инвойса">>,
+          <<"description">> => <<"External invoice identifier">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"dueDate">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время окончания действия инвойса, после наступления которых его\nуже невозможно будет оплатить\n">>
+          <<"description">> => <<"The date and time of expiration of the invoice, after which it can no longer be paid\n">>
         },
         <<"amount">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,\nнапример в копейках в случае указания российских рублей в качестве валюты.\n\nЕсли стоимость не указана, то стоимостью инвойса будет считаться суммарная\nстоимость позиций в корзине.\n">>,
+          <<"description">> => <<"The value of the goods or services offered, in minor monetary units, such as cents if US dollars are specified as the currency.\nIf no value is specified, the value of the invoice will be the total value of the items in the shopping cart.\n">>,
           <<"minimum">> => 1
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"product">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Наименование предлагаемых товаров или услуг">>,
+          <<"description">> => <<"Name of the offered goods or services">>,
           <<"maxLength">> => 100
         },
         <<"description">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Описание предлагаемых товаров или услуг">>,
+          <<"description">> => <<"Description of the goods or services offered">>,
           <<"maxLength">> => 1000
         },
         <<"cart">> => #{
@@ -7642,7 +7642,7 @@ get_raw() ->
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
-          <<"description">> => <<"Метаданные, которые необходимо связать с инвойсом">>,
+          <<"description">> => <<"Invoice metadata">>,
           <<"properties">> => #{ }
         },
         <<"clientInfo">> => #{
@@ -7674,24 +7674,24 @@ get_raw() ->
       <<"properties">> => #{
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор сущности для данного участника.\n\nИспользуется для обеспечения идемпотентности запроса.\n">>,
+          <<"description">> => <<"A platform-unique entity identifier for this party.\nIt is used to ensure request idempotency.\n">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"amount">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,\nнапример в копейках в случае указания российских рублей в качестве валюты.\n">>,
+          <<"description">> => <<"The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency\n">>,
           <<"minimum">> => 1
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
-          <<"description">> => <<"Метаданные, которые необходимо связать с инвойсом">>,
+          <<"description">> => <<"Invoice metadata">>,
           <<"properties">> => #{ }
         }
       },
@@ -7712,17 +7712,17 @@ get_raw() ->
           <<"account">> => #{
             <<"type">> => <<"string">>,
             <<"example">> => <<"12345678912345680000">>,
-            <<"description">> => <<"Номер счёта">>,
+            <<"description">> => <<"Account number">>,
             <<"pattern">> => <<"^\\d{20}$">>
           },
           <<"bankBik">> => #{
             <<"type">> => <<"string">>,
             <<"example">> => <<"123456789">>,
-            <<"description">> => <<"БИК банковской организации">>,
+            <<"description">> => <<"BIK of the banking organization">>,
             <<"pattern">> => <<"^\\d{9}$">>
           }
         },
-        <<"description">> => <<"Данные счёта плательщика в банковской организации, ведущей деятельность под\nюрисдикцией РФ.\n">>
+        <<"description">> => <<"Data of a settlement account in a banking organization operating under the jurisdiction of the Russian Federation.\n">>
       } ]
     },
     <<"InvoiceStatus">> => #{
@@ -7731,12 +7731,12 @@ get_raw() ->
       <<"properties">> => #{
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус инвойса">>,
+          <<"description">> => <<"Invoice status">>,
           <<"enum">> => [ <<"unpaid">>, <<"cancelled">>, <<"paid">>, <<"fulfilled">> ]
         },
         <<"reason">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Причина отмены или погашения инвойса">>,
+          <<"description">> => <<"Reason for invoice cancellation or redemption">>,
           <<"maxLength">> => 1000
         }
       }
@@ -7757,13 +7757,13 @@ get_raw() ->
         <<"properties">> => #{
           <<"shopID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор магазина">>,
+            <<"description">> => <<"Shop ID">>,
             <<"minLength">> => 1,
             <<"maxLength">> => 40
           },
           <<"eventTypes">> => #{
             <<"type">> => <<"array">>,
-            <<"description">> => <<"Набор типов событий инвойсов, о которых следует оповещать">>,
+            <<"description">> => <<"List of invoice event types to be notified about">>,
             <<"items">> => #{
               <<"type">> => <<"string">>,
               <<"enum">> => [ <<"InvoiceCreated">>, <<"InvoicePaid">>, <<"InvoiceCancelled">>, <<"InvoiceFulfilled">>, <<"PaymentStarted">>, <<"PaymentProcessed">>, <<"PaymentCaptured">>, <<"PaymentCancelled">>, <<"PaymentRefunded">>, <<"PaymentFailed">>, <<"PaymentRefundCreated">>, <<"PaymentRefundSucceeded">>, <<"PaymentRefundFailed">> ]
@@ -7771,7 +7771,7 @@ get_raw() ->
           }
         }
       } ],
-      <<"description">> => <<"Область охвата, включающая события по инвойсам в рамках определённого\nмагазина\n">>
+      <<"description">> => <<"Scope that includes invoice events within a specific shop\n">>
     },
     <<"InvoiceTemplate">> => #{
       <<"type">> => <<"object">>,
@@ -7779,34 +7779,34 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор шаблона инвойса">>
+          <<"description">> => <<"Invoice template ID">>
         },
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Внешний идентификатор шаблона инвойса">>,
+          <<"description">> => <<"External invoice template identifier">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"shopID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"name">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Название шаблона">>,
+          <<"description">> => <<"Template name">>,
           <<"maxLength">> => 100
         },
         <<"description">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Описание предлагаемых товаров или услуг">>,
+          <<"description">> => <<"Description of the goods or services offered">>,
           <<"maxLength">> => 1000
         },
         <<"createdAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата создания шаблона">>
+          <<"description">> => <<"Template creation date">>
         },
         <<"lifetime">> => #{
           <<"$ref">> => <<"#/definitions/LifetimeInterval">>
@@ -7816,7 +7816,7 @@ get_raw() ->
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
-          <<"description">> => <<"Метаданные, которые будут связаны с инвойсом, созданным по шаблону, в случае, если иные метаданные не указаны в запросе на создание инвойса.\n">>,
+          <<"description">> => <<"Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.\n">>,
           <<"properties">> => #{ }
         }
       },
@@ -7878,30 +7878,30 @@ get_raw() ->
       <<"properties">> => #{
         <<"shopID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор магазина">>,
+          <<"description">> => <<"Shop ID">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Внешний идентификатор шаблона инвойса">>,
+          <<"description">> => <<"External invoice template identifier">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"partyID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"name">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Название шаблона">>,
+          <<"description">> => <<"Template name">>,
           <<"maxLength">> => 100
         },
         <<"description">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Описание предлагаемых товаров или услуг">>,
+          <<"description">> => <<"Description of the goods or services offered">>,
           <<"maxLength">> => 1000
         },
         <<"lifetime">> => #{
@@ -7912,7 +7912,7 @@ get_raw() ->
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
-          <<"description">> => <<"Метаданные, которые будут связаны с инвойсом, созданным по шаблону, в случае, если иные метаданные не указаны в запросе на создание инвойса.\n">>,
+          <<"description">> => <<"Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.\n">>,
           <<"properties">> => #{ }
         }
       },
@@ -7955,7 +7955,7 @@ get_raw() ->
           <<"type">> => <<"string">>
         }
       },
-      <<"description">> => <<"Ограничения на стоимость товара и услуги для инвойсов, генерируемых по\nшаблону.\n">>
+      <<"description">> => <<"Limitations on the value of goods and services for invoices generated by the template.\n">>
     },
     <<"InvoiceTemplateLineCostFixed">> => #{
       <<"allOf">> => [ #{
@@ -7966,13 +7966,13 @@ get_raw() ->
         <<"properties">> => #{
           <<"currency">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+            <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
             <<"pattern">> => <<"^[A-Z]{3}$">>
           },
           <<"amount">> => #{
             <<"type">> => <<"integer">>,
             <<"format">> => <<"int64">>,
-            <<"description">> => <<"Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,\nнапример в копейках в случае указания российских рублей в качестве валюты.\n">>,
+            <<"description">> => <<"The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency\n">>,
             <<"minimum">> => 1
           }
         }
@@ -7987,7 +7987,7 @@ get_raw() ->
         <<"properties">> => #{
           <<"currency">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+            <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
             <<"pattern">> => <<"^[A-Z]{3}$">>
           },
           <<"range">> => #{
@@ -8013,7 +8013,7 @@ get_raw() ->
           },
           <<"currency">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+            <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
             <<"pattern">> => <<"^[A-Z]{3}$">>
           }
         }
@@ -8028,7 +8028,7 @@ get_raw() ->
         <<"properties">> => #{
           <<"product">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Наименование предлагаемых товаров или услуг">>,
+            <<"description">> => <<"Name of the offered goods or services">>,
             <<"maxLength">> => 100
           },
           <<"price">> => #{
@@ -8045,12 +8045,12 @@ get_raw() ->
       <<"properties">> => #{
         <<"name">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Название шаблона">>,
+          <<"description">> => <<"Template name">>,
           <<"maxLength">> => 100
         },
         <<"description">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Описание предлагаемых товаров или услуг">>,
+          <<"description">> => <<"Description of the goods or services offered">>,
           <<"maxLength">> => 1000
         },
         <<"lifetime">> => #{
@@ -8061,7 +8061,7 @@ get_raw() ->
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
-          <<"description">> => <<"Метаданные, которые будут связаны с инвойсом, созданным по шаблону, в случае, если иные метаданные не указаны в запросе на создание инвойса.\n">>,
+          <<"description">> => <<"Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.\n">>,
           <<"properties">> => #{ }
         }
       },
@@ -8085,20 +8085,20 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор юридического соглашения, например номер договора">>
+          <<"description">> => <<"Legal agreement Identifier, e.g. contract number">>
         },
         <<"signedAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время заключения юридического соглашения">>
+          <<"description">> => <<"Date and time of conclusion of the legal agreement">>
         },
         <<"validUntil">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время окончания действия юридического соглашения">>
+          <<"description">> => <<"Date and time of termination of the legal agreement">>
         }
       },
-      <<"description">> => <<"Ключевые данные юридического соглашения">>,
+      <<"description">> => <<"Legal agreement details">>,
       <<"example">> => #{
         <<"signedAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
         <<"validUntil">> => <<"2000-01-23T04:56:07.000+00:00">>,
@@ -8115,12 +8115,12 @@ get_raw() ->
         <<"properties">> => #{
           <<"entityType">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Тип юридического лица">>,
+            <<"description">> => <<"Legal entity type">>,
             <<"enum">> => [ <<"RussianLegalEntity">>, <<"InternationalLegalEntity">> ]
           }
         }
       } ],
-      <<"description">> => <<"Юридическое лицо">>
+      <<"description">> => <<"Legal entity">>
     },
     <<"LifetimeInterval">> => #{
       <<"type">> => <<"object">>,
@@ -8142,7 +8142,7 @@ get_raw() ->
           <<"minimum">> => 0
         }
       },
-      <<"description">> => <<"Время жизни инвойса с момента его создания.">>,
+      <<"description">> => <<"The life time of an invoice from the time it was created.">>,
       <<"example">> => #{
         <<"months">> => 0,
         <<"days">> => 0,
@@ -8160,7 +8160,7 @@ get_raw() ->
           <<"type">> => <<"string">>
         }
       },
-      <<"description">> => <<"Описание ошибки, возникшей в процессе проведения платежа">>
+      <<"description">> => <<"Description of the error that occurred during the payment process">>
     },
     <<"MobileCommerce">> => #{
       <<"allOf">> => [ #{
@@ -8171,11 +8171,11 @@ get_raw() ->
         <<"properties">> => #{
           <<"operators">> => #{
             <<"type">> => <<"array">>,
-            <<"description">> => <<"Список операторов мобильной связи">>,
+            <<"description">> => <<"List of mobile operators">>,
             <<"items">> => #{
               <<"type">> => <<"string">>,
               <<"example">> => <<"MTS">>,
-              <<"description">> => <<"Оператор сотовой связи.\n\nНабор операторов, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>
+              <<"description">> => <<"Cellular operator.\nThe list of operators available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>
             }
           }
         }
@@ -8193,7 +8193,7 @@ get_raw() ->
             <<"$ref">> => <<"#/definitions/MobileCommercePhone">>
           }
         },
-        <<"description">> => <<"Мобильная коммерция">>
+        <<"description">> => <<"Mobile commerce">>
       } ]
     },
     <<"MobileCommerceDetails">> => #{
@@ -8202,7 +8202,7 @@ get_raw() ->
         <<"phoneNumber">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"+7******0102">>,
-          <<"description">> => <<"Маскированый номер мобильного телефона">>,
+          <<"description">> => <<"Masked cell phone number">>,
           <<"pattern">> => <<"^\\+\\d\\*{1,10}\\d{2,4}$">>
         }
       }
@@ -8214,21 +8214,21 @@ get_raw() ->
         <<"cc">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"7">>,
-          <<"description">> => <<"Код страны (1-3 цифры)">>,
+          <<"description">> => <<"Country code (1-3 digits)">>,
           <<"pattern">> => <<"^\\d{1,3}$">>
         },
         <<"ctn">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"0001234567">>,
-          <<"description">> => <<"Номер абонента">>,
+          <<"description">> => <<"Phone number">>,
           <<"pattern">> => <<"^\\d{10,12}$">>
         }
       },
-      <<"description">> => <<"Телефонный номер, согласно рекомендации ITU-T [E.164](https://ru.wikipedia.org/wiki/E.164)\n">>
+      <<"description">> => <<"Telephone number, according to ITU-T recommendation [E.164](https://en.wikipedia.org/wiki/E.164)\n">>
     },
     <<"MobileOperator">> => #{
       <<"type">> => <<"string">>,
-      <<"description">> => <<"Оператор сотовой связи.\n\nНабор операторов, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n">>,
+      <<"description">> => <<"Cellular operator.\nThe list of operators available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>,
       <<"example">> => <<"MTS">>
     },
     <<"Party">> => #{
@@ -8255,7 +8255,7 @@ get_raw() ->
       <<"type">> => <<"string">>,
       <<"minLength">> => 1,
       <<"maxLength">> => 40,
-      <<"description">> => <<"Уникальный в рамках платформы идентификатор участника.">>
+      <<"description">> => <<"The participant's unique identifier within the system.">>
     },
     <<"Payer">> => #{
       <<"type">> => <<"object">>,
@@ -8264,7 +8264,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"payerType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип платежного средства">>
+          <<"description">> => <<"Payment tool type">>
         },
         <<"sessionInfo">> => #{
           <<"$ref">> => <<"#/definitions/Payer_sessionInfo">>
@@ -8283,32 +8283,32 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор платежа">>
+          <<"description">> => <<"Payment ID">>
         },
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор сущности для данного участника.\n\nИспользуется для обеспечения идемпотентности запроса.\n">>,
+          <<"description">> => <<"A platform-unique entity identifier for this party.\nIt is used to ensure request idempotency.\n">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"invoiceID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор инвойса, в рамках которого был создан платеж">>
+          <<"description">> => <<"Identifier of the invoice within which the payment was created\n">>
         },
         <<"createdAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время создания">>
+          <<"description">> => <<"Created at">>
         },
         <<"amount">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,\nнапример в копейках в случае указания российских рублей в качестве валюты.\n">>,
+          <<"description">> => <<"The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency\n">>,
           <<"minimum">> => 1
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"flow">> => #{
@@ -8322,18 +8322,18 @@ get_raw() ->
         },
         <<"makeRecurrent">> => #{
           <<"type">> => <<"boolean">>,
-          <<"description">> => <<"Признак создания родительского рекуррентного платежа.\nУспешно проведеный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах.\n">>,
+          <<"description">> => <<"An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.\n">>,
           <<"readOnly">> => true,
           <<"default">> => false
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
-          <<"description">> => <<"Связанные с платежом метаданные">>,
+          <<"description">> => <<"Payment metadata">>,
           <<"properties">> => #{ }
         },
         <<"allocation">> => #{
           <<"type">> => <<"array">>,
-          <<"description">> => <<"Распределение денежных средств\n">>,
+          <<"description">> => <<"Allocation of cash\n">>,
           <<"readOnly">> => true,
           <<"items">> => #{
             <<"$ref">> => <<"#/definitions/AllocationTransaction">>
@@ -8343,7 +8343,7 @@ get_raw() ->
         },
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус платежа">>,
+          <<"description">> => <<"Payment status">>,
           <<"enum">> => [ <<"pending">>, <<"processed">>, <<"captured">>, <<"cancelled">>, <<"refunded">>, <<"failed">> ]
         },
         <<"error">> => #{
@@ -8448,13 +8448,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Основной код ошибки">>
+          <<"description">> => <<"Basic error code">>
         },
         <<"subError">> => #{
           <<"$ref">> => <<"#/definitions/SubError">>
         }
       },
-      <<"description">> => <<"[Ошибка, возникшая в процессе проведения платежа](#tag/Error-Codes)\n">>,
+      <<"description">> => <<"[Error](#tag/Error-Codes) occurred during the payment process\n">>,
       <<"example">> => #{
         <<"code">> => <<"code">>,
         <<"subError">> => #{
@@ -8469,7 +8469,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"type">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип процесса выполнения платежа">>,
+          <<"description">> => <<"Payment flow type">>,
           <<"default">> => <<"PaymentFlowInstant">>,
           <<"enum">> => [ <<"PaymentFlowInstant">>, <<"PaymentFlowHold">> ]
         }
@@ -8488,14 +8488,14 @@ get_raw() ->
         <<"properties">> => #{
           <<"onHoldExpiration">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Политика управления удержанием денежных средств">>,
+            <<"description">> => <<"Cash withholding management policy">>,
             <<"default">> => <<"cancel">>,
             <<"enum">> => [ <<"cancel">>, <<"capture">> ]
           },
           <<"heldUntil">> => #{
             <<"type">> => <<"string">>,
             <<"format">> => <<"date-time">>,
-            <<"description">> => <<"Дата и время, до которого происходит удержание денежных средств">>,
+            <<"description">> => <<"Date and time of withholding of funds">>,
             <<"readOnly">> => true
           }
         }
@@ -8527,17 +8527,17 @@ get_raw() ->
           <<"items">> => #{
             <<"type">> => <<"string">>,
             <<"example">> => <<"RUS">>,
-            <<"description">> => <<"Alpha-3 код страны по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)">>,
+            <<"description">> => <<"Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
             <<"pattern">> => <<"^[A-Z]{3}$">>
           }
         },
         <<"realm">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Режим рабочего окружения платежной организации">>,
+          <<"description">> => <<"Payment institution's mode">>,
           <<"enum">> => [ <<"test">>, <<"live">> ]
         }
       },
-      <<"description">> => <<"Платёжная организация">>,
+      <<"description">> => <<"Payment Institution">>,
       <<"example">> => #{
         <<"name">> => <<"name">>,
         <<"description">> => <<"description">>,
@@ -8548,7 +8548,7 @@ get_raw() ->
     },
     <<"PaymentInstitutionAccount">> => #{
       <<"type">> => <<"object">>,
-      <<"description">> => <<"Аккаунт платёжной организации">>
+      <<"description">> => <<"Payment institution's account">>
     },
     <<"PaymentInteractionCompleted">> => #{
       <<"allOf">> => [ #{
@@ -8559,13 +8559,13 @@ get_raw() ->
         <<"properties">> => #{
           <<"paymentID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор платежа">>
+            <<"description">> => <<"Payment ID">>
           },
           <<"userInteraction">> => #{
             <<"$ref">> => <<"#/definitions/UserInteraction">>
           }
         },
-        <<"description">> => <<"Оповещение о завершении последнего запрошенного взаимодействия с плательщиком\n">>
+        <<"description">> => <<"Notification on completion of the last requested interaction with the customer\n">>
       } ]
     },
     <<"PaymentInteractionRequested">> => #{
@@ -8577,18 +8577,18 @@ get_raw() ->
         <<"properties">> => #{
           <<"paymentID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор платежа">>
+            <<"description">> => <<"Payment ID">>
           },
           <<"userInteraction">> => #{
             <<"$ref">> => <<"#/definitions/UserInteraction">>
           }
         },
-        <<"description">> => <<"Требование провести взаимодействие с плательщиком для продолжения процесса\nплатежа\n">>
+        <<"description">> => <<"Require interaction with the customer to continue the payment process\n">>
       } ]
     },
     <<"PaymentMakeRecurrent">> => #{
       <<"type">> => <<"boolean">>,
-      <<"description">> => <<"Признак создания родительского рекуррентного платежа.\nУспешно проведеный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах.\n">>,
+      <<"description">> => <<"An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.\n">>,
       <<"default">> => <<"false">>
     },
     <<"PaymentMethod">> => #{
@@ -8598,7 +8598,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"method">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Метод оплаты">>,
+          <<"description">> => <<"Payment method">>,
           <<"enum">> => [ <<"BankCard">>, <<"PaymentTerminal">>, <<"DigitalWallet">>, <<"CryptoWallet">>, <<"MobileCommerce">> ]
         }
       },
@@ -8613,7 +8613,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор сущности для данного участника.\n\nИспользуется для обеспечения идемпотентности запроса.\n">>,
+          <<"description">> => <<"A platform-unique entity identifier for this party.\nIt is used to ensure request idempotency.\n">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
@@ -8626,18 +8626,18 @@ get_raw() ->
         <<"processingDeadline">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"30m">>,
-          <<"description">> => <<"Максимальное время обработки платежа">>,
+          <<"description">> => <<"Maximum payment processing time">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"makeRecurrent">> => #{
           <<"type">> => <<"boolean">>,
-          <<"description">> => <<"Признак создания родительского рекуррентного платежа.\nУспешно проведеный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах.\n">>,
+          <<"description">> => <<"An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.\n">>,
           <<"default">> => false
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
-          <<"description">> => <<"Метаданные, которые необходимо связать с платежом">>,
+          <<"description">> => <<"Metadata to be linked with the payment">>,
           <<"properties">> => #{ }
         }
       },
@@ -8663,26 +8663,26 @@ get_raw() ->
       <<"properties">> => #{
         <<"invoiceID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор инвойса">>
+          <<"description">> => <<"Invoice identifier">>
         },
         <<"paymentID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор платежа">>
+          <<"description">> => <<"Payment identifier">>
         }
       },
-      <<"description">> => <<"Родительский платеж, на основе которого создан текущий рекуррентный платеж">>
+      <<"description">> => <<"Parent payment, on the basis of which the current recurrent payment was created">>
     },
     <<"PaymentResource">> => #{
       <<"type">> => <<"object">>,
       <<"properties">> => #{
         <<"paymentToolToken">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Токен платежного средства, предоставленного плательщиком.\n\n_Обязателен при создании платежа или привязки, может быть получен в процессе [токенизации](#operation/createPaymentResource)_.\n">>,
+          <<"description">> => <<"A payment tool token provided by the payer.\n_Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.\n">>,
           <<"maxLength">> => 2000
         },
         <<"paymentSession">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор платежной сессии.\n\n_Обязателен при создании платежа или привязки, может быть получен в процессе [токенизации](#operation/createPaymentResource)_.\n">>,
+          <<"description">> => <<"Payment session identifier.\n_Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.\n">>,
           <<"maxLength">> => 1000
         },
         <<"paymentToolDetails">> => #{
@@ -8692,7 +8692,7 @@ get_raw() ->
           <<"$ref">> => <<"#/definitions/BankCard_tokenProviderData">>
         }
       },
-      <<"description">> => <<"Данные одноразового платежного средства">>,
+      <<"description">> => <<"Disposable payment tool data">>,
       <<"example">> => #{
         <<"paymentToolToken">> => <<"paymentToolToken">>,
         <<"paymentSession">> => <<"paymentSession">>,
@@ -8738,7 +8738,7 @@ get_raw() ->
           }
         }
       } ],
-      <<"description">> => <<"Одноразовое платежное средство">>
+      <<"description">> => <<"Disposable payment tool">>
     },
     <<"PaymentResourceResult">> => #{
       <<"type">> => <<"object">>,
@@ -8746,12 +8746,12 @@ get_raw() ->
       <<"properties">> => #{
         <<"paymentToolToken">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Токен платежного средства, предоставленного плательщиком">>,
+          <<"description">> => <<"Payment tool token provided by the payer">>,
           <<"maxLength">> => 2000
         },
         <<"paymentSession">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор платежной сессии">>,
+          <<"description">> => <<"Payment session identifier">>,
           <<"maxLength">> => 1000
         },
         <<"paymentToolDetails">> => #{
@@ -8763,11 +8763,11 @@ get_raw() ->
         <<"validUntil">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время, до наступления которых токен платежного средства остается действительным">>,
+          <<"description">> => <<"Date and time until which the payment resource token remains valid\n">>,
           <<"readOnly">> => true
         }
       },
-      <<"description">> => <<"Данные одноразового платежного средства">>,
+      <<"description">> => <<"Disposable payment tool data">>,
       <<"example">> => #{
         <<"paymentToolToken">> => <<"paymentToolToken">>,
         <<"paymentSession">> => <<"paymentSession">>,
@@ -8787,40 +8787,40 @@ get_raw() ->
         <<"properties">> => #{
           <<"id">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор платежа">>
+            <<"description">> => <<"Payment ID">>
           },
           <<"shortID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Cокращенный идентификатор платежа и инвойса (spid)">>
+            <<"description">> => <<"Shortened payment and invoice identifier (spid)">>
           },
           <<"invoiceID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор инвойса, в рамках которого был создан платеж">>
+            <<"description">> => <<"Identifier of the invoice within which the payment was created\n">>
           },
           <<"shopID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор магазина, в рамках которого был создан платеж">>
+            <<"description">> => <<"Identifier of the shop within which the payment was created\n">>
           },
           <<"createdAt">> => #{
             <<"type">> => <<"string">>,
             <<"format">> => <<"date-time">>,
-            <<"description">> => <<"Дата и время создания">>
+            <<"description">> => <<"Created at">>
           },
           <<"amount">> => #{
             <<"type">> => <<"integer">>,
             <<"format">> => <<"int64">>,
-            <<"description">> => <<"Стоимость предлагаемых товаров или услуг, в минорных денежных\nединицах, например в копейках в случае указания российских рублей в\nкачестве валюты.\n">>,
+            <<"description">> => <<"The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency\n">>,
             <<"minimum">> => 0
           },
           <<"fee">> => #{
             <<"type">> => <<"integer">>,
             <<"format">> => <<"int64">>,
-            <<"description">> => <<"Комиссия системы в минорных денежных единицах">>,
+            <<"description">> => <<"System fee in minor monetary units">>,
             <<"minimum">> => 0
           },
           <<"currency">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+            <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
             <<"pattern">> => <<"^[A-Z]{3}$">>
           },
           <<"payer">> => #{
@@ -8831,20 +8831,20 @@ get_raw() ->
           },
           <<"metadata">> => #{
             <<"type">> => <<"object">>,
-            <<"description">> => <<"Связанные с платежом метаданные">>,
+            <<"description">> => <<"Payment metadata">>,
             <<"properties">> => #{ }
           },
           <<"statusChangedAt">> => #{
             <<"type">> => <<"string">>,
             <<"format">> => <<"date-time">>,
-            <<"description">> => <<"Дата и время изменения статуса платежа">>
+            <<"description">> => <<"Date and time of payment status change">>
           },
           <<"transactionInfo">> => #{
             <<"$ref">> => <<"#/definitions/TransactionInfo">>
           },
           <<"makeRecurrent">> => #{
             <<"type">> => <<"boolean">>,
-            <<"description">> => <<"Признак создания родительского рекуррентного платежа.\nУспешно проведеный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах.\n">>,
+            <<"description">> => <<"An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.\n">>,
             <<"default">> => false
           },
           <<"cart">> => #{
@@ -8875,7 +8875,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус платежа">>,
+          <<"description">> => <<"Payment status">>,
           <<"enum">> => [ <<"pending">>, <<"processed">>, <<"captured">>, <<"cancelled">>, <<"refunded">>, <<"failed">> ]
         },
         <<"error">> => #{
@@ -8907,11 +8907,11 @@ get_raw() ->
         <<"properties">> => #{
           <<"providers">> => #{
             <<"type">> => <<"array">>,
-            <<"description">> => <<"Список провайдеров">>,
+            <<"description">> => <<"Providers">>,
             <<"items">> => #{
               <<"type">> => <<"string">>,
               <<"example">> => <<"EUROSET">>,
-              <<"description">> => <<"Провайдер терминальной сети.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>
+              <<"description">> => <<"Payment terminal provider.\nThe list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\nAdditional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).\n">>
             }
           }
         }
@@ -8927,7 +8927,7 @@ get_raw() ->
           <<"provider">> => #{
             <<"type">> => <<"string">>,
             <<"example">> => <<"EUROSET">>,
-            <<"description">> => <<"Провайдер терминальной сети.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>
+            <<"description">> => <<"Payment terminal provider.\nThe list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\nAdditional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).\n">>
           },
           <<"metadata">> => #{
             <<"type">> => <<"object">>,
@@ -8936,11 +8936,11 @@ get_raw() ->
               <<"accountNumber">> => <<"40817810500000000035">>,
               <<"bankBIC">> => <<"044525716">>
             },
-            <<"description">> => <<"Произвольные метаданные, дополнительно описывающие данный платёжный\nинструмент.\n">>,
+            <<"description">> => <<"Arbitrary metadata further describing this payment instrument.\n">>,
             <<"properties">> => #{ }
           }
         },
-        <<"description">> => <<"Платежный терминал">>
+        <<"description">> => <<"Payment terminal">>
       } ]
     },
     <<"PaymentTerminalDetails">> => #{
@@ -8949,13 +8949,13 @@ get_raw() ->
         <<"provider">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"EUROSET">>,
-          <<"description">> => <<"Провайдер терминальной сети.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>
+          <<"description">> => <<"Payment terminal provider.\nThe list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\nAdditional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).\n">>
         }
       }
     },
     <<"PaymentTerminalProvider">> => #{
       <<"type">> => <<"string">>,
-      <<"description">> => <<"Провайдер терминальной сети.\n\nНабор провайдеров, доступных для проведения платежей, можно узнать, вызвав\nсоответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.\n\nДополнительные детали провайдера можно узнать, вызвав [справочную операцию](#operation/getServiceProviderByID).\n">>,
+      <<"description">> => <<"Payment terminal provider.\nThe list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\nAdditional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).\n">>,
       <<"example">> => <<"EUROSET">>
     },
     <<"PaymentTerminalReceipt">> => #{
@@ -8967,11 +8967,11 @@ get_raw() ->
         <<"properties">> => #{
           <<"shortPaymentID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Номер счета для оплаты через платежный терминал">>
+            <<"description">> => <<"Account number for payment via payment terminal">>
           },
           <<"dueDate">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Дата и время окончания действия счета">>
+            <<"description">> => <<"Expiration date and time">>
           }
         }
       } ]
@@ -8983,7 +8983,7 @@ get_raw() ->
           <<"type">> => <<"array">>,
           <<"items">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+            <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
             <<"pattern">> => <<"^[A-Z]{3}$">>
           }
         },
@@ -8992,7 +8992,7 @@ get_raw() ->
           <<"items">> => #{
             <<"type">> => <<"integer">>,
             <<"format">> => <<"int32">>,
-            <<"description">> => <<"Идентификаторы доступных категорий">>
+            <<"description">> => <<"Available category identifiers">>
           }
         }
       },
@@ -9008,7 +9008,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"paymentToolType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип платежного средства">>,
+          <<"description">> => <<"Payment tool type">>,
           <<"enum">> => [ <<"CardData">>, <<"PaymentTerminalData">>, <<"DigitalWalletData">>, <<"TokenizedCardData">>, <<"CryptoWalletData">>, <<"MobileCommerceData">> ]
         }
       },
@@ -9024,10 +9024,10 @@ get_raw() ->
       <<"properties">> => #{
         <<"detailsType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип информации о платежном средстве">>
+          <<"description">> => <<"Type of payment tool">>
         }
       },
-      <<"description">> => <<"Детали платежного средства">>,
+      <<"description">> => <<"Payment tool details">>,
       <<"example">> => #{
         <<"detailsType">> => <<"detailsType">>
       }
@@ -9073,37 +9073,37 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор выплаты">>
+          <<"description">> => <<"Payout ID">>
         },
         <<"shopID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор магазина">>
+          <<"description">> => <<"Shop ID">>
         },
         <<"createdAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время создания">>
+          <<"description">> => <<"Date and time of creation">>
         },
         <<"cancellationDetails">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Детали отмены выплаты">>,
+          <<"description">> => <<"Details of the canceled payout">>,
           <<"maxLength">> => 1000
         },
         <<"amount">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Сумма выплаты в минорных денежных\nединицах, например в копейках в случае указания российских рублей в\nкачестве валюты.\n">>,
+          <<"description">> => <<"Payout amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
           <<"minimum">> => 1
         },
         <<"fee">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Комиссия системы, в минорных денежных единицах">>,
+          <<"description">> => <<"System fee in minor monetary units">>,
           <<"minimum">> => 0
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"payoutToolDetails">> => #{
@@ -9111,7 +9111,7 @@ get_raw() ->
         },
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус выплаты">>
+          <<"description">> => <<"Payout status">>
         }
       },
       <<"example">> => #{
@@ -9132,7 +9132,7 @@ get_raw() ->
       <<"type">> => <<"string">>,
       <<"minLength">> => 1,
       <<"maxLength">> => 40,
-      <<"description">> => <<"Идентификатор выплаты">>
+      <<"description">> => <<"Payout ID">>
     },
     <<"PayoutParams">> => #{
       <<"type">> => <<"object">>,
@@ -9140,33 +9140,33 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор выплаты">>,
+          <<"description">> => <<"Payout ID">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"shopID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор магазина">>
+          <<"description">> => <<"Shop ID">>
         },
         <<"partyID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"payoutToolID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор инструмента выплаты">>
+          <<"description">> => <<"Payout tool ID">>
         },
         <<"amount">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Сумма выплаты в минорных денежных\nединицах, например в копейках в случае указания российских рублей в\nкачестве валюты.\n">>,
+          <<"description">> => <<"Payout amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
           <<"minimum">> => 1
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         }
       },
@@ -9186,13 +9186,13 @@ get_raw() ->
         <<"properties">> => #{
           <<"id">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор средства вывода">>
+            <<"description">> => <<"Payout tool ID">>
           }
         }
       }, #{
         <<"$ref">> => <<"#/definitions/PayoutToolParams">>
       } ],
-      <<"description">> => <<"Средство вывода">>
+      <<"description">> => <<"Payout tool">>
     },
     <<"PayoutToolDetails">> => #{
       <<"type">> => <<"object">>,
@@ -9201,10 +9201,10 @@ get_raw() ->
       <<"properties">> => #{
         <<"detailsType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип средства вывода">>
+          <<"description">> => <<"Payout tool type">>
         }
       },
-      <<"description">> => <<"Данные средства вывода">>,
+      <<"description">> => <<"Payout tool details">>,
       <<"example">> => #{
         <<"detailsType">> => <<"detailsType">>
       }
@@ -9239,7 +9239,7 @@ get_raw() ->
         <<"properties">> => #{
           <<"walletID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор кошелька">>,
+            <<"description">> => <<"Identifier of the wallet">>,
             <<"minLength">> => 1,
             <<"maxLength">> => 40
           }
@@ -9252,7 +9252,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, в которой производится вывод">>
+          <<"description">> => <<"Payout currency">>
         },
         <<"details">> => #{
           <<"$ref">> => <<"#/definitions/PayoutToolDetails">>
@@ -9276,18 +9276,18 @@ get_raw() ->
         <<"properties">> => #{
           <<"entityType">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Тип физ. лица">>,
+            <<"description">> => <<"Private entity type">>,
             <<"enum">> => [ <<"RussianPrivateEntity">> ]
           }
         }
       } ],
-      <<"description">> => <<"Физическое лицо">>
+      <<"description">> => <<"Private entity">>
     },
     <<"ProcessingDeadline">> => #{
       <<"type">> => <<"string">>,
       <<"minLength">> => 1,
       <<"maxLength">> => 40,
-      <<"description">> => <<"Максимальное время обработки платежа">>,
+      <<"description">> => <<"Maximum payment processing time">>,
       <<"example">> => <<"30m">>
     },
     <<"QrCodeDisplayRequest">> => #{
@@ -9300,14 +9300,14 @@ get_raw() ->
           <<"qrCode">> => #{
             <<"type">> => <<"string">>,
             <<"format">> => <<"binary">>,
-            <<"description">> => <<"Содержимое QR-кода, записанное в виде потока байт">>
+            <<"description">> => <<"QR code content as byte array">>
           }
         }
       } ]
     },
     <<"RealmMode">> => #{
       <<"type">> => <<"string">>,
-      <<"description">> => <<"Режим рабочего окружения платежной организации">>,
+      <<"description">> => <<"Payment institution's mode">>,
       <<"enum">> => [ <<"test">>, <<"live">> ]
     },
     <<"Reason">> => #{
@@ -9316,7 +9316,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"reason">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Причина совершения операции">>,
+          <<"description">> => <<"Operation reason">>,
           <<"maxLength">> => 1000
         }
       },
@@ -9342,7 +9342,7 @@ get_raw() ->
           }
         }
       } ],
-      <<"description">> => <<"Многоразовое платежное средство на основе другого платежа">>
+      <<"description">> => <<"Recurring payment tool based on another payment">>
     },
     <<"Redirect">> => #{
       <<"allOf">> => [ #{
@@ -9363,37 +9363,37 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор возврата">>
+          <<"description">> => <<"Refund ID">>
         },
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор сущности для данного участника.\n\nИспользуется для обеспечения идемпотентности запроса.\n">>,
+          <<"description">> => <<"A platform-unique entity identifier for this party.\nIt is used to ensure request idempotency.\n">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"createdAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время осуществления">>
+          <<"description">> => <<"Creation date and time">>
         },
         <<"amount">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Сумма возврата, в минорных денежных единицах, например в копейках в случае указания российских рублей в качестве валюты.\n">>,
+          <<"description">> => <<"Refund amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
           <<"minimum">> => 1
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"reason">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Причина осуществления возврата">>
+          <<"description">> => <<"Refund reason">>
         },
         <<"cart">> => #{
           <<"type">> => <<"array">>,
-          <<"description">> => <<"Итоговая корзина предоставляемых товаров и услуг, которая должна формироваться из корзины инвойса исключением позиций, по которым производился возврат. Сумма корзины должна совпадать с суммой платежа за вычетом суммы возврата.\n">>,
+          <<"description">> => <<"The final cart of goods and services provided, which should be formed from the invoice cart excluding the items for which a refund has been made. The amount of the cart should be the same as the amount of the payment less the amount of the refund.\n">>,
           <<"items">> => #{
             <<"$ref">> => <<"#/definitions/InvoiceLine">>
           },
@@ -9402,7 +9402,7 @@ get_raw() ->
         },
         <<"allocation">> => #{
           <<"type">> => <<"array">>,
-          <<"description">> => <<"Итоговое распределение денежных средств, которое должно формироваться из распределения инвойса исключением позиций, по которым производится возврат.\n">>,
+          <<"description">> => <<"The final cash distribution, which should be formed from the invoice distribution excluding the items for which a refund is made.\n">>,
           <<"items">> => #{
             <<"$ref">> => <<"#/definitions/AllocationTransaction">>
           },
@@ -9411,7 +9411,7 @@ get_raw() ->
         },
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус возврата">>,
+          <<"description">> => <<"Refund status">>,
           <<"enum">> => [ <<"pending">>, <<"succeeded">>, <<"failed">> ]
         },
         <<"error">> => #{
@@ -9579,29 +9579,29 @@ get_raw() ->
       <<"properties">> => #{
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор сущности для данного участника.\n\nИспользуется для обеспечения идемпотентности запроса.\n">>,
+          <<"description">> => <<"A platform-unique entity identifier for this party.\nIt is used to ensure request idempotency.\n">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"amount">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
-          <<"description">> => <<"Сумма возврата, в минорных денежных единицах,\nнапример в копейках в случае указания российских рублей в качестве\nвалюты.\n">>,
+          <<"description">> => <<"Refund amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
           <<"minimum">> => 1
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"reason">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Причина совершения возврата">>,
+          <<"description">> => <<"Refund reason">>,
           <<"maxLength">> => 1000
         },
         <<"cart">> => #{
           <<"type">> => <<"array">>,
-          <<"description">> => <<"Итоговая корзина предоставляемых товаров и услуг, которая должна формироваться из корзины инвойса исключением позиций, по которым производится возврат. Сумма корзины должна совпадать с суммой платежа за вычетом суммы осуществляемого возврата.\n">>,
+          <<"description">> => <<"The final cart of goods and services provided, which should be formed from the invoice cart excluding the items for which a refund has been made. The amount of the cart should be the same as the amount of the payment less the amount of the refund.\n">>,
           <<"items">> => #{
             <<"$ref">> => <<"#/definitions/InvoiceLine">>
           },
@@ -9610,7 +9610,7 @@ get_raw() ->
         },
         <<"allocation">> => #{
           <<"type">> => <<"array">>,
-          <<"description">> => <<"Распределение денежных средств, которое должно формироваться из позиций, по которым производится возврат. Сумма всех транзакций распределения должна совпадать с суммой возврата.\n">>,
+          <<"description">> => <<"Cash allocation, which should be formed from the items for which a refund is made. The sum of all allocation transactions must match the refund amount.\n">>,
           <<"items">> => #{
             <<"$ref">> => <<"#/definitions/AllocationTransaction">>
           },
@@ -9774,11 +9774,11 @@ get_raw() ->
         <<"properties">> => #{
           <<"invoiceID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор инвойса">>
+            <<"description">> => <<"Invoice ID">>
           },
           <<"paymentID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор платежа">>
+            <<"description">> => <<"Payment ID">>
           }
         }
       }, #{
@@ -9807,7 +9807,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"status">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Статус возврата">>,
+          <<"description">> => <<"Refund status">>,
           <<"enum">> => [ <<"pending">>, <<"succeeded">>, <<"failed">> ]
         },
         <<"error">> => #{
@@ -9842,11 +9842,11 @@ get_raw() ->
         <<"properties">> => #{
           <<"email">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Электронная почта, идентифицирующая пользователя">>
+            <<"description">> => <<"User-identifying e-mail">>
           }
         }
       } ],
-      <<"description">> => <<"Зарегистрированный пользователь системы">>
+      <<"description">> => <<"Registered user of the system">>
     },
     <<"ReportingPreferences">> => #{
       <<"type">> => <<"object">>,
@@ -9855,7 +9855,7 @@ get_raw() ->
           <<"$ref">> => <<"#/definitions/ServiceAcceptanceActPreferences">>
         }
       },
-      <<"description">> => <<"Настройки выгрузки автоматической отчетности">>,
+      <<"description">> => <<"Preferences for automatic reporting">>,
       <<"example">> => #{
         <<"serviceAcceptanceActPreferences">> => #{
           <<"scheduleID">> => 6,
@@ -9875,7 +9875,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"url">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"URL файла">>
+          <<"description">> => <<"URL of the file">>
         }
       }
     },
@@ -9885,18 +9885,18 @@ get_raw() ->
       <<"properties">> => #{
         <<"reportType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип отчета">>,
+          <<"description">> => <<"Type of report">>,
           <<"enum">> => [ <<"paymentRegistry">> ]
         },
         <<"fromTime">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Начало временного отрезка">>
+          <<"description">> => <<"Start of the time period">>
         },
         <<"toTime">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Конец временного отрезка">>
+          <<"description">> => <<"End of the time period">>
         }
       }
     },
@@ -9906,17 +9906,17 @@ get_raw() ->
       <<"properties">> => #{
         <<"position">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Наименование должности ЕИО/представителя">>
+          <<"description">> => <<"Name of the EIO/representative's position">>
         },
         <<"fullName">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"ФИО ЕИО/представителя">>
+          <<"description">> => <<"EIO/representative full name">>
         },
         <<"document">> => #{
           <<"$ref">> => <<"#/definitions/RepresentativeDocument">>
         }
       },
-      <<"description">> => <<"ЕИО/Представитель">>,
+      <<"description">> => <<"EIO/Representative">>,
       <<"example">> => #{
         <<"document">> => #{
           <<"representativeDocumentType">> => <<"ArticlesOfAssociation">>
@@ -9935,7 +9935,7 @@ get_raw() ->
           <<"enum">> => [ <<"ArticlesOfAssociation">>, <<"PowerOfAttorney">> ]
         }
       },
-      <<"description">> => <<"Документ, на основании которого действует ЕИО/представитель">>,
+      <<"description">> => <<"Document on the basis of which the EIO/representative acts">>,
       <<"example">> => #{
         <<"representativeDocumentType">> => <<"ArticlesOfAssociation">>
       },
@@ -9950,42 +9950,42 @@ get_raw() ->
         <<"properties">> => #{
           <<"registeredName">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Зарегистрированное наименование юридического лица\n">>,
+            <<"description">> => <<"Registered name of the legal entity\n">>,
             <<"maxLength">> => 100
           },
           <<"registeredNumber">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Регистрационный номер,\n[ОГРН](https://ru.wikipedia.org/wiki/Основной_государственный_регистрационный_номер) или\n[ОГРНИП](https://ru.wikipedia.org/wiki/Основной_государственный_регистрационный_номер_индивидуального_предпринимателя)\n">>,
+            <<"description">> => <<"OGRN – Major State Registration Number of the entry made in the Register about formation of a Russian company (consists of 12 digits).\n">>,
             <<"pattern">> => <<"^(\\d{13}|\\d{15})$">>
           },
           <<"inn">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"[ИНН](https://ru.wikipedia.org/wiki/Идентификационный_номер_налогоплательщика)\n">>,
+            <<"description">> => <<"[Russian taxpayer personal identification number (INN)](https://www.nalog.gov.ru/eng/exchinf/inn/)\n">>,
             <<"pattern">> => <<"^(\\d{10}|\\d{12})$">>
           },
           <<"actualAddress">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Почтовый адрес места нахождения\n">>,
+            <<"description">> => <<"Location postal address\n">>,
             <<"maxLength">> => 1000
           },
           <<"postAddress">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Почтовый адрес для отправки корреспонденции\n">>,
+            <<"description">> => <<"Postal address for sending correspondence\n">>,
             <<"maxLength">> => 1000
           },
           <<"representativePosition">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Наименование должности\n[ЕИО](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) или его представителя\n">>,
+            <<"description">> => <<"Job title [EIO](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) or its representative\n">>,
             <<"maxLength">> => 100
           },
           <<"representativeFullName">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"ФИО [ЕИО](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) или его представителя\n">>,
+            <<"description">> => <<"Full name of [EIO](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) or its representative\n">>,
             <<"maxLength">> => 100
           },
           <<"representativeDocument">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификационные данные документа, на основании которого действует\n[ЕИО](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) или его представитель\n">>,
+            <<"description">> => <<"Identification data of the document\n">>,
             <<"maxLength">> => 1000
           },
           <<"bankAccount">> => #{
@@ -9993,7 +9993,7 @@ get_raw() ->
           }
         }
       } ],
-      <<"description">> => <<"Юридическое лицо, ведущее деятельность под юрисдикцией РФ">>
+      <<"description">> => <<"Legal entity operating under the jurisdiction of the Russian Federation">>
     },
     <<"RussianPrivateEntity">> => #{
       <<"allOf">> => [ #{
@@ -10004,17 +10004,17 @@ get_raw() ->
         <<"properties">> => #{
           <<"firstName">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Имя">>,
+            <<"description">> => <<"Name">>,
             <<"maxLength">> => 200
           },
           <<"secondName">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Фамилия">>,
+            <<"description">> => <<"Surname">>,
             <<"maxLength">> => 200
           },
           <<"middleName">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Отчество">>,
+            <<"description">> => <<"Middle Name">>,
             <<"maxLength">> => 200
           },
           <<"contactInfo">> => #{
@@ -10022,7 +10022,7 @@ get_raw() ->
           }
         }
       } ],
-      <<"description">> => <<"Физическое лицо под юрисдикцией РФ">>
+      <<"description">> => <<"Private entity under the jurisdiction of the Russian Federation">>
     },
     <<"SamsungPay">> => #{
       <<"allOf">> => [ #{
@@ -10033,14 +10033,14 @@ get_raw() ->
         <<"properties">> => #{
           <<"serviceID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор сервиса в Samsung Pay">>
+            <<"description">> => <<"Samsung Pay service identifier">>
           },
           <<"referenceID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор токена в Samsung Pay">>
+            <<"description">> => <<"Samsung Pay reference indentifier">>
           }
         },
-        <<"description">> => <<"Платежные данные Samsung Pay">>
+        <<"description">> => <<"Samsung Pay data">>
       } ]
     },
     <<"Schedule">> => #{
@@ -10060,7 +10060,7 @@ get_raw() ->
           <<"maxLength">> => 1000
         }
       },
-      <<"description">> => <<"Расписание">>,
+      <<"description">> => <<"Schedule">>,
       <<"example">> => #{
         <<"name">> => <<"name">>,
         <<"description">> => <<"description">>,
@@ -10074,13 +10074,13 @@ get_raw() ->
         <<"scheduleID">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int32">>,
-          <<"description">> => <<"Идентификатор расписания выгрузок">>
+          <<"description">> => <<"Reporting schedule identifier">>
         },
         <<"signer">> => #{
           <<"$ref">> => <<"#/definitions/Representative">>
         }
       },
-      <<"description">> => <<"Настройки выгрузки актов">>,
+      <<"description">> => <<"Reporting settings">>,
       <<"example">> => #{
         <<"scheduleID">> => 6,
         <<"signer">> => #{
@@ -10098,19 +10098,19 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор провайдера в системе">>,
+          <<"description">> => <<"Service provider's identifier">>,
           <<"maxLength">> => 100
         },
         <<"brandName">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Nubank">>,
-          <<"description">> => <<"Название провайдера, под которым он известен широкой публике">>,
+          <<"description">> => <<"The name of the provider by which it is known to the general public\n">>,
           <<"maxLength">> => 100
         },
         <<"category">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"onlinebanking">>,
-          <<"description">> => <<"Категория провайдера.\nМожет использоваться для задач презентации, например для группировки\nдоступных методов оплаты по категории их провайдеров, если таковая известна.\n">>,
+          <<"description">> => <<"Provider сategory.\nCan be used for presentation tasks, such as grouping available payment methods by their provider category, if known.\n">>,
           <<"maxLength">> => 100
         },
         <<"metadata">> => #{
@@ -10127,11 +10127,11 @@ get_raw() ->
               }
             }
           },
-          <<"description">> => <<"Произвольные, разделённые по пространствам имён метаданные, дополнительно\nописывающие данного провайдера для различных потребителей.\n">>,
+          <<"description">> => <<"Arbitrary, namespace-separated metadata that further describes a given provider to various consumers.\n">>,
           <<"properties">> => #{ }
         }
       },
-      <<"description">> => <<"Провайдер платёжных сервисов.\n\nСторонняя организация, которая предоставляет платёжные услуги, например обслуживает\nсистему электронных кошельков или платёжных терминалов.\n">>,
+      <<"description">> => <<"Payment service provider.\nA third-party organization that provides payment services, such as maintaining a system of e-wallets or payment terminals.\n">>,
       <<"example">> => #{
         <<"brandName">> => <<"Nubank">>,
         <<"metadata">> => #{
@@ -10156,30 +10156,30 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор магазина">>
+          <<"description">> => <<"Shop ID">>
         },
         <<"createdAt">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Дата и время создания">>
+          <<"description">> => <<"Date and time of creation">>
         },
         <<"isBlocked">> => #{
           <<"type">> => <<"boolean">>,
-          <<"description">> => <<"Заблокирован ли магазин?">>
+          <<"description">> => <<"Is the shop blocked?">>
         },
         <<"isSuspended">> => #{
           <<"type">> => <<"boolean">>,
-          <<"description">> => <<"Приостановлены ли операции в рамках магазина?">>
+          <<"description">> => <<"Are operations suspended within the shop?">>
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Валюта, символьный код согласно [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).">>,
+          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
           <<"pattern">> => <<"^[A-Z]{3}$">>
         },
         <<"categoryID">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int32">>,
-          <<"description">> => <<"Идентификатор категории товаров и услуг, предлагаемых в этом магазине\n">>
+          <<"description">> => <<"Сategory identifier of goods and services offered in this shop\n">>
         },
         <<"location">> => #{
           <<"$ref">> => <<"#/definitions/ShopLocation">>
@@ -10189,19 +10189,19 @@ get_raw() ->
         },
         <<"contractID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор договора, на основании которого производится обслуживание\nмагазина\n">>
+          <<"description">> => <<"Contract identifier on the basis of which the shop is serviced\n">>
         },
         <<"payoutToolID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор средства вывода в рамках контракта, используемое в процессе\nвывода по магазину\n">>
+          <<"description">> => <<"Payout tool identifier within the contract used in the payout process by shop\n">>
         },
         <<"scheduleID">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int32">>,
-          <<"description">> => <<"Идентификатор расписания выводов">>
+          <<"description">> => <<"Payout schedule identifier">>
         }
       },
-      <<"description">> => <<"Данные магазина">>,
+      <<"description">> => <<"Shop details">>,
       <<"example">> => #{
         <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
         <<"isSuspended">> => true,
@@ -10227,12 +10227,12 @@ get_raw() ->
       <<"properties">> => #{
         <<"name">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Название магазина">>,
+          <<"description">> => <<"Shop name">>,
           <<"maxLength">> => 100
         },
         <<"description">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Краткое описание">>,
+          <<"description">> => <<"Short description">>,
           <<"maxLength">> => 1000
         }
       },
@@ -10248,10 +10248,10 @@ get_raw() ->
       <<"properties">> => #{
         <<"locationType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип местоположения">>
+          <<"description">> => <<"Location type">>
         }
       },
-      <<"description">> => <<"Местоположение магазина, по которому можно его найти">>,
+      <<"description">> => <<"The location of the shop, by which it can be found">>,
       <<"example">> => #{
         <<"locationType">> => <<"locationType">>
       }
@@ -10266,12 +10266,12 @@ get_raw() ->
           <<"url">> => #{
             <<"type">> => <<"string">>,
             <<"format">> => <<"uri">>,
-            <<"description">> => <<"URL сайта магазина">>,
+            <<"description">> => <<"Shop URL">>,
             <<"maxLength">> => 1000
           }
         }
       } ],
-      <<"description">> => <<"Местоположение в Интернете">>
+      <<"description">> => <<"Shop location as a url on the Internet">>
     },
     <<"SubError">> => #{
       <<"type">> => <<"object">>,
@@ -10279,13 +10279,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Детализация кода ошибки">>
+          <<"description">> => <<"Details of the error code">>
         },
         <<"subError">> => #{
           <<"$ref">> => <<"#/definitions/SubError">>
         }
       },
-      <<"description">> => <<"Детализация описания ошибки\n">>,
+      <<"description">> => <<"Detailed description of the error\n">>,
       <<"example">> => #{
         <<"code">> => <<"code">>
       }
@@ -10303,7 +10303,7 @@ get_raw() ->
             <<"enum">> => [ <<"ApplePay">>, <<"GooglePay">>, <<"SamsungPay">>, <<"YandexPay">> ]
           }
         },
-        <<"description">> => <<"Токенизированная банковская карта">>
+        <<"description">> => <<"Tokenized bank card">>
       } ]
     },
     <<"TradeBloc">> => #{
@@ -10322,7 +10322,7 @@ get_raw() ->
           <<"maxLength">> => 1000
         }
       },
-      <<"description">> => <<"Торговый Блок">>,
+      <<"description">> => <<"Trade bloc">>,
       <<"example">> => #{
         <<"name">> => <<"name">>,
         <<"description">> => <<"description">>,
@@ -10342,7 +10342,7 @@ get_raw() ->
           <<"description">> => <<"Authorization Approval Code">>
         }
       },
-      <<"description">> => <<"Информация о транзакции">>,
+      <<"description">> => <<"Transaction Info">>,
       <<"example">> => #{
         <<"approvalCode">> => <<"approvalCode">>,
         <<"rrn">> => <<"rrn">>
@@ -10355,13 +10355,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"interactionType">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Тип взаимодействия с пользователем">>
+          <<"description">> => <<"Type of interaction with the user">>
         }
       }
     },
     <<"UserInteractionForm">> => #{
       <<"type">> => <<"array">>,
-      <<"description">> => <<"Форма для отправки средствами браузера">>,
+      <<"description">> => <<"Browser submission form">>,
       <<"items">> => #{
         <<"$ref">> => <<"#/definitions/UserInteractionForm_inner">>
       }
@@ -10372,12 +10372,12 @@ get_raw() ->
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Идентификатор webhook'а\n">>,
+          <<"description">> => <<"Identifier of the webhook\n">>,
           <<"readOnly">> => true
         },
         <<"active">> => #{
           <<"type">> => <<"boolean">>,
-          <<"description">> => <<"Включена ли в данный момент доставка оповещений?\n">>,
+          <<"description">> => <<"Is notification delivery currently enabled?\n">>,
           <<"readOnly">> => true
         },
         <<"scope">> => #{
@@ -10385,21 +10385,21 @@ get_raw() ->
         },
         <<"partyID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Уникальный в рамках платформы идентификатор участника.">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
           <<"minLength">> => 1,
           <<"maxLength">> => 40
         },
         <<"url">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"http-url">>,
-          <<"description">> => <<"URL, на который будут поступать оповещения о произошедших событиях\n">>,
+          <<"description">> => <<"The URL that will receive notifications of events that have occurred\n">>,
           <<"maxLength">> => 1000
         },
         <<"publicKey">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"hexadecimal">>,
           <<"example">> => <<"MIGJAoGBAM1fmNUvezts3yglTdhXuqG7OhHxQtDFA+Ss//YuUGjw5ossDbEMoS+SIFuYZ/UL9Xg0rEHNRSbmf48OK+mz0FobEtbji8MADayzGfFopXsfRFa7MVy3Uhu5jBDpLsN3DyJapAkK0TAYINlZXxVjDwxRNheTvC+xub5WNdiwc28fAgMBAAE=">>,
-          <<"description">> => <<"Содержимое публичного ключа, служащего для проверки авторитативности\nприходящих на `url` оповещений\n">>,
+          <<"description">> => <<"The content of the public key used to check the authoritativeness of notifications coming to `url`\n">>,
           <<"readOnly">> => true
         }
       },
@@ -10421,11 +10421,11 @@ get_raw() ->
       <<"properties">> => #{
         <<"topic">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Предмет оповещений">>,
+          <<"description">> => <<"Subject of notifications">>,
           <<"enum">> => [ <<"InvoicesTopic">>, <<"CustomersTopic">> ]
         }
       },
-      <<"description">> => <<"Область охвата webhook'а, ограничивающая набор типов событий, по которым\nследует отправлять оповещения\n">>,
+      <<"description">> => <<"The scope of a webhook, limiting the list of event types, for which the notifications should be sent\n">>,
       <<"example">> => #{
         <<"topic">> => <<"InvoicesTopic">>
       },
@@ -10440,15 +10440,15 @@ get_raw() ->
         <<"properties">> => #{
           <<"gatewayMerchantID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Идентификатор мерчанта в системе">>
+            <<"description">> => <<"Merchant identifier in the system">>
           },
           <<"paymentToken">> => #{
             <<"type">> => <<"object">>,
-            <<"description">> => <<"Совокупность открытых и зашифрованных платежных данных">>,
+            <<"description">> => <<"Aggregate of open and encrypted payment data">>,
             <<"properties">> => #{ }
           }
         },
-        <<"description">> => <<"Платежные данные Yandex Pay">>
+        <<"description">> => <<"Yandex Pay data">>
       } ]
     },
     <<"inline_response_200">> => #{
@@ -10456,7 +10456,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"continuationToken">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Токен, сигнализирующий о том, что в ответе передана только часть данных.\nДля получения следующей части нужно повторно обратиться к сервису, указав тот-же набор условий и полученый токен.\nЕсли токена нет, получена последняя часть данных.\n">>
+          <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response.\nTo receive the next part of the data, it is necessary to reapply to the service, specifying the same list of conditions and the received token. If there is no token, the last part of data is received.\n">>
         },
         <<"result">> => #{
           <<"type">> => <<"array">>,
@@ -10519,7 +10519,7 @@ get_raw() ->
       <<"properties">> => #{
         <<"continuationToken">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Токен, сигнализирующий о том, что в ответе передана только часть данных.\nДля получения следующей части нужно повторно обратиться к сервису, указав тот-же набор условий и полученый токен.\nЕсли токена нет, получена последняя часть данных.\n">>
+          <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response.\nTo receive the next part of the data, it is necessary to reapply to the service, specifying the same list of conditions and the received token. If there is no token, the last part of data is received.\n">>
         },
         <<"result">> => #{
           <<"type">> => <<"array">>,
@@ -10599,13 +10599,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"operationNotPermitted">>, <<"invalidPartyID">>, <<"invalidShopID">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"ambiguousPartyID">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Operation not permitted">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10615,13 +10615,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidRequest">>, <<"invalidDeadline">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Invalid party status">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10631,13 +10631,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPaymentResource">>, <<"operationNotPermitted">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidPaymentToolToken">>, <<"invalidPaymentSession">>, <<"invalidRequest">>, <<"invalidDeadline">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Invalid payment resource">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10647,13 +10647,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPartyID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidShopID">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"ambiguousPartyID">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Lifetime cannot be zero">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10663,13 +10663,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"invalidRequest">>, <<"invalidDeadline">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Invalid party status">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10679,13 +10679,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invoiceTermsViolated">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Invalid party status">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10695,13 +10695,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPartyID">>, <<"invalidShopID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"invalidAllocation">>, <<"allocationNotPermitted">>, <<"invalidInvoiceCost">>, <<"invoiceTermsViolated">>, <<"ambiguousPartyID">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Shop not found or inaccessible">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10711,13 +10711,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidInvoiceStatus">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidRequest">>, <<"invalidDeadline">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Invalid invoice status">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10727,13 +10727,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidInvoiceStatus">>, <<"invoicePaymentPending">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidContractStatus">>, <<"invalidPaymentToolToken">>, <<"invalidPaymentSession">>, <<"invalidProcessingDeadline">>, <<"invalidRecurrentParent">>, <<"operationNotPermitted">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Invalid invoice status">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10743,13 +10743,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPaymentStatus">>, <<"operationNotPermitted">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidRequest">>, <<"invalidDeadline">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Invalid payment status">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10759,13 +10759,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPaymentStatus">>, <<"operationNotPermitted">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidInvoiceCart">>, <<"invalidAllocation">>, <<"allocationNotPermitted">>, <<"inconsistentCaptureCurrency">>, <<"amountExceededCaptureBalance">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Invalid payment status">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10775,13 +10775,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidContractStatus">>, <<"invalidInvoiceCart">>, <<"invalidAllocation">>, <<"allocationNotPermitted">>, <<"operationNotPermitted">>, <<"invalidPaymentStatus">>, <<"insufficentAccountBalance">>, <<"invoicePaymentAmountExceeded">>, <<"inconsistentRefundCurrency">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"chargebackInProgress">>, <<"refundCartConflict">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Operation not permitted">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10791,13 +10791,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidInvoiceStatus">>, <<"invoicePaymentPending">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidRequest">>, <<"invalidDeadline">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Invalid invoice status">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10807,13 +10807,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPartyID">>, <<"invalidPayoutTool">>, <<"invalidCash">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"ambiguousPartyID">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"invalid payout id">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10823,13 +10823,13 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"[Код ошибки](#tag/Error-Codes)\n">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPartyID">>, <<"invalidShopID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"ambiguousPartyID">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Shop not found or inaccessible">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10840,7 +10840,7 @@ get_raw() ->
         <<"message">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Webhook limit exceeded">>,
-          <<"description">> => <<"Человекочитаемое описание ошибки">>
+          <<"description">> => <<"Human-readable description of the error">>
         }
       }
     },
@@ -10853,7 +10853,7 @@ get_raw() ->
           <<"enum">> => [ <<"AllocationTargetShop">> ]
         }
       },
-      <<"description">> => <<"Назначение транзакции">>
+      <<"description">> => <<"Target of the transaction">>
     },
     <<"BankCard_tokenProviderData">> => #{
       <<"type">> => <<"object">>
@@ -10864,11 +10864,11 @@ get_raw() ->
         <<"redirectUrl">> => #{
           <<"type">> => <<"string">>,
           <<"format">> => <<"uri-template">>,
-          <<"description">> => <<"URL ресурса, на который нужно перенаправить плательщика по завершении\nс ним взаимодействия в браузере, например проведения предавторизации платежа\nпо протоколу 3D Secure 2.0 и выше, в том случае, если подобное взаимодействие\nпотребуется.\n">>,
+          <<"description">> => <<"URL of the resource to which the payer should be redirected upon completion of interaction with it in the browser, for example, preauthorization of payment using 3D Secure 2.0 protocol, if such interaction is required.\n">>,
           <<"maxLength">> => 2000
         }
       },
-      <<"description">> => <<"Данные текущей сессии плательщика">>,
+      <<"description">> => <<"Payer's current session data">>,
       <<"example">> => #{
         <<"redirectUrl">> => <<"redirectUrl">>
       }
@@ -10879,14 +10879,14 @@ get_raw() ->
       <<"properties">> => #{
         <<"code">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Код ошибки, пригодный для обработки автоматическими системами">>
+          <<"description">> => <<"Error code for automatic processing">>
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Описание ошибки, пригодное для восприятия человеком">>
+          <<"description">> => <<"Human-readable error description">>
         }
       },
-      <<"description">> => <<"Данные ошибки, возникшей в процессе проведения возврата, в случае если\nвозврат был неуспешен\n">>,
+      <<"description">> => <<"Data of the error that occurred during the refund process, if the refund was unsuccessful\n">>,
       <<"example">> => #{
         <<"code">> => <<"code">>,
         <<"message">> => <<"message">>
@@ -10898,11 +10898,11 @@ get_raw() ->
       <<"properties">> => #{
         <<"key">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Значение ключа элемента формы, которую необходимо отправить средствами\nбраузера\n">>
+          <<"description">> => <<"The value of the key of the form element to be send by means of browser\n">>
         },
         <<"template">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Шаблон значения элемента формы\nШаблон представлен согласно стандарту\n[RFC6570](https://tools.ietf.org/html/rfc6570).\n">>
+          <<"description">> => <<"The template for the form element value\nThe template is presented according to the standard [RFC6570](https://tools.ietf.org/html/rfc6570).\n">>
         }
       }
     }
@@ -10911,7 +10911,7 @@ get_raw() ->
     <<"requestID">> => #{
       <<"name">> => <<"X-Request-ID">>,
       <<"in">> => <<"header">>,
-      <<"description">> => <<"Уникальный идентификатор запроса к системе">>,
+      <<"description">> => <<"Unique identifier of the request to the system">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 32,
@@ -10920,7 +10920,7 @@ get_raw() ->
     <<"shopID">> => #{
       <<"name">> => <<"shopID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор магазина">>,
+      <<"description">> => <<"Shop ID">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -10929,7 +10929,7 @@ get_raw() ->
     <<"invoiceTemplateID">> => #{
       <<"name">> => <<"invoiceTemplateID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор шаблона инвойса">>,
+      <<"description">> => <<"Invoice template ID">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -10938,7 +10938,7 @@ get_raw() ->
     <<"paymentID">> => #{
       <<"name">> => <<"paymentID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор платежа в рамках инвойса">>,
+      <<"description">> => <<"Invoice payment identifier">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -10947,7 +10947,7 @@ get_raw() ->
     <<"refundID">> => #{
       <<"name">> => <<"refundID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор возврата в рамках платежа">>,
+      <<"description">> => <<"Refund identifier within the payment">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -10956,7 +10956,7 @@ get_raw() ->
     <<"chargebackID">> => #{
       <<"name">> => <<"chargebackID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор возвратного платежа в рамках платежа">>,
+      <<"description">> => <<"Chargeback identifier within the payment">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -10965,7 +10965,7 @@ get_raw() ->
     <<"contractID">> => #{
       <<"name">> => <<"contractID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор договора">>,
+      <<"description">> => <<"Contract ID">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -10974,7 +10974,7 @@ get_raw() ->
     <<"residence">> => #{
       <<"name">> => <<"residence">>,
       <<"in">> => <<"query">>,
-      <<"description">> => <<"Резиденция, alpha-3 код по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)">>,
+      <<"description">> => <<"Residence, alpha-3 code according to standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
       <<"required">> => false,
       <<"type">> => <<"string">>,
       <<"pattern">> => <<"^[A-Z]{3}$">>
@@ -10982,7 +10982,7 @@ get_raw() ->
     <<"customerID">> => #{
       <<"name">> => <<"customerID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор кастомера">>,
+      <<"description">> => <<"Customer ID">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -10991,7 +10991,7 @@ get_raw() ->
     <<"customerBindingID">> => #{
       <<"name">> => <<"customerBindingID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор привязки к кастомера">>,
+      <<"description">> => <<"Customer binding identifier">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -11000,7 +11000,7 @@ get_raw() ->
     <<"webhookID">> => #{
       <<"name">> => <<"webhookID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор webhook'а">>,
+      <<"description">> => <<"Webhook identifier">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -11009,7 +11009,7 @@ get_raw() ->
     <<"adjustmentID">> => #{
       <<"name">> => <<"adjustmentID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор поправки к договору">>,
+      <<"description">> => <<"Contract adjustment identifier">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -11018,7 +11018,7 @@ get_raw() ->
     <<"payoutToolID">> => #{
       <<"name">> => <<"payoutToolID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор средства вывода">>,
+      <<"description">> => <<"Payout tool ID">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -11027,7 +11027,7 @@ get_raw() ->
     <<"payoutID">> => #{
       <<"name">> => <<"payoutID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор вывода">>,
+      <<"description">> => <<"Withdrawal ID">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -11036,7 +11036,7 @@ get_raw() ->
     <<"invoiceID">> => #{
       <<"name">> => <<"invoiceID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор инвойса">>,
+      <<"description">> => <<"Invoice ID">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -11053,7 +11053,7 @@ get_raw() ->
     <<"serviceProviderID">> => #{
       <<"name">> => <<"serviceProviderID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор провайдера платёжных сервисов в системе">>,
+      <<"description">> => <<"Service provider identifier">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 100,
@@ -11062,7 +11062,7 @@ get_raw() ->
     <<"fromTime">> => #{
       <<"name">> => <<"fromTime">>,
       <<"in">> => <<"query">>,
-      <<"description">> => <<"Начало временного отрезка">>,
+      <<"description">> => <<"Start of the time period">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"format">> => <<"date-time">>
@@ -11070,7 +11070,7 @@ get_raw() ->
     <<"toTime">> => #{
       <<"name">> => <<"toTime">>,
       <<"in">> => <<"query">>,
-      <<"description">> => <<"Конец временного отрезка">>,
+      <<"description">> => <<"End of the time period">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"format">> => <<"date-time">>
@@ -11078,7 +11078,7 @@ get_raw() ->
     <<"limit">> => #{
       <<"name">> => <<"limit">>,
       <<"in">> => <<"query">>,
-      <<"description">> => <<"Лимит выборки">>,
+      <<"description">> => <<"Selection limit">>,
       <<"required">> => true,
       <<"type">> => <<"integer">>,
       <<"maximum">> => 1000,
@@ -11088,7 +11088,7 @@ get_raw() ->
     <<"offset">> => #{
       <<"name">> => <<"offset">>,
       <<"in">> => <<"query">>,
-      <<"description">> => <<"Смещение выборки">>,
+      <<"description">> => <<"Query offset">>,
       <<"required">> => false,
       <<"type">> => <<"integer">>,
       <<"minimum">> => 0
@@ -11096,7 +11096,7 @@ get_raw() ->
     <<"deadline">> => #{
       <<"name">> => <<"X-Request-Deadline">>,
       <<"in">> => <<"header">>,
-      <<"description">> => <<"Максимальное время обработки запроса">>,
+      <<"description">> => <<"Maximum request processing time">>,
       <<"required">> => false,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,
@@ -11105,14 +11105,14 @@ get_raw() ->
     <<"partyID">> => #{
       <<"name">> => <<"partyID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Уникальный в рамках системы идентификатор участника.">>,
+      <<"description">> => <<"The participant's unique identifier within the system.">>,
       <<"required">> => true,
       <<"type">> => <<"string">>
     },
     <<"countryID">> => #{
       <<"name">> => <<"countryID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Alpha-3 код страны по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)">>,
+      <<"description">> => <<" Alpha-3 country code by standard [ISO 3166-1] (https://en.wikipedia.org/wiki/ISO_3166-1)">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"pattern">> => <<"^[A-Z]{3}$">>
@@ -11120,29 +11120,29 @@ get_raw() ->
     <<"tradeBlocID">> => #{
       <<"name">> => <<"tradeBlocID">>,
       <<"in">> => <<"path">>,
-      <<"description">> => <<"Идентификатор торгового блока">>,
+      <<"description">> => <<"Trade bloc identifier">>,
       <<"required">> => true,
       <<"type">> => <<"string">>
     }
   },
   <<"responses">> => #{
     <<"NotFound">> => #{
-      <<"description">> => <<"Заданный ресурс не найден">>,
+      <<"description">> => <<"Target resource not found">>,
       <<"schema">> => #{
         <<"$ref">> => <<"#/definitions/GeneralError">>
       }
     },
     <<"Unauthorized">> => #{
-      <<"description">> => <<"Ошибка авторизации">>
+      <<"description">> => <<"Authorization error">>
     },
     <<"DefaultLogicError">> => #{
-      <<"description">> => <<"Неверные данные">>,
+      <<"description">> => <<"Invalid data">>,
       <<"schema">> => #{
         <<"$ref">> => <<"#/definitions/DefaultLogicError">>
       }
     },
     <<"ExternalIDConflict">> => #{
-      <<"description">> => <<"Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса">>,
+      <<"description">> => <<"The passed value `externalID` has already been used by you with other query parameters">>,
       <<"schema">> => #{
         <<"$ref">> => <<"#/definitions/ExternalIDConflictError">>
       }
