@@ -7,7 +7,7 @@ properties:
   target:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/AllocationTarget'
+        $ref: "#/definitions/AllocationTarget"
       - 
         readOnly: true
   allocationFeeType:
