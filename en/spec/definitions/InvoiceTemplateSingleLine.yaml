@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/InvoiceTemplateDetails'
+    $ref: "#/definitions/InvoiceTemplateDetails"
   - 
     type: object
     required:
@@ -13,6 +13,6 @@ allOf:
         type: string
         maxLength: 100
       price:
-        $ref: '#/definitions/InvoiceTemplateLineCost'
+        $ref: "#/definitions/InvoiceTemplateLineCost"
       taxMode:
-        $ref: '#/definitions/InvoiceLineTaxMode'
+        $ref: "#/definitions/InvoiceLineTaxMode"
