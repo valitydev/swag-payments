@@ -4,4 +4,4 @@ properties:
   cryptoCurrency:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/CryptoCurrency'
+        $ref: "#/definitions/CryptoCurrency"
