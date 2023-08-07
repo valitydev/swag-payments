@@ -12,10 +12,10 @@ x-merge-properties:
       externalID:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/ExternalID'
+            $ref: "#/definitions/ExternalID"
           - 
             description: External customer binding identifier
       paymentResource:
-        $ref: '#/definitions/PaymentResource'
+        $ref: "#/definitions/PaymentResource"
   - 
-    $ref: '#/definitions/CustomerBindingStatus'
+    $ref: "#/definitions/CustomerBindingStatus"
