@@ -7,9 +7,8 @@ properties:
     type: string
     pattern: '^\d{0,6}\*+\d{0,4}$'
   first6:
-    description: |
+    description: >
       First digits of the card number.
-
       Absent for tokenized payment methods.
     type: string
     pattern: '^\d{6}$'
@@ -20,12 +19,12 @@ properties:
   paymentSystem:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/BankCardPaymentSystem'
+        $ref: "#/definitions/BankCardPaymentSystem"
   tokenProvider:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/BankCardTokenProvider'
+        $ref: "#/definitions/BankCardTokenProvider"
   tokenizationMethod:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/BankCardTokenizationMethod'
+        $ref: "#/definitions/BankCardTokenizationMethod"
