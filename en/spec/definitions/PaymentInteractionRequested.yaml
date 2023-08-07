@@ -1,10 +1,10 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/InvoiceChange'
+    $ref: "#/definitions/InvoiceChange"
   - 
     type: object
-    description: |
+    description: >
       Require interaction with the customer to continue the payment process
     required:
       - paymentID
@@ -14,4 +14,4 @@ allOf:
         description: Payment ID
         type: string
       userInteraction:
-        $ref: '#/definitions/UserInteraction'
+        $ref: "#/definitions/UserInteraction"
