@@ -1,4 +1,4 @@
-description: |
+description: >
   Detailed description of the error
 type: object
 required:
@@ -8,4 +8,4 @@ properties:
     description: Details of the error code
     type: string
   subError:
-    $ref: '#/definitions/SubError'
+    $ref: "#/definitions/SubError"
