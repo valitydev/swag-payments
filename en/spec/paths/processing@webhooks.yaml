@@ -5,24 +5,24 @@ post:
   operationId: createWebhook
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
       name: webhookParams
       description: Parameters of the installed webhook
       in: body
       required: true
       schema:
-        $ref: '#/definitions/Webhook'
+        $ref: "#/definitions/Webhook"
   responses:
-    '201':
+    "201":
       description: Webhook is set
       schema:
-        $ref: '#/definitions/Webhook'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '429':
+        $ref: "#/definitions/Webhook"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "429":
       description: The limit on the number of installed webhooks has been exceeded
       schema:
         type: object
@@ -33,7 +33,7 @@ post:
             description: Human-readable description of the error
             type: string
             example: Webhook limit exceeded
-    '400':
+    "400":
       description: Invalid webhook data
       schema:
         type: object
@@ -42,7 +42,7 @@ post:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
@@ -56,23 +56,23 @@ post:
             type: string
             example: Shop not found or inaccessible
 get:
-  description: Get set of installed webhooks.
+  description: Get list of installed webhooks.
   tags:
     - Webhooks
   operationId: getWebhooks
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
   responses:
-    '200':
-      description: A set of webhooks
+    "200":
+      description: A list of webhooks
       schema:
         type: array
         items:
-          $ref: '#/definitions/Webhook'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/Webhook"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
