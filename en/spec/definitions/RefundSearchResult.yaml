@@ -13,4 +13,4 @@ allOf:
         description: Payment ID
         type: string
   - 
-    $ref: '#/definitions/Refund'
+    $ref: "#/definitions/Refund"
