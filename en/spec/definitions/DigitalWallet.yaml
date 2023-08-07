@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PaymentMethod'
+    $ref: "#/definitions/PaymentMethod"
   - 
     type: object
     required:
@@ -13,4 +13,4 @@ allOf:
         items:
           x-rebillyMerge:
             - 
-              $ref: '#/definitions/DigitalWalletProvider'
+              $ref: "#/definitions/DigitalWalletProvider"
