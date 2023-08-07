@@ -5,28 +5,28 @@ post:
   operationId: createBinding
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/customerID'
+      $ref: "#/parameters/customerID"
     - 
       name: bindingParams
       description: Parameters of the created binding
       in: body
       required: true
       schema:
-        $ref: '#/definitions/CustomerBindingParams'
+        $ref: "#/definitions/CustomerBindingParams"
   responses:
-    '201':
+    "201":
       description: Binding started
       schema:
-        $ref: '#/definitions/CustomerBinding'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
+        $ref: "#/definitions/CustomerBinding"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
       description: Invalid binding data
       schema:
         type: object
@@ -35,7 +35,7 @@ post:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
@@ -51,8 +51,8 @@ post:
             description: Human-readable description of the error
             type: string
             example: Invalid payment resource
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
+    "409":
+      $ref: "#/responses/ExternalIDConflict"
 get:
   description: Get all payer bindings.
   tags:
@@ -60,21 +60,21 @@ get:
   operationId: getBindings
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/customerID'
+      $ref: "#/parameters/customerID"
   responses:
-    '200':
+    "200":
       description: List of bindings
       schema:
         type: array
         items:
-          $ref: '#/definitions/CustomerBinding'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/CustomerBinding"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
