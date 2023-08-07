@@ -5,28 +5,28 @@ post:
   operationId: createInvoiceWithTemplate
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/invoiceTemplateID'
+      $ref: "#/parameters/invoiceTemplateID"
     - 
       name: invoiceParamsWithTemplate
       description: Invoice parameters
       in: body
       required: true
       schema:
-        $ref: '#/definitions/InvoiceParamsWithTemplate'
+        $ref: "#/definitions/InvoiceParamsWithTemplate"
   responses:
-    '201':
+    "201":
       description: Invoice created
       schema:
-        $ref: '#/definitions/InvoiceAndToken'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
+        $ref: "#/definitions/InvoiceAndToken"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
       description: Invalid data for invoice creation
       schema:
         type: object
@@ -35,7 +35,7 @@ post:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
@@ -48,5 +48,5 @@ post:
             description: Human-readable description of the error
             type: string
             example: Invalid party status
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
+    "409":
+      $ref: "#/responses/ExternalIDConflict"
