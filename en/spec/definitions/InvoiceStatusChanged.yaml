@@ -1,6 +1,6 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/InvoiceChange'
+    $ref: "#/definitions/InvoiceChange"
   - 
-    $ref: '#/definitions/InvoiceStatus'
+    $ref: "#/definitions/InvoiceStatus"
