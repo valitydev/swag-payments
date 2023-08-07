@@ -33,11 +33,11 @@ properties:
     type: string
     format: date-time
   contractor:
-    $ref: '#/definitions/Contractor'
+    $ref: "#/definitions/Contractor"
   legalAgreement:
-    $ref: '#/definitions/LegalAgreement'
+    $ref: "#/definitions/LegalAgreement"
   paymentInstitutionID:
     type: integer
     format: int32
   reportingPreferences:
-    $ref: '#/definitions/ReportingPreferences'
+    $ref: "#/definitions/ReportingPreferences"
