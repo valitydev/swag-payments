@@ -5,9 +5,9 @@ get:
   operationId: getCategoryByRef
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
       name: categoryID
       in: path
@@ -16,13 +16,13 @@ get:
       type: integer
       format: int32
   responses:
-    '200':
+    "200":
       description: Category found
       schema:
-        $ref: '#/definitions/Category'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/Category"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
