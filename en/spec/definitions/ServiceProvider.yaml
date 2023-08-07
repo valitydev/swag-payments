@@ -1,6 +1,5 @@
-description: |
+description: >
   Payment service provider.
-
   A third-party organization that provides payment services, such as maintaining a system of e-wallets or payment terminals.
 type: object
 required:
@@ -11,19 +10,20 @@ properties:
     type: string
     maxLength: 100
   brandName:
-    description: The name of the provider by which it is known to the general public
+    description: >
+      The name of the provider by which it is known to the general public
     type: string
     maxLength: 100
-    example: 'Nubank'
+    example: "Nubank"
   category:
-    description: |
+    description: >
       Provider сategory.
       Can be used for presentation tasks, such as grouping available payment methods by their provider category, if known.
     type: string
     maxLength: 100
-    example: 'onlinebanking'
+    example: "onlinebanking"
   metadata:
-    description: |
+    description: >
       Arbitrary, namespace-separated metadata that further describes a given provider to various consumers.
     type: object
     example:
@@ -32,4 +32,4 @@ properties:
           banner: "/assets/brands/paypal.svg"
         localization:
           name:
-            'ja_JP': 'ヱヴァンゲリヲン'
+            "ja_JP": "ヱヴァンゲリヲン"
