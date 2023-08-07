@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/InvoiceTemplateLineCost'
+    $ref: "#/definitions/InvoiceTemplateLineCost"
   - 
     type: object
     required:
@@ -11,9 +11,9 @@ allOf:
       currency:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/Currency'
+            $ref: "#/definitions/Currency"
       amount:
-        description: |
+        description: >
           The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
         type: integer
         format: int64
