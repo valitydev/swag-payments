@@ -1,5 +1,5 @@
 post:
-  description: Перевести инвойс в состояние "Отменен" со статусом "Аннулирован".
+  description: Set the invoice to "Rescind"
   tags:
     - Invoices
   operationId: rescindInvoice
