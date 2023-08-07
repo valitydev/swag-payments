@@ -5,11 +5,13 @@ properties:
   externalID:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/ExternalID'
+        $ref: "#/definitions/ExternalID"
       - 
-        description: The passed value of `externalID` for which a request parameter conflict was detected
+        description: >
+           The passed value of `externalID` for which a request parameter conflict was detected
   id:
-    description: Identifier of the content, created by a previous query with the specified `externalID'
+    description: >
+      Identifier of the content, created by a previous query with the specified `externalID'
     type: string
   message:
     description: Human-readable description of the error
