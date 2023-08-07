@@ -1,8 +1,8 @@
-description: |
+description: >
   Scope that includes customer events within a specific shop
 allOf:
   - 
-    $ref: '#/definitions/WebhookScope'
+    $ref: "#/definitions/WebhookScope"
   - 
     type: object
     required:
@@ -15,7 +15,7 @@ allOf:
         maxLength: 40
         minLength: 1
       eventTypes:
-        description: Set of customer event types to be notified about
+        description: List of customer event types to be notified about
         type: array
         items:
           type: string
