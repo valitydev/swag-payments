@@ -26,23 +26,23 @@ properties:
   currency:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/Currency'
+        $ref: "#/definitions/Currency"
   categoryID:
-    description: |
+    description: >
       Сategory identifier of goods and services offered in this shop
     type: integer
     format: int32
   location:
-    $ref: '#/definitions/ShopLocation'
+    $ref: "#/definitions/ShopLocation"
   details:
-    $ref: '#/definitions/ShopDetails'
+    $ref: "#/definitions/ShopDetails"
   contractID:
-    description: |
+    description: >
       Contract identifier on the basis of which the shop is serviced
     type: string
   payoutToolID:
-    description: |
-      Payout tool identifier within the contract used in the withdrawal process by shop
+    description: >
+      Payout tool identifier within the contract used in the payout process by shop
     type: string
   scheduleID:
     description: Payout schedule identifier
