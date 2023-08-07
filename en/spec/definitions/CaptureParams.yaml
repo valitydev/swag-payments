@@ -1,13 +1,13 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/Reason'
+    $ref: "#/definitions/Reason"
   - 
     type: object
     description: Data of captured payment amount
     properties:
       amount:
-        description: |
+        description: >
           Captured payment amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
         type: integer
         format: int64
@@ -15,17 +15,17 @@ allOf:
       currency:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/Currency'
+            $ref: "#/definitions/Currency"
       cart:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/InvoiceCart'
+            $ref: "#/definitions/InvoiceCart"
           - 
             description: A shopping cart with a list of items of **provided** goods or services
       allocation:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/Allocation'
+            $ref: "#/definitions/Allocation"
           - 
             description: >
-              Final cash allocation
+               Final cash allocation
