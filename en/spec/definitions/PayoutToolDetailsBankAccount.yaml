@@ -1,6 +1,6 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PayoutToolDetails'
+    $ref: "#/definitions/PayoutToolDetails"
   - 
-    $ref: '#/definitions/BankAccount'
+    $ref: "#/definitions/BankAccount"
