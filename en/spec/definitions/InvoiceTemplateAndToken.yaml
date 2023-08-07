@@ -4,6 +4,6 @@ required:
   - invoiceTemplateAccessToken
 properties:
   invoiceTemplate:
-    $ref: '#/definitions/InvoiceTemplate'
+    $ref: "#/definitions/InvoiceTemplate"
   invoiceTemplateAccessToken:
-    $ref: '#/definitions/AccessToken'
+    $ref: "#/definitions/AccessToken"
