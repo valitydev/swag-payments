@@ -1,10 +1,5 @@
-description: |
+description: >
   Cryptocurrency payment method.
-
   The list of cryptocurrencies available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
 type: string
 example: BTC
-#enum:
-#- BTC
-#- LTC
-#- ETH
