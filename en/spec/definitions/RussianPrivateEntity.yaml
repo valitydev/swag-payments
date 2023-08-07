@@ -2,7 +2,7 @@ description: Private entity under the jurisdiction of the Russian Federation
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PrivateEntity'
+    $ref: "#/definitions/PrivateEntity"
   - 
     type: object
     required:
@@ -24,4 +24,4 @@ allOf:
         type: string
         maxLength: 200
       contactInfo:
-        $ref: '#/definitions/ContactInfo'
+        $ref: "#/definitions/ContactInfo"
