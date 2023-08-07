@@ -1,6 +1,5 @@
-description: |
+description: >
   The tax mode for the proposed good or service.
-
   To be specified only if the proposed good or service is taxable.
 type: object
 discriminator: type
