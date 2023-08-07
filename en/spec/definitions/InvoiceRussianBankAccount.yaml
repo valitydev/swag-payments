@@ -1,9 +1,9 @@
 allOf:
   - 
-    $ref: '#/definitions/InvoiceBankAccount'
+    $ref: "#/definitions/InvoiceBankAccount"
   - 
     type: object
-    description: |
+    description: >
       Data of a settlement account in a banking organization operating under the jurisdiction of the Russian Federation.
     required:
       - account
