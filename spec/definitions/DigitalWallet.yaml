@@ -1,13 +1,13 @@
 type: object
 allOf:
-  - $ref: '#/definitions/PaymentMethod'
+  - $ref: "#/definitions/PaymentMethod"
   - type: object
     required:
       - providers
     properties:
       providers:
-        description: Список провайдеров электронных денежных средств
+        description: List of E-wallet providers
         type: array
         items:
           x-rebillyMerge:
-            - $ref: '#/definitions/DigitalWalletProvider'
+            - $ref: "#/definitions/DigitalWalletProvider"

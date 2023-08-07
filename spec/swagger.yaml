@@ -1,62 +1,62 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   version: 2.0.1
   title: Vality Payments API
-  description: |
+  description: >
 
-    ## Описание
+    ## Description
 
-    Vality Payments API предназначен для мерчантов, принимающих платежи из своего пользовательского
-    интерфейса, например веб-сайта или мобильного приложения, и является единственной точкой
-    взаимодействия с системой для проведения операций оплаты товаров и услуг.
+    API is designed for the merchants who accept payments via user interface
+    such as a website or a mobile app and it is the only interaction point with
+    the system for goods and services payment transactions.
 
-    ## Детали взаимодействия
+    ## Interaction details
 
-    При любом обращении к API в заголовке `X-Request-ID` соответствующего запроса необходимо
-    передать его уникальный идентификатор:
+    Whenever an API is accessed, its unique ID must be passed in the header
+    X-Request-ID of the corresponding request:
 
     ```
      X-Request-ID: 37d735d4-0f42-4f05-89fa-eaa478fb5aa9
     ```
 
-    ### Тип содержимого и кодировка
+    ### Content type and coding
 
-    Система принимает и возвращает данные в формате JSON и кодировке UTF-8:
+    The system accepts and returns data in JSON format and UTF-8 coding:
 
     ```
       Content-Type: application/json; charset=utf-8
     ```
 
-    ### Формат дат
+    ### Date formats
 
-    Система принимает и возвращает значения отметок времени в формате `date-time`, описанном в
-    [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339):
+    The system accepts and returns timestamp values in the format date-time,
+    described in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339):
 
     ```
       2017-01-01T00:00:00Z
       2017-01-01T00:00:01+00:00
     ```
 
-    ### Максимальное время обработки запроса
+    ### Maximum request processing time
 
-    При любом обращении к API в заголовке `X-Request-Deadline` соответствующего запроса можно
-    передать параметр отсечки по времени, определяющий максимальное время ожидания завершения
-    операции по запросу:
+    Whenever an API is accessed, the time cutoff parameters, that define
+    maximum request processing time of the transaction completion, can be
+    passed in the header `X-Request-Deadline` of the corresponding request:
 
     ```
      X-Request-Deadline: 10s
     ```
 
-    По истечении указанного времени система прекращает обработку запроса. Рекомендуется указывать
-    значение не более одной минуты, но не менее трёх секунд.
+    The system stops processing the request upon the specified time. It is
+    recommended to specify a value that is not more than one minute and not
+    less than three seconds.
 
-    `X-Request-Deadline` может:
+    `X-Request-Deadline` can be:
 
-    * задаваться в формате `date-time` согласно
-      [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339);
-    * задаваться в относительных величинах: в миллисекундах (`150000ms`), секундах (`540s`) или
-      минутах (`3.5m`).
-
+    * specified in the format `date-time` according to
+    [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339);
+    * specified in relative values: in milliseconds (`150000ms`), in seconds
+    (`540s`) or in minutes (`3.5m`).
 basePath: /v2
 schemes:
   - https
@@ -65,46 +65,48 @@ consumes:
 produces:
   - application/json; charset=utf-8
 securityDefinitions:
-   bearer:
-     type: apiKey
-     name: Authorization
-     in: header
-     description: |
-      Взаимодействие между мерчантом и системой осуществляется по защищенному протоколу (HTTPS).
-      HTTP-запросы по нешифрованному каналу не поддерживаются.
+  bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: >
+      Interaction between the merchant and the system is performed via a secure
+      protocol (HTTPS).
+      HTTP requests via unencrypted channel are not supported.
 
-      Содержимое API-ключа следует передать в заголовке `Authorization`:
+      The contents of the API key should be passed in the `Authorization`
+      header:
 
       ```
       Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M...
       ```
 
-      Ключи не разделяются на тестовые и боевые. Для проведения тестовых транзакций используйте
-      идентификатор тестового магазина.
+      Keys are not divided into test and production keys. Use the test shop ID
+      for test transactions.
 
-      **Важно! Не передавайте API-ключ третьим лицам!**
+      **Important: Do not pass the API-key to third parties!**
 security:
   - bearer: []
 responses:
   NotFound:
-    description: Заданный ресурс не найден
+    description: Target resource not found
     schema:
-      $ref: '#/definitions/GeneralError'
+      $ref: "#/definitions/GeneralError"
   Unauthorized:
-    description: Ошибка авторизации
+    description: Authorization error
   DefaultLogicError:
-    description: Неверные данные
+    description: Invalid data
     schema:
-      $ref: '#/definitions/DefaultLogicError'
+      $ref: "#/definitions/DefaultLogicError"
   ExternalIDConflict:
-    description: Переданное значение `externalID` уже использовалось вами ранее с другими параметрами запроса
+    description: The passed value `externalID` has already been used by you with other query parameters
     schema:
-      $ref: '#/definitions/ExternalIDConflictError'
+      $ref: "#/definitions/ExternalIDConflictError"
 parameters:
   requestID:
     name: X-Request-ID
     in: header
-    description: Уникальный идентификатор запроса к системе
+    description: Unique identifier of the request to the system
     required: true
     type: string
     maxLength: 32
@@ -112,7 +114,7 @@ parameters:
   shopID:
     name: shopID
     in: path
-    description: Идентификатор магазина
+    description: Shop ID
     required: true
     type: string
     maxLength: 40
@@ -120,7 +122,7 @@ parameters:
   invoiceTemplateID:
     name: invoiceTemplateID
     in: path
-    description: Идентификатор шаблона инвойса
+    description: Invoice template ID
     required: true
     type: string
     maxLength: 40
@@ -128,7 +130,7 @@ parameters:
   paymentID:
     name: paymentID
     in: path
-    description: Идентификатор платежа в рамках инвойса
+    description: Invoice payment identifier
     required: true
     type: string
     maxLength: 40
@@ -136,7 +138,7 @@ parameters:
   refundID:
     name: refundID
     in: path
-    description: Идентификатор возврата в рамках платежа
+    description: Refund identifier within the payment
     required: true
     type: string
     maxLength: 40
@@ -144,7 +146,7 @@ parameters:
   chargebackID:
     name: chargebackID
     in: path
-    description: Идентификатор возвратного платежа в рамках платежа
+    description: Chargeback identifier within the payment
     required: true
     type: string
     maxLength: 40
@@ -152,7 +154,7 @@ parameters:
   contractID:
     name: contractID
     in: path
-    description: Идентификатор договора
+    description: Contract ID
     required: true
     type: string
     maxLength: 40
@@ -160,16 +162,16 @@ parameters:
   residence:
     name: residence
     in: query
-    description: >-
-      Резиденция, alpha-3 код по стандарту [ISO
-      3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
+    description: >
+      Residence, alpha-3 code according to standard
+      [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
     required: false
     type: string
-    pattern: '^[A-Z]{3}$'
+    pattern: "^[A-Z]{3}$"
   customerID:
     name: customerID
     in: path
-    description: Идентификатор кастомера
+    description: Customer ID
     required: true
     type: string
     maxLength: 40
@@ -177,7 +179,7 @@ parameters:
   customerBindingID:
     name: customerBindingID
     in: path
-    description: Идентификатор привязки к кастомера
+    description: Customer binding identifier
     required: true
     type: string
     maxLength: 40
@@ -185,7 +187,7 @@ parameters:
   webhookID:
     name: webhookID
     in: path
-    description: Идентификатор webhook'а
+    description: Webhook identifier
     required: true
     type: string
     maxLength: 40
@@ -193,7 +195,7 @@ parameters:
   adjustmentID:
     name: adjustmentID
     in: path
-    description: Идентификатор поправки к договору
+    description: Contract adjustment identifier
     required: true
     type: string
     maxLength: 40
@@ -201,7 +203,7 @@ parameters:
   payoutToolID:
     name: payoutToolID
     in: path
-    description: Идентификатор средства вывода
+    description: Payout tool ID
     required: true
     type: string
     maxLength: 40
@@ -209,7 +211,7 @@ parameters:
   payoutID:
     name: payoutID
     in: path
-    description: Идентификатор вывода
+    description: Withdrawal ID
     required: true
     type: string
     maxLength: 40
@@ -217,7 +219,7 @@ parameters:
   invoiceID:
     name: invoiceID
     in: path
-    description: Идентификатор инвойса
+    description: Invoice ID
     required: true
     type: string
     maxLength: 40
@@ -232,7 +234,7 @@ parameters:
   serviceProviderID:
     name: serviceProviderID
     in: path
-    description: Идентификатор провайдера платёжных сервисов в системе
+    description: Service provider identifier
     required: true
     type: string
     maxLength: 100
@@ -240,21 +242,21 @@ parameters:
   fromTime:
     name: fromTime
     in: query
-    description: Начало временного отрезка
+    description: Start of the time period
     required: true
     type: string
     format: date-time
   toTime:
     name: toTime
     in: query
-    description: Конец временного отрезка
+    description: End of the time period
     required: true
     type: string
     format: date-time
   limit:
     name: limit
     in: query
-    description: Лимит выборки
+    description: Selection limit
     required: true
     type: integer
     format: int32
@@ -263,14 +265,14 @@ parameters:
   offset:
     name: offset
     in: query
-    description: Смещение выборки
+    description: Query offset
     required: false
     type: integer
     minimum: 0
   deadline:
     name: X-Request-Deadline
     in: header
-    description: Максимальное время обработки запроса
+    description: Maximum request processing time
     required: false
     type: string
     maxLength: 40
@@ -278,382 +280,413 @@ parameters:
   partyID:
     name: partyID
     in: path
-    description: Уникальный в рамках системы идентификатор участника. # TODO: rephrase
+    description: The participant's unique identifier within the system. #TODO: rephrase
     required: true
     type: string
   countryID:
-      name: countryID
-      in: path
-      required: true
-      description: 'Alpha-3 код страны по стандарту [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)'
-      type: string
-      pattern: '^[A-Z]{3}$'
+    name: countryID
+    in: path
+    required: true
+    description: " Alpha-3 country code by standard [ISO 3166-1] (https://en.wikipedia.org/wiki/ISO_3166-1)"
+    type: string
+    pattern: "^[A-Z]{3}$"
   tradeBlocID:
-      name: tradeBlocID
-      in: path
-      description: Идентификатор торгового блока
-      required: true
-      type: string
+    name: tradeBlocID
+    in: path
+    description: Trade bloc identifier
+    required: true
+    type: string
 tags:
   - name: Parties
-    x-displayName: Участники
+    x-displayName: Parties
     description: >
-      Участник системы - совокупность данных о вашей организации, составе и условиях
-      заключенных договоров, а также информация о связанных с организацией магазинах.
+      A system party is a data set about your company, structure and
+      conditions of concluded contracts, and also the information about the
+      shops associated with the company.
   - name: Shops
-    x-displayName: Магазины
+    x-displayName: Shops
     description: >
-      Магазин - это отображение вашего веб-сайта или точки продаж в системе. К
-      магазину привязываются финансовые условия, которые определяют, в
-      частности, процент комиссии системы. Каждый магазин в системе имеет
-      привязанные счета, на которых аккумулируются отправленные плательщиками
-      деньги. В каждой валюте может существовать только один счет. Категория
-      магазина определяет группы товаров или услуг, которые в нем представлены.
-      К магазину может быть привязан банковский терминал на стороне
-      банка-эквайера. Любые изменения данных магазинов требуют верификации на
-      стороне системы.
+      A shop is a display of your website or a point of sales in the system.
+      Financial terms, that determine, particularly, the system fee percentage,
+      are linked to the shop. Each shop has its linked accounts that accumulate
+      money sent by payers. Only one account can be in each currency. The shop
+      category is determined by the group of offered goods and services. A
+      banking terminal can be linked to a shop on the side of an acquiring
+      bank. Any changes of these shops require system verification.
 
-      Для тестовых платежей используются магазины, созданные в тестовой
-      категории. Первый тестовый магазин система создает автоматически при
-      регистрации участника.
+      Shops created in the test category are used for test payment. The system
+      creates a test shop automatically during the participant registration.
 
-      Ваш веб-сайт или точка продаж могут иметь более одного магазина, ближайшим
-      аналогом можно представить банковские POS-терминалы на точке продаж.
+      Your website or point of sales may have more than one shop. The closest
+      analogue can be POS-terminals at a point of sales.
 
-      ## Асинхронные уведомления
+      ## Asynchronous notifications
 
-      Для любого магазина можно указать URL для получения асинхронных оповещений
-      об изменении состояния данных при помощи установки webhook'а. Например,
-      вы можете установить webhook, указав URL вашего приложения,
-      на который система будет отправлять данных об изменении состояния
-      инвойса. Для проверки подлинности присланных на URL вашего приложения
-      данных используется соответствующий публичный ключ, который создаётся при
-      установке этого webhook'а и получить который можно в вашем личном
-      кабинете.
+      It is possible to specify a URL for any shop to receive asynchronous
+      notifications about data status change by setting up webhook. For
+      example, you can set up webhook by specifying URL of your application to
+      which the system will send data about invoice changes. The corresponding
+      public key, created during the webhook setup, is used to verify integrity
+      of data sent to your application URL. You can receive this key in your
+      account.
+
   - name: Invoices
-    x-displayName: Инвойсы
-    description: |
-      Инвойс - это базовая модель для работы с системой по приему платежей. Перед
-      рендерингом платежной формы, запуском транзакций на списание денег,
-      холдированием средств на карте плательщика и запуском других подобных
-      бизнес-процессов, необходимо создать инвойс и узнать его идентификатор.
+    x-displayName: Invoices
+    description: >
+      An invoice is a fundamental model for work with payment acceptance
+      system. It is necessary to create an invoice and find out its ID before
+      rendering the payment form launching debit transactions, holding funds on
+      the payer’s card and launching other similar business processes.
 
-      В общем случае, инвойс является контейнером для платежей, данных о товарах
-      и магазине. Инвойсы имеют настраиваемый ограниченный срок жизни. После
-      истечения срока жизни состояние инвойса изменить невозможно.
+      In general, an invoice is a container for payments, data about goods and
+      a shop. Invoices have customizable limited lifetime. Once lifetime is
+      expired, invoice status is impossible to change.
 
 
-      ## Состояния и статусы инвойса
+      ## Invoice statuses
 
-      ### Таблица состояний инвойса:
-        | Состояние  | Обозначение |  Описание                                                                                                |
-        | --         | --          | --                                                                                                       |
-        | Не оплачен | `unpaid`    | Инвойс создан, но финансовые обязательства ещё не погашены.                                              |
-        | Отменён    | `cancelled` | Инвойс отменён с указанием причины, все обязательства по нему недействительны.                           |
-        | Оплачен    | `paid`      | Финансовые обязательства по инвойсу погашены, но товары или услуги плательщику ещё не предоставлены.     |
-        | Погашен    | `fulfilled` | Все обязательства, как плательщика, так и мерчанта, погашены.                                            |
+      ### Table of invoice statuses:
 
-      В узлах диаграммы указаны статусы инвойса, стрелки помечены процессами,
-      успешное завершение которых порождает переход из одного статуса в другой.
+
+      | Status     | Indication  |  Description                                                                                                  |
+
+      | --         | --          | --                                                                                                            |
+
+      | Unpaid     | `unpaid`    | An invoice has been created but financial obligations are not fulfilled.                                      |
+
+      | Cancelled  | `cancelled` | An invoice is cancelled with reason, all obligations under it are null and void.                              |
+
+      | Paid       | `paid`      | Financial obligations under an invoice are paid but goods or services has not been provided yet to the payer. |
+
+      | Fulfilled  | `fulfilled` | All obligations, both payer’s and merchant’s ones, are fulfilled.                                             |
+
+
+      Invoice statuses are indicated in the diagram nodes, narrows are marked
+      by the processes. Successful completion of processes generates change
+      from one status to another.
 
       ![Invoice State diagram](wsd/img/invoice.svg)
 
-      ## Метаданные инвойса и платежа
+      ## Invoice and payment metadata
 
-      Система предоставляет вам возможность заполнить и сохранить любые
-      необходимые метаданные как в структуре инвойса, так и в структуре любого платежа.
-      Данные описываются массивом JSON. В дальнейшем система предоставит
-      вам эти данные при запросе данных инвойса или платежа по его идентификатору
-      либо пришлет в асинхронном режиме на webhook, установленный для соответствующего
-      магазина, если он есть.
+      The system provides you a possibility to fill and save any necessary
+      metadata both in invoice and payment pattern. Data is described by the
+      JSON array. Later the system will provide this data to you when you
+      request invoice or payment data by its ID or it will send it to webhook
+      in asynchronous mode that is set up for the relevant shop if there is one.
 
-      ## События инвойса
+      ## Invoice events
 
-      Любые изменения состояния данных в системе порождают события. Можно получить как
-      полный список событий, приведших к определенному состоянию данных, так и
-      последнее событие, описывающее текущее состояние объекта. Например, для
-      того, чтобы узнать состояние инвойса, и таким образом принять решение об
-      отгрузке товара или предоставлении услуги плательщику, можно запросить у
-      системы все события, произошедшие в рамках указанного ID инвойса, либо
-      самое последнее из них.
+      Any data status changes generate events. You can receive a full list of
+      events that led to the specific data status or the latest event that
+      describes the current data status. For example, you can request all
+      events or the latest one within the specified invoice ID to find out an
+      invoice status so that to make a decision about the shipment of goods or
+      providing services to the payer.
 
       ## Authorization
 
-      Операции:
+      Operations:
 
-      * создания инвойса,
+      * invoice creation,
 
-      * отмены инвойса,
+      * invoice cancellation,
 
-      * погашения инвойса,
+      * invoice fulfillment,
 
-      * получения *нового* токена доступа к инвойсу (уже после создания инвойса)
-
-
-      авторизуются вашим API-ключом.
-
-      ### Токен доступа к инвойсу
-
-      Токен доступа к инвойсу авторизует ограниченное количество операций,
-      необходимых для проведения [платежей](#tag/Payments) по указанному
-      инвойсу, в частности:
-
-      * [токенизация](#tag/Tokens) платёжных инструментов,
-
-      * создание платежей по этому и только этому инвойсу,
-
-      * получение состояния и событий этого инвойса.
+      * getting a *new* invoice access token (after invoice creation)
 
 
-      Срок действия токена составляет 3 суток от момента создания, после
-      истечения которого использовать его для авторизации операций будет более
-      невозможно.
+      are authorised with your API key.
 
-      ## Распределение денежных средств
+      ### Invoice access token
 
-      В рамках одного инвойса можно указать распределение денежных средств
-      между несколькими магазинами. При необходимости можно добавить комиссию,
-      которая будет начисляться магазину переданному при создании инвойса (далее магазин инвойса).
-      Общая сумма всех транзакций распределения не должна превышать сумму инвойса.
-      В распределении не должно быть больше одной транзакции для каждого магазина.
-      Транзакции распределения бывают следующих типов:
+      The invoice access token authorises a limited amount of transactions
+      needed to make [payments](#tag/Payments) by the specified invoice, in
+      particular:
 
-      * С телом AllocationBodyAmount, в котором передается сумма, перечисляемая магазину.
-      Чтобы добавить комиссию нужно создать транзакцию в пользу магазина инвойса.
+      * [tokenization](#tag/Tokens) of payment instrument,
 
-      * С телом AllocationBodyTotal, в котором передается общая сумма транзакции и комиссия к ней,
-      при этом комиссия может быть следующих типов:
-        * AllocationFeeFixed или значение комиссии в пользу магазина инвойса.
-        * AllocationFeeShare или процент от общей суммы транзакции в пользу магазина инвойса.
+      * payment creation by this and only this invoice,
 
+      * getting the invoice status.
+
+
+      The token is valid for 3 days from the creation. After this it will be
+      impossible to use it to authorise transactions.
+
+      ## Money distribution data
+
+      You can specify the distribution of funds among several shops within one
+      invoice. If necessary, you can add a fee that will be charged to the shop
+      specified during the invoice creation (hereinafter invoice shop). Total
+      amount of all distribution transactions shouldn’t exceed the invoice
+      amount. There shouldn’t be more than one transaction per one shop in the
+      distribution. The distribution transactions can be:
+
+      * With AllocationBodyAmount body which transmits the amount to be
+      transferred to the shop. You must create a transaction in favour of an
+      invoice shop to add a fee.
+
+      * With AllocationBodyTotal body which transmits the total amount of transactions and its fee that can be:
+
+        * AllocationFeeFixed or fee amount in favour of an invoice shop.
+
+        * AllocationFeeShare or some percent of the total amount of transaction in favour of an invoice shop.
 
   - name: InvoiceTemplates
-    x-displayName: Шаблоны инвойсов
+    x-displayName: Invoice templates
     description: >
-      Шаблоны инвойсов позволяют упростить выставление инвойсов. Шаблон инвойса
-      привязан к конкретному магазину и содержит спецификацию, по которой можно
-      создавать инвойсы, указывая только конкретнyю стоимость товаров и услуг
-      и/или метаданные инвойса. В случае, если шаблон содержит фиксированную
-      стоимость, её также можно опустить при создании инвойса. Если при создании
-      инвойса по шаблону не указать метаданные инвойса, они будут взяты из
-      значения в шаблоне (если шаблон содержит метаданные).
+      Invoice templates make invoicing easy. An invoice template is linked to
+      the shop and contains specification that can be used for invoice creation
+      by specifying the cost of goods and services and/or invoice metadata. If
+      a template contains the fixed cost, it can be removed during invoice
+      creation. If invoice metadata is not specified when an invoice is created
+      by a template, they will be taken from a template (if metadata is
+      contained in a template).
 
 
-      Cоздание, модификация и удаление шаблона инвойса не требуют верификации на
-      стороне системы и заявок на эти изменения.
+      The creation, update and deletion of an invoice template doesn’t require
+      the system verification and requests for these changes.
 
       ## Authorization
 
-      Создание, модификация и удаление шаблона инвойса авторизуются вашим
-      API-ключом.
+      The creation, update and deletion of an invoice template is authorised by
+      your API key.
 
-      ### Токен доступа к шаблону инвойса
+      ### Invoice template access token
 
-      Токен доступа к шаблону инвойса создается в результате операции создания
-      шаблона. Он авторизует:
+      An invoice template access token is created in the result of template
+      creation transaction. It authorises:
 
-      * получение шаблона инвойса по его идентификатору,
+      * the getting of invoice template by its ID,
 
-      * создание инвойса по данному шаблону.
+      * invoice creation by the template.
   - name: Payments
-    x-displayName: Платежи
+    x-displayName: Payments
     description: >
-      Реальное списание денег с плательщиков осуществляется вызовом метода
-      создания платежа. Перед запуском платежей необходимо создать инвойс, в
-      рамках которого система будет проводить попытки списания, а также
-      указать токен платежного средства плательщика. Таким образом, система
-      предоставляет вам интерфейс, позволяющий со стороны вашего серверного кода
-      инициировать и контролировать процесс списания денег. Данный процесс может
-      быть, как синхронным, когда вы ожидаете ответа системы, так и асинхронным,
-      когда после запуска платежа вы ожидаете уведомлений на установленный для
-      соответствующего магазина webhook.
+      The actual debiting the payer’s funds is made by calling of payment
+      creation method. Before payments the invoice, within which the system
+      will attempt to debit, has to be created and payer’s payment token has to
+      be specified. This way the system provides you an interface that allows
+      your server code to initiate and control the debiting process. This
+      process can be both synchronous, when you are waiting for system
+      response, and asynchronous, when you are waiting for notifications on the
+      webhook set up for the corresponding shop after the payments are launched.
 
-      ## Варианты проведения оплаты
+      ## Payment options
 
-      Система предоставляет два метода выполнения операции оплаты:
-      одно- и двухстадийный, PaymentFlowInstant и PaymentFlowHold.
+      The system provides two payment methods:
+      one-step and two-step, PaymentFlowInstant and PaymentFlowHold.
 
-      Одностадийная оплата (PaymentFlowInstant) выполняется вызовом одного метода API,
-      по результатам которого проходит авторизация и последующее списание средств
-      в пользу магазина в рамках одной транзакции.
+      One-step payment (PaymentFlowInstant) is performed by calling of one API
+      method. The result of it is authorisation and further debiting in favour
+      of a shop within one transaction.
 
-      Двухстадийная оплата (PaymentFlowHold) подразумевает вызов двух методов:
-      отдельно на авторизацию, отдельно на списание. После успешной авторизации
-      сумма операции будет блокирована на счету плательщика, то есть он не сможет ей
-      воспользоваться.
+      Two-step payment (PaymentFlowHold) means the call of two methods: one for
+      authorisation and one for debiting. After the successful authorisation
+      the transaction amount will be blocked on a payer’s account so a payer
+      can’t use it.
 
-      Подтвердить списание (capturePayment) можно на равную или меньшую сумму
-      авторизации. В случае указания меньшей суммы остаток средств будет
-      автоматически возвращен плательщику.
-      Подтвердить или отменить успешную авторизацию можно как вручную,
-      вызвав соответствующий метод API (capturePayment или cancelPayment),
-      так и автоматически, согласно выбранной стратегии onHoldExpiration.
-      Срок ручного подтверждения устанавливается нами в настройках системы и,
-      как правило, составляет от 3 до 7 календарных дней.
+      The debiting (capturePayment) can be confirmed on equal or less
+      authorisation amount. If the less amount is specified, the balance will
+      be refunded to a payer. The successful authorisation can be confirmed or
+      cancelled both manually by calling the corresponding API method (capturePayment or cancelPayment) and automatically according to the
+      chosen strategy onHoldExpiration. The manual confirmation period is set
+      in the system settings by yourself and it is usually from 3 to 7 calendar
+      days.
 
-      ## Платежная сессия
+      ## Payment session
 
-      Система обеспечивает идемпотентность списания денег с платежного
-      средства, предоставляя уникальный идентификатор платежной сессии. Данный
-      идентификатор предоставляется в процессе создания [токена платежного
-      средства](#tag/Tokens) и гарантирует идемпотентность запросов на списание
-      средств, обеспечивая защиту от ошибочных повторных списаний.
+      The system ensures the idempotency of debiting funds from payment
+      instrument by providing the unique payment session ID. This ID is
+      provided during the creation of [payment instrument tokens](#tag/Tokens)
+      and guarantees the idempotency of debit requests, providing the
+      protection from erroneous repeated debits.
 
-      ## Ограничение времени обработки платежа
+      ## Payment processing time limit
 
-      При создании платежа в рамках системы, в поле `processingDeadline`
-      можно задать время выполнения платежа, по истечении которого,
-      система попытается прекратить обработку платежа и перевести его в
-      статус `failed` с ошибкой `processing_deadline_reached`.
+      When the payment is created within the system, you can set up the payment
+      processing time in the field `processingDeadline`. When it is expired,
+      the system is trying to stop processing the payment and changing its
+      status to `failed` with the error `processing_deadline_reached`.
 
 
-      Ограничение на время обработки следует рассматривать как рекомендацию,
-      поскольку в зависимости от платежного средства и текущего состояния платежа у
-      системы может не быть возможности прекратить обработку.
-      Если значение поля не установлено, то система выберет его
-      самостоятельно, так чтобы было достаточно времени для прохождения
-      платежа в обычных условиях.
+      Processing time limit should be considered as a recommendation as the
+      system can fail to stop processing on the basis of the payment instrument
+      and the current payment status. If a field value is not set up, the
+      system will choose it by itself to have enough time for payment transfer
+      in general conditions.
 
 
-      Ограничение времени обработки платежа, аналогично заголовку
-      `X-Request-Deadline`, может указываться в формате, описанном в RFC 3339,
-      или в относительных величинах.
+      Payment processing time limit, similarly to the header
+      `X-Request-Deadline`, can be specified in format described in RFC 3339 or
+      in relative values.
 
       ## Authorization
 
-      Запросы API платежей авторизуются либо токеном доступа к инвойсу, по
-      которому создан платеж, либо вашим API-ключом.
+      Payment request APIs are authorised by an invoice access token that is
+      used to create the payment or by API key.
   - name: Tokens
-    x-displayName: Платежные токены
+    x-displayName: Payment tokens
     description: >
-      Система предоставляет вам возможность самостоятельно инициировать
-      списание денег с платежных карт плательщиков и берет на себя процессы
-      сертификации и соответствия стандартам PCS-DSS. Стандарт декларирует
-      запрет на обработку и хранение данных держателей карт (ДДК) на стороне
-      мерчанта. Используемые нами подходы к реализации интерфейса подразумевают
-      возможность верстки и отдачи HTML формы для ввода ДДК на стороне вашего
-      серверного кода. Чтобы обеспечить соответствие стандартам мы предоставляем
-      разработанную нами JS-библиотеку, которая после встраивания в HTML-код
-      вашей платежной формы в асинхронном режиме собирает ДДК и отправляет на
-      интерфейс системы для дальнейшего шифрования и токенизации. В ответ
-      JS-библиотека возвращает на вашу платежную форму уникальный токен
-      платежной карты, который в дальнейшем вы можете использовать для запуска
-      платежей.
+      The system provides you the possibility to initiate the funds withdrawal
+      from payer’s charge cards by yourself and undertakes the processes of the
+      certification and PCS-DSS standard compliance. The standard declares the
+      prohibition on cardholder data processing and storage on the merchant’s
+      side. The approaches used in interface implementation provide the
+      opportunity of HTLM form layout and output for cardholder data on your
+      server side code. To ensure the standard compliance we provide our
+      developed JS-library that collects cardholder data in asynchronous mode
+      and sends it to the system interface for further cryptography and
+      tokenization after it is embedded in HTLM code of your payment form. In
+      response, JS-library returns an unique payment card token, that can be
+      used to run payments, to your payment form.
 
 
-      В процессе создания токена предоставляется [платежная
-      сессия](#tag/Payments), обеспечивающая идемпотентность списания денег с
-      платежного средства.
+      The [payment session](#tag/Payments), that ensures the idempodency of
+      funds withdrawal from the payment instrument, is provided during the
+      token creation.
   - name: Categories
-    x-displayName: Категории магазинов
+    x-displayName: Shop categories
     description: >
-      Для описания групп товаров и услуг, предоставляемых магазинами,
-      используются категории. Категории могут влиять на предоставление
-      статистики, упорядочивание магазинов, а также на финансовые условия
-      системы.
+      Categories are used to describe groups of goods and services offered by
+      shops. Categories can influence on statistics provision, shops
+      organisation and also system financial terms.
   - name: Contracts
-    x-displayName: Договоры
+    x-displayName: Contracts
     description: >
-      Договор содержит данные юридического соглашения, на основе которого
-      система предоставляет всевозможные услуги мерчанту. В договоре, в
-      частности описывается набор условий, по которым предоставляются сервисы
-      системы, например, комиссии на проведение транзакций, условия вывода
-      средств и данных юридического лица.
+      A contract contains all details of a legal agreement on basis of which
+      the system provides all possible services to a merchant. In particular a
+      set of conditions, on basis of which the system services are provided, is
+      written in the contract. The examples of this can be the transaction
+      fees, conditions of withdrawal and legal entity data.
 
-      Любые изменения данных магазинов требуют верификации на стороне системы
-      путем создания заявок на изменение.
+      Any changes of the shops require system verification by creating change
+      requests.
   - name: Payouts
-    x-displayName: Вывод средств
+    x-displayName: Withdrawal of funds
     description: >
-      Для получения автоматических выплат по принятым платежам на ваш банковский
-      счет необходимо в рамках договора с системой указать данные для вывода
-      средств. В дальнейшем по указанным данным система будет инициировать
-      банковские переводы на основе суммы платежей, принятой по всем активным
-      магазинам.
+      You have to specify payout data within the contract with the system to
+      receive automatic payouts of all accepted ones to your bank account. The
+      system will then initiate bank transfers based on the payment amounts
+      accepted for all active shops.
 
-      Любые изменения данных требуют верификации на стороне системы путем
-      создания заявок на изменение.
+      Any data changes require system verification by creating change requests.
   - name: Webhooks
     x-displayName: Webhooks
     description: >
-      В данном разделе описаны методы, позволяющие управлять Webhook'ами, или
-      инструментами для получения асинхронных оповещений посредством
-      HTTP-запросов при наступлении одного или группы интересующих вас событий,
-      например, о том, что платеж в рамках созданного инвойса был успешно
-      оплачен.
+      This section describes the methods that allow to manage Webhooks or tools
+      to receive asynchronous notifications via HTTP requests when one or a
+      group of events of interest occur, for example, that the payment within
+      the created invoice has been successfully paid.
 
-      Внимание! Только Webhooks Management API является частью данной спецификации. Для реализации
-      обработчика присылаемых уведомлений вам необходимо будет ознакомиться со
-      спецификацей [Vality Webhooks Events API](https://github.com/valitydev/swag-payments-webhook-events).
+      Attention! Only Webhooks Management API is a part of this specification.
+      You will need to read the specification [Vality Webhooks Events API]
+      (https://github.com/valitydev/swag-payments-webhook-events) in order to
+      implement notification handler.
   - name: Search
-    x-displayName: Поиск
+    x-displayName: Search
     description: >
-      Для получения списка всех инвойсов/платежей указанного магазина необходимо
-      вызвать соответствующий метод платформы. Имеется возможность отфильтровать
-      выборку по определенным статусам.
+      You should call the corresponding system method to get a list of all
+      invoices or payments of the specified shop. It is possible to filter
+      sampling by the status.
   - name: PaymentInstitutions
-    x-displayName: Платёжные организации
+    x-displayName: Payment Institutions
     description: >
-      Платёжная организация - организация, осуществляющая услуги по обслуживанию
-      финансовых операций, которые возникают в результате осуществления
-      бизнес-процессов системой.
+      A payment institution is an institution that provides services for
+      financial transactions that occur as a result of system business
+      processes.
   - name: Error Codes
-    x-displayName: Коды ошибок
+    x-displayName: Error codes
     description: >
+      ## Business logic errors
 
-      ## Ошибки бизнес-логики
+      All business logic errors have as follows:
 
-      Все ошибки бизнес-логики имеют следуюший вид:
+      ```json
 
-        ```json
-        {
-          "code": "string",
-          "message": "string"
-        }
-        ```
+      {
+        "code": "string",
+        "message": "string"
+      }
 
-      В поле `code` содержится тип ошибки, а в `message` - дополнительная
-      информация по произошедшей ошибке.
+      ```
 
-      На данный момент существуют следующие коды ошибок:
 
-        | Код                              | Описание                                                                                                                              |
-        | ---                              | --------                                                                                                                              |
-        | **operationNotPermitted**        | Недоступная в рамках действующего договора операция.                                                                                  |
-        | **invalidPartyStatus**           | Ваш участник заблокирован или его операции приостановлены. В последнем случае вы можете их [возобновить](#operation/activateMyParty). |
-        | **invalidShopStatus**            | Ваш магазин заблокирован или его операции приостановлены. В последнем случае вы можете их [возобновить](#operation/activateShop).     |
-        | **invalidContractStatus**        | Ваш договор более не имеет силы, по причине истечения срока действия или расторжения.                                                 |
-        | **invalidShopID**                | Магазин с указанным идентификатором не существует или недоступен.                                                                     |
-        | **invalidInvoiceCost**           | Стоимость инвойса не указана или неверна, в частности, не равна стоимости позиций в корзине.                                          |
-        | **invalidInvoiceCart**           | Некорректная корзина в инвойсе, Например, пустая.                                                                                     |
-        | **invalidInvoiceStatus**         | Неверный [статус инвойса](#tag/Invoices). Например, при попытке [оплатить](#operation/createPayment) отменённый инвойс.               |
-        | **invoiceTermsViolated**         | Инвойс нарушает ограничения, установленные в рамках действующего договора.                                                            |
-        | **invoicePaymentPending**        | Последний запущенный платёж по указанному инвойсу ещё не достиг финального статуса.                                                   |
-        | **invalidPaymentStatus**         | Неверный [статус платежа](#tag/Payments). Например, при попытке [подтвердить](#operation/capturePayment) неуспешный платёж.           |
-        | **invalidPaymentResource**       | Не поддерживаемый системой или не подключенный в рамках действующего договора платежный инструмент.                                   |
-        | **invalidPaymentToolToken**      | Неверное содержимое токена платёжного инструмента.                                                                                    |
-        | **invalidProcessingDeadline**    | Неверный формат ограничения времени авторизации платежа.                                                                              |
-        | **invalidPaymentSession**        | Невернoе содержимое платёжной сессии.                                                                                                 |
-        | **invalidRecurrentParent**       | Невернo указан родительский рекуррентный платеж.                                                                                      |
-        | **insufficentAccountBalance**    | Недостаточный объём денежных средств на счёте магазина, например, для проведения возврата.                                            |
-        | **invoicePaymentAmountExceeded** | Попытка возврата сверх суммы платежа.                                                                                                 |
-        | **inconsistentRefundCurrency**   | Попытка возврата средств в валюте, отличной от валюты платежа.                                                                        |
-        | **changesetConflict**            | Попытка внести изменения участника, конфликтующие с изменениями в других заявках, ожидающих рассмотрения.                             |
-        | **invalidChangeset**             | Неверные изменения участника, например, попытка создать магазин в валюте, недоступной в рамках договора.                              |
-        | **limitExceeded**                | Превышен разумный лимит выборки. В этом случае лучше запросить менее объёмный набор данных.                                           |
-        | **invalidDeadline**              | Неверный формат времени.                                                                                                              |
-        | **chargebackInProgress**         | Попытка возврата при открытом возвратном платеже.                                                                                     |
-        | **invalidRequest**               | Прочие неверные данные запроса.                                                                                                       |
-        | **invalidPartyID**               | Участник с указанным идентификатором не существует или недоступен.                                                                    |
-        | **ambiguousPartyID**             | Невозможно однозначно определить идентификатор участника, укажите идентификатор в запросе явно.                                       |
-        | **invalidAllocation**            | Некорректное распределение денежных средств, Например, больше одной транзакции в пользу одного из магазинов.                          |
-        | **allocationNotPermitted**       | Распределение недоступно в рамках договора.                                                                                           |
-        | **refundCartConflict**           | Невозможно однозначно определить содержание возврата, так как одновременно переданы распределение и корзина рефанда.                  |
+      The error type is in the field `code` and additional information about
+      the error that occurred is in `message`. 
 
-      ## Общие ошибки
+      There are the following error codes at the present moment:
 
-      Ошибки возникающие при попытках совершения операций с
-      незарегистрированными в системе объектами. Имеют вид
+      | Code                             | Description                                                                                                                                |
+
+      |----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+
+      | **operationNotPermitted**        | Unavailable transaction within the current contract.                                                                                       |
+      
+      | **invalidPartyStatus**           | Your participant is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateMyParty) them. |
+
+      | **invalidShopStatus**            | Your shop is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateShop) them.           |
+
+      | **invalidContractStatus**        | Your contract is not valid anymore due to its expiration or termination.                                                                   |
+
+      | **invalidShopID**                | The shop with the specified ID doesn’t exist or unavailable.                                                                               |
+
+      | **invalidInvoiceCost**           | Invoice cost is not specified or invalid, particularly, it isn’t equal to the item cost in the cart.                                       |
+
+      | **invalidInvoiceCart**           | Incorrect cart in invoice, for example, empty.                                                                                             |
+
+      | **invalidInvoiceStatus**         | Invalid [invoice status](#tag/Invoices). For example, in an attempt to [pay](#operation/createPayment) the cancelled invoice.              |
+
+      | **invoiceTermsViolated**         | An invoice violates limitations set within the current contract.                                                                           |
+
+      | **invoicePaymentPending**        | The last pending payment by the specified invoice has not reached the final status yet.                                                    |
+
+      | **invalidPaymentStatus**         | Invalid [payment status](#tag/Payments). For example, in an attempt to [confirm](#operation/capturePayment) unsuccessful payment.          |
+
+      | **invalidPaymentResource**       | The payment instrument that is not supported or connected to the system within the current contract.                                       |
+
+      | **invalidPaymentToolToken**      | Invalid content of payment instrument token.                                                                                               |
+
+      | **invalidProcessingDeadline**    | Invalid format of the payment authorisation time limit.                                                                                    |
+
+      | **invalidPaymentSession**        | Invalid content of the payment session.                                                                                                    |
+
+      | **invalidRecurrentParent**       | Invalid parent recurrent payment is specified.                                                                                             |
+
+      | **insufficentAccountBalance**    | Insufficient account balance on the shop account, for example, for the refund.                                                             |
+
+      | **invoicePaymentAmountExceeded** | Refund attempt exceeds the payment amount.                                                                                                 |
+
+      | **inconsistentRefundCurrency**   | Refund attempt in the currency is different from the payment currency.                                                                     |
+
+      | **changesetConflict**            | An attempt to make changes to the participant that conflicts with changes in other pending requests.                                       |
+
+      | **invalidChangeset**             | Invalid changes to the participant, for example, an attempt to create a shop in the currency that is unavailable within the contract.      |
+
+      | **limitExceeded**                | The reasonable sampling time limit is exceeded. In this case it is better to request less volume of data.                                  |
+
+      | **invalidDeadline**              | Invalid time format.                                                                                                                       |
+
+      | **chargebackInProgress**         | Refund attempt while the chargeback is in progress.                                                                                        |
+
+      | **invalidRequest**               | Other invalid request data.                                                                                                                |
+
+      | **invalidPartyID**               | The participant with the specified ID doesn't exist or unavailable.                                                                        |
+
+      | **ambiguousPartyID**             | It is impossible to define the participant ID, specify the ID more clearly in the request.                                                 |
+
+      | **invalidAllocation**            | Invalid distribution of funds, for example, more than one transaction in favour of one of shops.                                           |
+
+      | **allocationNotPermitted**       | The distribution is not available within the contract.                                                                                     |
+
+      | **refundCartConflict**           | It is impossible to define the refund content as the refund distribution and cart are sent at the same time.                               |
+
+      ## General errors
+
+      The errors that occur during the transaction attempts with the objects
+      that are not registered in the system. They look like
 
         ```json
         {
@@ -661,7 +694,8 @@ tags:
         }
         ```
 
-      В поле `message` содержится информация по произошедшей ошибке. Например:
+      The information about the occurred error is in the field `message`. For
+      example:
 
         ```json
         {
@@ -669,184 +703,196 @@ tags:
         }
         ```
 
-      ## Ошибки обработки запросов
+      ## Errors in processing requests
 
-      В процессе обработки запросов силами нашей системы могут происходить
-      различные непредвиденные ситуации. Об их появлении система сигнализирует
-      по протоколу HTTP соответствующими [статусами][5xx], обозначающими ошибки
-      сервера.
+      Different unpredictable situations can happen during the request
+      processing with the support of our system. The system sends a signal
+      about them according to the HTTP protocol using the corresponding
+      [statuses][5xx] that specify the server errors.
 
-        |  Код    |  Описание  |
-        | ------- | ---------- |
-        | **500** | В процессе обработки системой запроса возникла непредвиденная ситуация. При получении подобного кода ответа мы рекомендуем обратиться в техническую поддержку. |
-        | **503** | Система временно недоступна и не готова обслуживать данный запрос. Запрос гарантированно не выполнен, при получении подобного кода ответа попробуйте выполнить его позднее, когда доступность системы будет восстановлена. |
-        | **504** | Система превысила допустимое время обработки запроса, результат запроса не определён. Попробуйте отправить запрос повторно или выяснить результат выполнения исходного запроса, если повторное исполнение запроса нежелательно. |
+      | Code    | Description                                                                                                                                                                                                                          |
+
+      |---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+      | **500** | An unpredictable situation has occurred during request processing by the system. We recommend contacting the technical support if you receive such a response code.                                                                  |
+
+      | **503** | The system is temporarily unavailable and not ready to serve this request. The request isn’t guaranteed fulfilled, if you receive such a response code, try to resend it later when the availability of the system will be restored. |
+
+      | **504** | The system has exceeded the time allowable for request processing, the result of the request is undefined. Try to resend the request or find our the result of the original request if the repeated request is undesirable.          |
+
 
       [5xx]: https://tools.ietf.org/html/rfc7231#section-6.6
 
 
-      ## Ошибки платежа
+      ## Payment errors
 
-      Ошибки, передаваемые в платежную форму (отображаются плательщикам):
+      The errors sent to the payment form (payers can see them):
 
-        | Код                    | Описание                                                                                                                                      |
-        | ---                    | --------                                                                                                                                      |
-        | InvalidPaymentTool     | Неверный платежный инструмент (введен номер несуществующей карты, отсутствующего аккаунта и т.п.)                                             |
-        | AccountLimitsExceeded  | Превышены лимиты (например, в личном кабинете плательщика установлено ограничение по сумме платежа, стране списания)                          |
-        | InsufficientFunds      | Недостаточно средств на счете                                                                                                                 |
-        | PreauthorizationFailed | Предварительная авторизация отклонена (введен неверный код 3D-Secure, на форме 3D-Secure нажата ссылка отмены)                                |
-        | RejectedByIssuer       | Платёж отклонён эмитентом (установлены запреты по стране списания, запрет на покупки в интернете, платеж отклонен антифродом эмитента и т.п.) |
-        | PaymentRejected        | платёж отклонён по иным причинам                                                                                                              |
+      | Code                   | Description                                                                                                                                                                                      |
 
-      Ошибки, передаваемые в ЛК мерчанта (отображаются только вам):
+      |------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+      | InvalidPaymentTool     | Invalid payment instrument (invalid card number, missing account has been entered, etc.)                                                                                                         |
+
+      | AccountLimitsExceeded  | Limits are exceeded (for example, the payment amount or withdrawal country limits are set up in the personal account)                                                                            |
+
+      | InsufficientFunds      | Insufficient funds on the account                                                                                                                                                                |
+
+      | PreauthorizationFailed | Pre-authorisation is failed (invalid SD-Secure code has been entered, cancellation link has been clicked in SD-Secure form)                                                                      |
+
+      | RejectedByIssuer       | The payment is rejected by the issuer (it has been prohibited to withdraw inside the country or to purchase in the Internet, the payment is rejected by the issuer’s anti-fraud entity and etc.) |
+
+      | PaymentRejected        | the payment is rejected by other reasons                                                                                                                                                         |
+
+
+      The errors sent to the personal merchant’s account (only you can see them):
 
       - timeout
 
-        Истекло время ожидания попытки оплаты
+        Timeout of payment attempt
 
       - rejected_by_inspector
 
-        Отклонено сервисом противодействия мошенничеству
+        Rejected by anti-fraud service
 
       - preauthorization_failed
 
-        Ошибка предавторизации (3DS)
+        Preauthorisation error (3DS)
 
       - authorization_failed:
 
-        Ошибка авторизации платежа у провайдера
+        Provider payment authorisation error
 
         - unknown
 
-          Неизвестная ошибка авторизации
+          Unknown authorisation error
 
         - merchant_blocked
 
-          Мерчант заблокирован
+          A merchant is blocked
 
         - operation_blocked
 
-          Операция платежа заблокирована
+          A payment transaction is blocked
 
         - account_not_found
 
-          Аккаунт не найден
+          An account is not found
 
         - account_blocked
 
-          Аккаунт заблокирован
+          An account is blocked
 
         - account_stolen
 
-          Аккаунт украден
+          An account is stolen
 
         - insufficient_funds
 
-          Не хватает средств
+          Insufficient funds
 
         - processing_deadline_reached
 
-          Истекло время выполнения платежа (см. [Ограничение времени обработки платежа](#section/Ogranichenie-vremeni-obrabotki-platezha))
+          Payment fullfillment timeout (see [Payment processing time limit](#section/Payment-processing-time-limit))
 
         - account_limit_exceeded:
 
-          Превышен лимит на счете плательщика
+          Payer’s account limit is exceeded
 
           - unknown
 
-            Объект лимита неизвестен
+            Limit object is unknown
 
           - amount
 
-            Лимит на сумму
+            Amount limit
 
           - number
 
-            Лимит на количество попыток
+            Attempt number limit
 
         - provider_limit_exceeded:
 
-          Превышен лимит на данного мерчанта или на систему в целом у провайдера
+          The provider limit is exceeded for this merchant or system in general
 
           - unknown
 
-            Объект лимита неизвестен
+            Limit object is unknown
 
           - amount
 
-            Лимит на сумму
+            Amount limit
 
           - number
 
-            Лимит на количество попыток
+            Attempt number limit
 
         - payment_tool_rejected:
 
-          Платёжный интрумент отклонён
+          A payment instrument is rejected
 
           - unknown
 
-            Неизвестный платёжный интрумент
+            An unknown payment instrument
 
           - bank_card_rejected:
 
-            Банковская карта отклонена
+            A bank card is rejected
 
             - unknown
 
-              Причина неизвестна
+              The reason is unknown
 
             - card_number_invalid
 
-              Неверный номер карты
+              A card number is invalid
 
             - card_expired
 
-              Истёк срок действия карты
+              A card is expired
 
             - card_holder_invalid
 
-              Неверный владелец карты
+              A cardholder is invalid
 
             - cvv_invalid
 
-              Неверный CVV код
+              CVV code is invalid
 
             - issuer_not_found
 
-              Эмитент не найден
+              An issuer is not found
 
         - security_policy_violated
 
-          Нарушения политики безопасности
+          Security policy violations
 
         - temporarily_unavailable
 
-          Временная недоступность третьих сторон
+          Temporary unavailability of the third parties
 
         - rejected_by_issuer
 
-          Отклонено эмитентом
+          Rejected by the issuer
 
 
-      Например, в случае некорректного CVV:
+      For example, in the case of invalid CVV:
 
       ```
 
       {
-          "code": "authorization_failed",
-          "subError": {
-              "code": "payment_tool_rejected",
-              "subError": {
-                  "code": "bank_card_rejected",
-                  "subError": {
-                      "code": "cvv_invalid"
-                  }
-              }
-          }
+         "code":"authorization_failed",
+         "subError":{
+            "code":"payment_tool_rejected",
+            "subError":{
+               "code":"bank_card_rejected",
+               "subError":{
+                  "code":"cvv_invalid"
+               }
+            }
+         }
       }
 
       ```
 
-      Если вы получили ошибку, которой нет в данном описании, обратитесь в
-      техническую поддержку.
+      If you have an error that is not described here, contact the technical support.

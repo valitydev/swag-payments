@@ -4,4 +4,4 @@ required:
 properties:
   provider:
     x-rebillyMerge:
-      - $ref: '#/definitions/DigitalWalletProvider'
+      - $ref: "#/definitions/DigitalWalletProvider"

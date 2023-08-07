@@ -1,15 +1,15 @@
 type: object
 allOf:
-  - $ref: '#/definitions/TokenizedCardData'
+  - $ref: "#/definitions/TokenizedCardData"
   - type: object
-    description: Платежные данные Yandex Pay
+    description: Yandex Pay data
     required:
       - gatewayMerchantID
       - paymentToken
     properties:
       gatewayMerchantID:
-        description: Идентификатор мерчанта в системе
+        description: Merchant identifier in the system
         type: string
       paymentToken:
-        description: Совокупность открытых и зашифрованных платежных данных
+        description: Aggregate of open and encrypted payment data
         type: object

@@ -1,10 +1,10 @@
-description: Информация о транзакции
+description: Transaction Info
 type: object
 properties:
   rrn:
-    description: 'Retrieval Reference Number'
+    description: Retrieval Reference Number
     type: string
-    pattern: '^[a-zA-Z0-9]{4,20}$'
+    pattern: ^[a-zA-Z0-9]{4,20}$
   approvalCode:
-    description: 'Authorization Approval Code'
+    description: Authorization Approval Code
     type: string

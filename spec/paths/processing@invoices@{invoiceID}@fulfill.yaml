@@ -1,15 +1,19 @@
 post:
-  description: Погасить указанный инвойс.
+  description: To fulfill the specified invoice.
   tags:
     - Invoices
   operationId: fulfillInvoice
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceID'
-    - name: fulfillInvoice
+    - 
+      $ref: '#/parameters/requestID'
+    - 
+      $ref: '#/parameters/deadline'
+    - 
+      $ref: '#/parameters/invoiceID'
+    - 
+      name: fulfillInvoice
       in: body
-      description: Произвольная причина совершения операции
+      description: Reason for the operation
       required: true
       schema:
         $ref: '#/definitions/Reason'
@@ -21,7 +25,7 @@ post:
     '401':
       $ref: '#/responses/Unauthorized'
     '400':
-      description: Ошибка погашения инвойса
+      description: Invoice fulfillment error
       schema:
         type: object
         required:
@@ -29,8 +33,8 @@ post:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidInvoiceStatus
@@ -39,6 +43,6 @@ post:
               - invalidRequest
               - invalidDeadline
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid invoice status

@@ -1,22 +1,22 @@
 get:
-  description: Получить данные определённого чарджбэка для указанного платежа.
+  description: Get data on the chargeback of the specified payment.
   tags:
     - Payments
   operationId: getChargebackByID
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceID'
-    - $ref: '#/parameters/paymentID'
-    - $ref: '#/parameters/chargebackID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceID"
+    - $ref: "#/parameters/paymentID"
+    - $ref: "#/parameters/chargebackID"
   responses:
-    '200':
-      description: Данные чарджбэка
+    "200":
+      description: Chargeback details
       schema:
-        $ref: '#/definitions/Chargeback'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/Chargeback"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

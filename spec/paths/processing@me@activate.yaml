@@ -4,12 +4,12 @@ put:
   tags:
     - Parties
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
   responses:
-    '204':
+    "204":
       description: Party activated
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

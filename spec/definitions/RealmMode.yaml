@@ -1,4 +1,4 @@
-description: Режим рабочего окружения платежной организации
+description: Payment institution's mode
 type: string
 enum:
   - test

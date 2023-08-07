@@ -1,37 +1,37 @@
 post:
-  description: Установить новый webhook.
+  description: Set up a new webhook.
   tags:
     - Webhooks
   operationId: createWebhook
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
     - name: webhookParams
-      description: Параметры устанавливаемого webhook'а
+      description: Parameters of the installed webhook
       in: body
       required: true
       schema:
-        $ref: '#/definitions/Webhook'
+        $ref: "#/definitions/Webhook"
   responses:
-    '201':
-      description: Webhook установлен
+    "201":
+      description: Webhook is set
       schema:
-        $ref: '#/definitions/Webhook'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '429':
-      description: Превышен лимит количества установленных webhook'ов
+        $ref: "#/definitions/Webhook"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "429":
+      description: The limit on the number of installed webhooks has been exceeded
       schema:
         type: object
         required:
           - message
         properties:
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Webhook limit exceeded
-    '400':
-      description: Ошибочные данные webhook'а
+    "400":
+      description: Invalid webhook data
       schema:
         type: object
         required:
@@ -39,8 +39,8 @@ post:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyID
@@ -49,26 +49,25 @@ post:
               - invalidDeadline
               - ambiguousPartyID
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Shop not found or inaccessible
-
 get:
-  description: Получить набор установленных webhook'ов.
+  description: Get set of installed webhooks.
   tags:
     - Webhooks
   operationId: getWebhooks
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
   responses:
-    '200':
-      description: Набор webhook'ов
+    "200":
+      description: A set of webhooks
       schema:
         type: array
         items:
-          $ref: '#/definitions/Webhook'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/Webhook"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

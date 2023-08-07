@@ -1,33 +1,35 @@
-description: |
-  Провайдер платёжных сервисов.
+description: >
+  Payment service provider.
 
-  Сторонняя организация, которая предоставляет платёжные услуги, например обслуживает
-  систему электронных кошельков или платёжных терминалов.
+  A third-party organization that provides payment services, such as
+  maintaining a system of e-wallets or payment terminals.
 type: object
 required:
   - id
 properties:
   id:
-    description: Идентификатор провайдера в системе
+    description: Service provider's identifier
     type: string
     maxLength: 100
   brandName:
-    description: Название провайдера, под которым он известен широкой публике
+    description: >
+      The name of the provider by which it is known to the general public
     type: string
     maxLength: 100
-    example: 'Nubank'
+    example: "Nubank"
   category:
-    description: |
-      Категория провайдера.
-      Может использоваться для задач презентации, например для группировки
-      доступных методов оплаты по категории их провайдеров, если таковая известна.
+    description: >
+      Provider сategory.
+
+      Can be used for presentation tasks, such as grouping available payment
+      methods by their provider category, if known.
     type: string
     maxLength: 100
-    example: 'onlinebanking'
+    example: "onlinebanking"
   metadata:
-    description: |
-      Произвольные, разделённые по пространствам имён метаданные, дополнительно
-      описывающие данного провайдера для различных потребителей.
+    description: >
+      Arbitrary, namespace-separated metadata that further describes a given
+      provider to various consumers.
     type: object
     example:
       dev.vality.checkout:
@@ -35,4 +37,4 @@ properties:
           banner: "/assets/brands/paypal.svg"
         localization:
           name:
-            'ja_JP': 'ヱヴァンゲリヲン'
+            "ja_JP": "ヱヴァンゲリヲン"

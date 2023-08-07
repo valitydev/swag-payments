@@ -1,17 +1,17 @@
 get:
-  description: Получить список стран
+  description: Get list of countries
   tags:
     - Countries
   operationId: getCountries
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
   responses:
-    '200':
-      description: Список стран
+    "200":
+      description: Country list
       schema:
         type: array
         items:
-          $ref: '#/definitions/Country'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/Country"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

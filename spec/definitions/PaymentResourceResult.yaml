@@ -1,26 +1,26 @@
 type: object
-description: Данные одноразового платежного средства
+description: Disposable payment tool data
 required:
   - paymentSession
   - paymentToolToken
 properties:
   paymentToolToken:
-    description: Токен платежного средства, предоставленного плательщиком
+    description: Payment tool token provided by the payer
     type: string
     maxLength: 2000
   paymentSession:
-    description: Идентификатор платежной сессии
+    description: Payment session identifier
     type: string
     maxLength: 1000
   paymentToolDetails:
-    $ref: '#/definitions/PaymentToolDetails'
+    $ref: "#/definitions/PaymentToolDetails"
   clientInfo:
     allOf:
-      - $ref: '#/definitions/ClientInfo'
+      - $ref: "#/definitions/ClientInfo"
       - readOnly: true
   validUntil:
-    description: Дата и время, до наступления которых токен платежного средства остается действительным
+    description: >
+      Date and time until which the payment resource token remains valid
     type: string
     format: date-time
     readOnly: true
-

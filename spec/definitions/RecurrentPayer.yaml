@@ -1,15 +1,15 @@
 type: object
-description: Многоразовое платежное средство на основе другого платежа
+description: Recurring payment tool based on another payment
 allOf:
-  - $ref: '#/definitions/Payer'
+  - $ref: "#/definitions/Payer"
   - type: object
     required:
       - contactInfo
       - recurrentParentPayment
     properties:
       contactInfo:
-        $ref: '#/definitions/ContactInfo'
+        $ref: "#/definitions/ContactInfo"
       recurrentParentPayment:
-        $ref: '#/definitions/PaymentRecurrentParent'
+        $ref: "#/definitions/PaymentRecurrentParent"
       paymentToolDetails:
-        $ref: '#/definitions/PaymentToolDetails'
+        $ref: "#/definitions/PaymentToolDetails"

@@ -1,13 +1,13 @@
 type: object
 allOf:
-  - $ref: '#/definitions/PaymentMethod'
+  - $ref: "#/definitions/PaymentMethod"
   - type: object
     required:
       - providers
     properties:
       providers:
-        description: Список провайдеров
+        description: Providers
         type: array
         items:
           x-rebillyMerge:
-            - $ref: '#/definitions/PaymentTerminalProvider'
+            - $ref: "#/definitions/PaymentTerminalProvider"

@@ -1,7 +1,7 @@
-description: |
-  Распределение денежных средств
+description: >
+  Allocation of cash
 type: array
 minItems: 1
 maxItems: 100
 items:
-  $ref: '#/definitions/AllocationTransaction'
+  $ref: "#/definitions/AllocationTransaction"

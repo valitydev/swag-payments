@@ -1,6 +1,6 @@
 type: object
 allOf:
-  - $ref: '#/definitions/PaymentStatus'
+  - $ref: "#/definitions/PaymentStatus"
   - type: object
     required:
       - id
@@ -12,54 +12,55 @@ allOf:
       - flow
     properties:
       id:
-        description: Идентификатор платежа
+        description: Payment ID
         type: string
       shortID:
-        description: Cокращенный идентификатор платежа и инвойса (spid)
+        description: Shortened payment and invoice identifier (spid)
         type: string
       invoiceID:
-        description: 'Идентификатор инвойса, в рамках которого был создан платеж'
+        description: >
+          Identifier of the invoice within which the payment was created
         type: string
       shopID:
-        description: 'Идентификатор магазина, в рамках которого был создан платеж'
+        description: >
+          Identifier of the shop within which the payment was created
         type: string
       createdAt:
-        description: Дата и время создания
+        description: Created at
         type: string
         format: date-time
       amount:
-        description: |
-          Стоимость предлагаемых товаров или услуг, в минорных денежных
-          единицах, например в копейках в случае указания российских рублей в
-          качестве валюты.
+        description: >
+          The price of the goods or services offered, in minor monetary units,
+          e.g. cents if U.S. dollars are specified as the currency
         type: integer
         format: int64
         minimum: 0
       fee:
-        description: Комиссия системы в минорных денежных единицах
+        description: System fee in minor monetary units
         type: integer
         format: int64
         minimum: 0
       currency:
         x-rebillyMerge:
-          - $ref: '#/definitions/Currency'
+          - $ref: "#/definitions/Currency"
       payer:
-        $ref: '#/definitions/Payer'
+        $ref: "#/definitions/Payer"
       flow:
-        $ref: '#/definitions/PaymentFlow'
+        $ref: "#/definitions/PaymentFlow"
       metadata:
-        description: Связанные с платежом метаданные
+        description: Payment metadata
         type: object
       statusChangedAt:
-        description: Дата и время изменения статуса платежа
+        description: Date and time of payment status change
         type: string
         format: date-time
       transactionInfo:
-        $ref: '#/definitions/TransactionInfo'
+        $ref: "#/definitions/TransactionInfo"
       makeRecurrent:
         x-rebillyMerge:
-          - $ref: '#/definitions/PaymentMakeRecurrent'
+          - $ref: "#/definitions/PaymentMakeRecurrent"
       cart:
-        $ref: '#/definitions/InvoiceCart'
+        $ref: "#/definitions/InvoiceCart"
       allocation:
-        $ref: '#/definitions/Allocation'
+        $ref: "#/definitions/Allocation"

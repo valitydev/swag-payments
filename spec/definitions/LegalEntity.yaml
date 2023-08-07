@@ -1,13 +1,13 @@
-description: Юридическое лицо
+description: Legal entity
 allOf:
-  - $ref: '#/definitions/Contractor'
+  - $ref: "#/definitions/Contractor"
   - type: object
     discriminator: entityType
     required:
       - entityType
     properties:
       entityType:
-        description: Тип юридического лица
+        description: Legal entity type
         type: string
         enum:
           - RussianLegalEntity

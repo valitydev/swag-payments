@@ -1,26 +1,26 @@
 post:
-  description: Создать нового плательщика.
+  description: Create a new customer.
   tags:
     - Customers
   operationId: createCustomer
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
     - name: customerParams
-      description: Параметры создаваемого плательщика
+      description: Parameters of the customer to be created
       in: body
       required: true
       schema:
-        $ref: '#/definitions/CustomerParams'
+        $ref: "#/definitions/CustomerParams"
   responses:
-    '201':
-      description: Плательщик создан
+    "201":
+      description: Customer created
       schema:
-        $ref: '#/definitions/CustomerAndToken'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      description: Ошибочные данные плательщика
+        $ref: "#/definitions/CustomerAndToken"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid customer data
       schema:
         type: object
         required:
@@ -28,8 +28,8 @@ post:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - operationNotPermitted
@@ -41,8 +41,8 @@ post:
               - invalidDeadline
               - ambiguousPartyID
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Operation not permitted
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
+    "409":
+      $ref: "#/responses/ExternalIDConflict"

@@ -1,4 +1,4 @@
-description: Дробное десятичное число произвольной точности
+description: Fractional decimal number of arbitrary precision
 type: object
 required:
   - m
@@ -6,12 +6,12 @@ required:
 properties:
   m:
     description: >
-      Мантисса.
+      Mantissa.
     type: integer
     format: int64
     minimum: 0
   exp:
     description: >
-      Порядок.
+      Exponent.
     type: integer
     format: int64

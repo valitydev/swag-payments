@@ -1,20 +1,20 @@
 get:
-  description: Получить условия проведения платежей для платёжной организации
+  description: Get payment terms and conditions for the payment institution
   tags:
     - PaymentInstitutions
   operationId: getPaymentInstitutionPaymentTerms
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/paymentInstitutionID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/paymentInstitutionID"
   responses:
-    '200':
+    "200":
       description: Payment institution terms calculated
       schema:
-        $ref: '#/definitions/PaymentTerms'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/PaymentTerms"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

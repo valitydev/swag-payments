@@ -1,4 +1,4 @@
-description: Комиссия транзакции
+description: Transaction fee
 type: object
 discriminator: allocationFeeType
 required:
@@ -6,7 +6,7 @@ required:
 properties:
   target:
     x-rebillyMerge:
-      - $ref: '#/definitions/AllocationTarget'
+      - $ref: "#/definitions/AllocationTarget"
       - readOnly: true
   allocationFeeType:
     type: string

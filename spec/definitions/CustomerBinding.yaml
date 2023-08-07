@@ -6,12 +6,12 @@ x-merge-properties:
       - paymentResource
     properties:
       id:
-        description: Идентификатор привязки
+        description: Customer binding identifier
         type: string
       externalID:
         x-rebillyMerge:
-          - $ref: '#/definitions/ExternalID'
-          - description: Внешний идентификатор привязки
+          - $ref: "#/definitions/ExternalID"
+          - description: External customer binding identifier
       paymentResource:
-        $ref: '#/definitions/PaymentResource'
-  - $ref: '#/definitions/CustomerBindingStatus'
+        $ref: "#/definitions/PaymentResource"
+  - $ref: "#/definitions/CustomerBindingStatus"

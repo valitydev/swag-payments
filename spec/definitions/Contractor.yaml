@@ -1,11 +1,11 @@
-description: Данные лица, выступающего стороной договора
+description: Contractor data
 type: object
 discriminator: contractorType
 required:
   - contractorType
 properties:
   contractorType:
-    description: Тип лица, выступающего стороной договора
+    description: Contractor type
     type: string
     enum:
       - LegalEntity

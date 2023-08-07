@@ -1,6 +1,6 @@
-description: |
-  Данные расчётного счёта в банковской организации, ведущей деятельность под
-  юрисдикцией РФ.
+description: >
+  Data of a settlement account in a banking organization operating under the
+  jurisdiction of the Russian Federation.
 type: object
 required:
   - account
@@ -9,17 +9,17 @@ required:
   - bankBik
 properties:
   account:
-    description: Номер счёта
+    description: Account number
     type: string
     pattern: '^\d{20}$'
   bankName:
-    description: Наименование юридического лица банковской организации
+    description: Name of the legal entity of the banking organization
     type: string
     maxLength: 100
   bankPostAccount:
     type: string
     pattern: '^\d{20}$'
   bankBik:
-    description: БИК банковской организации
+    description: BIK of the banking organization
     type: string
     pattern: '^\d{9}$'

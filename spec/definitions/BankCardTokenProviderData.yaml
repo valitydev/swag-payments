@@ -1,35 +1,33 @@
 type: object
-description: |
-  Данные для интеграции с провайдерами платежных токенов.
-  Эти параметры заданы в нашей системе и могут быть использованы для построении запросов к провайдеру токенов
-  или корректного отображения платежной формы.
-  Для более подробной информации ознакомьтесь с нашими руководствами по интеграции:
-    * [GooglePay](https://developer.rbk.money/docs/payments/googlepay),
-    * [ApplePay](https://developer.rbk.money/docs/payments/applepay).
+description: >
+  Data for integration with payment token providers.
+  These parameters are set in our system and can be used to build requests to
+  the token provider or to display the payment form correctly.
 required:
   - merchantID
   - realm
 properties:
   merchantID:
-    description: |
-      Идентификатор мерчанта в платёжной организации.
-      Может быть использован для передачи провайдеру платежных токенов. Например, ожидается,
-      что этот параметр передается как gatewayMerchantID для GooglePay и/или YandexPay,
-      а затем используется для привязки токена к указанному магазину.
+    description: >
+      Merchant identifier in a payment organization.
+      Can be used to pass payment tokens to the provider. For example, this
+      parameter is expected to be passed as gatewayMerchantID for GooglePay and
+      or YandexPay and then used to bind the token to the specified shop.
     type: string
   merchantName:
-    description: |
-      Имя мерчанта в платежной организации.
-      Может быть использовано, например,  как `merchantInfo.merchantName` в GooglePay
-      или `merchant.name` в YandexPay или `displayName` в ApplePay.
+    description: >
+      The name of the merchant in the payment organization.
+      Can be used, for example, as `merchantInfo.merchantName` in GooglePay or
+      `merchant.name` in YandexPay or `displayName` in ApplePay.
     type: string
   orderID:
-    description: |
-      Идентификатор оплачиваемого счета в платёжной организации.
-      Может быть использован, например,  как `orderNumber`  в SamsungPay или `order.id` в YandexPay.
-      Использование системного идентификатора может оказаться полезным при отладке или сверке данных
-      с данными провайдера.
+    description: >
+      The identifier of the paid account in the payment organization.
+      Can be used, for example, as `orderNumber` in SamsungPay or `order.id` in
+      YandexPay.
+      Using the system identifier can be useful when debugging or reconciling
+      data with provider data.
     type: string
   realm:
     x-rebillyMerge:
-      - $ref: '#/definitions/RealmMode'
+      - $ref: "#/definitions/RealmMode"

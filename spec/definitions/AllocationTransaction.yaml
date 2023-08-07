@@ -1,4 +1,4 @@
-description: Транзакция распределения денежных средств
+description: Cash allocation transaction
 type: object
 discriminator: allocationBodyType
 required:
@@ -6,12 +6,12 @@ required:
   - allocationBodyType
 properties:
   target:
-    $ref: '#/definitions/AllocationTarget'
+    $ref: "#/definitions/AllocationTarget"
   allocationBodyType:
-    description: Тело транзакции
+    description: Transaction body
     type: string
     enum:
       - AllocationBodyAmount
       - AllocationBodyTotal
   cart:
-    $ref: '#/definitions/InvoiceCart'
+    $ref: "#/definitions/InvoiceCart"

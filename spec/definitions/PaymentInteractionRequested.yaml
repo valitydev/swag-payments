@@ -1,16 +1,15 @@
 type: object
 allOf:
-  - $ref: '#/definitions/InvoiceChange'
+  - $ref: "#/definitions/InvoiceChange"
   - type: object
-    description: |
-      Требование провести взаимодействие с плательщиком для продолжения процесса
-      платежа
+    description: >
+      Require interaction with the customer to continue the payment process
     required:
       - paymentID
       - userInteraction
     properties:
       paymentID:
-        description: Идентификатор платежа
+        description: Payment ID
         type: string
       userInteraction:
-        $ref: '#/definitions/UserInteraction'
+        $ref: "#/definitions/UserInteraction"

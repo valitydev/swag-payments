@@ -1,11 +1,11 @@
 type: object
 allOf:
-  - $ref: '#/definitions/UserInteraction'
+  - $ref: "#/definitions/UserInteraction"
   - type: object
     required:
       - qrCode
     properties:
       qrCode:
-        description: Содержимое QR-кода, записанное в виде потока байт
+        description: QR code content as byte array
         type: string
         format: binary

@@ -1,28 +1,29 @@
-description: 'Международное юридическое лицо'
+description: "International legal entity"
 type: object
 allOf:
-  - $ref: '#/definitions/LegalEntity'
+  - $ref: "#/definitions/LegalEntity"
   - type: object
     required:
       - legalName
       - registeredOffice
     properties:
       legalName:
-        description: Наименование
+        description: Name
         type: string
       tradingName:
-        description: Торговое наименование (если применимо)
+        description: Trade name (if applicable)
         type: string
       registeredOffice:
-        description: Адрес места регистрации
+        description: Registration postal address
         type: string
       principalPlaceOfBusiness:
-        description: Адрес места нахождения (если отличается от регистрации)
+        description: >
+          Location address (if different from the address of registration)
         type: string
       registeredNumber:
-        description: Регистрационный номер
+        description: Registration number
         type: string
         maxLength: 100
       country:
         x-rebillyMerge:
-          - $ref: '#/definitions/CountryCode'
+          - $ref: "#/definitions/CountryCode"

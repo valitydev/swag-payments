@@ -3,35 +3,34 @@ required:
   - shopID
   - lifetime
   - details
-  # TODO(ED-264): Temporary optional till client migration is done
-  # - name
 properties:
   shopID:
-    description: Идентификатор магазина
+    description: Shop ID
     type: string
     maxLength: 40
     minLength: 1
   externalID:
     x-rebillyMerge:
-      - $ref: '#/definitions/ExternalID'
-      - description: Внешний идентификатор шаблона инвойса
+      - $ref: "#/definitions/ExternalID"
+      - description: External invoice template identifier
   partyID:
     x-rebillyMerge:
-      - $ref: '#/definitions/PartyID'
+      - $ref: "#/definitions/PartyID"
   name:
-    description: Название шаблона
+    description: Template name
     type: string
     maxLength: 100
   description:
-    description: Описание предлагаемых товаров или услуг
+    description: Description of the goods or services offered
     type: string
     maxLength: 1000
   lifetime:
-    $ref: '#/definitions/LifetimeInterval'
+    $ref: "#/definitions/LifetimeInterval"
   details:
-    $ref: '#/definitions/InvoiceTemplateDetails'
+    $ref: "#/definitions/InvoiceTemplateDetails"
   metadata:
     description: >
-      Метаданные, которые будут связаны с инвойсом, созданным по шаблону, в
-      случае, если иные метаданные не указаны в запросе на создание инвойса.
+      Metadata that will be associated with the invoice created by the
+      template, in case other metadata is not specified in the invoice creation
+      request.
     type: object

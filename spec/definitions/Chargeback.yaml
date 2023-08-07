@@ -9,44 +9,40 @@ required:
   - status
 properties:
   id:
-    description: Идентификатор чарджбэка
+    description: Chargeback ID
     type: string
   createdAt:
-    description: Дата и время создания
+    description: Date and time of creation
     type: string
     format: date-time
   body:
     description: >
-      Сумма чарджбэка, в минорных денежных единицах,
-      например в копейках в случае указания российских рублей в качестве
-      валюты.
+      Chargeback amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
     type: integer
     format: int64
     minimum: 1
   levy:
     description: >
-      Сумма штрафа за чарджбэк, в минорных денежных единицах,
-      например в копейках в случае указания российских рублей в качестве
-      валюты.
+      Chargeback levy amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
     type: integer
     format: int64
     minimum: 1
   currency:
     x-rebillyMerge:
-      - $ref: '#/definitions/Currency'
+      - $ref: "#/definitions/Currency"
   reasonCode:
-    description: Код причины чарджбэка
+    description: Chargeback reason code
     type: string
     maxLength: 1000
   stage:
-    description: Стадия чарджбэка
+    description: Chargeback stage
     type: string
     enum:
       - chargeback
       - pre-arbitration
       - arbitration
   status:
-    description: Статус чарджбэка
+    description: Chargeback status
     type: string
     enum:
       - pending

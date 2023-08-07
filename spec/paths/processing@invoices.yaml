@@ -1,53 +1,52 @@
 get:
-  description: Получить инвойс по указанному внешнему идентификатору.
+  description: Get invoice by specified external identifier.
   tags:
     - Invoices
   operationId: getInvoiceByExternalID
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
     - name: externalID
-      description: Внешний идентификатор инвойса
+      description: External invoice identifier
       in: query
       required: true
       type: string
       maxLength: 40
       minLength: 1
   responses:
-    '200':
-      description: Инвойс
+    "200":
+      description: Invoice
       schema:
-        $ref: '#/definitions/Invoice'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
-
+        $ref: "#/definitions/Invoice"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
 post:
-  description: Создать новый инвойс.
+  description: Create a new invoice.
   tags:
     - Invoices
   operationId: createInvoice
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
     - name: invoiceParams
-      description: Параметры создаваемого инвойса
+      description: Invoice parameters
       in: body
       required: true
       schema:
-        $ref: '#/definitions/InvoiceParams'
+        $ref: "#/definitions/InvoiceParams"
   responses:
-    '201':
-      description: Инвойс создан
+    "201":
+      description: Invoice created
       schema:
-        $ref: '#/definitions/InvoiceAndToken'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      description: Ошибочные данные для создания инвойса
+        $ref: "#/definitions/InvoiceAndToken"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid data for invoice creation
       schema:
         type: object
         required:
@@ -55,8 +54,8 @@ post:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyID
@@ -72,8 +71,8 @@ post:
               - invoiceTermsViolated
               - ambiguousPartyID
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Shop not found or inaccessible
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
+    "409":
+      $ref: "#/responses/ExternalIDConflict"

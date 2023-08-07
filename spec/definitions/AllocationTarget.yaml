@@ -1,4 +1,4 @@
-description: Назначение транзакции
+description: Target of the transaction
 type: object
 discriminator: allocationTargetType
 required:

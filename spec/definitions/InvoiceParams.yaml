@@ -7,52 +7,51 @@ required:
   - metadata
 properties:
   shopID:
-    description: Идентификатор магазина
+    description: Shop ID
     type: string
     maxLength: 40
     minLength: 1
   partyID:
     x-rebillyMerge:
-      - $ref: '#/definitions/PartyID'
+      - $ref: "#/definitions/PartyID"
   externalID:
     x-rebillyMerge:
-      - $ref: '#/definitions/ExternalID'
-      - description: Внешний идентификатор инвойса
+      - $ref: "#/definitions/ExternalID"
+      - description: External invoice identifier
   dueDate:
-    description: |
-      Дата и время окончания действия инвойса, после наступления которых его
-      уже невозможно будет оплатить
+    description: >
+      The date and time of expiration of the invoice, after which it can no longer be paid
     type: string
     format: date-time
   amount:
-    description: |
-      Стоимость предлагаемых товаров или услуг, в минорных денежных единицах,
-      например в копейках в случае указания российских рублей в качестве валюты.
+    description: >
+      The value of the goods or services offered, in minor monetary units, such
+      as cents if US dollars are specified as the currency.
 
-      Если стоимость не указана, то стоимостью инвойса будет считаться суммарная
-      стоимость позиций в корзине.
+      If no value is specified, the value of the invoice will be the total
+      value of the items in the shopping cart.
     type: integer
     format: int64
     minimum: 1
   currency:
     x-rebillyMerge:
-      - $ref: '#/definitions/Currency'
+      - $ref: "#/definitions/Currency"
   product:
-    description: Наименование предлагаемых товаров или услуг
+    description: Name of the offered goods or services
     type: string
     maxLength: 100
   description:
-    description: Описание предлагаемых товаров или услуг
+    description: Description of the goods or services offered
     type: string
     maxLength: 1000
   cart:
-    $ref: '#/definitions/InvoiceCart'
+    $ref: "#/definitions/InvoiceCart"
   allocation:
-    $ref: '#/definitions/Allocation'
+    $ref: "#/definitions/Allocation"
   bankAccount:
-    $ref: '#/definitions/InvoiceBankAccount'
+    $ref: "#/definitions/InvoiceBankAccount"
   metadata:
-    description: 'Метаданные, которые необходимо связать с инвойсом'
+    description: "Invoice metadata"
     type: object
   clientInfo:
-    $ref: '#/definitions/InvoiceClientInfo'
+    $ref: "#/definitions/InvoiceClientInfo"

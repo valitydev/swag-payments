@@ -4,7 +4,7 @@ required:
   - type
 properties:
   type:
-    description: Тип процесса выполнения платежа
+    description: Payment flow type
     type: string
     enum:
       - PaymentFlowInstant

@@ -1,11 +1,11 @@
 type: object
-description: Одноразовое платежное средство
+description: Disposable payment tool
 allOf:
-  - $ref: '#/definitions/Payer'
-  - $ref: '#/definitions/PaymentResource'
+  - $ref: "#/definitions/Payer"
+  - $ref: "#/definitions/PaymentResource"
   - type: object
     required:
       - contactInfo
     properties:
       contactInfo:
-        $ref: '#/definitions/ContactInfo'
+        $ref: "#/definitions/ContactInfo"

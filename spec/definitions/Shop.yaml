@@ -1,4 +1,4 @@
-description: Данные магазина
+description: Shop details
 type: object
 required:
   - id
@@ -11,41 +11,40 @@ required:
   - contractID
 properties:
   id:
-    description: Идентификатор магазина
+    description: Shop ID
     type: string
   createdAt:
-    description: Дата и время создания
+    description: Date and time of creation
     type: string
     format: date-time
   isBlocked:
-    description: Заблокирован ли магазин?
+    description: Is the shop blocked?
     type: boolean
   isSuspended:
-    description: Приостановлены ли операции в рамках магазина?
+    description: Are operations suspended within the shop?
     type: boolean
   currency:
     x-rebillyMerge:
-      - $ref: '#/definitions/Currency'
+      - $ref: "#/definitions/Currency"
   categoryID:
-    description: |
-      Идентификатор категории товаров и услуг, предлагаемых в этом магазине
+    description: >
+      Сategory identifier of goods and services offered in this shop
     type: integer
     format: int32
   location:
-    $ref: '#/definitions/ShopLocation'
+    $ref: "#/definitions/ShopLocation"
   details:
-    $ref: '#/definitions/ShopDetails'
+    $ref: "#/definitions/ShopDetails"
   contractID:
-    description: |
-      Идентификатор договора, на основании которого производится обслуживание
-      магазина
+    description: >
+      Contract identifier on the basis of which the shop is serviced
     type: string
   payoutToolID:
-    description: |
-      Идентификатор средства вывода в рамках контракта, используемое в процессе
-      вывода по магазину
+    description: >
+      Payout tool identifier within the contract used in the payout process
+      by shop
     type: string
   scheduleID:
-    description: Идентификатор расписания выводов
+    description: Payout schedule identifier
     type: integer
     format: int32

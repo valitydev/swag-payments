@@ -1,15 +1,15 @@
 type: object
 allOf:
-  - $ref: '#/definitions/CustomerChange'
+  - $ref: "#/definitions/CustomerChange"
   - type: object
-    description: |
-      Оповещение о завершении последнего запрошенного взаимодействия с плательщиком
-      в рамках привязки
+    description: >
+      Notification on completion of the last requested interaction with the
+      customer within the bindings
     required:
       - customerBindingID
     properties:
       customerBindingID:
-        description: Идентификатор привязки
+        description: Customer binding identifier
         type: string
       userInteraction:
-        $ref: '#/definitions/UserInteraction'
+        $ref: "#/definitions/UserInteraction"

@@ -1,23 +1,23 @@
 get:
-  description: Получить cпособы вывода средств для платёжной организации
+  description: Get payout methods for the payment institution
   tags:
     - PaymentInstitutions
   operationId: getPaymentInstitutionPayoutMethods
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/paymentInstitutionID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/paymentInstitutionID"
     - name: currency
       in: query
       required: false
-      description: >-
-        Валюта, символьный код согласно [ISO
-        4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+      description: >
+        Currency character code according to
+        [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
       type: string
-      pattern: '^[A-Z]{3}$'
+      pattern: "^[A-Z]{3}$"
   responses:
-    '200':
-      description: Способ вывода средств
+    "200":
+      description: Payout method
       schema:
         type: array
         items:
@@ -27,9 +27,9 @@ get:
             - InternationalBankAccount
             - Wallet
             - PaymentInstitutionAccount
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

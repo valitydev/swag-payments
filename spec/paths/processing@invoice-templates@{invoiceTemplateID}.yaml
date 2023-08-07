@@ -1,50 +1,49 @@
 get:
-  description: Получить шаблон инвойса по его идентификатору.
+  description: Get an invoice template by its identifier.
   tags:
     - InvoiceTemplates
   operationId: getInvoiceTemplateByID
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceTemplateID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceTemplateID"
   responses:
-    '200':
-      description: Шаблон инвойса
+    "200":
+      description: Invoice template
       schema:
-        $ref: '#/definitions/InvoiceTemplate'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
-
+        $ref: "#/definitions/InvoiceTemplate"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
 put:
-  description: Модифицировать шаблон инвойса.
+  description: Change the invoice template.
   tags:
     - InvoiceTemplates
   operationId: updateInvoiceTemplate
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceTemplateID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceTemplateID"
     - name: invoiceTemplateUpdateParams
-      description: Параметры модифицируемого инвойса.
+      description: Invoice template parameters.
       in: body
       required: true
       schema:
-        $ref: '#/definitions/InvoiceTemplateUpdateParams'
+        $ref: "#/definitions/InvoiceTemplateUpdateParams"
   responses:
-    '200':
-      description: Шаблон инвойса модифицирован.
+    "200":
+      description: The invoice template has been changed.
       schema:
-        $ref: '#/definitions/InvoiceTemplate'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      description: Ошибочные данные для изменения шаблона
+        $ref: "#/definitions/InvoiceTemplate"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid data for invoice template change
       schema:
         type: object
         required:
@@ -52,8 +51,8 @@ put:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyStatus
@@ -62,28 +61,27 @@ put:
               - invalidRequest
               - invalidDeadline
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid party status
-
 delete:
-  description: Удалить шаблон инвойса.
+  description: Remove invoice template.
   tags:
     - InvoiceTemplates
   operationId: deleteInvoiceTemplate
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/invoiceTemplateID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceTemplateID"
   responses:
-    '204':
-      description: Шаблон инвойса удален.
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      description: Ошибочные данные для удаления шаблона
+    "204":
+      description: Invoice template removed.
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid data for invoice template deletion
       schema:
         type: object
         required:
@@ -91,8 +89,8 @@ delete:
           - message
         properties:
           code:
-            description: |
-              [Код ошибки](#tag/Error-Codes)
+            description: >
+              [Error code](#tag/Error-Codes)
             type: string
             enum:
               - invalidPartyStatus
@@ -100,6 +98,6 @@ delete:
               - invalidRequest
               - invalidDeadline
           message:
-            description: Человекочитаемое описание ошибки
+            description: Human-readable description of the error
             type: string
             example: Invalid party status

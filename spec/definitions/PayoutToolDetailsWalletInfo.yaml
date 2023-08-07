@@ -1,13 +1,12 @@
 type: object
 allOf:
-  - $ref: '#/definitions/PayoutToolDetails'
+  - $ref: "#/definitions/PayoutToolDetails"
   - type: object
     required:
       - walletID
     properties:
       walletID:
-        description: Идентификатор кошелька
+        description: Identifier of the wallet
         type: string
         maxLength: 40
         minLength: 1
-

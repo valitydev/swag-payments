@@ -1,20 +1,20 @@
 get:
-  description: Получить набор установленных webhook'ов участника
+  description: Get a list of installed webhooks
   tags:
     - Webhooks
   operationId: getWebhooksForParty
   parameters:
-    - $ref: '#/parameters/requestID'
-    - $ref: '#/parameters/deadline'
-    - $ref: '#/parameters/partyID'
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/partyID"
   responses:
-    '200':
-      description: Набор webhook'ов
+    "200":
+      description: A set of webhooks
       schema:
         type: array
         items:
-          $ref: '#/definitions/Webhook'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/Webhook"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

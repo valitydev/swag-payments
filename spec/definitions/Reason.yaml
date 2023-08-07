@@ -3,6 +3,6 @@ required:
   - reason
 properties:
   reason:
-    description: Причина совершения операции
+    description: Operation reason
     type: string
     maxLength: 1000

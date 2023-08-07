@@ -4,10 +4,10 @@ properties:
     type: array
     items:
       x-rebillyMerge:
-        - $ref: '#/definitions/Currency'
+        - $ref: "#/definitions/Currency"
   categories:
     type: array
     items:
-      description: Идентификаторы доступных категорий
+      description: Available category identifiers
       type: integer
       format: int32

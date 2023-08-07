@@ -1,14 +1,14 @@
 type: object
 allOf:
-  - $ref: '#/definitions/InvoiceChange'
+  - $ref: "#/definitions/InvoiceChange"
   - type: object
-    description: |
-      Оповещение о завершении последнего запрошенного взаимодействия с плательщиком
+    description: >
+      Notification on completion of the last requested interaction with the customer
     required:
       - paymentID
     properties:
       paymentID:
-        description: Идентификатор платежа
+        description: Payment ID
         type: string
       userInteraction:
-        $ref: '#/definitions/UserInteraction'
+        $ref: "#/definitions/UserInteraction"

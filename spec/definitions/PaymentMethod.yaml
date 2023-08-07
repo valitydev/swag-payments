@@ -4,7 +4,7 @@ required:
   - method
 properties:
   method:
-    description: Метод оплаты
+    description: Payment method
     type: string
     enum:
       - BankCard

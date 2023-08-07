@@ -8,37 +8,36 @@ required:
   - payoutToolDetails
 properties:
   id:
-    description: Идентификатор выплаты
+    description: Payout ID
     type: string
   shopID:
-    description: Идентификатор магазина
+    description: Shop ID
     type: string
   createdAt:
-    description: Дата и время создания
+    description: Date and time of creation
     type: string
     format: date-time
   cancellationDetails:
-    description: Детали отмены выплаты
+    description: Details of the canceled payout
     type: string
     maxLength: 1000
   amount:
-    description: |
-        Сумма выплаты в минорных денежных
-        единицах, например в копейках в случае указания российских рублей в
-        качестве валюты.
+    description: >
+      Payout amount, in minor monetary units, e.g. cents if US dollars are
+      specified as the currency.
     type: integer
     format: int64
     minimum: 1
   fee:
-    description: 'Комиссия системы, в минорных денежных единицах'
+    description: System fee in minor monetary units
     type: integer
     format: int64
     minimum: 0
   currency:
     x-rebillyMerge:
-      - $ref: '#/definitions/Currency'
+      - $ref: "#/definitions/Currency"
   payoutToolDetails:
-    $ref: '#/definitions/PayoutToolDetails'
+    $ref: "#/definitions/PayoutToolDetails"
   status:
-    description: Статус выплаты
+    description: Payout status
     type: string

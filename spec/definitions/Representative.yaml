@@ -1,4 +1,4 @@
-description: ЕИО/Представитель
+description: EEC/Representative
 type: object
 required:
   - position
@@ -6,10 +6,10 @@ required:
   - document
 properties:
   position:
-    description: Наименование должности ЕИО/представителя
+    description: Name of the EIO/representative's position
     type: string
   fullName:
-    description: ФИО ЕИО/представителя
+    description: EIO/representative full name
     type: string
   document:
-    $ref: '#/definitions/RepresentativeDocument'
+    $ref: "#/definitions/RepresentativeDocument"

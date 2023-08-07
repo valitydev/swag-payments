@@ -1,12 +1,6 @@
-description: |
-    Оператор сотовой связи.
+description: >
+  Cellular operator.
 
-    Набор операторов, доступных для проведения платежей, можно узнать, вызвав соответствующую [операцию](#operation/getInvoicePaymentMethods) после создания инвойса.
+  The list of operators available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
 type: string
 example: MTS
-# enum:
-#   - MTS
-#   - BEELINE
-#   - MEGAFONE
-#   - TELE2
-#   - YOTA

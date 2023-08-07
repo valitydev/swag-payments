@@ -1,11 +1,11 @@
-description: |
-  [Ошибка, возникшая в процессе проведения платежа](#tag/Error-Codes)
+description: >
+  [Error](#tag/Error-Codes) occurred during the payment process
 type: object
 required:
   - code
 properties:
   code:
-    description: Основной код ошибки
+    description: Basic error code
     type: string
   subError:
-    $ref: '#/definitions/SubError'
+    $ref: "#/definitions/SubError"
