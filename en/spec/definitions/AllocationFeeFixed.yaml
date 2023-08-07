@@ -1,7 +1,7 @@
 description: Transaction fee in absolute values
 allOf:
   - 
-    $ref: '#/definitions/AllocationFee'
+    $ref: "#/definitions/AllocationFee"
   - 
     type: object
     required:
