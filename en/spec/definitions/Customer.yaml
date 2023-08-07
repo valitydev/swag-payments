@@ -11,7 +11,7 @@ properties:
   externalID:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/ExternalID'
+        $ref: "#/definitions/ExternalID"
       - 
         description: External customer identifier
   shopID:
@@ -20,9 +20,9 @@ properties:
   partyID:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/PartyID'
+        $ref: "#/definitions/PartyID"
   contactInfo:
-    $ref: '#/definitions/ContactInfo'
+    $ref: "#/definitions/ContactInfo"
   status:
     description: Customer status
     type: string
