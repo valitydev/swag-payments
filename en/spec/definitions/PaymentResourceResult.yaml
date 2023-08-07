@@ -13,16 +13,16 @@ properties:
     type: string
     maxLength: 1000
   paymentToolDetails:
-    $ref: '#/definitions/PaymentToolDetails'
+    $ref: "#/definitions/PaymentToolDetails"
   clientInfo:
     allOf:
       - 
-        $ref: '#/definitions/ClientInfo'
+        $ref: "#/definitions/ClientInfo"
       - 
         readOnly: true
   validUntil:
-    description: Date and time until which the payment resource token remains valid
+    description: >
+      Date and time until which the payment resource token remains valid
     type: string
     format: date-time
     readOnly: true
-
