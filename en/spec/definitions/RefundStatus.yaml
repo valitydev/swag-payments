@@ -10,7 +10,7 @@ properties:
       - succeeded
       - failed
   error:
-    description: |
+    description: >
       Data of the error that occurred during the refund process, if the refund was unsuccessful
     type: object
     required:
