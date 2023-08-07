@@ -9,4 +9,4 @@ allOf:
         description: Payout tool ID
         type: string
   - 
-    $ref: '#/definitions/PayoutToolParams'
+    $ref: "#/definitions/PayoutToolParams"
