@@ -1,10 +1,10 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/CustomerChange'
+    $ref: "#/definitions/CustomerChange"
   - 
     type: object
-    description: |
+    description: >
       Notification on completion of the last requested interaction with the customer within the bindings
     required:
       - customerBindingID
@@ -13,4 +13,4 @@ allOf:
         description: Customer binding identifier
         type: string
       userInteraction:
-        $ref: '#/definitions/UserInteraction'
+        $ref: "#/definitions/UserInteraction"
