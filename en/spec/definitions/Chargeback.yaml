@@ -30,7 +30,7 @@ properties:
   currency:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/Currency'
+        $ref: "#/definitions/Currency"
   reasonCode:
     description: Chargeback reason code
     type: string
