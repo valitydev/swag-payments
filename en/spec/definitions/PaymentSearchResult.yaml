@@ -1,7 +1,7 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/PaymentStatus'
+    $ref: "#/definitions/PaymentStatus"
   - 
     type: object
     required:
@@ -20,17 +20,19 @@ allOf:
         description: Shortened payment and invoice identifier (spid)
         type: string
       invoiceID:
-        description: 'Identifier of the invoice within which the payment was created'
+        description: >
+          Identifier of the invoice within which the payment was created
         type: string
       shopID:
-        description: 'Identifier of the shop within which the payment was created'
+        description: >
+          Identifier of the shop within which the payment was created
         type: string
       createdAt:
         description: Created at
         type: string
         format: date-time
       amount:
-        description: |
+        description: >
           The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
         type: integer
         format: int64
@@ -43,11 +45,11 @@ allOf:
       currency:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/Currency'
+            $ref: "#/definitions/Currency"
       payer:
-        $ref: '#/definitions/Payer'
+        $ref: "#/definitions/Payer"
       flow:
-        $ref: '#/definitions/PaymentFlow'
+        $ref: "#/definitions/PaymentFlow"
       metadata:
         description: Payment metadata
         type: object
@@ -56,12 +58,12 @@ allOf:
         type: string
         format: date-time
       transactionInfo:
-        $ref: '#/definitions/TransactionInfo'
+        $ref: "#/definitions/TransactionInfo"
       makeRecurrent:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/PaymentMakeRecurrent'
+            $ref: "#/definitions/PaymentMakeRecurrent"
       cart:
-        $ref: '#/definitions/InvoiceCart'
+        $ref: "#/definitions/InvoiceCart"
       allocation:
-        $ref: '#/definitions/Allocation'
+        $ref: "#/definitions/Allocation"
