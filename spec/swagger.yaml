@@ -572,7 +572,7 @@ tags:
       Any changes of the shops require system verification by creating change
       requests.
   - name: Payouts
-    x-displayName: Withdrawal of funds
+    x-displayName: Payouts
     description: >
       You have to specify payout data within the contract with the system to
       receive automatic payouts of all accepted ones to your bank account. The
