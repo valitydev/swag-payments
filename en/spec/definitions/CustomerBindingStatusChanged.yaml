@@ -1,9 +1,9 @@
 type: object
 allOf:
   - 
-    $ref: '#/definitions/CustomerChange'
+    $ref: "#/definitions/CustomerChange"
   - 
-    $ref: '#/definitions/CustomerBindingStatus'
+    $ref: "#/definitions/CustomerBindingStatus"
   - 
     type: object
     required:
