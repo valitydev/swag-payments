@@ -5,9 +5,9 @@ get:
   operationId: getInvoiceByExternalID
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
       name: externalID
       description: External invoice identifier
@@ -17,16 +17,16 @@ get:
       maxLength: 40
       minLength: 1
   responses:
-    '200':
+    "200":
       description: Invoice
       schema:
-        $ref: '#/definitions/Invoice'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/Invoice"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
 post:
   description: Create a new invoice.
   tags:
@@ -34,24 +34,24 @@ post:
   operationId: createInvoice
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
       name: invoiceParams
       description: Invoice parameters
       in: body
       required: true
       schema:
-        $ref: '#/definitions/InvoiceParams'
+        $ref: "#/definitions/InvoiceParams"
   responses:
-    '201':
+    "201":
       description: Invoice created
       schema:
-        $ref: '#/definitions/InvoiceAndToken'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
+        $ref: "#/definitions/InvoiceAndToken"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
       description: Invalid data for invoice creation
       schema:
         type: object
@@ -60,7 +60,7 @@ post:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
@@ -80,5 +80,5 @@ post:
             description: Human-readable description of the error
             type: string
             example: Shop not found or inaccessible
-    '409':
-      $ref: '#/responses/ExternalIDConflict'
+    "409":
+      $ref: "#/responses/ExternalIDConflict"
