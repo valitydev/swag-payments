@@ -1,26 +1,26 @@
 get:
-  description: Get an invoice template by its identifier.
+  description: Get an invoice template by identifier.
   tags:
     - InvoiceTemplates
   operationId: getInvoiceTemplateByID
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/invoiceTemplateID'
+      $ref: "#/parameters/invoiceTemplateID"
   responses:
-    '200':
+    "200":
       description: Invoice template
       schema:
-        $ref: '#/definitions/InvoiceTemplate'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+        $ref: "#/definitions/InvoiceTemplate"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
 put:
   description: Change the invoice template.
   tags:
@@ -28,28 +28,28 @@ put:
   operationId: updateInvoiceTemplate
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/invoiceTemplateID'
+      $ref: "#/parameters/invoiceTemplateID"
     - 
       name: invoiceTemplateUpdateParams
       description: Invoice template parameters.
       in: body
       required: true
       schema:
-        $ref: '#/definitions/InvoiceTemplateUpdateParams'
+        $ref: "#/definitions/InvoiceTemplateUpdateParams"
   responses:
-    '200':
+    "200":
       description: The invoice template has been changed.
       schema:
-        $ref: '#/definitions/InvoiceTemplate'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
+        $ref: "#/definitions/InvoiceTemplate"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
       description: Invalid data for invoice template change
       schema:
         type: object
@@ -58,7 +58,7 @@ put:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
@@ -78,19 +78,19 @@ delete:
   operationId: deleteInvoiceTemplate
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/invoiceTemplateID'
+      $ref: "#/parameters/invoiceTemplateID"
   responses:
-    '204':
+    "204":
       description: Invoice template removed.
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
       description: Invalid data for invoice template deletion
       schema:
         type: object
@@ -99,7 +99,7 @@ delete:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
