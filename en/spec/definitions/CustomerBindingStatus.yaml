@@ -10,4 +10,4 @@ properties:
       - succeeded
       - failed
   error:
-    $ref: '#/definitions/CustomerBindingError'
+    $ref: "#/definitions/CustomerBindingError"
