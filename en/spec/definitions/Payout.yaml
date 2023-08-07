@@ -22,22 +22,22 @@ properties:
     type: string
     maxLength: 1000
   amount:
-    description: |
+    description: >
       Payout amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
     type: integer
     format: int64
     minimum: 1
   fee:
-    description: 'System fee in minor monetary units'
+    description: System fee in minor monetary units
     type: integer
     format: int64
     minimum: 0
   currency:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/Currency'
+        $ref: "#/definitions/Currency"
   payoutToolDetails:
-    $ref: '#/definitions/PayoutToolDetails'
+    $ref: "#/definitions/PayoutToolDetails"
   status:
     description: Payout status
     type: string
