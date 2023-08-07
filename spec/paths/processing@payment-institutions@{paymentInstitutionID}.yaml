@@ -1,5 +1,5 @@
 get:
-  description: Get data of the payment institution by its identifier
+  description: Get data of the payment institution by identifier
   tags:
     - PaymentInstitutions
   operationId: getPaymentInstitutionByRef

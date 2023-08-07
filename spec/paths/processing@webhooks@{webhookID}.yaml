@@ -1,5 +1,5 @@
 get:
-  description: Get a webhook by its identifier.
+  description: Get a webhook by identifier.
   tags:
     - Webhooks
   operationId: getWebhookByID

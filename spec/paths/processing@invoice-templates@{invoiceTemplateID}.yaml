@@ -1,5 +1,5 @@
 get:
-  description: Get an invoice template by its identifier.
+  description: Get an invoice template by identifier.
   tags:
     - InvoiceTemplates
   operationId: getInvoiceTemplateByID

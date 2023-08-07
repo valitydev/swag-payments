@@ -1,5 +1,5 @@
 get:
-  description: Get payout schedule data by its identifier
+  description: Get payout schedule data by identifier
   tags:
     - Payouts
   operationId: getScheduleByRef

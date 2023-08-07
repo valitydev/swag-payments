@@ -19,7 +19,7 @@ get:
     "400":
       $ref: "#/responses/DefaultLogicError"
 delete:
-  description: Delete a customer by its identifier
+  description: Delete a customer by identifier
   operationId: deleteCustomer
   tags:
     - Customers
