@@ -6,7 +6,7 @@ required:
   - document
 properties:
   position:
-    description: Наименование должности ЕИО/представителя
+    description: Name of the EIO/representative's position
     type: string
   fullName:
     description: EEC/representative full name
