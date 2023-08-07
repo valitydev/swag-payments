@@ -1,6 +1,6 @@
 allOf:
   - 
-    $ref: '#/definitions/InvoiceLineTaxMode'
+    $ref: "#/definitions/InvoiceLineTaxMode"
   - 
     description: Value added tax in the jurisdiction of the Russian Federation
     type: object
