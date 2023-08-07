@@ -5,19 +5,19 @@ get:
   operationId: getWebhooksForParty
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/partyID'
+      $ref: "#/parameters/partyID"
   responses:
-    '200':
-      description: A set of webhooks
+    "200":
+      description: A list of webhooks
       schema:
         type: array
         items:
-          $ref: '#/definitions/Webhook'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+          $ref: "#/definitions/Webhook"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
