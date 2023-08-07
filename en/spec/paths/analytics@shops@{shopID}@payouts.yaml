@@ -5,19 +5,19 @@ get:
   operationId: searchPayouts
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/shopID'
+      $ref: "#/parameters/shopID"
     - 
-      $ref: '#/parameters/fromTime'
+      $ref: "#/parameters/fromTime"
     - 
-      $ref: '#/parameters/toTime'
+      $ref: "#/parameters/toTime"
     - 
-      $ref: '#/parameters/limit'
+      $ref: "#/parameters/limit"
     - 
-      $ref: '#/parameters/offset'
+      $ref: "#/parameters/offset"
     - 
       name: payoutID
       in: query
@@ -38,7 +38,7 @@ get:
       description: >
         Type of payout to search * PayoutAccount - payout to bank account * Wallet - payout to wallet * PaymentInstitutionAccount - payout to payment institution account
   responses:
-    '200':
+    "200":
       description: Payouts found
       schema:
         type: object
@@ -48,10 +48,10 @@ get:
           result:
             type: array
             items:
-              $ref: '#/definitions/Payout'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+              $ref: "#/definitions/Payout"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
