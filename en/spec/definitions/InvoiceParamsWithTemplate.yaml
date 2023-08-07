@@ -3,9 +3,9 @@ properties:
   externalID:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/ExternalID'
+        $ref: "#/definitions/ExternalID"
   amount:
-    description: |
+    description: >
       The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
     type: integer
     format: int64
@@ -13,7 +13,7 @@ properties:
   currency:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/Currency'
+        $ref: "#/definitions/Currency"
   metadata:
-    description: 'Invoice metadata'
+    description: "Invoice metadata"
     type: object
