@@ -17,9 +17,10 @@ x-merge-properties:
       externalID:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/ExternalID'
+            $ref: "#/definitions/ExternalID"
       invoiceID:
-        description: 'Identifier of the invoice within which the payment was created'
+        description: >
+          Identifier of the invoice within which the payment was created
         type: string
       createdAt:
         description: Created at
@@ -34,17 +35,17 @@ x-merge-properties:
       currency:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/Currency'
+            $ref: "#/definitions/Currency"
       flow:
-        $ref: '#/definitions/PaymentFlow'
+        $ref: "#/definitions/PaymentFlow"
       payer:
-        $ref: '#/definitions/Payer'
+        $ref: "#/definitions/Payer"
       transactionInfo:
-        $ref: '#/definitions/TransactionInfo'
+        $ref: "#/definitions/TransactionInfo"
       makeRecurrent:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/PaymentMakeRecurrent'
+            $ref: "#/definitions/PaymentMakeRecurrent"
           - 
             readOnly: true
       metadata:
@@ -53,8 +54,8 @@ x-merge-properties:
       allocation:
         x-rebillyMerge:
           - 
-            $ref: '#/definitions/Allocation'
+            $ref: "#/definitions/Allocation"
           - 
             readOnly: true
   - 
-    $ref: '#/definitions/PaymentStatus'
+    $ref: "#/definitions/PaymentStatus"
