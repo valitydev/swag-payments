@@ -33,7 +33,7 @@ post:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
