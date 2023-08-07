@@ -8,19 +8,19 @@ properties:
   id:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/PayoutID'
+        $ref: "#/definitions/PayoutID"
   shopID:
     description: Shop ID
     type: string
   partyID:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/PartyID'
+        $ref: "#/definitions/PartyID"
   payoutToolID:
     description: Payout tool ID
     type: string
   amount:
-    description: |
+    description: >
       Payout amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
     type: integer
     format: int64
@@ -28,4 +28,4 @@ properties:
   currency:
     x-rebillyMerge:
       - 
-        $ref: '#/definitions/Currency'
+        $ref: "#/definitions/Currency"
