@@ -1,28 +1,28 @@
 post:
-  description: |
+  description: >
     Create a new payout and send it to pre-moderation.
   operationId: createPayout
   tags:
     - Payouts
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
       name: payoutParams
       in: body
       required: true
       schema:
-        $ref: '#/definitions/PayoutParams'
+        $ref: "#/definitions/PayoutParams"
   responses:
-    '201':
+    "201":
       description: Payout created
       schema:
-        $ref: '#/definitions/Payout'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
+        $ref: "#/definitions/Payout"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
       description: Invalid data
       schema:
         type: object
@@ -31,7 +31,7 @@ post:
           - message
         properties:
           code:
-            description: |
+            description: >
               [Error code](#tag/Error-Codes)
             type: string
             enum:
