@@ -312,7 +312,7 @@
     },
     {
       "name": "Payouts",
-      "x-displayName": "Withdrawal of funds",
+      "x-displayName": "Payouts",
       "description": "You have to specify payout data within the contract with the system to receive automatic payouts of all accepted ones to your bank account. The system will then initiate bank transfers based on the payment amounts accepted for all active shops.\nAny data changes require system verification by creating change requests.\n"
     },
     {

@@ -370,7 +370,7 @@ tags:
       A contract contains all details of a legal agreement on basis of which the system provides all possible services to a merchant. In particular a list of conditions, on basis of which the system services are provided, is written in the contract. The examples of this can be the transaction fees, conditions of withdrawal and legal entity data.
       Any changes of the shops require system verification by creating change requests.
   - name: Payouts
-    x-displayName: Withdrawal of funds
+    x-displayName: Payouts
     description: |
       You have to specify payout data within the contract with the system to receive automatic payouts of all accepted ones to your bank account. The system will then initiate bank transfers based on the payment amounts accepted for all active shops.
       Any data changes require system verification by creating change requests.
