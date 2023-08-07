@@ -5,17 +5,17 @@ get:
   operationId: searchPayments
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/shopID'
+      $ref: "#/parameters/shopID"
     - 
-      $ref: '#/parameters/fromTime'
+      $ref: "#/parameters/fromTime"
     - 
-      $ref: '#/parameters/toTime'
+      $ref: "#/parameters/toTime"
     - 
-      $ref: '#/parameters/limit'
+      $ref: "#/parameters/limit"
     - 
       name: paymentStatus
       in: query
@@ -54,14 +54,6 @@ get:
       required: false
       type: string
     - 
-      #enum:
-      #- euroset
-      #- alipay
-      #- wechat
-      #- zotapay
-      #- qps
-      #- uzcard
-      #- rbs
       name: invoiceID
       in: query
       description: Invoice ID
@@ -80,7 +72,7 @@ get:
     - 
       name: payerEmail
       in: query
-      description: 'Payer''s e-mail'
+      description: "Payer's e-mail"
       required: false
       type: string
       format: email
@@ -125,14 +117,14 @@ get:
     - 
       name: rrn
       in: query
-      description: 'Retrieval Reference Number'
+      description: Retrieval Reference Number
       required: false
       type: string
-      pattern: '^[a-zA-Z0-9]{12}$'
+      pattern: "^[a-zA-Z0-9]{12}$"
     - 
       name: approvalCode
       in: query
-      description: 'Authorization Approval Code'
+      description: Authorization Approval Code
       required: false
       type: string
       maxLength: 40
@@ -144,7 +136,7 @@ get:
           in: query
           required: false
         - 
-          $ref: '#/definitions/BankCardTokenProvider'
+          $ref: "#/definitions/BankCardTokenProvider"
     - 
       x-rebillyMerge:
         - 
@@ -152,7 +144,7 @@ get:
           in: query
           required: false
         - 
-          $ref: '#/definitions/BankCardPaymentSystem'
+          $ref: "#/definitions/BankCardPaymentSystem"
     - 
       name: paymentAmount
       in: query
@@ -168,9 +160,9 @@ get:
           in: query
           required: false
         - 
-          $ref: '#/definitions/ContinuationToken'
+          $ref: "#/definitions/ContinuationToken"
   responses:
-    '200':
+    "200":
       description: Payments found
       schema:
         type: object
@@ -178,14 +170,14 @@ get:
           continuationToken:
             x-rebillyMerge:
               - 
-                $ref: '#/definitions/ContinuationToken'
+                $ref: "#/definitions/ContinuationToken"
           result:
             type: array
             items:
-              $ref: '#/definitions/PaymentSearchResult'
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
-      $ref: '#/responses/DefaultLogicError'
+              $ref: "#/definitions/PaymentSearchResult"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
