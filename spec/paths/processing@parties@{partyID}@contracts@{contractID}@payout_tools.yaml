@@ -10,7 +10,7 @@ get:
     - $ref: "#/parameters/partyID"
   responses:
     "200":
-      description: Set of payout tools
+      description: List of payout tools
       schema:
         type: array
         items:

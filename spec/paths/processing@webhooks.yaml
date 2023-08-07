@@ -53,7 +53,7 @@ post:
             type: string
             example: Shop not found or inaccessible
 get:
-  description: Get set of installed webhooks.
+  description: Get list of installed webhooks.
   tags:
     - Webhooks
   operationId: getWebhooks
@@ -62,7 +62,7 @@ get:
     - $ref: "#/parameters/deadline"
   responses:
     "200":
-      description: A set of webhooks
+      description: A list of webhooks
       schema:
         type: array
         items:

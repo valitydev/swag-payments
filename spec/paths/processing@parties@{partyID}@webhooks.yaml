@@ -9,7 +9,7 @@ get:
     - $ref: "#/parameters/partyID"
   responses:
     "200":
-      description: A set of webhooks
+      description: A list of webhooks
       schema:
         type: array
         items:

@@ -565,7 +565,7 @@ tags:
     description: >
       A contract contains all details of a legal agreement on basis of which
       the system provides all possible services to a merchant. In particular a
-      set of conditions, on basis of which the system services are provided, is
+      list of conditions, on basis of which the system services are provided, is
       written in the contract. The examples of this can be the transaction
       fees, conditions of withdrawal and legal entity data.
 

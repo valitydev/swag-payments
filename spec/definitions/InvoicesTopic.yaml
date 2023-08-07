@@ -13,7 +13,7 @@ allOf:
         maxLength: 40
         minLength: 1
       eventTypes:
-        description: Set of invoice event types to be notified about
+        description: List of invoice event types to be notified about
         type: array
         items:
           type: string

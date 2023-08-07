@@ -1,4 +1,4 @@
-description: EEC/Representative
+description: EIO/Representative
 type: object
 required:
   - position
