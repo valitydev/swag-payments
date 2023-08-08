@@ -43,12 +43,12 @@ jobs:
       - name: Generate stubs
         run: >
           mkdir -p out
+
           swagger-codegen generate
           -l vality-erlang-client
           -i web_deploy/swagger.json
           -o out/erlang-client
           --additional-properties packageName=swag_client
-
 
           swagger-codegen generate
           -l vality-erlang-server

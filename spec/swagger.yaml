@@ -339,7 +339,7 @@ tags:
 
   - name: Invoices
     x-displayName: Invoices
-# yamllint disable-line rule:line-length
+# yamllint disable rule:line-length
     description: >
       An invoice is a fundamental model for work with payment acceptance
       system. It is necessary to create an invoice and find out its ID before
@@ -441,7 +441,7 @@ tags:
         * AllocationFeeFixed or fee amount in favour of an invoice shop.
 
         * AllocationFeeShare or some percent of the total amount of transaction in favour of an invoice shop.
-
+# yamllint enable rule:line-length
   - name: InvoiceTemplates
     x-displayName: Invoice templates
     description: >
@@ -607,7 +607,7 @@ tags:
       processes.
   - name: Error Codes
     x-displayName: Error codes
-# yamllint disable-line rule:line-length
+# yamllint disable rule:line-length
     description: >
       ## Business logic errors
 
@@ -905,3 +905,4 @@ tags:
       ```
 
       If you have an error that is not described here, contact the technical support.
+# yamllint enable rule:line-length
