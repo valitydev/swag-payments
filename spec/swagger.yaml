@@ -339,7 +339,7 @@ tags:
 
   - name: Invoices
     x-displayName: Invoices
-    # yamllint disable-line rule:line-length
+# yamllint disable-line rule:line-length
     description: >
       An invoice is a fundamental model for work with payment acceptance
       system. It is necessary to create an invoice and find out its ID before
@@ -607,7 +607,7 @@ tags:
       processes.
   - name: Error Codes
     x-displayName: Error codes
-    # yamllint disable-line rule:line-length
+# yamllint disable-line rule:line-length
     description: >
       ## Business logic errors
 
