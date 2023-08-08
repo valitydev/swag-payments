@@ -275,6 +275,7 @@ tags:
   - 
     name: Invoices
     x-displayName: Invoices
+    #yamllint disable rule:line-length
     description: >
       An invoice is a fundamental model for work with payment acceptance system. It is necessary to create an invoice and find out its ID before rendering the payment form launching debit transactions, holding funds on the payer’s card and launching other similar business processes.
       In general, an invoice is a container for payments, data about goods and a shop. Invoices have customizable limited lifetime. Once lifetime is expired, invoice status is impossible to change.
@@ -317,6 +318,7 @@ tags:
       * AllocationFeeFixed or fee amount in favour of an invoice shop.
       * AllocationFeeShare or some percent of the total amount of transaction in favour of an invoice shop.
   - 
+    #yamllint enable rule:line-length
     name: InvoiceTemplates
     x-displayName: Invoice templates
     description: >
@@ -392,6 +394,7 @@ tags:
   - 
     name: Error Codes
     x-displayName: Error codes
+    #yamllint disable rule:line-length
     description: >
       ## Business logic errors
       All business logic errors have as follows:
@@ -530,3 +533,4 @@ tags:
       { "code":"authorization_failed", "subError":{ "code":"payment_tool_rejected", "subError":{ "code":"bank_card_rejected", "subError":{ "code":"cvv_invalid" } } } }
       ```
       If you have an error that is not described here, contact the technical support.
+#yamllint enable rule:line-length
