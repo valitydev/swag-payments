@@ -5,26 +5,26 @@ post:
   operationId: fulfillInvoice
   parameters:
     - 
-      $ref: '#/parameters/requestID'
+      $ref: "#/parameters/requestID"
     - 
-      $ref: '#/parameters/deadline'
+      $ref: "#/parameters/deadline"
     - 
-      $ref: '#/parameters/invoiceID'
+      $ref: "#/parameters/invoiceID"
     - 
       name: fulfillInvoice
       in: body
       description: Reason for the operation
       required: true
       schema:
-        $ref: '#/definitions/Reason'
+        $ref: "#/definitions/Reason"
   responses:
-    '204':
+    "204":
       description: Инвойс погашен
-    '404':
-      $ref: '#/responses/NotFound'
-    '401':
-      $ref: '#/responses/Unauthorized'
-    '400':
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
       description: Invoice fulfillment error
       schema:
         type: object
