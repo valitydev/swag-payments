@@ -399,7 +399,7 @@ tags:
       }
       ```
 
-      The error type is in the field `code` and additional information about the error that occurred is in `message`. 
+      The error type is in the field `code` and additional information about the error that occurred is in `message`.
       There are the following error codes at the present moment:
       | Code                             | Description                                                                                                                                |
       |----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
