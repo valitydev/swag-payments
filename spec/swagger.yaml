@@ -339,6 +339,7 @@ tags:
 
   - name: Invoices
     x-displayName: Invoices
+    # yamllint disable-line rule:line-length
     description: >
       An invoice is a fundamental model for work with payment acceptance
       system. It is necessary to create an invoice and find out its ID before
@@ -606,6 +607,7 @@ tags:
       processes.
   - name: Error Codes
     x-displayName: Error codes
+    # yamllint disable-line rule:line-length
     description: >
       ## Business logic errors
 
@@ -631,7 +633,7 @@ tags:
       |----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 
       | **operationNotPermitted**        | Unavailable transaction within the current contract.                                                                                       |
-      
+
       | **invalidPartyStatus**           | Your participant is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateMyParty) them. |
 
       | **invalidShopStatus**            | Your shop is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateShop) them.           |

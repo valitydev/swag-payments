@@ -41,11 +41,20 @@ jobs:
         run: npm run build -- web_deploy
 
       - name: Generate stubs
-        run: |
+        run: >
           mkdir -p out
-          swagger-codegen generate -l vality-erlang-client -i web_deploy/swagger.json -o out/erlang-client --additional-properties packageName=swag_client
-          swagger-codegen generate -l vality-erlang-server -i web_deploy/swagger.json -o out/erlang-server --additional-properties packageName=swag_server
+          swagger-codegen generate
+          -l vality-erlang-client
+          -i web_deploy/swagger.json
+          -o out/erlang-client
+          --additional-properties packageName=swag_client
 
+
+          swagger-codegen generate
+          -l vality-erlang-server
+          -i web_deploy/swagger.json
+          -o out/erlang-server
+          --additional-properties packageName=swag_server
       - name: Deploy erlang-client artifact to release branch
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
