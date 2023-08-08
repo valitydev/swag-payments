@@ -1,8 +1,8 @@
-name: 'Frontend: PR'
+name: "Frontend: PR"
 
 on:
   pull_request:
-    branches: ['*']
+    branches: ["*"]
 
 jobs:
   configured:

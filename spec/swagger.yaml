@@ -339,6 +339,7 @@ tags:
 
   - name: Invoices
     x-displayName: Invoices
+    # yamllint disable rule:line-length
     description: >
       An invoice is a fundamental model for work with payment acceptance
       system. It is necessary to create an invoice and find out its ID before
@@ -440,7 +441,7 @@ tags:
         * AllocationFeeFixed or fee amount in favour of an invoice shop.
 
         * AllocationFeeShare or some percent of the total amount of transaction in favour of an invoice shop.
-
+  # yamllint enable rule:line-length
   - name: InvoiceTemplates
     x-displayName: Invoice templates
     description: >
@@ -498,7 +499,8 @@ tags:
       The debiting (capturePayment) can be confirmed on equal or less
       authorisation amount. If the less amount is specified, the balance will
       be refunded to a payer. The successful authorisation can be confirmed or
-      cancelled both manually by calling the corresponding API method (capturePayment or cancelPayment) and automatically according to the
+      cancelled both manually by calling the corresponding API method
+      (capturePayment or cancelPayment) and automatically according to the
       chosen strategy onHoldExpiration. The manual confirmation period is set
       in the system settings by yourself and it is usually from 3 to 7 calendar
       days.
@@ -606,6 +608,7 @@ tags:
       processes.
   - name: Error Codes
     x-displayName: Error codes
+    # yamllint disable rule:line-length
     description: >
       ## Business logic errors
 
@@ -622,7 +625,7 @@ tags:
 
 
       The error type is in the field `code` and additional information about
-      the error that occurred is in `message`. 
+      the error that occurred is in `message`.
 
       There are the following error codes at the present moment:
 
@@ -631,7 +634,7 @@ tags:
       |----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 
       | **operationNotPermitted**        | Unavailable transaction within the current contract.                                                                                       |
-      
+
       | **invalidPartyStatus**           | Your participant is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateMyParty) them. |
 
       | **invalidShopStatus**            | Your shop is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateShop) them.           |
@@ -903,3 +906,4 @@ tags:
       ```
 
       If you have an error that is not described here, contact the technical support.
+# yamllint enable rule:line-length

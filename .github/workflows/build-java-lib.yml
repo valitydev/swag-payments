@@ -3,7 +3,7 @@ name: Build java libraries
 on:
   pull_request:
     branches:
-      - '*'
+      - "*"
 
 jobs:
   build:
