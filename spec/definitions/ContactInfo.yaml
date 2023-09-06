@@ -13,26 +13,44 @@ properties:
     type: string
     format: '^\+\d{4,15}$'
   firstName:
+    description: First name
     type: string
     maxLength: 40
     minLength: 1
+    example: "John"
   lastName:
+    description: Last name
     type: string
     maxLength: 40
     minLength: 1
+    example: "Doe"
   country:
+    description: Country
     type: string
     maxLength: 40
     minLength: 1
+    example: "USA"
   state:
+    description: State
     type: string
     maxLength: 40
     minLength: 1
+    example: "Colorado"
   city:
+    description: City
     type: string
     maxLength: 40
     minLength: 1
+    example: "Denver"
+  address:
+    description: Address
+    type: string
+    maxLength: 40
+    minLength: 1
+    example: "10th Street 13"
   zipCode:
+    description: Zip code
     type: string
     maxLength: 40
     minLength: 1
+    example: "00012"
