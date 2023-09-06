@@ -12,3 +12,27 @@ properties:
       [E.164](https://en.wikipedia.org/wiki/E.164).
     type: string
     format: '^\+\d{4,15}$'
+  firstName:
+    type: string
+    maxLength: 40
+    minLength: 1
+  lastName:
+    type: string
+    maxLength: 40
+    minLength: 1
+  country:
+    type: string
+    maxLength: 40
+    minLength: 1
+  state:
+    type: string
+    maxLength: 40
+    minLength: 1
+  city:
+    type: string
+    maxLength: 40
+    minLength: 1
+  zipCode:
+    type: string
+    maxLength: 40
+    minLength: 1
