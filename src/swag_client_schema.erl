@@ -6373,11 +6373,60 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"format">> => <<"^\\+\\d{4,15}$">>,
           <<"description">> => <<"Mobile phone number with international prefix according to [E.164](https://en.wikipedia.org/wiki/E.164).\n">>
+        },
+        <<"firstName">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"John">>,
+          <<"description">> => <<"First name">>,
+          <<"maxLength">> => 100
+        },
+        <<"lastName">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"Doe">>,
+          <<"description">> => <<"Last name">>,
+          <<"maxLength">> => 100
+        },
+        <<"country">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"RUS">>,
+          <<"description">> => <<"Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
+          <<"pattern">> => <<"^[A-Z]{3}$">>
+        },
+        <<"state">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"Colorado">>,
+          <<"description">> => <<"State">>,
+          <<"maxLength">> => 40
+        },
+        <<"city">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"Denver">>,
+          <<"description">> => <<"City">>,
+          <<"maxLength">> => 40
+        },
+        <<"address">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"10th Street 13">>,
+          <<"description">> => <<"Address">>,
+          <<"maxLength">> => 1000
+        },
+        <<"postalCode">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"00012">>,
+          <<"description">> => <<"Postal code">>,
+          <<"maxLength">> => 40
         }
       },
       <<"description">> => <<"Contact details">>,
       <<"example">> => #{
+        <<"firstName">> => <<"John">>,
+        <<"lastName">> => <<"Doe">>,
+        <<"country">> => <<"RUS">>,
         <<"phoneNumber">> => <<"phoneNumber">>,
+        <<"address">> => <<"10th Street 13">>,
+        <<"city">> => <<"Denver">>,
+        <<"postalCode">> => <<"00012">>,
+        <<"state">> => <<"Colorado">>,
         <<"email">> => <<"email">>
       }
     },
@@ -6680,7 +6729,14 @@ get_raw() ->
       <<"example">> => #{
         <<"metadata">> => <<"{}">>,
         <<"contactInfo">> => #{
+          <<"firstName">> => <<"John">>,
+          <<"lastName">> => <<"Doe">>,
+          <<"country">> => <<"RUS">>,
           <<"phoneNumber">> => <<"phoneNumber">>,
+          <<"address">> => <<"10th Street 13">>,
+          <<"city">> => <<"Denver">>,
+          <<"postalCode">> => <<"00012">>,
+          <<"state">> => <<"Colorado">>,
           <<"email">> => <<"email">>
         },
         <<"externalID">> => <<"externalID">>,
@@ -6708,7 +6764,14 @@ get_raw() ->
         <<"customer">> => #{
           <<"metadata">> => <<"{}">>,
           <<"contactInfo">> => #{
+            <<"firstName">> => <<"John">>,
+            <<"lastName">> => <<"Doe">>,
+            <<"country">> => <<"RUS">>,
             <<"phoneNumber">> => <<"phoneNumber">>,
+            <<"address">> => <<"10th Street 13">>,
+            <<"city">> => <<"Denver">>,
+            <<"postalCode">> => <<"00012">>,
+            <<"state">> => <<"Colorado">>,
             <<"email">> => <<"email">>
           },
           <<"externalID">> => <<"externalID">>,
@@ -6959,7 +7022,14 @@ get_raw() ->
       <<"example">> => #{
         <<"metadata">> => <<"{}">>,
         <<"contactInfo">> => #{
+          <<"firstName">> => <<"John">>,
+          <<"lastName">> => <<"Doe">>,
+          <<"country">> => <<"RUS">>,
           <<"phoneNumber">> => <<"phoneNumber">>,
+          <<"address">> => <<"10th Street 13">>,
+          <<"city">> => <<"Denver">>,
+          <<"postalCode">> => <<"00012">>,
+          <<"state">> => <<"Colorado">>,
           <<"email">> => <<"email">>
         },
         <<"externalID">> => <<"externalID">>,
