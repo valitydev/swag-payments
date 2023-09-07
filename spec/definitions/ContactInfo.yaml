@@ -48,8 +48,8 @@ properties:
     maxLength: 40
     minLength: 1
     example: "10th Street 13"
-  zipCode:
-    description: Zip code
+  postalCode:
+    description: Postal code
     type: string
     maxLength: 40
     minLength: 1
