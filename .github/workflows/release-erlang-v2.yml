@@ -19,7 +19,7 @@ jobs:
           node-version: "16"
 
       - name: Setup swagger-codegen
-        uses: valitydev/action-setup-swagger-codegen@v0.0.1
+        uses: valitydev/action-setup-swagger-codegen@v0.0.4
         with:
           codegen-version: "2.4.25"
           generator-version: "1.0.3"
@@ -56,14 +56,14 @@ jobs:
           -o out/erlang-server
           --additional-properties packageName=swag_server
       - name: Deploy erlang-client artifact to release branch
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           branch: release/erlang/client/v2
           folder: out/erlang-client
           commit-message: Release ${{ github.repository }}@${{ github.sha }}
 
       - name: Deploy erlang-server artifact to release branch
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           branch: release/erlang/server/v2
           folder: out/erlang-server
