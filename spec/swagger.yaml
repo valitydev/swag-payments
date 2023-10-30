@@ -92,6 +92,24 @@ securityDefinitions:
 
 
       **Important: Do not pass the API-key to third parties!**
+  invoiceAccessToken:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: >
+      The invoice access token allows you to authorize a limited number of
+      transactions required to make payments on a specified invoice.
+
+      Invoice access token, unlike API Key, is acceptable to publish.
+
+
+      The contents of the invoice access token should be passed in the
+      `Authorization` header:
+
+
+      ```
+      Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M...
+      ```
 security:
   - bearer: []
 responses:

@@ -3,6 +3,9 @@ get:
   tags:
     - Payments
   operationId: getChargebackByID
+  security:
+    - bearer: []
+    - invoiceAccessToken: []
   parameters:
     - $ref: "#/parameters/requestID"
     - $ref: "#/parameters/deadline"
