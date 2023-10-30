@@ -7,6 +7,9 @@ post:
   tags:
     - Tokens
   operationId: createPaymentResource
+  security:
+    - bearer: []
+    - invoiceAccessToken: []
   parameters:
     - $ref: "#/parameters/requestID"
     - $ref: "#/parameters/deadline"

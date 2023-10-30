@@ -3,6 +3,9 @@ post:
   tags:
     - Invoices
   operationId: rescindInvoice
+  security:
+    - bearer: []
+    - invoiceAccessToken: []
   parameters:
     - $ref: "#/parameters/requestID"
     - $ref: "#/parameters/deadline"
