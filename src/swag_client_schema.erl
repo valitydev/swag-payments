@@ -2349,6 +2349,11 @@ get_raw() ->
           <<"maxLength">> => 40,
           <<"minLength">> => 1
         } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
+        } ],
         <<"responses">> => #{
           <<"200">> => #{
             <<"description">> => <<"Invoice details">>,
@@ -2403,6 +2408,11 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
         } ],
         <<"responses">> => #{
           <<"201">> => #{
@@ -2474,6 +2484,11 @@ get_raw() ->
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int32">>
         } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
+        } ],
         <<"responses">> => #{
           <<"200">> => #{
             <<"description">> => <<"A list of events">>,
@@ -2540,6 +2555,11 @@ get_raw() ->
             <<"$ref">> => <<"#/definitions/Reason">>
           }
         } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
+        } ],
         <<"responses">> => #{
           <<"204">> => #{
             <<"description">> => <<"Инвойс погашен">>
@@ -2591,6 +2611,11 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
         } ],
         <<"responses">> => #{
           <<"200">> => #{
@@ -2649,6 +2674,11 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
         } ],
         <<"responses">> => #{
           <<"200">> => #{
@@ -2713,6 +2743,11 @@ get_raw() ->
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/PaymentParams">>
           }
+        } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
         } ],
         <<"responses">> => #{
           <<"201">> => #{
@@ -2782,6 +2817,11 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
         } ],
         <<"responses">> => #{
           <<"200">> => #{
@@ -2854,6 +2894,11 @@ get_raw() ->
             <<"$ref">> => <<"#/definitions/Reason">>
           }
         } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
+        } ],
         <<"responses">> => #{
           <<"202">> => #{
             <<"description">> => <<"Payment cancelation request received">>
@@ -2922,6 +2967,11 @@ get_raw() ->
             <<"$ref">> => <<"#/definitions/CaptureParams">>
           }
         } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
+        } ],
         <<"responses">> => #{
           <<"202">> => #{
             <<"description">> => <<"Request to capture payment accepted">>
@@ -2981,6 +3031,11 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
         } ],
         <<"responses">> => #{
           <<"200">> => #{
@@ -3056,6 +3111,11 @@ get_raw() ->
           <<"maxLength">> => 40,
           <<"minLength">> => 1
         } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
+        } ],
         <<"responses">> => #{
           <<"200">> => #{
             <<"description">> => <<"Chargeback details">>,
@@ -3118,6 +3178,11 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
         } ],
         <<"responses">> => #{
           <<"200">> => #{
@@ -3268,6 +3333,11 @@ get_raw() ->
           <<"maxLength">> => 40,
           <<"minLength">> => 1
         } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
+        } ],
         <<"responses">> => #{
           <<"200">> => #{
             <<"description">> => <<"Refund details">>,
@@ -3330,6 +3400,11 @@ get_raw() ->
           <<"schema">> => #{
             <<"$ref">> => <<"#/definitions/Reason">>
           }
+        } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
         } ],
         <<"responses">> => #{
           <<"204">> => #{
@@ -4952,6 +5027,11 @@ get_raw() ->
             <<"$ref">> => <<"#/definitions/PaymentResourceParams">>
           }
         } ],
+        <<"security">> => [ #{
+          <<"bearer">> => [ ]
+        }, #{
+          <<"invoiceAccessToken">> => [ ]
+        } ],
         <<"responses">> => #{
           <<"201">> => #{
             <<"description">> => <<"Token and session created">>,
@@ -5790,6 +5870,12 @@ get_raw() ->
   <<"securityDefinitions">> => #{
     <<"bearer">> => #{
       <<"description">> => <<"Interaction between the merchant and the system is performed via a secure protocol (HTTPS).\n\nHTTP requests via unencrypted channel are not supported.\n\nThe contents of the API key should be passed in the `Authorization` header:\n\n``` Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M... ```\n\nKeys are not divided into test and production keys. Use the test shop ID for test transactions.\n\n**Important: Do not pass the API-key to third parties!**\n">>,
+      <<"type">> => <<"apiKey">>,
+      <<"name">> => <<"Authorization">>,
+      <<"in">> => <<"header">>
+    },
+    <<"invoiceAccessToken">> => #{
+      <<"description">> => <<"The invoice access token allows you to authorize a limited number of transactions required to make payments on a specified invoice.\nInvoice access token, unlike API Key, is acceptable to publish.\n\nThe contents of the invoice access token should be passed in the `Authorization` header:\n\n``` Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M... ```\n">>,
       <<"type">> => <<"apiKey">>,
       <<"name">> => <<"Authorization">>,
       <<"in">> => <<"header">>
