@@ -3,6 +3,11 @@ get:
   tags:
     - Payments
   operationId: getPayments
+  security:
+    - 
+      bearer: [ ]
+    - 
+      invoiceAccessToken: [ ]
   parameters:
     - 
       $ref: "#/parameters/requestID"
@@ -28,6 +33,11 @@ post:
   tags:
     - Payments
   operationId: createPayment
+  security:
+    - 
+      bearer: [ ]
+    - 
+      invoiceAccessToken: [ ]
   parameters:
     - 
       $ref: "#/parameters/requestID"
