@@ -3,6 +3,11 @@ get:
   tags:
     - Payments
   operationId: getRefunds
+  security:
+    - 
+      bearer: [ ]
+    - 
+      invoiceAccessToken: [ ]
   parameters:
     - 
       $ref: "#/parameters/requestID"
