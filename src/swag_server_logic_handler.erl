@@ -21,7 +21,10 @@
 %% Behaviour definition
 
 -export([authorize_api_key/4]).
+-export([authorize_api_key/4]).
 
+-callback authorize_api_key(operation_id(), api_key(), request_context(), handler_opts(_)) ->
+    boolean() | {boolean(), auth_context()}.
 -callback authorize_api_key(operation_id(), api_key(), request_context(), handler_opts(_)) ->
     boolean() | {boolean(), auth_context()}.
 
@@ -47,6 +50,11 @@ map_error(Handler, {Type, Error}) ->
     {Module, _Opts} = get_mod_opts(Handler),
     Module:map_error(Type, Error).
 
+-spec authorize_api_key(logic_handler(_), operation_id(), api_key(), request_context()) ->
+    false | {true, auth_context()}.
+authorize_api_key(Handler, OperationID, ApiKey, Context) ->
+    {Module, Opts} = get_mod_opts(Handler),
+    Module:authorize_api_key(OperationID, ApiKey, Context, Opts).
 -spec authorize_api_key(logic_handler(_), operation_id(), api_key(), request_context()) ->
     false | {true, auth_context()}.
 authorize_api_key(Handler, OperationID, ApiKey, Context) ->
