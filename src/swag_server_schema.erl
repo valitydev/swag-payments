@@ -6072,6 +6072,20 @@ get_raw() ->
       },
       <<"x-discriminator-is-enum">> => true
     },
+    <<"ApiExtensionRequest">> => #{
+      <<"allOf">> => [ #{
+        <<"$ref">> => <<"#/definitions/UserInteraction">>
+      }, #{
+        <<"type">> => <<"object">>,
+        <<"required">> => [ <<"apiType">> ],
+        <<"properties">> => #{
+          <<"apiType">> => #{
+            <<"type">> => <<"string">>,
+            <<"description">> => <<"API type to use in subsequent requests">>
+          }
+        }
+      } ]
+    },
     <<"ApplePay">> => #{
       <<"allOf">> => [ #{
         <<"$ref">> => <<"#/definitions/TokenizedCardData">>
