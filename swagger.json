@@ -5331,6 +5331,26 @@
         }
       }
     },
+    "ApiExtensionRequest": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/UserInteraction"
+        },
+        {
+          "type": "object",
+          "required": [
+            "apiType"
+          ],
+          "properties": {
+            "apiType": {
+              "description": "API type to use in subsequent requests",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
     "ApplePay": {
       "type": "object",
       "allOf": [
