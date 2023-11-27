@@ -55,17 +55,6 @@ securityDefinitions:
       Keys are not divided into test and production keys. Use the test shop ID for test transactions.
 
       **Important: Do not pass the API-key to third parties!**
-  invoiceAccessToken:
-    type: apiKey
-    name: Authorization
-    in: header
-    description: |
-      The invoice access token allows you to authorize a limited number of transactions required to make payments on a specified invoice.
-      Invoice access token, unlike API Key, is acceptable to publish.
-
-      The contents of the invoice access token should be passed in the `Authorization` header:
-
-      ``` Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M... ```
 security:
   - bearer: []
 responses:
@@ -1894,9 +1883,6 @@ paths:
       tags:
         - Invoices
       operationId: getInvoiceByID
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -1918,9 +1904,6 @@ paths:
       description: Create a new token to access the specified invoice.
       tags:
         - Invoices
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -1942,9 +1925,6 @@ paths:
       tags:
         - Invoices
       operationId: getInvoiceEvents
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -1983,9 +1963,6 @@ paths:
       tags:
         - Invoices
       operationId: fulfillInvoice
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2031,9 +2008,6 @@ paths:
       tags:
         - Invoices
       operationId: getInvoicePaymentMethods
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2057,9 +2031,6 @@ paths:
       tags:
         - Payments
       operationId: getPayments
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2082,9 +2053,6 @@ paths:
       tags:
         - Payments
       operationId: createPayment
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2141,9 +2109,6 @@ paths:
       tags:
         - Payments
       operationId: getPaymentByID
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2166,9 +2131,6 @@ paths:
       tags:
         - Payments
       operationId: cancelPayment
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2217,9 +2179,6 @@ paths:
       tags:
         - Payments
       operationId: capturePayment
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2272,9 +2231,6 @@ paths:
       tags:
         - Payments
       operationId: getChargebacks
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2299,9 +2255,6 @@ paths:
       tags:
         - Payments
       operationId: getChargebackByID
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2325,9 +2278,6 @@ paths:
       tags:
         - Payments
       operationId: getRefunds
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2411,9 +2361,6 @@ paths:
       tags:
         - Payments
       operationId: getRefundByID
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -2437,9 +2384,6 @@ paths:
       tags:
         - Invoices
       operationId: rescindInvoice
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
@@ -3147,9 +3091,6 @@ paths:
       tags:
         - Tokens
       operationId: createPaymentResource
-      security:
-        - bearer: []
-        - invoiceAccessToken: []
       parameters:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
