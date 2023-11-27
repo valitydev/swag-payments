@@ -3,11 +3,6 @@ post:
   tags:
     - Invoices
   operationId: fulfillInvoice
-  security:
-    - 
-      bearer: [ ]
-    - 
-      invoiceAccessToken: [ ]
   parameters:
     - 
       $ref: "#/parameters/requestID"
