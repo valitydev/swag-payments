@@ -3,11 +3,6 @@ post:
   description: Create a new token to access the specified invoice.
   tags:
     - Invoices
-  security:
-    - 
-      bearer: [ ]
-    - 
-      invoiceAccessToken: [ ]
   parameters:
     - 
       $ref: "#/parameters/requestID"
