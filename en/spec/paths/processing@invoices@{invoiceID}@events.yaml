@@ -3,11 +3,6 @@ get:
   tags:
     - Invoices
   operationId: getInvoiceEvents
-  security:
-    - 
-      bearer: [ ]
-    - 
-      invoiceAccessToken: [ ]
   parameters:
     - 
       $ref: "#/parameters/requestID"
