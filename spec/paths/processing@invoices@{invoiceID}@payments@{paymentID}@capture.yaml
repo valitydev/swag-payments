@@ -6,9 +6,6 @@ post:
   tags:
     - Payments
   operationId: capturePayment
-  security:
-    - bearer: []
-    - invoiceAccessToken: []
   parameters:
     - $ref: "#/parameters/requestID"
     - $ref: "#/parameters/deadline"
