@@ -3,11 +3,6 @@ get:
   tags:
     - Payments
   operationId: getPaymentByID
-  security:
-    - 
-      bearer: [ ]
-    - 
-      invoiceAccessToken: [ ]
   parameters:
     - 
       $ref: "#/parameters/requestID"
