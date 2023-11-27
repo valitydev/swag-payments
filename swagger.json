@@ -21,12 +21,6 @@
       "name": "Authorization",
       "in": "header",
       "description": "Interaction between the merchant and the system is performed via a secure protocol (HTTPS).\n\nHTTP requests via unencrypted channel are not supported.\n\nThe contents of the API key should be passed in the `Authorization` header:\n\n``` Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M... ```\n\nKeys are not divided into test and production keys. Use the test shop ID for test transactions.\n\n**Important: Do not pass the API-key to third parties!**\n"
-    },
-    "invoiceAccessToken": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "description": "The invoice access token allows you to authorize a limited number of transactions required to make payments on a specified invoice.\nInvoice access token, unlike API Key, is acceptable to publish.\n\nThe contents of the invoice access token should be passed in the `Authorization` header:\n\n``` Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M... ```\n"
     }
   },
   "security": [
@@ -2283,14 +2277,6 @@
           "Invoices"
         ],
         "operationId": "getInvoiceByID",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -2327,14 +2313,6 @@
         "description": "Create a new token to access the specified invoice.",
         "tags": [
           "Invoices"
-        ],
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
         ],
         "parameters": [
           {
@@ -2373,14 +2351,6 @@
           "Invoices"
         ],
         "operationId": "getInvoiceEvents",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -2438,14 +2408,6 @@
           "Invoices"
         ],
         "operationId": "fulfillInvoice",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -2514,14 +2476,6 @@
           "Invoices"
         ],
         "operationId": "getInvoicePaymentMethods",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -2562,14 +2516,6 @@
           "Payments"
         ],
         "operationId": "getPayments",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -2608,14 +2554,6 @@
           "Payments"
         ],
         "operationId": "createPayment",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -2697,14 +2635,6 @@
           "Payments"
         ],
         "operationId": "getPaymentByID",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -2745,14 +2675,6 @@
           "Payments"
         ],
         "operationId": "cancelPayment",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -2825,14 +2747,6 @@
           "Payments"
         ],
         "operationId": "capturePayment",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -2910,14 +2824,6 @@
           "Payments"
         ],
         "operationId": "getChargebacks",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -2961,14 +2867,6 @@
           "Payments"
         ],
         "operationId": "getChargebackByID",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -3012,14 +2910,6 @@
           "Payments"
         ],
         "operationId": "getRefunds",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -3148,14 +3038,6 @@
           "Payments"
         ],
         "operationId": "getRefundByID",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -3199,14 +3081,6 @@
           "Invoices"
         ],
         "operationId": "rescindInvoice",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
@@ -4405,14 +4279,6 @@
           "Tokens"
         ],
         "operationId": "createPaymentResource",
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "invoiceAccessToken": []
-          }
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/requestID"
