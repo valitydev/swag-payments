@@ -3,11 +3,6 @@ post:
   tags:
     - Payments
   operationId: cancelPayment
-  security:
-    - 
-      bearer: [ ]
-    - 
-      invoiceAccessToken: [ ]
   parameters:
     - 
       $ref: "#/parameters/requestID"
