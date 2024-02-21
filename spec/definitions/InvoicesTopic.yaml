@@ -31,3 +31,4 @@ allOf:
             - PaymentRefundCreated
             - PaymentRefundSucceeded
             - PaymentRefundFailed
+            - PaymentUserInteractionRequested
