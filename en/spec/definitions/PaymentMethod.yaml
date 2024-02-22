@@ -1,0 +1,14 @@
+type: object
+discriminator: method
+required:
+  - method
+properties:
+  method:
+    description: Payment method
+    type: string
+    enum:
+      - BankCard
+      - PaymentTerminal
+      - DigitalWallet
+      - CryptoWallet
+      - MobileCommerce

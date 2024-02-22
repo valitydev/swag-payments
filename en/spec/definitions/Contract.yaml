@@ -1,0 +1,43 @@
+description: Contract details
+type: object
+required:
+  - id
+  - createdAt
+  - status
+  - contractor
+  - paymentInstitutionID
+properties:
+  id:
+    description: Contract ID
+    type: string
+  createdAt:
+    description: Date and time of contract creation
+    type: string
+    format: date-time
+  status:
+    description: Contract status
+    type: string
+    enum:
+      - active
+      - terminated
+  validSince:
+    description: Contract effective date and time
+    type: string
+    format: date-time
+  validUntil:
+    description: Contract expiration date and time
+    type: string
+    format: date-time
+  terminatedAt:
+    description: Contract termination date and time
+    type: string
+    format: date-time
+  contractor:
+    $ref: "#/definitions/Contractor"
+  legalAgreement:
+    $ref: "#/definitions/LegalAgreement"
+  paymentInstitutionID:
+    type: integer
+    format: int32
+  reportingPreferences:
+    $ref: "#/definitions/ReportingPreferences"

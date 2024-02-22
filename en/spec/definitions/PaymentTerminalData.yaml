@@ -1,0 +1,22 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/PaymentTool"
+  - 
+    type: object
+    description: Payment terminal
+    required:
+      - provider
+    properties:
+      provider:
+        x-rebillyMerge:
+          - 
+            $ref: "#/definitions/PaymentTerminalProvider"
+      metadata:
+        description: >
+          Arbitrary metadata further describing this payment instrument.
+        type: object
+        example:
+          type: BankAccountRUS
+          accountNumber: "40817810500000000035"
+          bankBIC: "044525716"

@@ -1,0 +1,19 @@
+type: object
+description: The life time of an invoice from the time it was created.
+required:
+  - days
+  - months
+  - years
+properties:
+  days:
+    type: integer
+    format: int32
+    minimum: 0
+  months:
+    type: integer
+    format: int32
+    minimum: 0
+  years:
+    type: integer
+    format: int32
+    minimum: 0

@@ -1,0 +1,5 @@
+description: >
+  Cellular operator.
+  The list of operators available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+type: string
+example: MTS

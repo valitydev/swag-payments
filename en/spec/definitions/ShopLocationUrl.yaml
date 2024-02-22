@@ -1,0 +1,15 @@
+description: Shop location as a url on the Internet
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/ShopLocation"
+  - 
+    type: object
+    required:
+      - url
+    properties:
+      url:
+        description: Shop URL
+        type: string
+        format: uri
+        maxLength: 1000

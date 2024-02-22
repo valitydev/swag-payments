@@ -1,0 +1,15 @@
+type: object
+required:
+  - upperBound
+  - lowerBound
+properties:
+  upperBound:
+    description: An upper (inclusive) limit on the value of goods or services.
+    type: integer
+    format: int64
+    minimum: 1
+  lowerBound:
+    description: A lower (inclusive) limit on the value of goods or services.
+    type: integer
+    format: int64
+    minimum: 1

@@ -1,0 +1,51 @@
+post:
+  description: Create an new invoice template.
+  tags:
+    - InvoiceTemplates
+  operationId: createInvoiceTemplate
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      name: invoiceTemplateCreateParams
+      description: Invoice template parameters.
+      in: body
+      required: true
+      schema:
+        $ref: "#/definitions/InvoiceTemplateCreateParams"
+  responses:
+    "201":
+      description: Invoice template created.
+      schema:
+        $ref: "#/definitions/InvoiceTemplateAndToken"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid data for invoice template creation
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: >
+              [Error code](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPartyID
+              - invalidRequest
+              - invalidDeadline
+              - invalidShopID
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidInvoiceCart
+              - ambiguousPartyID
+          message:
+            description: Human-readable description of the error
+            type: string
+            example: Lifetime cannot be zero
+    "409":
+      $ref: "#/responses/ExternalIDConflict"

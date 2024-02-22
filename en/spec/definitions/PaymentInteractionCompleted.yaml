@@ -1,0 +1,16 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/InvoiceChange"
+  - 
+    type: object
+    description: >
+      Notification on completion of the last requested interaction with the customer
+    required:
+      - paymentID
+    properties:
+      paymentID:
+        description: Payment ID
+        type: string
+      userInteraction:
+        $ref: "#/definitions/UserInteraction"

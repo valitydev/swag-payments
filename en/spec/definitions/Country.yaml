@@ -1,0 +1,18 @@
+description: "Country"
+type: object
+required:
+  - id
+  - name
+properties:
+  id:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/CountryCode"
+  name:
+    type: string
+    maxLength: 200
+  tradeBlocs:
+    type: array
+    items:
+      description: Trade bloc identifiers
+      type: string

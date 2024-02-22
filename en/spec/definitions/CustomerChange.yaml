@@ -1,0 +1,12 @@
+type: object
+discriminator: changeType
+required:
+  - changeType
+properties:
+  changeType:
+    type: string
+    enum:
+      - CustomerBindingStarted
+      - CustomerBindingStatusChanged
+      - CustomerBindingInteractionRequested
+      - CustomerBindingInteractionCompleted

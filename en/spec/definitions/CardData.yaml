@@ -1,0 +1,29 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/PaymentTool"
+  - 
+    type: object
+    description: Bank card
+    required:
+      - cardNumber
+      - expDate
+    properties:
+      cardNumber:
+        description: Bankcard number
+        type: string
+        pattern: '^\d{12,19}$'
+      expDate:
+        description: Bank card expiration date
+        type: string
+        pattern: '^\d{2}\/(\d{2}|\d{4})$'
+      cvv:
+        description: Verification code
+        type: string
+        pattern: '^\d{3,4}$'
+      cardHolder:
+        description: Cardholder name
+        type: string
+        pattern: "^[[:alpha:][:space:][:punct:]]+$"
+        minLength: 1
+        maxLength: 100

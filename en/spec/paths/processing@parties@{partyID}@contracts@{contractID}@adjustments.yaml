@@ -1,0 +1,27 @@
+get:
+  description: Get all adjustments to the specified contract
+  operationId: getContractAdjustmentsForParty
+  tags:
+    - Contracts
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/contractID"
+    - 
+      $ref: "#/parameters/partyID"
+  responses:
+    "200":
+      description: List of contract adjustments
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/ContractAdjustment"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

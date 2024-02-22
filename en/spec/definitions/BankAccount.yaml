@@ -1,0 +1,24 @@
+description: >
+  Data of a settlement account in a banking organization operating under the jurisdiction of the Russian Federation.
+type: object
+required:
+  - account
+  - bankName
+  - bankPostAccount
+  - bankBik
+properties:
+  account:
+    description: Account number
+    type: string
+    pattern: '^\d{20}$'
+  bankName:
+    description: Name of the legal entity of the banking organization
+    type: string
+    maxLength: 100
+  bankPostAccount:
+    type: string
+    pattern: '^\d{20}$'
+  bankBik:
+    description: BIK of the banking organization
+    type: string
+    pattern: '^\d{9}$'

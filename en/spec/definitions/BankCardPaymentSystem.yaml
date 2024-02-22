@@ -1,0 +1,4 @@
+description: >
+  Payment system.
+  The list of systems available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+type: string

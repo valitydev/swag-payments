@@ -1,0 +1,13 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/UserInteraction"
+  - 
+    type: object
+    required:
+      - qrCode
+    properties:
+      qrCode:
+        description: QR code content as byte array
+        type: string
+        format: binary

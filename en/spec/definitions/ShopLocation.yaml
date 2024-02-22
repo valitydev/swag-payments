@@ -1,0 +1,9 @@
+description: The location of the shop, by which it can be found
+type: object
+discriminator: locationType
+required:
+  - locationType
+properties:
+  locationType:
+    description: Location type
+    type: string

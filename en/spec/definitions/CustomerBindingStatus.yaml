@@ -1,0 +1,13 @@
+type: object
+required:
+  - status
+properties:
+  status:
+    description: Binding status
+    type: string
+    enum:
+      - pending
+      - succeeded
+      - failed
+  error:
+    $ref: "#/definitions/CustomerBindingError"

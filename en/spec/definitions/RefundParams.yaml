@@ -1,0 +1,34 @@
+type: object
+properties:
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/ExternalID"
+  amount:
+    description: >
+      Refund amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
+    type: integer
+    format: int64
+    minimum: 1
+  currency:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/Currency"
+  reason:
+    description: Refund reason
+    type: string
+    maxLength: 1000
+  cart:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/InvoiceCart"
+      - 
+        description: >
+           The final cart of goods and services provided, which should be formed from the invoice cart excluding the items for which a refund has been made. The amount of the cart should be the same as the amount of the payment less the amount of the refund.
+  allocation:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/Allocation"
+      - 
+        description: >
+           Cash allocation, which should be formed from the items for which a refund is made. The sum of all allocation transactions must match the refund amount.

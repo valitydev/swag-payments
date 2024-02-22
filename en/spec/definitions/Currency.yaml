@@ -1,0 +1,4 @@
+description: >
+  Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+type: string
+pattern: "^[A-Z]{3}$"

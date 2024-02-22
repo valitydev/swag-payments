@@ -1,0 +1,52 @@
+type: object
+required:
+  - id
+  - createdAt
+  - body
+  - levy
+  - currency
+  - stage
+  - status
+properties:
+  id:
+    description: Chargeback ID
+    type: string
+  createdAt:
+    description: Date and time of creation
+    type: string
+    format: date-time
+  body:
+    description: >
+      Chargeback amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
+    type: integer
+    format: int64
+    minimum: 1
+  levy:
+    description: >
+      Chargeback levy amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
+    type: integer
+    format: int64
+    minimum: 1
+  currency:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/Currency"
+  reasonCode:
+    description: Chargeback reason code
+    type: string
+    maxLength: 1000
+  stage:
+    description: Chargeback stage
+    type: string
+    enum:
+      - chargeback
+      - pre-arbitration
+      - arbitration
+  status:
+    description: Chargeback status
+    type: string
+    enum:
+      - pending
+      - rejected
+      - accepted
+      - cancelled

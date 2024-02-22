@@ -1,0 +1,12 @@
+description: Payout tool
+allOf:
+  - 
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        description: Payout tool ID
+        type: string
+  - 
+    $ref: "#/definitions/PayoutToolParams"

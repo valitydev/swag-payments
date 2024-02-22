@@ -1,0 +1,8 @@
+type: object
+required:
+  - payload
+properties:
+  payload:
+    description: >
+      Access token payload
+    type: string

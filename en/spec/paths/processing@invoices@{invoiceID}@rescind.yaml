@@ -1,0 +1,49 @@
+post:
+  description: Set the invoice to "Rescind"
+  tags:
+    - Invoices
+  operationId: rescindInvoice
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/invoiceID"
+    - 
+      name: rescindInvoice
+      in: body
+      description: Reason for the operation
+      required: true
+      schema:
+        $ref: "#/definitions/Reason"
+  responses:
+    "204":
+      description: Invoice rescinded
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invoice rescind error
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: >
+              [Error code](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidInvoiceStatus
+              - invoicePaymentPending
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidRequest
+              - invalidDeadline
+          message:
+            description: Human-readable description of the error
+            type: string
+            example: Invalid invoice status

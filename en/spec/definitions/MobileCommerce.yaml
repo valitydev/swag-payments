@@ -1,0 +1,16 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/PaymentMethod"
+  - 
+    type: object
+    required:
+      - operators
+    properties:
+      operators:
+        description: List of mobile operators
+        type: array
+        items:
+          x-rebillyMerge:
+            - 
+              $ref: "#/definitions/MobileOperator"

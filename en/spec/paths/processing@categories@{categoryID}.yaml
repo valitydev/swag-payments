@@ -1,0 +1,28 @@
+get:
+  description: Get category data by identifier
+  tags:
+    - Categories
+  operationId: getCategoryByRef
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      name: categoryID
+      in: path
+      description: Category reference
+      required: true
+      type: integer
+      format: int32
+  responses:
+    "200":
+      description: Category found
+      schema:
+        $ref: "#/definitions/Category"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

@@ -1,0 +1,15 @@
+type: object
+discriminator: paymentToolType
+properties:
+  paymentToolType:
+    description: Payment tool type
+    type: string
+    enum:
+      - CardData
+      - PaymentTerminalData
+      - DigitalWalletData
+      - TokenizedCardData
+      - CryptoWalletData
+      - MobileCommerceData
+required:
+  - paymentToolType

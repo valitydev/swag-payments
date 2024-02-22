@@ -1,0 +1,25 @@
+get:
+  description: Get customer binding data.
+  tags:
+    - Customers
+  operationId: getBinding
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/customerID"
+    - 
+      $ref: "#/parameters/customerBindingID"
+  responses:
+    "200":
+      description: Binding data
+      schema:
+        $ref: "#/definitions/CustomerBinding"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

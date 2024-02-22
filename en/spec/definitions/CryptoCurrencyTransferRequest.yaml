@@ -1,0 +1,24 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/UserInteraction"
+  - 
+    type: object
+    required:
+      - cryptoAddress
+      - symbolicCode
+      - cryptoAmount
+    properties:
+      cryptoAddress:
+        description: Cryptocurrency wallet address
+        type: string
+        example: "2NBjv8rkUViGXAQar7n2BsdZjNQgupKtdPJ"
+      symbolicCode:
+        description: Cryptocurrency symbolic code
+        type: string
+        example: "BTC"
+      cryptoAmount:
+        description: Amount of cash in cryptocurrency
+        type: string
+        example: "0.0012"
+        pattern: "^[0-9]+[.][0-9]+$"
