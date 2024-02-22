@@ -7850,7 +7850,7 @@ get_raw() ->
             <<"description">> => <<"List of invoice event types to be notified about">>,
             <<"items">> => #{
               <<"type">> => <<"string">>,
-              <<"enum">> => [ <<"InvoiceCreated">>, <<"InvoicePaid">>, <<"InvoiceCancelled">>, <<"InvoiceFulfilled">>, <<"PaymentStarted">>, <<"PaymentProcessed">>, <<"PaymentCaptured">>, <<"PaymentCancelled">>, <<"PaymentRefunded">>, <<"PaymentFailed">>, <<"PaymentRefundCreated">>, <<"PaymentRefundSucceeded">>, <<"PaymentRefundFailed">> ]
+              <<"enum">> => [ <<"InvoiceCreated">>, <<"InvoicePaid">>, <<"InvoiceCancelled">>, <<"InvoiceFulfilled">>, <<"PaymentStarted">>, <<"PaymentProcessed">>, <<"PaymentCaptured">>, <<"PaymentCancelled">>, <<"PaymentRefunded">>, <<"PaymentFailed">>, <<"PaymentRefundCreated">>, <<"PaymentRefundSucceeded">>, <<"PaymentRefundFailed">>, <<"PaymentUserInteractionRequested">>, <<"PaymentUserInteractionCompleted">> ]
             }
           }
         }
