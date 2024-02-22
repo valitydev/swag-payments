@@ -7148,7 +7148,9 @@
                   "PaymentFailed",
                   "PaymentRefundCreated",
                   "PaymentRefundSucceeded",
-                  "PaymentRefundFailed"
+                  "PaymentRefundFailed",
+                  "PaymentUserInteractionRequested",
+                  "PaymentUserInteractionCompleted"
                 ]
               }
             }

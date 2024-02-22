@@ -5152,6 +5152,8 @@ definitions:
                 - PaymentRefundCreated
                 - PaymentRefundSucceeded
                 - PaymentRefundFailed
+                - PaymentUserInteractionRequested
+                - PaymentUserInteractionCompleted
   InvoiceTemplate:
     type: object
     required:
