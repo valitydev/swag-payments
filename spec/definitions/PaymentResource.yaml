@@ -9,6 +9,11 @@ properties:
       [tokenization](#operation/createPaymentResource)_.
     type: string
     maxLength: 2000
+  resourceToken:
+    description: >
+      Clean resource token. Can be used for differentiating one resource from another.
+    type: string
+    maxLength: 2000
   paymentSession:
     description: >
       Payment session identifier.
