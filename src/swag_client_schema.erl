@@ -6833,6 +6833,7 @@ get_raw() ->
           <<"paymentToolToken">> => <<"paymentToolToken">>,
           <<"paymentSession">> => <<"paymentSession">>,
           <<"clientInfo">> => #{ },
+          <<"resourceToken">> => <<"resourceToken">>,
           <<"paymentToolDetails">> => #{
             <<"detailsType">> => <<"detailsType">>
           }
@@ -6913,6 +6914,7 @@ get_raw() ->
           <<"paymentToolToken">> => <<"paymentToolToken">>,
           <<"paymentSession">> => <<"paymentSession">>,
           <<"clientInfo">> => #{ },
+          <<"resourceToken">> => <<"resourceToken">>,
           <<"paymentToolDetails">> => #{
             <<"detailsType">> => <<"detailsType">>
           }
@@ -8764,6 +8766,11 @@ get_raw() ->
           <<"description">> => <<"A payment tool token provided by the payer.\n_Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.\n">>,
           <<"maxLength">> => 2000
         },
+        <<"resourceToken">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Clean resource token. Can be used for differentiating one resource from another.\n">>,
+          <<"maxLength">> => 2000
+        },
         <<"paymentSession">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"Payment session identifier.\n_Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.\n">>,
@@ -8781,6 +8788,7 @@ get_raw() ->
         <<"paymentToolToken">> => <<"paymentToolToken">>,
         <<"paymentSession">> => <<"paymentSession">>,
         <<"clientInfo">> => #{ },
+        <<"resourceToken">> => <<"resourceToken">>,
         <<"paymentToolDetails">> => #{
           <<"detailsType">> => <<"detailsType">>
         }
