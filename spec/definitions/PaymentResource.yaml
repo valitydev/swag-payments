@@ -9,9 +9,9 @@ properties:
       [tokenization](#operation/createPaymentResource)_.
     type: string
     maxLength: 2000
-  cardToken:
+  resourceToken:
     description: >
-      Clean card token. Can be used for differentiating one card from another.
+      Clean resource token. Can be used for differentiating one resource from another.
     type: string
     maxLength: 2000
   paymentSession:
