@@ -8,6 +8,11 @@ properties:
     description: Payment tool token provided by the payer
     type: string
     maxLength: 2000
+  resourceToken:
+    description: >
+      Clean resource token. Can be used for differentiating one resource from another.
+    type: string
+    maxLength: 2000
   paymentSession:
     description: Payment session identifier
     type: string
