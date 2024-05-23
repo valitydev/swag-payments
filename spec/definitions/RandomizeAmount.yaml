@@ -1,0 +1,20 @@
+description: >
+  Describes how to randomly modify amount of parent object.
+type: object
+required:
+  - deviation
+properties:
+  deviation:
+    description: >
+      Maximum deviation from original amount value.
+
+      Generated random value shall correspond normal distribution with
+      mean `deviation / 2`.  Direction of diviation is calculated
+      separately.
+
+      Thus, for value `100` with deviation of `10` half of outcomes of
+      randomization are expected to be values of `95` or `105`, but
+      not `100`.
+    type: integer
+    format: int64
+    minimum: 0
