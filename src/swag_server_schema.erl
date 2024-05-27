@@ -7700,6 +7700,9 @@ get_raw() ->
           <<"description">> => <<"The value of the goods or services offered, in minor monetary units, such as cents if US dollars are specified as the currency.\nIf no value is specified, the value of the invoice will be the total value of the items in the shopping cart.\n">>,
           <<"minimum">> => 1
         },
+        <<"randomizeAmount">> => #{
+          <<"$ref">> => <<"#/definitions/RandomizeAmount">>
+        },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
@@ -7750,7 +7753,12 @@ get_raw() ->
         <<"cart">> => <<"">>,
         <<"currency">> => <<"currency">>,
         <<"shopID">> => <<"shopID">>,
-        <<"partyID">> => <<"partyID">>
+        <<"partyID">> => <<"partyID">>,
+        <<"randomizeAmount">> => #{
+          <<"precision">> => 0,
+          <<"rounding">> => <<"round">>,
+          <<"deviation">> => 0
+        }
       }
     },
     <<"InvoiceParamsWithTemplate">> => #{
@@ -9395,6 +9403,38 @@ get_raw() ->
         }
       } ]
     },
+    <<"RandomizeAmount">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"deviation">> ],
+      <<"properties">> => #{
+        <<"deviation">> => #{
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int64">>,
+          <<"description">> => <<"Maximum deviation from original amount value in minor monetary units.\nGenerated random value shall correspond uniform distribution within segment `[-deviation, deviation]`.\n">>,
+          <<"minimum">> => 0
+        },
+        <<"precision">> => #{
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int64">>,
+          <<"description">> => <<"Rounding of generated random value in minor monetary units of given power of `10`.\nWith rounding of `2` with default `round` method generated value `1234` will be rounded down to `1200`.\n">>,
+          <<"minimum">> => 0,
+          <<"maximum">> => 5,
+          <<"default">> => 2
+        },
+        <<"rounding">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Rounding method. Default is `round`, general mathematical rule of rounding.\n">>,
+          <<"default">> => <<"round">>,
+          <<"enum">> => [ <<"round">>, <<"ceil">>, <<"floor">> ]
+        }
+      },
+      <<"description">> => <<"Describes how to randomly modify amount of parent object.\n">>,
+      <<"example">> => #{
+        <<"precision">> => 0,
+        <<"rounding">> => <<"round">>,
+        <<"deviation">> => 0
+      }
+    },
     <<"RealmMode">> => #{
       <<"type">> => <<"string">>,
       <<"description">> => <<"Payment institution's mode">>,
@@ -10786,7 +10826,7 @@ get_raw() ->
         <<"code">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
-          <<"enum">> => [ <<"invalidPartyID">>, <<"invalidShopID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"invalidAllocation">>, <<"allocationNotPermitted">>, <<"invalidInvoiceCost">>, <<"invoiceTermsViolated">>, <<"ambiguousPartyID">> ]
+          <<"enum">> => [ <<"invalidPartyID">>, <<"invalidShopID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"invalidAllocation">>, <<"allocationNotPermitted">>, <<"invalidInvoiceCost">>, <<"invoiceTermsViolated">>, <<"ambiguousPartyID">>, <<"cartNotSupported">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
