@@ -1869,6 +1869,7 @@ paths:
                   - invalidInvoiceCost
                   - invoiceTermsViolated
                   - ambiguousPartyID
+                  - cartNotSupported
               message:
                 description: Human-readable description of the error
                 type: string
@@ -5028,6 +5029,8 @@ definitions:
         type: integer
         format: int64
         minimum: 1
+      randomizeAmount:
+        $ref: '#/definitions/RandomizeAmount'
       currency:
         description: |
           Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
@@ -6281,6 +6284,38 @@ definitions:
             description: QR code content as byte array
             type: string
             format: binary
+  RandomizeAmount:
+    description: |
+      Describes how to randomly modify amount of parent object.
+    type: object
+    required:
+      - deviation
+    properties:
+      deviation:
+        description: |
+          Maximum deviation from original amount value in minor monetary units.
+          Generated random value shall correspond uniform distribution within segment `[-deviation, deviation]`.
+        type: integer
+        format: int64
+        minimum: 0
+      precision:
+        description: |
+          Rounding of generated random value in minor monetary units of given power of `10`.
+          With rounding of `2` with default `round` method generated value `1234` will be rounded down to `1200`.
+        type: integer
+        format: int64
+        minimum: 0
+        maximum: 5
+        default: 2
+      rounding:
+        description: |
+          Rounding method. Default is `round`, general mathematical rule of rounding.
+        type: string
+        enum:
+          - round
+          - ceil
+          - floor
+        default: round
   RealmMode:
     description: Payment institution's mode
     type: string
