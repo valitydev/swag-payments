@@ -76,6 +76,7 @@ post:
               - invalidInvoiceCost
               - invoiceTermsViolated
               - ambiguousPartyID
+              - cartNotSupported
           message:
             description: Human-readable description of the error
             type: string
