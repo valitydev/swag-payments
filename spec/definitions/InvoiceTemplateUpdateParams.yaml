@@ -18,3 +18,5 @@ properties:
       template, in case other metadata is not specified in the invoice creation
       request.
     type: object
+  randomizeAmount:
+    $ref: "#/definitions/InvoiceRandomizeAmount"

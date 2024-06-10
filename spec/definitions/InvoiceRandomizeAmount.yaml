@@ -1,5 +1,5 @@
 description: >
-  Describes how to randomly modify amount of parent object.
+  Describes how to randomly modify invoice's cost amount.
 type: object
 required:
   - deviation
@@ -34,3 +34,31 @@ properties:
       - ceil
       - floor
     default: round
+  min_amount_condition:
+    description: >
+      Minimum amount applicable for randomization, in minor monetary
+      units.
+
+      If `null` condition is ignored.
+    type: integer
+    format: int64
+    minimum: 0
+  max_amount_condition:
+    description: >
+      Maximum amount applicable for randomization, in minor monetary
+      units.
+
+      If `null` condition is ignored.
+    type: integer
+    format: int64
+    minimum: 0
+  amount_multiplicity_condition:
+    description: >
+      Amount must be a multiple of given value to be applicable for
+      randomization. Multiplicity value must be in minor monetary
+      units.
+
+      If `null` condition is ignored.
+    type: integer
+    format: int64
+    minimum: 1

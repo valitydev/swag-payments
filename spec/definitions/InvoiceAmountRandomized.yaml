@@ -1,0 +1,19 @@
+description: >
+  Describes how invoice cost amount was randomized.
+type: object
+required:
+  - original
+  - randomized
+properties:
+  original:
+    description: >
+      Original invoice cost amount in minor monetary units.
+    type: integer
+    format: int64
+    minimum: 0
+  randomized:
+    description: >
+      Randomized invoice cost amount in minor monetary units.
+    type: integer
+    format: int64
+    minimum: 0
