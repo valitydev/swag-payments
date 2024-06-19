@@ -26,7 +26,7 @@ properties:
     minimum: 0
     maximum: 5
     default: 2
-  min_amount_condition:
+  minAmountCondition:
     description: >
       Minimum amount applicable for randomization, in minor monetary
       units.
@@ -35,7 +35,7 @@ properties:
     type: integer
     format: int64
     minimum: 0
-  max_amount_condition:
+  maxAmountCondition:
     description: >
       Maximum amount applicable for randomization, in minor monetary
       units.
@@ -44,7 +44,7 @@ properties:
     type: integer
     format: int64
     minimum: 0
-  amount_multiplicity_condition:
+  amountMultiplicityCondition:
     description: >
       Amount must be a multiple of given value to be applicable for
       randomization. Multiplicity value must be in minor monetary
