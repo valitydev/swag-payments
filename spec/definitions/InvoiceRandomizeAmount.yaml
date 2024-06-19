@@ -16,24 +16,16 @@ properties:
     minimum: 0
   precision:
     description: >
-      Rounding of generated random value in minor monetary units of given power of `10`.
+      Rounding of generated random value in minor monetary units of
+      given power of `10`.
 
-      With rounding of `2` with default `round` method generated value
-      `1234` will be rounded down to `1200`.
+      With rounding of `2` generated value `1234` will be rounded down
+      to `1200`.
     type: integer
     format: int64
     minimum: 0
     maximum: 5
     default: 2
-  rounding:
-    description: >
-      Rounding method. Default is `round`, general mathematical rule of rounding.
-    type: string
-    enum:
-      - round
-      - ceil
-      - floor
-    default: round
   min_amount_condition:
     description: >
       Minimum amount applicable for randomization, in minor monetary
