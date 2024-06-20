@@ -34,7 +34,7 @@ properties:
     format: int64
     minimum: 1
   randomizeAmount:
-    $ref: "#/definitions/RandomizeAmount"
+    $ref: "#/definitions/InvoiceRandomizeAmount"
   currency:
     x-rebillyMerge:
       - 
