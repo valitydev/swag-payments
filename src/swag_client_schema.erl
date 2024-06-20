@@ -7418,6 +7418,9 @@ get_raw() ->
         <<"clientInfo">> => #{
           <<"$ref">> => <<"#/definitions/InvoiceClientInfo">>
         },
+        <<"amountRandomized">> => #{
+          <<"$ref">> => <<"#/definitions/InvoiceAmountRandomized">>
+        },
         <<"status">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"Invoice status">>,
@@ -7446,11 +7449,38 @@ get_raw() ->
         },
         <<"cart">> => <<"">>,
         <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"amountRandomized">> => #{
+          <<"original">> => 0,
+          <<"randomized">> => 0
+        },
         <<"currency">> => <<"currency">>,
         <<"id">> => <<"id">>,
         <<"shopID">> => <<"shopID">>,
         <<"invoiceTemplateID">> => <<"invoiceTemplateID">>,
         <<"status">> => <<"unpaid">>
+      }
+    },
+    <<"InvoiceAmountRandomized">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"original">>, <<"randomized">> ],
+      <<"properties">> => #{
+        <<"original">> => #{
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int64">>,
+          <<"description">> => <<"Original invoice cost amount in minor monetary units.\n">>,
+          <<"minimum">> => 0
+        },
+        <<"randomized">> => #{
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int64">>,
+          <<"description">> => <<"Randomized invoice cost amount in minor monetary units.\n">>,
+          <<"minimum">> => 0
+        }
+      },
+      <<"description">> => <<"Describes how invoice cost amount was randomized.\n">>,
+      <<"example">> => #{
+        <<"original">> => 0,
+        <<"randomized">> => 0
       }
     },
     <<"InvoiceAndToken">> => #{
@@ -7485,6 +7515,10 @@ get_raw() ->
           },
           <<"cart">> => <<"">>,
           <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+          <<"amountRandomized">> => #{
+            <<"original">> => 0,
+            <<"randomized">> => 0
+          },
           <<"currency">> => <<"currency">>,
           <<"id">> => <<"id">>,
           <<"shopID">> => <<"shopID">>,
@@ -7701,7 +7735,7 @@ get_raw() ->
           <<"minimum">> => 1
         },
         <<"randomizeAmount">> => #{
-          <<"$ref">> => <<"#/definitions/RandomizeAmount">>
+          <<"$ref">> => <<"#/definitions/InvoiceRandomizeAmount">>
         },
         <<"currency">> => #{
           <<"type">> => <<"string">>,
@@ -7755,8 +7789,10 @@ get_raw() ->
         <<"shopID">> => <<"shopID">>,
         <<"partyID">> => <<"partyID">>,
         <<"randomizeAmount">> => #{
-          <<"precision">> => 0,
-          <<"rounding">> => <<"round">>,
+          <<"amountMultiplicityCondition">> => 1,
+          <<"minAmountCondition">> => 0,
+          <<"precision">> => 2,
+          <<"maxAmountCondition">> => 0,
           <<"deviation">> => 0
         }
       }
@@ -7792,6 +7828,52 @@ get_raw() ->
         <<"metadata">> => <<"{}">>,
         <<"externalID">> => <<"externalID">>,
         <<"currency">> => <<"currency">>
+      }
+    },
+    <<"InvoiceRandomizeAmount">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"deviation">> ],
+      <<"properties">> => #{
+        <<"deviation">> => #{
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int64">>,
+          <<"description">> => <<"Maximum deviation from original amount value in minor monetary units.\nGenerated random value shall correspond uniform distribution within segment `[-deviation, deviation]`.\n">>,
+          <<"minimum">> => 0
+        },
+        <<"precision">> => #{
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int64">>,
+          <<"description">> => <<"Rounding of generated random value in minor monetary units of given power of `10`.\nWith rounding of `2` generated value `1234` will be rounded down to `1200`.\n">>,
+          <<"minimum">> => 0,
+          <<"maximum">> => 5,
+          <<"default">> => 2
+        },
+        <<"minAmountCondition">> => #{
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int64">>,
+          <<"description">> => <<"Minimum amount applicable for randomization, in minor monetary units.\nIf `null` condition is ignored.\n">>,
+          <<"minimum">> => 0
+        },
+        <<"maxAmountCondition">> => #{
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int64">>,
+          <<"description">> => <<"Maximum amount applicable for randomization, in minor monetary units.\nIf `null` condition is ignored.\n">>,
+          <<"minimum">> => 0
+        },
+        <<"amountMultiplicityCondition">> => #{
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int64">>,
+          <<"description">> => <<"Amount must be a multiple of given value to be applicable for randomization. Multiplicity value must be in minor monetary units.\nIf `null` condition is ignored.\n">>,
+          <<"minimum">> => 1
+        }
+      },
+      <<"description">> => <<"Describes how to randomly modify invoice's cost amount.\n">>,
+      <<"example">> => #{
+        <<"amountMultiplicityCondition">> => 1,
+        <<"minAmountCondition">> => 0,
+        <<"precision">> => 2,
+        <<"maxAmountCondition">> => 0,
+        <<"deviation">> => 0
       }
     },
     <<"InvoiceRussianBankAccount">> => #{
@@ -7910,6 +7992,9 @@ get_raw() ->
           <<"type">> => <<"object">>,
           <<"description">> => <<"Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.\n">>,
           <<"properties">> => #{ }
+        },
+        <<"randomizeAmount">> => #{
+          <<"$ref">> => <<"#/definitions/InvoiceRandomizeAmount">>
         }
       },
       <<"example">> => #{
@@ -7927,7 +8012,14 @@ get_raw() ->
           <<"templateType">> => <<"templateType">>
         },
         <<"id">> => <<"id">>,
-        <<"shopID">> => <<"shopID">>
+        <<"shopID">> => <<"shopID">>,
+        <<"randomizeAmount">> => #{
+          <<"amountMultiplicityCondition">> => 1,
+          <<"minAmountCondition">> => 0,
+          <<"precision">> => 2,
+          <<"maxAmountCondition">> => 0,
+          <<"deviation">> => 0
+        }
       }
     },
     <<"InvoiceTemplateAndToken">> => #{
@@ -7957,7 +8049,14 @@ get_raw() ->
             <<"templateType">> => <<"templateType">>
           },
           <<"id">> => <<"id">>,
-          <<"shopID">> => <<"shopID">>
+          <<"shopID">> => <<"shopID">>,
+          <<"randomizeAmount">> => #{
+            <<"amountMultiplicityCondition">> => 1,
+            <<"minAmountCondition">> => 0,
+            <<"precision">> => 2,
+            <<"maxAmountCondition">> => 0,
+            <<"deviation">> => 0
+          }
         },
         <<"invoiceTemplateAccessToken">> => #{
           <<"payload">> => <<"payload">>
@@ -8006,6 +8105,9 @@ get_raw() ->
           <<"type">> => <<"object">>,
           <<"description">> => <<"Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.\n">>,
           <<"properties">> => #{ }
+        },
+        <<"randomizeAmount">> => #{
+          <<"$ref">> => <<"#/definitions/InvoiceRandomizeAmount">>
         }
       },
       <<"example">> => #{
@@ -8022,7 +8124,14 @@ get_raw() ->
           <<"templateType">> => <<"templateType">>
         },
         <<"shopID">> => <<"shopID">>,
-        <<"partyID">> => <<"partyID">>
+        <<"partyID">> => <<"partyID">>,
+        <<"randomizeAmount">> => #{
+          <<"amountMultiplicityCondition">> => 1,
+          <<"minAmountCondition">> => 0,
+          <<"precision">> => 2,
+          <<"maxAmountCondition">> => 0,
+          <<"deviation">> => 0
+        }
       }
     },
     <<"InvoiceTemplateDetails">> => #{
@@ -8155,6 +8264,9 @@ get_raw() ->
           <<"type">> => <<"object">>,
           <<"description">> => <<"Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.\n">>,
           <<"properties">> => #{ }
+        },
+        <<"randomizeAmount">> => #{
+          <<"$ref">> => <<"#/definitions/InvoiceRandomizeAmount">>
         }
       },
       <<"example">> => #{
@@ -8168,6 +8280,13 @@ get_raw() ->
         <<"description">> => <<"description">>,
         <<"details">> => #{
           <<"templateType">> => <<"templateType">>
+        },
+        <<"randomizeAmount">> => #{
+          <<"amountMultiplicityCondition">> => 1,
+          <<"minAmountCondition">> => 0,
+          <<"precision">> => 2,
+          <<"maxAmountCondition">> => 0,
+          <<"deviation">> => 0
         }
       }
     },
@@ -9403,38 +9522,6 @@ get_raw() ->
         }
       } ]
     },
-    <<"RandomizeAmount">> => #{
-      <<"type">> => <<"object">>,
-      <<"required">> => [ <<"deviation">> ],
-      <<"properties">> => #{
-        <<"deviation">> => #{
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int64">>,
-          <<"description">> => <<"Maximum deviation from original amount value in minor monetary units.\nGenerated random value shall correspond uniform distribution within segment `[-deviation, deviation]`.\n">>,
-          <<"minimum">> => 0
-        },
-        <<"precision">> => #{
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int64">>,
-          <<"description">> => <<"Rounding of generated random value in minor monetary units of given power of `10`.\nWith rounding of `2` with default `round` method generated value `1234` will be rounded down to `1200`.\n">>,
-          <<"minimum">> => 0,
-          <<"maximum">> => 5,
-          <<"default">> => 2
-        },
-        <<"rounding">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Rounding method. Default is `round`, general mathematical rule of rounding.\n">>,
-          <<"default">> => <<"round">>,
-          <<"enum">> => [ <<"round">>, <<"ceil">>, <<"floor">> ]
-        }
-      },
-      <<"description">> => <<"Describes how to randomly modify amount of parent object.\n">>,
-      <<"example">> => #{
-        <<"precision">> => 0,
-        <<"rounding">> => <<"round">>,
-        <<"deviation">> => 0
-      }
-    },
     <<"RealmMode">> => #{
       <<"type">> => <<"string">>,
       <<"description">> => <<"Payment institution's mode">>,
@@ -10613,6 +10700,10 @@ get_raw() ->
           },
           <<"cart">> => <<"">>,
           <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+          <<"amountRandomized">> => #{
+            <<"original">> => 0,
+            <<"randomized">> => 0
+          },
           <<"currency">> => <<"currency">>,
           <<"id">> => <<"id">>,
           <<"shopID">> => <<"shopID">>,
@@ -10635,6 +10726,10 @@ get_raw() ->
           },
           <<"cart">> => <<"">>,
           <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+          <<"amountRandomized">> => #{
+            <<"original">> => 0,
+            <<"randomized">> => 0
+          },
           <<"currency">> => <<"currency">>,
           <<"id">> => <<"id">>,
           <<"shopID">> => <<"shopID">>,
@@ -10826,7 +10921,7 @@ get_raw() ->
         <<"code">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
-          <<"enum">> => [ <<"invalidPartyID">>, <<"invalidShopID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"invalidAllocation">>, <<"allocationNotPermitted">>, <<"invalidInvoiceCost">>, <<"invoiceTermsViolated">>, <<"ambiguousPartyID">>, <<"cartNotSupported">> ]
+          <<"enum">> => [ <<"invalidPartyID">>, <<"invalidShopID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"invalidAllocation">>, <<"allocationNotPermitted">>, <<"invalidInvoiceCost">>, <<"invoiceTermsViolated">>, <<"ambiguousPartyID">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
