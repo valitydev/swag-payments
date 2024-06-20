@@ -65,5 +65,7 @@ x-merge-properties:
         type: object
       clientInfo:
         $ref: "#/definitions/InvoiceClientInfo"
+      amountRandomized:
+        $ref: "#/definitions/InvoiceAmountRandomized"
   - 
     $ref: "#/definitions/InvoiceStatus"
