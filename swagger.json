@@ -2250,8 +2250,7 @@
                     "allocationNotPermitted",
                     "invalidInvoiceCost",
                     "invoiceTermsViolated",
-                    "ambiguousPartyID",
-                    "cartNotSupported"
+                    "ambiguousPartyID"
                   ]
                 },
                 "message": {
@@ -6727,6 +6726,9 @@
         "clientInfo": {
           "$ref": "#/definitions/InvoiceClientInfo"
         },
+        "amountRandomized": {
+          "$ref": "#/definitions/InvoiceAmountRandomized"
+        },
         "status": {
           "description": "Invoice status",
           "type": "string",
@@ -6741,6 +6743,28 @@
           "description": "Reason for invoice cancellation or redemption",
           "type": "string",
           "maxLength": 1000
+        }
+      }
+    },
+    "InvoiceAmountRandomized": {
+      "description": "Describes how invoice cost amount was randomized.\n",
+      "type": "object",
+      "required": [
+        "original",
+        "randomized"
+      ],
+      "properties": {
+        "original": {
+          "description": "Original invoice cost amount in minor monetary units.\n",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0
+        },
+        "randomized": {
+          "description": "Randomized invoice cost amount in minor monetary units.\n",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0
         }
       }
     },
@@ -6991,7 +7015,7 @@
           "minimum": 1
         },
         "randomizeAmount": {
-          "$ref": "#/definitions/RandomizeAmount"
+          "$ref": "#/definitions/InvoiceRandomizeAmount"
         },
         "currency": {
           "description": "Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n",
@@ -7049,6 +7073,47 @@
         "metadata": {
           "description": "Invoice metadata",
           "type": "object"
+        }
+      }
+    },
+    "InvoiceRandomizeAmount": {
+      "description": "Describes how to randomly modify invoice's cost amount.\n",
+      "type": "object",
+      "required": [
+        "deviation"
+      ],
+      "properties": {
+        "deviation": {
+          "description": "Maximum deviation from original amount value in minor monetary units.\nGenerated random value shall correspond uniform distribution within segment `[-deviation, deviation]`.\n",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0
+        },
+        "precision": {
+          "description": "Rounding of generated random value in minor monetary units of given power of `10`.\nWith rounding of `2` generated value `1234` will be rounded down to `1200`.\n",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0,
+          "maximum": 5,
+          "default": 2
+        },
+        "minAmountCondition": {
+          "description": "Minimum amount applicable for randomization, in minor monetary units.\nIf `null` condition is ignored.\n",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0
+        },
+        "maxAmountCondition": {
+          "description": "Maximum amount applicable for randomization, in minor monetary units.\nIf `null` condition is ignored.\n",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0
+        },
+        "amountMultiplicityCondition": {
+          "description": "Amount must be a multiple of given value to be applicable for randomization. Multiplicity value must be in minor monetary units.\nIf `null` condition is ignored.\n",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 1
         }
       }
     },
@@ -7211,6 +7276,9 @@
         "metadata": {
           "description": "Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.\n",
           "type": "object"
+        },
+        "randomizeAmount": {
+          "$ref": "#/definitions/InvoiceRandomizeAmount"
         }
       }
     },
@@ -7274,6 +7342,9 @@
         "metadata": {
           "description": "Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.\n",
           "type": "object"
+        },
+        "randomizeAmount": {
+          "$ref": "#/definitions/InvoiceRandomizeAmount"
         }
       }
     },
@@ -7438,6 +7509,9 @@
         "metadata": {
           "description": "Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.\n",
           "type": "object"
+        },
+        "randomizeAmount": {
+          "$ref": "#/definitions/InvoiceRandomizeAmount"
         }
       }
     },
@@ -8748,39 +8822,6 @@
           }
         }
       ]
-    },
-    "RandomizeAmount": {
-      "description": "Describes how to randomly modify amount of parent object.\n",
-      "type": "object",
-      "required": [
-        "deviation"
-      ],
-      "properties": {
-        "deviation": {
-          "description": "Maximum deviation from original amount value in minor monetary units.\nGenerated random value shall correspond uniform distribution within segment `[-deviation, deviation]`.\n",
-          "type": "integer",
-          "format": "int64",
-          "minimum": 0
-        },
-        "precision": {
-          "description": "Rounding of generated random value in minor monetary units of given power of `10`.\nWith rounding of `2` with default `round` method generated value `1234` will be rounded down to `1200`.\n",
-          "type": "integer",
-          "format": "int64",
-          "minimum": 0,
-          "maximum": 5,
-          "default": 2
-        },
-        "rounding": {
-          "description": "Rounding method. Default is `round`, general mathematical rule of rounding.\n",
-          "type": "string",
-          "enum": [
-            "round",
-            "ceil",
-            "floor"
-          ],
-          "default": "round"
-        }
-      }
     },
     "RealmMode": {
       "description": "Payment institution's mode",
