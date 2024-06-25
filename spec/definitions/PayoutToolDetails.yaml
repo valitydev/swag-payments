@@ -1,9 +1,0 @@
-description: Payout tool details
-type: object
-discriminator: detailsType
-properties:
-  detailsType:
-    description: Payout tool type
-    type: string
-required:
-  - detailsType
