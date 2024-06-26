@@ -40,11 +40,3 @@ properties:
     description: >
       Contract identifier on the basis of which the shop is serviced
     type: string
-  payoutToolID:
-    description: >
-      Payout tool identifier within the contract used in the payout process by shop
-    type: string
-  scheduleID:
-    description: Payout schedule identifier
-    type: integer
-    format: int32
