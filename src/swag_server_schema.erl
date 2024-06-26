@@ -116,12 +116,8 @@ get_raw() ->
     <<"x-displayName">> => <<"Shop categories">>
   }, #{
     <<"name">> => <<"Contracts">>,
-    <<"description">> => <<"A contract contains all details of a legal agreement on basis of which the system provides all possible services to a merchant. In particular a list of conditions, on basis of which the system services are provided, is written in the contract. The examples of this can be the transaction fees, conditions of withdrawal and legal entity data.\nAny changes of the shops require system verification by creating change requests.\n">>,
+    <<"description">> => <<"A contract contains all details of a legal agreement on basis of which the system provides all possible services to a merchant. In particular a list of conditions, on basis of which the system services are provided, is written in the contract. The examples of this can be the transaction fees, conditions of withdrawal and legal entity data.\nAny changes of the shops require system verification by creating change requests.\nAny data changes require system verification by creating change requests.\n">>,
     <<"x-displayName">> => <<"Contracts">>
-  }, #{
-    <<"name">> => <<"Payouts">>,
-    <<"description">> => <<"You have to specify payout data within the contract with the system to receive automatic payouts of all accepted ones to your bank account. The system will then initiate bank transfers based on the payment amounts accepted for all active shops.\nAny data changes require system verification by creating change requests.\n">>,
-    <<"x-displayName">> => <<"Payouts">>
   }, #{
     <<"name">> => <<"Webhooks">>,
     <<"description">> => <<"This section describes the methods that allow to manage Webhooks or tools to receive asynchronous notifications via HTTP requests when one or a group of events of interest occur, for example, that the payment within the created invoice has been successfully paid.\nAttention! Only Webhooks Management API is a part of this specification. You will need to read the specification [Vality Webhooks Events API] (https://github.com/valitydev/swag-payments-webhook-events) in order to implement notification handler.\n">>,
@@ -567,106 +563,6 @@ get_raw() ->
         }
       }
     },
-    <<"/analytics/shops/{shopID}/payouts">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"Search">> ],
-        <<"description">> => <<"Search for payouts">>,
-        <<"operationId">> => <<"searchPayouts">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"shopID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Shop ID">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"fromTime">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Start of the time period">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"format">> => <<"date-time">>
-        }, #{
-          <<"name">> => <<"toTime">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"End of the time period">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"format">> => <<"date-time">>
-        }, #{
-          <<"name">> => <<"limit">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Selection limit">>,
-          <<"required">> => true,
-          <<"type">> => <<"integer">>,
-          <<"maximum">> => 1000,
-          <<"minimum">> => 1,
-          <<"format">> => <<"int32">>
-        }, #{
-          <<"name">> => <<"offset">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Query offset">>,
-          <<"required">> => false,
-          <<"type">> => <<"integer">>,
-          <<"minimum">> => 0
-        }, #{
-          <<"name">> => <<"payoutID">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Payout ID">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"payoutToolType">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Type of payout to search * PayoutAccount - payout to bank account * Wallet - payout to wallet * PaymentInstitutionAccount - payout to payment institution account\n">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"enum">> => [ <<"PayoutAccount">>, <<"Wallet">>, <<"PaymentInstitutionAccount">> ]
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"Payouts found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_200_2">>
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
     <<"/analytics/shops/{shopID}/refunds">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Search">> ],
@@ -777,7 +673,7 @@ get_raw() ->
           <<"200">> => #{
             <<"description">> => <<"Refunds found">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_200_3">>
+              <<"$ref">> => <<"#/definitions/inline_response_200_2">>
             }
           },
           <<"400">> => #{
@@ -1096,127 +992,6 @@ get_raw() ->
             <<"description">> => <<"Data of contract adjustment">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/ContractAdjustment">>
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
-    <<"/processing/contracts/{contractID}/payout_tools">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Get all payout tools to the specified contract">>,
-        <<"operationId">> => <<"getPayoutTools">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"contractID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Contract ID">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"List of payout tools">>,
-            <<"schema">> => #{
-              <<"type">> => <<"array">>,
-              <<"items">> => #{
-                <<"$ref">> => <<"#/definitions/PayoutTool">>
-              }
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
-    <<"/processing/contracts/{contractID}/payout_tools/{payoutToolID}">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Get a payout tool data by identifier">>,
-        <<"operationId">> => <<"getPayoutToolByID">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"contractID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Contract ID">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"payoutToolID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Payout tool ID">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"Payout tool details">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/PayoutTool">>
             }
           },
           <<"400">> => #{
@@ -3821,139 +3596,6 @@ get_raw() ->
         }
       }
     },
-    <<"/processing/parties/{partyID}/contracts/{contractID}/payout_tools">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Get all payout tools to the specified contract">>,
-        <<"operationId">> => <<"getPayoutToolsForParty">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"contractID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Contract ID">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"partyID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"The participant's unique identifier within the system.">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"List of payout tools">>,
-            <<"schema">> => #{
-              <<"type">> => <<"array">>,
-              <<"items">> => #{
-                <<"$ref">> => <<"#/definitions/PayoutTool">>
-              }
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
-    <<"/processing/parties/{partyID}/contracts/{contractID}/payout_tools/{payoutToolID}">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Get a payout tool data by identifier">>,
-        <<"operationId">> => <<"getPayoutToolByIDForParty">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"contractID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Contract ID">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"payoutToolID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Payout tool ID">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"partyID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"The participant's unique identifier within the system.">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"Payout tool details">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/PayoutTool">>
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
     <<"/processing/parties/{partyID}/invoices">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Invoices">> ],
@@ -3995,155 +3637,6 @@ get_raw() ->
             <<"description">> => <<"Invoice">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Invoice">>
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
-    <<"/processing/parties/{partyID}/payment-institutions/{paymentInstitutionID}/terms/payouts/methods">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Get payout methods for the payment institution">>,
-        <<"operationId">> => <<"getPaymentInstitutionPayoutMethodsForParty">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"partyID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"The participant's unique identifier within the system.">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>
-        }, #{
-          <<"name">> => <<"paymentInstitutionID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Payment institution reference">>,
-          <<"required">> => true,
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int32">>
-        }, #{
-          <<"name">> => <<"currency">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"pattern">> => <<"^[A-Z]{3}$">>
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"Payout method">>,
-            <<"schema">> => #{
-              <<"type">> => <<"array">>,
-              <<"items">> => #{
-                <<"type">> => <<"string">>,
-                <<"enum">> => [ <<"BankAccount">>, <<"InternationalBankAccount">>, <<"Wallet">>, <<"PaymentInstitutionAccount">> ]
-              }
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
-    <<"/processing/parties/{partyID}/payment-institutions/{paymentInstitutionID}/terms/payouts/schedules">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Get available payout schedules for the payment institution">>,
-        <<"operationId">> => <<"getPaymentInstitutionPayoutSchedulesForParty">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"partyID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"The participant's unique identifier within the system.">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>
-        }, #{
-          <<"name">> => <<"paymentInstitutionID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Payment institution reference">>,
-          <<"required">> => true,
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int32">>
-        }, #{
-          <<"name">> => <<"currency">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"pattern">> => <<"^[A-Z]{3}$">>
-        }, #{
-          <<"name">> => <<"payoutMethod">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Payout method">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"enum">> => [ <<"BankAccount">>, <<"InternationalBankAccount">>, <<"Wallet">> ]
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"Payout schedule identifiers">>,
-            <<"schema">> => #{
-              <<"type">> => <<"array">>,
-              <<"items">> => #{
-                <<"type">> => <<"integer">>,
-                <<"format">> => <<"int32">>
-              }
             }
           },
           <<"400">> => #{
@@ -4785,143 +4278,6 @@ get_raw() ->
         }
       }
     },
-    <<"/processing/payment-institutions/{paymentInstitutionID}/terms/payouts/methods">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Get payout methods for the payment institution">>,
-        <<"operationId">> => <<"getPaymentInstitutionPayoutMethods">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"paymentInstitutionID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Payment institution reference">>,
-          <<"required">> => true,
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int32">>
-        }, #{
-          <<"name">> => <<"currency">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"pattern">> => <<"^[A-Z]{3}$">>
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"Payout method">>,
-            <<"schema">> => #{
-              <<"type">> => <<"array">>,
-              <<"items">> => #{
-                <<"type">> => <<"string">>,
-                <<"enum">> => [ <<"BankAccount">>, <<"InternationalBankAccount">>, <<"Wallet">>, <<"PaymentInstitutionAccount">> ]
-              }
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
-    <<"/processing/payment-institutions/{paymentInstitutionID}/terms/payouts/schedules">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Get available payout schedules for the payment organization">>,
-        <<"operationId">> => <<"getPaymentInstitutionPayoutSchedules">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"paymentInstitutionID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Payment institution reference">>,
-          <<"required">> => true,
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int32">>
-        }, #{
-          <<"name">> => <<"currency">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"pattern">> => <<"^[A-Z]{3}$">>
-        }, #{
-          <<"name">> => <<"payoutMethod">>,
-          <<"in">> => <<"query">>,
-          <<"description">> => <<"Payout method">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"enum">> => [ <<"BankAccount">>, <<"InternationalBankAccount">>, <<"Wallet">> ]
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"Payout schedule identifiers">>,
-            <<"schema">> => #{
-              <<"type">> => <<"array">>,
-              <<"items">> => #{
-                <<"type">> => <<"integer">>,
-                <<"format">> => <<"int32">>
-              }
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
     <<"/processing/payment-resources">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Tokens">> ],
@@ -5026,109 +4382,6 @@ get_raw() ->
         }
       }
     },
-    <<"/processing/payouts">> => #{
-      <<"post">> => #{
-        <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Create a new payout and send it to pre-moderation.\n">>,
-        <<"operationId">> => <<"createPayout">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"in">> => <<"body">>,
-          <<"name">> => <<"payoutParams">>,
-          <<"required">> => true,
-          <<"schema">> => #{
-            <<"$ref">> => <<"#/definitions/PayoutParams">>
-          }
-        } ],
-        <<"responses">> => #{
-          <<"201">> => #{
-            <<"description">> => <<"Payout created">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/Payout">>
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_13">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          }
-        }
-      }
-    },
-    <<"/processing/payouts/{payoutID}">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Get payout data">>,
-        <<"operationId">> => <<"getPayout">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"payoutID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Withdrawal ID">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"Payout found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/Payout">>
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
     <<"/processing/refunds">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Payments">> ],
@@ -5164,60 +4417,6 @@ get_raw() ->
             <<"description">> => <<"Refund details">>,
             <<"schema">> => #{
               <<"$ref">> => <<"#/definitions/Refund">>
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
-    <<"/processing/schedules/{scheduleID}">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"Payouts">> ],
-        <<"description">> => <<"Get payout schedule data by identifier">>,
-        <<"operationId">> => <<"getScheduleByRef">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"scheduleID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Schedule reference">>,
-          <<"required">> => true,
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int32">>
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"Schedule found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/Schedule">>
             }
           },
           <<"400">> => #{
@@ -5666,7 +4865,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invalid webhook data">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_14">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_13">>
             }
           },
           <<"401">> => #{
@@ -9284,198 +8483,6 @@ get_raw() ->
         <<"$ref">> => <<"#/definitions/PaymentTerminalDetails">>
       } ]
     },
-    <<"Payout">> => #{
-      <<"type">> => <<"object">>,
-      <<"required">> => [ <<"amount">>, <<"createdAt">>, <<"currency">>, <<"id">>, <<"payoutToolDetails">>, <<"shopID">> ],
-      <<"properties">> => #{
-        <<"id">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Payout ID">>
-        },
-        <<"shopID">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Shop ID">>
-        },
-        <<"createdAt">> => #{
-          <<"type">> => <<"string">>,
-          <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Date and time of creation">>
-        },
-        <<"cancellationDetails">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Details of the canceled payout">>,
-          <<"maxLength">> => 1000
-        },
-        <<"amount">> => #{
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int64">>,
-          <<"description">> => <<"Payout amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
-          <<"minimum">> => 1
-        },
-        <<"fee">> => #{
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int64">>,
-          <<"description">> => <<"System fee in minor monetary units">>,
-          <<"minimum">> => 0
-        },
-        <<"currency">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
-          <<"pattern">> => <<"^[A-Z]{3}$">>
-        },
-        <<"payoutToolDetails">> => #{
-          <<"$ref">> => <<"#/definitions/PayoutToolDetails">>
-        },
-        <<"status">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Payout status">>
-        }
-      },
-      <<"example">> => #{
-        <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
-        <<"amount">> => 1,
-        <<"payoutToolDetails">> => #{
-          <<"detailsType">> => <<"detailsType">>
-        },
-        <<"cancellationDetails">> => <<"cancellationDetails">>,
-        <<"fee">> => 0,
-        <<"currency">> => <<"currency">>,
-        <<"id">> => <<"id">>,
-        <<"shopID">> => <<"shopID">>,
-        <<"status">> => <<"status">>
-      }
-    },
-    <<"PayoutID">> => #{
-      <<"type">> => <<"string">>,
-      <<"minLength">> => 1,
-      <<"maxLength">> => 40,
-      <<"description">> => <<"Payout ID">>
-    },
-    <<"PayoutParams">> => #{
-      <<"type">> => <<"object">>,
-      <<"required">> => [ <<"amount">>, <<"currency">>, <<"payoutToolID">>, <<"shopID">> ],
-      <<"properties">> => #{
-        <<"id">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Payout ID">>,
-          <<"minLength">> => 1,
-          <<"maxLength">> => 40
-        },
-        <<"shopID">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Shop ID">>
-        },
-        <<"partyID">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"The participant's unique identifier within the system.">>,
-          <<"minLength">> => 1,
-          <<"maxLength">> => 40
-        },
-        <<"payoutToolID">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Payout tool ID">>
-        },
-        <<"amount">> => #{
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int64">>,
-          <<"description">> => <<"Payout amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.\n">>,
-          <<"minimum">> => 1
-        },
-        <<"currency">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
-          <<"pattern">> => <<"^[A-Z]{3}$">>
-        }
-      },
-      <<"example">> => #{
-        <<"amount">> => 1,
-        <<"currency">> => <<"currency">>,
-        <<"id">> => <<"id">>,
-        <<"shopID">> => <<"shopID">>,
-        <<"partyID">> => <<"partyID">>,
-        <<"payoutToolID">> => <<"payoutToolID">>
-      }
-    },
-    <<"PayoutTool">> => #{
-      <<"allOf">> => [ #{
-        <<"type">> => <<"object">>,
-        <<"required">> => [ <<"id">> ],
-        <<"properties">> => #{
-          <<"id">> => #{
-            <<"type">> => <<"string">>,
-            <<"description">> => <<"Payout tool ID">>
-          }
-        }
-      }, #{
-        <<"$ref">> => <<"#/definitions/PayoutToolParams">>
-      } ],
-      <<"description">> => <<"Payout tool">>
-    },
-    <<"PayoutToolDetails">> => #{
-      <<"type">> => <<"object">>,
-      <<"required">> => [ <<"detailsType">> ],
-      <<"discriminator">> => <<"detailsType">>,
-      <<"properties">> => #{
-        <<"detailsType">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Payout tool type">>
-        }
-      },
-      <<"description">> => <<"Payout tool details">>,
-      <<"example">> => #{
-        <<"detailsType">> => <<"detailsType">>
-      }
-    },
-    <<"PayoutToolDetailsBankAccount">> => #{
-      <<"allOf">> => [ #{
-        <<"$ref">> => <<"#/definitions/PayoutToolDetails">>
-      }, #{
-        <<"$ref">> => <<"#/definitions/BankAccount">>
-      } ]
-    },
-    <<"PayoutToolDetailsInternationalBankAccount">> => #{
-      <<"allOf">> => [ #{
-        <<"$ref">> => <<"#/definitions/PayoutToolDetails">>
-      }, #{
-        <<"$ref">> => <<"#/definitions/InternationalBankAccount">>
-      } ]
-    },
-    <<"PayoutToolDetailsPaymentInstitutionAccount">> => #{
-      <<"allOf">> => [ #{
-        <<"$ref">> => <<"#/definitions/PayoutToolDetails">>
-      }, #{
-        <<"$ref">> => <<"#/definitions/PaymentInstitutionAccount">>
-      } ]
-    },
-    <<"PayoutToolDetailsWalletInfo">> => #{
-      <<"allOf">> => [ #{
-        <<"$ref">> => <<"#/definitions/PayoutToolDetails">>
-      }, #{
-        <<"type">> => <<"object">>,
-        <<"required">> => [ <<"walletID">> ],
-        <<"properties">> => #{
-          <<"walletID">> => #{
-            <<"type">> => <<"string">>,
-            <<"description">> => <<"Identifier of the wallet">>,
-            <<"minLength">> => 1,
-            <<"maxLength">> => 40
-          }
-        }
-      } ]
-    },
-    <<"PayoutToolParams">> => #{
-      <<"type">> => <<"object">>,
-      <<"required">> => [ <<"currency">>, <<"details">> ],
-      <<"properties">> => #{
-        <<"currency">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Payout currency">>
-        },
-        <<"details">> => #{
-          <<"$ref">> => <<"#/definitions/PayoutToolDetails">>
-        }
-      }
-    },
     <<"PowerOfAttorney">> => #{
       <<"allOf">> => [ #{
         <<"$ref">> => <<"#/definitions/RepresentativeDocument">>
@@ -10277,12 +9284,7 @@ get_raw() ->
           <<"maxLength">> => 1000
         }
       },
-      <<"description">> => <<"Schedule">>,
-      <<"example">> => #{
-        <<"name">> => <<"name">>,
-        <<"description">> => <<"description">>,
-        <<"scheduleID">> => 0
-      }
+      <<"description">> => <<"Schedule">>
     },
     <<"ServiceAcceptanceActPreferences">> => #{
       <<"type">> => <<"object">>,
@@ -10407,15 +9409,6 @@ get_raw() ->
         <<"contractID">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"Contract identifier on the basis of which the shop is serviced\n">>
-        },
-        <<"payoutToolID">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Payout tool identifier within the contract used in the payout process by shop\n">>
-        },
-        <<"scheduleID">> => #{
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int32">>,
-          <<"description">> => <<"Payout schedule identifier">>
         }
       },
       <<"description">> => <<"Shop details">>,
@@ -10433,9 +9426,7 @@ get_raw() ->
           <<"description">> => <<"description">>
         },
         <<"id">> => <<"id">>,
-        <<"categoryID">> => 0,
-        <<"scheduleID">> => 6,
-        <<"payoutToolID">> => <<"payoutToolID">>
+        <<"categoryID">> => 0
       }
     },
     <<"ShopDetails">> => #{
@@ -10767,48 +9758,6 @@ get_raw() ->
         <<"result">> => #{
           <<"type">> => <<"array">>,
           <<"items">> => #{
-            <<"$ref">> => <<"#/definitions/Payout">>
-          }
-        }
-      },
-      <<"example">> => #{
-        <<"result">> => [ #{
-          <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
-          <<"amount">> => 1,
-          <<"payoutToolDetails">> => #{
-            <<"detailsType">> => <<"detailsType">>
-          },
-          <<"cancellationDetails">> => <<"cancellationDetails">>,
-          <<"fee">> => 0,
-          <<"currency">> => <<"currency">>,
-          <<"id">> => <<"id">>,
-          <<"shopID">> => <<"shopID">>,
-          <<"status">> => <<"status">>
-        }, #{
-          <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
-          <<"amount">> => 1,
-          <<"payoutToolDetails">> => #{
-            <<"detailsType">> => <<"detailsType">>
-          },
-          <<"cancellationDetails">> => <<"cancellationDetails">>,
-          <<"fee">> => 0,
-          <<"currency">> => <<"currency">>,
-          <<"id">> => <<"id">>,
-          <<"shopID">> => <<"shopID">>,
-          <<"status">> => <<"status">>
-        } ],
-        <<"totalCount">> => 0
-      }
-    },
-    <<"inline_response_200_3">> => #{
-      <<"type">> => <<"object">>,
-      <<"properties">> => #{
-        <<"totalCount">> => #{
-          <<"type">> => <<"integer">>
-        },
-        <<"result">> => #{
-          <<"type">> => <<"array">>,
-          <<"items">> => #{
             <<"$ref">> => <<"#/definitions/RefundSearchResult">>
           }
         }
@@ -11033,22 +9982,6 @@ get_raw() ->
         <<"code">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
-          <<"enum">> => [ <<"invalidPartyID">>, <<"invalidPayoutTool">>, <<"invalidCash">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"ambiguousPartyID">> ]
-        },
-        <<"message">> => #{
-          <<"type">> => <<"string">>,
-          <<"example">> => <<"invalid payout id">>,
-          <<"description">> => <<"Human-readable description of the error">>
-        }
-      }
-    },
-    <<"inline_response_400_14">> => #{
-      <<"type">> => <<"object">>,
-      <<"required">> => [ <<"code">>, <<"message">> ],
-      <<"properties">> => #{
-        <<"code">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPartyID">>, <<"invalidShopID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"ambiguousPartyID">> ]
         },
         <<"message">> => #{
@@ -11235,24 +10168,6 @@ get_raw() ->
       <<"name">> => <<"adjustmentID">>,
       <<"in">> => <<"path">>,
       <<"description">> => <<"Contract adjustment identifier">>,
-      <<"required">> => true,
-      <<"type">> => <<"string">>,
-      <<"maxLength">> => 40,
-      <<"minLength">> => 1
-    },
-    <<"payoutToolID">> => #{
-      <<"name">> => <<"payoutToolID">>,
-      <<"in">> => <<"path">>,
-      <<"description">> => <<"Payout tool ID">>,
-      <<"required">> => true,
-      <<"type">> => <<"string">>,
-      <<"maxLength">> => 40,
-      <<"minLength">> => 1
-    },
-    <<"payoutID">> => #{
-      <<"name">> => <<"payoutID">>,
-      <<"in">> => <<"path">>,
-      <<"description">> => <<"Withdrawal ID">>,
       <<"required">> => true,
       <<"type">> => <<"string">>,
       <<"maxLength">> => 40,

@@ -310,26 +310,6 @@ get_operations() ->
             method => <<"GET">>,
             handler => 'swag_server_payment_institutions_handler'
         },
-        'GetPaymentInstitutionPayoutMethods' => #{
-            path => "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payouts/methods",
-            method => <<"GET">>,
-            handler => 'swag_server_payment_institutions_handler'
-        },
-        'GetPaymentInstitutionPayoutMethodsForParty' => #{
-            path => "/v2/processing/parties/:partyID/payment-institutions/:paymentInstitutionID/terms/payouts/methods",
-            method => <<"GET">>,
-            handler => 'swag_server_payment_institutions_handler'
-        },
-        'GetPaymentInstitutionPayoutSchedules' => #{
-            path => "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payouts/schedules",
-            method => <<"GET">>,
-            handler => 'swag_server_payment_institutions_handler'
-        },
-        'GetPaymentInstitutionPayoutSchedulesForParty' => #{
-            path => "/v2/processing/parties/:partyID/payment-institutions/:paymentInstitutionID/terms/payouts/schedules",
-            method => <<"GET">>,
-            handler => 'swag_server_payment_institutions_handler'
-        },
         'GetPaymentInstitutions' => #{
             path => "/v2/processing/payment-institutions",
             method => <<"GET">>,
@@ -410,41 +390,6 @@ get_operations() ->
             method => <<"GET">>,
             handler => 'swag_server_payments_handler'
         },
-        'CreatePayout' => #{
-            path => "/v2/processing/payouts",
-            method => <<"POST">>,
-            handler => 'swag_server_payouts_handler'
-        },
-        'GetPayout' => #{
-            path => "/v2/processing/payouts/:payoutID",
-            method => <<"GET">>,
-            handler => 'swag_server_payouts_handler'
-        },
-        'GetPayoutToolByID' => #{
-            path => "/v2/processing/contracts/:contractID/payout_tools/:payoutToolID",
-            method => <<"GET">>,
-            handler => 'swag_server_payouts_handler'
-        },
-        'GetPayoutToolByIDForParty' => #{
-            path => "/v2/processing/parties/:partyID/contracts/:contractID/payout_tools/:payoutToolID",
-            method => <<"GET">>,
-            handler => 'swag_server_payouts_handler'
-        },
-        'GetPayoutTools' => #{
-            path => "/v2/processing/contracts/:contractID/payout_tools",
-            method => <<"GET">>,
-            handler => 'swag_server_payouts_handler'
-        },
-        'GetPayoutToolsForParty' => #{
-            path => "/v2/processing/parties/:partyID/contracts/:contractID/payout_tools",
-            method => <<"GET">>,
-            handler => 'swag_server_payouts_handler'
-        },
-        'GetScheduleByRef' => #{
-            path => "/v2/processing/schedules/:scheduleID",
-            method => <<"GET">>,
-            handler => 'swag_server_payouts_handler'
-        },
         'SearchInvoices' => #{
             path => "/v2/analytics/shops/:shopID/invoices",
             method => <<"GET">>,
@@ -452,11 +397,6 @@ get_operations() ->
         },
         'SearchPayments' => #{
             path => "/v2/analytics/shops/:shopID/payments",
-            method => <<"GET">>,
-            handler => 'swag_server_search_handler'
-        },
-        'SearchPayouts' => #{
-            path => "/v2/analytics/shops/:shopID/payouts",
             method => <<"GET">>,
             handler => 'swag_server_search_handler'
         },

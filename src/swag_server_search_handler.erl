@@ -72,14 +72,6 @@ allowed_methods(
 allowed_methods(
     Req,
     State = #state{
-        operation_id = 'SearchPayouts'
-    }
-) ->
-    {[<<"GET">>], Req, State};
-
-allowed_methods(
-    Req,
-    State = #state{
         operation_id = 'SearchRefunds'
     }
 ) ->
@@ -126,33 +118,6 @@ is_authorized(
     Req0,
     State = #state{
         operation_id  = 'SearchPayments' = OperationID,
-        logic_handler = LogicHandler,
-        context       = Context
-    }
-) ->
-    From = header,
-    Result = swag_server_handler_api:authorize_api_key(
-        LogicHandler,
-        OperationID,
-        From,
-        'Authorization',
-        Req0,
-        Context
-    ),
-    case Result of
-        {true, AuthContext, Req} ->
-            NewContext = Context#{
-                auth_context => AuthContext
-            },
-            {true, Req, State#state{context = NewContext}};
-        {false, AuthHeader, Req} ->
-            {{false, AuthHeader}, Req, State}
-    end;
-
-is_authorized(
-    Req0,
-    State = #state{
-        operation_id  = 'SearchPayouts' = OperationID,
         logic_handler = LogicHandler,
         context       = Context
     }
@@ -235,16 +200,6 @@ valid_content_headers(
     Req0,
     State = #state{
         operation_id = 'SearchPayments'
-    }
-) ->
-    Headers = ["X-Request-ID","X-Request-Deadline"],
-    {Result, Req} = validate_headers(Headers, Req0),
-    {Result, Req, State};
-
-valid_content_headers(
-    Req0,
-    State = #state{
-        operation_id = 'SearchPayouts'
     }
 ) ->
     Headers = ["X-Request-ID","X-Request-Deadline"],
@@ -619,54 +574,6 @@ get_request_spec('SearchPayments') ->
 , {required, false}]
         }}
     ];
-get_request_spec('SearchPayouts') ->
-    [
-        {'X-Request-ID', #{
-            source => header,
-            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
-, {required, true}]
-        }},
-        {'shopID', #{
-            source => binding,
-            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
-, {required, true}]
-        }},
-        {'fromTime', #{
-            source => qs_val,
-            rules  => [{type, 'binary'}, {format, 'date-time'}, true
-, {required, true}]
-        }},
-        {'toTime', #{
-            source => qs_val,
-            rules  => [{type, 'binary'}, {format, 'date-time'}, true
-, {required, true}]
-        }},
-        {'limit', #{
-            source => qs_val,
-            rules  => [{type, 'integer'}, {format, 'int32'}, {max, 1000, inclusive}, {min, 1, inclusive}, true
-, {required, true}]
-        }},
-        {'X-Request-Deadline', #{
-            source => header,
-            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
-, {required, false}]
-        }},
-        {'offset', #{
-            source => qs_val,
-            rules  => [{type, 'integer'}, {min, 0, inclusive}, true
-, {required, false}]
-        }},
-        {'payoutID', #{
-            source => qs_val,
-            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
-, {required, false}]
-        }},
-        {'payoutToolType', #{
-            source => qs_val,
-            rules  => [{type, 'binary'}, {enum, ['PayoutAccount', 'Wallet', 'PaymentInstitutionAccount']}, true
-, {required, false}]
-        }}
-    ];
 get_request_spec('SearchRefunds') ->
     [
         {'X-Request-ID', #{
@@ -764,20 +671,8 @@ get_response_spec('SearchPayments', 401) ->
 get_response_spec('SearchPayments', 404) ->
     {'GeneralError', 'GeneralError'};
 
-get_response_spec('SearchPayouts', 200) ->
-    {'inline_response_200_2', 'inline_response_200_2'};
-
-get_response_spec('SearchPayouts', 400) ->
-    {'DefaultLogicError', 'DefaultLogicError'};
-
-get_response_spec('SearchPayouts', 401) ->
-    undefined;
-
-get_response_spec('SearchPayouts', 404) ->
-    {'GeneralError', 'GeneralError'};
-
 get_response_spec('SearchRefunds', 200) ->
-    {'inline_response_200_3', 'inline_response_200_3'};
+    {'inline_response_200_2', 'inline_response_200_2'};
 
 get_response_spec('SearchRefunds', 400) ->
     {'DefaultLogicError', 'DefaultLogicError'};
