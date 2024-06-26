@@ -9,9 +9,6 @@
 -export([search_payments/2]).
 -export([search_payments/3]).
 
--export([search_payouts/2]).
--export([search_payouts/3]).
-
 -export([search_refunds/2]).
 -export([search_refunds/3]).
 
@@ -51,24 +48,6 @@ search_payments(Endpoint, Params, Opts) ->
         get_request_spec(search_payments),
         Opts
     ), search_payments).
-
--spec search_payouts(Endpoint :: swag_client:endpoint(), Params :: map()) ->
-    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
-    {error, _Reason}.
-search_payouts(Endpoint, Params) ->
-    search_payouts(Endpoint, Params, []).
-
--spec search_payouts(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
-    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
-    {error, _Reason}.
-search_payouts(Endpoint, Params, Opts) ->
-    process_response(swag_client_procession:process_request(
-        get,
-        swag_client_utils:get_url(Endpoint, "/v2/analytics/shops/:shopID/payouts"),
-        Params,
-        get_request_spec(search_payouts),
-        Opts
-    ), search_payouts).
 
 -spec search_refunds(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
@@ -360,54 +339,6 @@ get_request_spec('search_payments') ->
 , {required, false}]
         }}
     ];
-get_request_spec('search_payouts') ->
-    [
-        {'X-Request-ID', #{
-            source => header,
-            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
-, {required, true}]
-        }},
-        {'shopID', #{
-            source => binding,
-            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
-, {required, true}]
-        }},
-        {'fromTime', #{
-            source => qs_val,
-            rules  => [{type, 'binary'}, {format, 'date-time'}, true
-, {required, true}]
-        }},
-        {'toTime', #{
-            source => qs_val,
-            rules  => [{type, 'binary'}, {format, 'date-time'}, true
-, {required, true}]
-        }},
-        {'limit', #{
-            source => qs_val,
-            rules  => [{type, 'integer'}, {format, 'int32'}, {max, 1000, inclusive}, {min, 1, inclusive}, true
-, {required, true}]
-        }},
-        {'X-Request-Deadline', #{
-            source => header,
-            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
-, {required, false}]
-        }},
-        {'offset', #{
-            source => qs_val,
-            rules  => [{type, 'integer'}, {min, 0, inclusive}, true
-, {required, false}]
-        }},
-        {'payoutID', #{
-            source => qs_val,
-            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
-, {required, false}]
-        }},
-        {'payoutToolType', #{
-            source => qs_val,
-            rules  => [{type, 'binary'}, {enum, ['PayoutAccount', 'Wallet', 'PaymentInstitutionAccount']}, true
-, {required, false}]
-        }}
-    ];
 get_request_spec('search_refunds') ->
     [
         {'X-Request-ID', #{
@@ -505,20 +436,8 @@ get_response_spec('search_payments', 401) ->
 get_response_spec('search_payments', 404) ->
     {'GeneralError', 'GeneralError'};
 
-get_response_spec('search_payouts', 200) ->
-    {'inline_response_200_2', 'inline_response_200_2'};
-
-get_response_spec('search_payouts', 400) ->
-    {'DefaultLogicError', 'DefaultLogicError'};
-
-get_response_spec('search_payouts', 401) ->
-    undefined;
-
-get_response_spec('search_payouts', 404) ->
-    {'GeneralError', 'GeneralError'};
-
 get_response_spec('search_refunds', 200) ->
-    {'inline_response_200_3', 'inline_response_200_3'};
+    {'inline_response_200_2', 'inline_response_200_2'};
 
 get_response_spec('search_refunds', 400) ->
     {'DefaultLogicError', 'DefaultLogicError'};
