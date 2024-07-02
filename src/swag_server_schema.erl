@@ -6992,7 +6992,8 @@ get_raw() ->
           <<"minAmountCondition">> => 0,
           <<"precision">> => 2,
           <<"maxAmountCondition">> => 0,
-          <<"deviation">> => 0
+          <<"deviation">> => 0,
+          <<"direction">> => <<"both">>
         }
       }
     },
@@ -7047,6 +7048,12 @@ get_raw() ->
           <<"maximum">> => 5,
           <<"default">> => 2
         },
+        <<"direction">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Direction of deviation from original amount.\n">>,
+          <<"default">> => <<"both">>,
+          <<"enum">> => [ <<"both">>, <<"upward">>, <<"downward">> ]
+        },
         <<"minAmountCondition">> => #{
           <<"type">> => <<"integer">>,
           <<"format">> => <<"int64">>,
@@ -7072,7 +7079,8 @@ get_raw() ->
         <<"minAmountCondition">> => 0,
         <<"precision">> => 2,
         <<"maxAmountCondition">> => 0,
-        <<"deviation">> => 0
+        <<"deviation">> => 0,
+        <<"direction">> => <<"both">>
       }
     },
     <<"InvoiceRussianBankAccount">> => #{
@@ -7217,7 +7225,8 @@ get_raw() ->
           <<"minAmountCondition">> => 0,
           <<"precision">> => 2,
           <<"maxAmountCondition">> => 0,
-          <<"deviation">> => 0
+          <<"deviation">> => 0,
+          <<"direction">> => <<"both">>
         }
       }
     },
@@ -7254,7 +7263,8 @@ get_raw() ->
             <<"minAmountCondition">> => 0,
             <<"precision">> => 2,
             <<"maxAmountCondition">> => 0,
-            <<"deviation">> => 0
+            <<"deviation">> => 0,
+            <<"direction">> => <<"both">>
           }
         },
         <<"invoiceTemplateAccessToken">> => #{
@@ -7329,7 +7339,8 @@ get_raw() ->
           <<"minAmountCondition">> => 0,
           <<"precision">> => 2,
           <<"maxAmountCondition">> => 0,
-          <<"deviation">> => 0
+          <<"deviation">> => 0,
+          <<"direction">> => <<"both">>
         }
       }
     },
@@ -7485,7 +7496,8 @@ get_raw() ->
           <<"minAmountCondition">> => 0,
           <<"precision">> => 2,
           <<"maxAmountCondition">> => 0,
-          <<"deviation">> => 0
+          <<"deviation">> => 0,
+          <<"direction">> => <<"both">>
         }
       }
     },
