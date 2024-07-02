@@ -1,0 +1,21 @@
+get:
+  description: Get country data by country identifier
+  tags:
+    - Countries
+  operationId: getCountryByID
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/countryID"
+  responses:
+    "200":
+      description: Country found
+      schema:
+        $ref: "#/definitions/Country"
+    "404":
+      $ref: "#/responses/NotFound"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

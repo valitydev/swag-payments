@@ -1,0 +1,24 @@
+type: object
+required:
+  - flow
+  - payer
+properties:
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/ExternalID"
+  flow:
+    $ref: "#/definitions/PaymentFlow"
+  payer:
+    $ref: "#/definitions/Payer"
+  processingDeadline:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/ProcessingDeadline"
+  makeRecurrent:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/PaymentMakeRecurrent"
+  metadata:
+    description: Metadata to be linked with the payment
+    type: object

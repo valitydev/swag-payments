@@ -1,0 +1,71 @@
+type: object
+x-merge-properties:
+  - 
+    type: object
+    required:
+      - id
+      - shopID
+      - createdAt
+      - dueDate
+      - amount
+      - currency
+      - product
+      - metadata
+    properties:
+      id:
+        description: Invoice ID
+        type: string
+      shopID:
+        description: Shop ID
+        type: string
+      externalID:
+        x-rebillyMerge:
+          - 
+            $ref: "#/definitions/ExternalID"
+          - 
+            description: External invoice identifier
+      createdAt:
+        description: Created at
+        type: string
+        format: date-time
+      dueDate:
+        description: Expiration date and time
+        type: string
+        format: date-time
+      amount:
+        description: >
+          The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
+        type: integer
+        format: int64
+        minimum: 1
+      currency:
+        x-rebillyMerge:
+          - 
+            $ref: "#/definitions/Currency"
+      product:
+        description: Name of the offered goods or services
+        type: string
+        maxLength: 100
+      description:
+        description: Description of the goods or services offered
+        type: string
+        maxLength: 1000
+      invoiceTemplateID:
+        description: >
+          Invoice template identifier (for invoices created from an invoice template).
+        type: string
+      cart:
+        $ref: "#/definitions/InvoiceCart"
+      allocation:
+        $ref: "#/definitions/Allocation"
+      bankAccount:
+        $ref: "#/definitions/InvoiceBankAccount"
+      metadata:
+        description: Invoice metadata
+        type: object
+      clientInfo:
+        $ref: "#/definitions/InvoiceClientInfo"
+      amountRandomized:
+        $ref: "#/definitions/InvoiceAmountRandomized"
+  - 
+    $ref: "#/definitions/InvoiceStatus"

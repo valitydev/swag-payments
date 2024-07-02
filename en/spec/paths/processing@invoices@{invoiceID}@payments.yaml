@@ -1,0 +1,84 @@
+get:
+  description: Get all payments for the specified invoice.
+  tags:
+    - Payments
+  operationId: getPayments
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/invoiceID"
+  responses:
+    "200":
+      description: List of invoice payments
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/Payment"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
+post:
+  description: Create a new payment for the specified invoice.
+  tags:
+    - Payments
+  operationId: createPayment
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/invoiceID"
+    - 
+      name: paymentParams
+      description: Parameters of the payment to be created
+      in: body
+      required: true
+      schema:
+        $ref: "#/definitions/PaymentParams"
+  responses:
+    "201":
+      description: Payment created
+      schema:
+        $ref: "#/definitions/Payment"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid data to start the payment
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: >
+              [Error code](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidInvoiceStatus
+              - invoicePaymentPending
+              - invalidRequest
+              - invalidDeadline
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidContractStatus
+              - invalidPaymentToolToken
+              - invalidPaymentSession
+              - invalidProcessingDeadline
+              - invalidRecurrentParent
+              - operationNotPermitted
+          message:
+            description: Human-readable description of the error
+            type: string
+            example: Invalid invoice status
+    "409":
+      $ref: "#/responses/ExternalIDConflict"

@@ -1,0 +1,47 @@
+description: Contact details
+type: object
+properties:
+  email:
+    description: Email address
+    type: string
+    format: email
+    maxLength: 100
+  phoneNumber:
+    description: >
+      Mobile phone number with international prefix according to [E.164](https://en.wikipedia.org/wiki/E.164).
+    type: string
+    format: '^\+\d{4,15}$'
+  firstName:
+    description: First name
+    type: string
+    maxLength: 100
+    example: "John"
+  lastName:
+    description: Last name
+    type: string
+    maxLength: 100
+    example: "Doe"
+  country:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/CountryCode"
+  state:
+    description: State
+    type: string
+    maxLength: 40
+    example: "Colorado"
+  city:
+    description: City
+    type: string
+    maxLength: 40
+    example: "Denver"
+  address:
+    description: Address
+    type: string
+    maxLength: 1000
+    example: "10th Street 13"
+  postalCode:
+    description: Postal code
+    type: string
+    maxLength: 40
+    example: "00012"

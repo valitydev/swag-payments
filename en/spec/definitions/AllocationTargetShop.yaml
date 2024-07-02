@@ -1,0 +1,14 @@
+description: The shop as the target of the transaction
+allOf:
+  - 
+    $ref: "#/definitions/AllocationTarget"
+  - 
+    type: object
+    required:
+      - shopID
+    properties:
+      shopID:
+        description: Shop ID
+        type: string
+        maxLength: 40
+        minLength: 1

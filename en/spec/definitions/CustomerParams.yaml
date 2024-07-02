@@ -1,0 +1,24 @@
+type: object
+required:
+  - shopID
+  - contactInfo
+  - metadata
+properties:
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/ExternalID"
+      - 
+        description: External customer identifier
+  shopID:
+    description: Shop ID
+    type: string
+  partyID:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/PartyID"
+  contactInfo:
+    $ref: "#/definitions/ContactInfo"
+  metadata:
+    description: Customer metadata
+    type: object

@@ -1,0 +1,12 @@
+description: Reporting settings
+type: object
+required:
+  - scheduleID
+  - signer
+properties:
+  scheduleID:
+    description: Reporting schedule identifier
+    type: integer
+    format: int32
+  signer:
+    $ref: "#/definitions/Representative"

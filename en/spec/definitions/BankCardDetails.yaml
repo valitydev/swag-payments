@@ -1,0 +1,30 @@
+required:
+  - cardNumberMask
+  - paymentSystem
+properties:
+  cardNumberMask:
+    description: Masked card number
+    type: string
+    pattern: '^\d{0,6}\*+\d{0,4}$'
+  first6:
+    description: >
+      First digits of the card number.
+      Absent for tokenized payment methods.
+    type: string
+    pattern: '^\d{6}$'
+  last4:
+    description: Card last digits
+    type: string
+    pattern: '^\d{0,4}$'
+  paymentSystem:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/BankCardPaymentSystem"
+  tokenProvider:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/BankCardTokenProvider"
+  tokenizationMethod:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/BankCardTokenizationMethod"

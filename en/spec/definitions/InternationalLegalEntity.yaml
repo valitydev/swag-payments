@@ -1,0 +1,32 @@
+description: "International legal entity"
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/LegalEntity"
+  - 
+    type: object
+    required:
+      - legalName
+      - registeredOffice
+    properties:
+      legalName:
+        description: Name
+        type: string
+      tradingName:
+        description: Trade name (if applicable)
+        type: string
+      registeredOffice:
+        description: Registration postal address
+        type: string
+      principalPlaceOfBusiness:
+        description: >
+          Location address (if different from the address of registration)
+        type: string
+      registeredNumber:
+        description: Registration number
+        type: string
+        maxLength: 100
+      country:
+        x-rebillyMerge:
+          - 
+            $ref: "#/definitions/CountryCode"

@@ -1,0 +1,23 @@
+get:
+  description: Get a list of installed webhooks
+  tags:
+    - Webhooks
+  operationId: getWebhooksForParty
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/partyID"
+  responses:
+    "200":
+      description: A list of webhooks
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/Webhook"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

@@ -1,0 +1,15 @@
+description: EIO/Representative
+type: object
+required:
+  - position
+  - fullName
+  - document
+properties:
+  position:
+    description: Name of the EIO/representative's position
+    type: string
+  fullName:
+    description: EIO/representative full name
+    type: string
+  document:
+    $ref: "#/definitions/RepresentativeDocument"

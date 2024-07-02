@@ -1,0 +1,21 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/PaymentTool"
+  - 
+    type: object
+    description: E-wallet
+    required:
+      - id
+      - provider
+    properties:
+      id:
+        description: E-wallet identifier
+        type: string
+      provider:
+        x-rebillyMerge:
+          - 
+            $ref: "#/definitions/DigitalWalletProvider"
+      token:
+        description: Token
+        type: string

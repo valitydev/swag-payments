@@ -1,0 +1,30 @@
+description: Transaction body with fee indication
+allOf:
+  - 
+    $ref: "#/definitions/AllocationTransaction"
+  - 
+    type: object
+    required:
+      - total
+      - currency
+      - fee
+    properties:
+      total:
+        description: >
+          Total transaction amount (includes fees) in minor monetary units, e.g. cents if US dollars are specified as the currency.
+        type: integer
+        format: int64
+        minimum: 1
+      amount:
+        description: >
+          The amount transferred to the selected destination in minor monetary units, e.g. cents if US dollars are specified as the currency.
+        type: integer
+        format: int64
+        minimum: 1
+        readOnly: true
+      currency:
+        x-rebillyMerge:
+          - 
+            $ref: "#/definitions/Currency"
+      fee:
+        $ref: "#/definitions/AllocationFee"

@@ -1,0 +1,21 @@
+allOf:
+  - 
+    $ref: "#/definitions/InvoiceBankAccount"
+  - 
+    type: object
+    description: >
+      Data of a settlement account in a banking organization operating under the jurisdiction of the Russian Federation.
+    required:
+      - account
+      - bankBik
+    properties:
+      account:
+        description: Account number
+        type: string
+        pattern: '^\d{20}$'
+        example: 12345678912345678912
+      bankBik:
+        description: BIK of the banking organization
+        type: string
+        pattern: '^\d{9}$'
+        example: 123456789

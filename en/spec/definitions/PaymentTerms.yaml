@@ -1,0 +1,14 @@
+type: object
+properties:
+  currencies:
+    type: array
+    items:
+      x-rebillyMerge:
+        - 
+          $ref: "#/definitions/Currency"
+  categories:
+    type: array
+    items:
+      description: Available category identifiers
+      type: integer
+      format: int32

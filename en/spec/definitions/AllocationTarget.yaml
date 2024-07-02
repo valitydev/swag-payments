@@ -1,0 +1,10 @@
+description: Target of the transaction
+type: object
+discriminator: allocationTargetType
+required:
+  - allocationTargetType
+properties:
+  allocationTargetType:
+    type: string
+    enum:
+      - AllocationTargetShop

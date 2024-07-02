@@ -1,0 +1,12 @@
+type: object
+required:
+  - name
+properties:
+  name:
+    description: Shop name
+    type: string
+    maxLength: 100
+  description:
+    description: Short description
+    type: string
+    maxLength: 1000

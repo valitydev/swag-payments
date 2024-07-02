@@ -1,0 +1,22 @@
+put:
+  description: >
+    Suspend the shop. This type of requests is processed by the platform automatically and is executed immediately after sending.
+  operationId: suspendShop
+  tags:
+    - Shops
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/shopID"
+  responses:
+    "204":
+      description: Shop suspended
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

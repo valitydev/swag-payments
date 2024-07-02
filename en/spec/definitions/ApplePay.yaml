@@ -1,0 +1,17 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/TokenizedCardData"
+  - 
+    type: object
+    description: Apple Pay data
+    required:
+      - merchantID
+      - paymentToken
+    properties:
+      merchantID:
+        description: Apple Pay merchant identifier
+        type: string
+      paymentToken:
+        description: Aggregate of open and encrypted payment data
+        type: object

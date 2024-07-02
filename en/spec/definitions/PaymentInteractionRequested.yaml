@@ -1,0 +1,17 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/InvoiceChange"
+  - 
+    type: object
+    description: >
+      Require interaction with the customer to continue the payment process
+    required:
+      - paymentID
+      - userInteraction
+    properties:
+      paymentID:
+        description: Payment ID
+        type: string
+      userInteraction:
+        $ref: "#/definitions/UserInteraction"

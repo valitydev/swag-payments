@@ -1,0 +1,4 @@
+description: >
+  An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.
+type: boolean
+default: false

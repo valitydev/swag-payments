@@ -1,0 +1,17 @@
+description: Legal agreement details
+type: object
+required:
+  - id
+  - signedAt
+properties:
+  id:
+    description: Legal agreement Identifier, e.g. contract number
+    type: string
+  signedAt:
+    description: Date and time of conclusion of the legal agreement
+    type: string
+    format: date-time
+  validUntil:
+    description: Date and time of termination of the legal agreement
+    type: string
+    format: date-time

@@ -1,0 +1,17 @@
+type: object
+description: >
+  Telephone number, according to ITU-T recommendation [E.164](https://en.wikipedia.org/wiki/E.164)
+required:
+  - cc
+  - ctn
+properties:
+  cc:
+    description: Country code (1-3 digits)
+    type: string
+    pattern: '^\d{1,3}$'
+    example: "7"
+  ctn:
+    description: Phone number
+    type: string
+    pattern: '^\d{10,12}$'
+    example: "0001234567"

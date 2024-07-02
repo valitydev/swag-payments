@@ -1,0 +1,12 @@
+description: Registered user of the system
+allOf:
+  - 
+    $ref: "#/definitions/Contractor"
+  - 
+    type: object
+    required:
+      - email
+    properties:
+      email:
+        description: User-identifying e-mail
+        type: string

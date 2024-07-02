@@ -1,0 +1,23 @@
+type: object
+description: Disposable payment tool data
+properties:
+  paymentToolToken:
+    description: >
+      A payment tool token provided by the payer.
+      _Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.
+    type: string
+    maxLength: 2000
+  paymentSession:
+    description: >
+      Payment session identifier.
+      _Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.
+    type: string
+    maxLength: 1000
+  paymentToolDetails:
+    $ref: "#/definitions/PaymentToolDetails"
+  clientInfo:
+    allOf:
+      - 
+        $ref: "#/definitions/ClientInfo"
+      - 
+        readOnly: true

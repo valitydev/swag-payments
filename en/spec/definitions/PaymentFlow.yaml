@@ -1,0 +1,12 @@
+type: object
+discriminator: type
+required:
+  - type
+properties:
+  type:
+    description: Payment flow type
+    type: string
+    enum:
+      - PaymentFlowInstant
+      - PaymentFlowHold
+    default: PaymentFlowInstant

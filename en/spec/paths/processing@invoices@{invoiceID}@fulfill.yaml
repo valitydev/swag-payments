@@ -1,0 +1,48 @@
+post:
+  description: To fulfill the specified invoice.
+  tags:
+    - Invoices
+  operationId: fulfillInvoice
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/invoiceID"
+    - 
+      name: fulfillInvoice
+      in: body
+      description: Reason for the operation
+      required: true
+      schema:
+        $ref: "#/definitions/Reason"
+  responses:
+    "204":
+      description: Инвойс погашен
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invoice fulfillment error
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: >
+              [Error code](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidInvoiceStatus
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidRequest
+              - invalidDeadline
+          message:
+            description: Human-readable description of the error
+            type: string
+            example: Invalid invoice status

@@ -1,0 +1,61 @@
+type: object
+x-merge-properties:
+  - 
+    type: object
+    required:
+      - id
+      - invoiceID
+      - createdAt
+      - amount
+      - currency
+      - flow
+      - payer
+    properties:
+      id:
+        description: Payment ID
+        type: string
+      externalID:
+        x-rebillyMerge:
+          - 
+            $ref: "#/definitions/ExternalID"
+      invoiceID:
+        description: >
+          Identifier of the invoice within which the payment was created
+        type: string
+      createdAt:
+        description: Created at
+        type: string
+        format: date-time
+      amount:
+        description: >
+          The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
+        type: integer
+        format: int64
+        minimum: 1
+      currency:
+        x-rebillyMerge:
+          - 
+            $ref: "#/definitions/Currency"
+      flow:
+        $ref: "#/definitions/PaymentFlow"
+      payer:
+        $ref: "#/definitions/Payer"
+      transactionInfo:
+        $ref: "#/definitions/TransactionInfo"
+      makeRecurrent:
+        x-rebillyMerge:
+          - 
+            $ref: "#/definitions/PaymentMakeRecurrent"
+          - 
+            readOnly: true
+      metadata:
+        description: Payment metadata
+        type: object
+      allocation:
+        x-rebillyMerge:
+          - 
+            $ref: "#/definitions/Allocation"
+          - 
+            readOnly: true
+  - 
+    $ref: "#/definitions/PaymentStatus"

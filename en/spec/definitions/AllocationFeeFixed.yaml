@@ -1,0 +1,15 @@
+description: Transaction fee in absolute values
+allOf:
+  - 
+    $ref: "#/definitions/AllocationFee"
+  - 
+    type: object
+    required:
+      - amount
+    properties:
+      amount:
+        description: >
+          The value of the fee in minor monetary units, e.g. cents if US dollars are specified as the transaction currency.
+        type: integer
+        format: int64
+        minimum: 1

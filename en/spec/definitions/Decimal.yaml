@@ -1,0 +1,17 @@
+description: Fractional decimal number of arbitrary precision
+type: object
+required:
+  - m
+  - exp
+properties:
+  m:
+    description: >
+      Mantissa.
+    type: integer
+    format: int64
+    minimum: 0
+  exp:
+    description: >
+      Exponent.
+    type: integer
+    format: int64
