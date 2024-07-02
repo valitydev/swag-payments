@@ -4718,6 +4718,15 @@ definitions:
         minimum: 0
         maximum: 5
         default: 2
+      direction:
+        description: |
+          Direction of deviation from original amount.
+        type: string
+        default: both
+        enum:
+          - both
+          - upward
+          - downward
       minAmountCondition:
         description: |
           Minimum amount applicable for randomization, in minor monetary units.
