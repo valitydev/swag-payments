@@ -45,3 +45,17 @@ properties:
     type: string
     maxLength: 40
     example: "00012"
+  dateOfBirth:
+    description: Postal code
+    type: string
+    format: date
+    example: "1970-01-01"
+  documentId:
+    # FIXME 'documentId' ?
+    # FIXME description
+    description: National identification number as in a personal identity document
+    type: string
+    # FIXME max length
+    # FIXME pattern maybe?
+    maxLength: 40
+    example: "1234-5 678-abcd"
