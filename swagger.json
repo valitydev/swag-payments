@@ -5064,6 +5064,18 @@
           "type": "string",
           "maxLength": 40,
           "example": "00012"
+        },
+        "dateOfBirth": {
+          "description": "Date of birth",
+          "type": "string",
+          "format": "date",
+          "example": "1970-01-01"
+        },
+        "documentId": {
+          "description": "Identity document number",
+          "type": "string",
+          "maxLength": 40,
+          "example": "1234-5 678-abcd"
         }
       }
     },
