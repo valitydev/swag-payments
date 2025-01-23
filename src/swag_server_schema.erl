@@ -5628,6 +5628,18 @@ get_raw() ->
           <<"example">> => <<"00012">>,
           <<"description">> => <<"Postal code">>,
           <<"maxLength">> => 40
+        },
+        <<"dateOfBirth">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"date">>,
+          <<"example">> => <<"1970-01-01">>,
+          <<"description">> => <<"Date of birth">>
+        },
+        <<"documentId">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"1234-5 678-abcd">>,
+          <<"description">> => <<"Identity document number">>,
+          <<"maxLength">> => 40
         }
       },
       <<"description">> => <<"Contact details">>,
@@ -5639,6 +5651,8 @@ get_raw() ->
         <<"address">> => <<"10th Street 13">>,
         <<"city">> => <<"Denver">>,
         <<"postalCode">> => <<"00012">>,
+        <<"dateOfBirth">> => <<"1970-01-01">>,
+        <<"documentId">> => <<"1234-5 678-abcd">>,
         <<"state">> => <<"Colorado">>,
         <<"email">> => <<"email">>
       }
@@ -5949,6 +5963,8 @@ get_raw() ->
           <<"address">> => <<"10th Street 13">>,
           <<"city">> => <<"Denver">>,
           <<"postalCode">> => <<"00012">>,
+          <<"dateOfBirth">> => <<"1970-01-01">>,
+          <<"documentId">> => <<"1234-5 678-abcd">>,
           <<"state">> => <<"Colorado">>,
           <<"email">> => <<"email">>
         },
@@ -5984,6 +6000,8 @@ get_raw() ->
             <<"address">> => <<"10th Street 13">>,
             <<"city">> => <<"Denver">>,
             <<"postalCode">> => <<"00012">>,
+            <<"dateOfBirth">> => <<"1970-01-01">>,
+            <<"documentId">> => <<"1234-5 678-abcd">>,
             <<"state">> => <<"Colorado">>,
             <<"email">> => <<"email">>
           },
@@ -6242,6 +6260,8 @@ get_raw() ->
           <<"address">> => <<"10th Street 13">>,
           <<"city">> => <<"Denver">>,
           <<"postalCode">> => <<"00012">>,
+          <<"dateOfBirth">> => <<"1970-01-01">>,
+          <<"documentId">> => <<"1234-5 678-abcd">>,
           <<"state">> => <<"Colorado">>,
           <<"email">> => <<"email">>
         },
