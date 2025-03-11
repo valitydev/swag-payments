@@ -65,3 +65,7 @@ spec/.DS_Store
 
 # Frontend
 /lib
+/vality-openapi
+/web_deploy
+/scripts
+openapitools.json
