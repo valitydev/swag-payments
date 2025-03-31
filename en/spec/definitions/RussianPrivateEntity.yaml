@@ -1,0 +1,27 @@
+description: Private entity under the jurisdiction of the Russian Federation
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/PrivateEntity"
+  - 
+    type: object
+    required:
+      - firstName
+      - secondName
+      - middleName
+      - contactInfo
+    properties:
+      firstName:
+        description: Name
+        type: string
+        maxLength: 200
+      secondName:
+        description: Surname
+        type: string
+        maxLength: 200
+      middleName:
+        description: Middle Name
+        type: string
+        maxLength: 200
+      contactInfo:
+        $ref: "#/definitions/ContactInfo"

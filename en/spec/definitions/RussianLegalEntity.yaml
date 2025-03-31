@@ -1,0 +1,60 @@
+description: Legal entity operating under the jurisdiction of the Russian Federation
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/LegalEntity"
+  - 
+    type: object
+    required:
+      - registeredName
+      - registeredNumber
+      - inn
+      - actualAddress
+      - postAddress
+      - representativePosition
+      - representativeFullName
+      - representativeDocument
+      - bankAccount
+    properties:
+      registeredName:
+        description: >
+          Registered name of the legal entity
+        type: string
+        maxLength: 100
+      registeredNumber:
+        description: >
+          OGRN – Major State Registration Number of the entry made in the Register about formation of a Russian company (consists of 12 digits).
+        type: string
+        pattern: '^(\d{13}|\d{15})$'
+      inn:
+        description: >
+          [Russian taxpayer personal identification number (INN)](https://www.nalog.gov.ru/eng/exchinf/inn/)
+        type: string
+        pattern: '^(\d{10}|\d{12})$'
+      actualAddress:
+        description: >
+          Location postal address
+        type: string
+        maxLength: 1000
+      postAddress:
+        description: >
+          Postal address for sending correspondence
+        type: string
+        maxLength: 1000
+      representativePosition:
+        description: >
+          Job title [EIO](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) or its representative
+        type: string
+        maxLength: 100
+      representativeFullName:
+        description: >
+          Full name of [EIO](https://ru.wikipedia.org/wiki/Исполнительный_орган_общества) or its representative
+        type: string
+        maxLength: 100
+      representativeDocument:
+        description: >
+          Identification data of the document
+        type: string
+        maxLength: 1000
+      bankAccount:
+        $ref: "#/definitions/BankAccount"

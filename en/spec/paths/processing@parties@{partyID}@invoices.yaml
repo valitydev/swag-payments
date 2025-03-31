@@ -1,0 +1,31 @@
+get:
+  description: Get an invoice by external identifier.
+  tags:
+    - Invoices
+  operationId: getInvoiceByExternalIDForParty
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/partyID"
+    - 
+      name: externalID
+      description: External invoice identifier
+      in: query
+      required: true
+      type: string
+      maxLength: 40
+      minLength: 1
+  responses:
+    "200":
+      description: Invoice
+      schema:
+        $ref: "#/definitions/Invoice"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

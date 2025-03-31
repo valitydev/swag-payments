@@ -1,0 +1,16 @@
+type: object
+discriminator: changeType
+required:
+  - changeType
+properties:
+  changeType:
+    type: string
+    enum:
+      - InvoiceCreated
+      - InvoiceStatusChanged
+      - PaymentStarted
+      - PaymentStatusChanged
+      - PaymentInteractionRequested
+      - PaymentInteractionCompleted
+      - RefundStarted
+      - RefundStatusChanged

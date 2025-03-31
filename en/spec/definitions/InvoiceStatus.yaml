@@ -1,0 +1,16 @@
+type: object
+required:
+  - status
+properties:
+  status:
+    description: Invoice status
+    type: string
+    enum:
+      - unpaid
+      - cancelled
+      - paid
+      - fulfilled
+  reason:
+    description: Reason for invoice cancellation or redemption
+    type: string
+    maxLength: 1000

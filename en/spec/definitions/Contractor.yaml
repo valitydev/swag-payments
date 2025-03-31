@@ -1,0 +1,13 @@
+description: Contractor data
+type: object
+discriminator: contractorType
+required:
+  - contractorType
+properties:
+  contractorType:
+    description: Contractor type
+    type: string
+    enum:
+      - LegalEntity
+      - PrivateEntity
+      - RegisteredUser

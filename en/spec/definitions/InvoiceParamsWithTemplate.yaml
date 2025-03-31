@@ -1,0 +1,19 @@
+type: object
+properties:
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/ExternalID"
+  amount:
+    description: >
+      The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
+    type: integer
+    format: int64
+    minimum: 1
+  currency:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/Currency"
+  metadata:
+    description: "Invoice metadata"
+    type: object

@@ -1,0 +1,84 @@
+get:
+  description: Get invoice by specified external identifier.
+  tags:
+    - Invoices
+  operationId: getInvoiceByExternalID
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      name: externalID
+      description: External invoice identifier
+      in: query
+      required: true
+      type: string
+      maxLength: 40
+      minLength: 1
+  responses:
+    "200":
+      description: Invoice
+      schema:
+        $ref: "#/definitions/Invoice"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
+post:
+  description: Create a new invoice.
+  tags:
+    - Invoices
+  operationId: createInvoice
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      name: invoiceParams
+      description: Invoice parameters
+      in: body
+      required: true
+      schema:
+        $ref: "#/definitions/InvoiceParams"
+  responses:
+    "201":
+      description: Invoice created
+      schema:
+        $ref: "#/definitions/InvoiceAndToken"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid data for invoice creation
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: >
+              [Error code](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPartyID
+              - invalidShopID
+              - invalidRequest
+              - invalidDeadline
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidInvoiceCart
+              - invalidAllocation
+              - allocationNotPermitted
+              - invalidInvoiceCost
+              - invoiceTermsViolated
+              - ambiguousPartyID
+          message:
+            description: Human-readable description of the error
+            type: string
+            example: Shop not found or inaccessible
+    "409":
+      $ref: "#/responses/ExternalIDConflict"

@@ -1,0 +1,27 @@
+type: object
+description: >
+  Data for integration with payment token providers. These parameters are set in our system and can be used to build requests to the token provider or to display the payment form correctly.
+required:
+  - merchantID
+  - realm
+properties:
+  merchantID:
+    description: >
+      Merchant identifier in a payment organization.
+      Can be used to pass payment tokens to the provider. For example, this parameter is expected to be passed as gatewayMerchantID for GooglePay and or YandexPay and then used to bind the token to the specified shop.
+    type: string
+  merchantName:
+    description: >
+      The name of the merchant in the payment organization.
+      Can be used, for example, as `merchantInfo.merchantName` in GooglePay or `merchant.name` in YandexPay or `displayName` in ApplePay.
+    type: string
+  orderID:
+    description: >
+      The identifier of the paid account in the payment organization.
+      Can be used, for example, as `orderNumber` in SamsungPay or `order.id` in YandexPay.
+      Using the system identifier can be useful when debugging or reconciling data with provider data.
+    type: string
+  realm:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/RealmMode"

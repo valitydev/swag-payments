@@ -1,0 +1,28 @@
+description: >
+  Scope that includes customer events within a specific shop
+allOf:
+  - 
+    $ref: "#/definitions/WebhookScope"
+  - 
+    type: object
+    required:
+      - shopID
+      - eventTypes
+    properties:
+      shopID:
+        description: Shop ID
+        type: string
+        maxLength: 40
+        minLength: 1
+      eventTypes:
+        description: List of customer event types to be notified about
+        type: array
+        items:
+          type: string
+          enum:
+            - CustomerCreated
+            - CustomerDeleted
+            - CustomerReady
+            - CustomerBindingStarted
+            - CustomerBindingSucceeded
+            - CustomerBindingFailed

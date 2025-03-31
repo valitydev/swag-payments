@@ -1,0 +1,80 @@
+post:
+  description: Start a new payer binding.
+  tags:
+    - Customers
+  operationId: createBinding
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/customerID"
+    - 
+      name: bindingParams
+      description: Parameters of the created binding
+      in: body
+      required: true
+      schema:
+        $ref: "#/definitions/CustomerBindingParams"
+  responses:
+    "201":
+      description: Binding started
+      schema:
+        $ref: "#/definitions/CustomerBinding"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid binding data
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: >
+              [Error code](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPaymentResource
+              - operationNotPermitted
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidPaymentToolToken
+              - invalidPaymentSession
+              - invalidRequest
+              - invalidDeadline
+          message:
+            description: Human-readable description of the error
+            type: string
+            example: Invalid payment resource
+    "409":
+      $ref: "#/responses/ExternalIDConflict"
+get:
+  description: Get all payer bindings.
+  tags:
+    - Customers
+  operationId: getBindings
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/customerID"
+  responses:
+    "200":
+      description: List of bindings
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/CustomerBinding"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

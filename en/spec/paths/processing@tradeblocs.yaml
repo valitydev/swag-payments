@@ -1,0 +1,19 @@
+get:
+  description: Get a list of trade blocks
+  tags:
+    - TradeBlocs
+  operationId: getTradeBlocs
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+  responses:
+    "200":
+      description: List of trade blocs
+      schema:
+        type: array
+        items:
+          $ref: "#/definitions/TradeBloc"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

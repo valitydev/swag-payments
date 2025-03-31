@@ -1,0 +1,18 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/PaymentTool"
+  - 
+    type: object
+    description: Tokenized bank card
+    discriminator: provider
+    properties:
+      provider:
+        type: string
+        enum:
+          - ApplePay
+          - GooglePay
+          - SamsungPay
+          - YandexPay
+    required:
+      - provider

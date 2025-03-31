@@ -1,0 +1,51 @@
+post:
+  description: Cancel the specified payment
+  tags:
+    - Payments
+  operationId: cancelPayment
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/invoiceID"
+    - 
+      $ref: "#/parameters/paymentID"
+    - 
+      name: cancelPayment
+      in: body
+      description: Reason for the operation
+      required: true
+      schema:
+        $ref: "#/definitions/Reason"
+  responses:
+    "202":
+      description: Payment cancelation request received
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Payment cancel error
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: >
+              [Error code](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPaymentStatus
+              - operationNotPermitted
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidRequest
+              - invalidDeadline
+          message:
+            description: Human-readable description of the error
+            type: string
+            example: Invalid payment status

@@ -1,0 +1,6 @@
+description: >
+  A platform-unique entity identifier for this party.
+  It is used to ensure request idempotency.
+type: string
+maxLength: 40
+minLength: 1

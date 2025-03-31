@@ -1,0 +1,4 @@
+description: Payout ID
+type: string
+maxLength: 40
+minLength: 1

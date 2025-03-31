@@ -1,0 +1,17 @@
+type: object
+description: Reusable payment tool
+allOf:
+  - 
+    $ref: "#/definitions/Payer"
+  - 
+    type: object
+    required:
+      - customerID
+    properties:
+      customerID:
+        description: Customer ID
+        type: string
+        maxLength: 40
+        minLength: 1
+      paymentToolDetails:
+        $ref: "#/definitions/PaymentToolDetails"

@@ -1,0 +1,10 @@
+type: object
+discriminator: detailsType
+description: Payment tool details
+readOnly: true
+required:
+  - detailsType
+properties:
+  detailsType:
+    description: Type of payment tool
+    type: string

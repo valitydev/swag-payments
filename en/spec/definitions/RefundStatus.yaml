@@ -1,0 +1,25 @@
+type: object
+required:
+  - status
+properties:
+  status:
+    description: Refund status
+    type: string
+    enum:
+      - pending
+      - succeeded
+      - failed
+  error:
+    description: >
+      Data of the error that occurred during the refund process, if the refund was unsuccessful
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        description: Error code for automatic processing
+        type: string
+      message:
+        description: Human-readable error description
+        type: string

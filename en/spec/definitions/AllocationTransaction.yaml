@@ -1,0 +1,17 @@
+description: Cash allocation transaction
+type: object
+discriminator: allocationBodyType
+required:
+  - target
+  - allocationBodyType
+properties:
+  target:
+    $ref: "#/definitions/AllocationTarget"
+  allocationBodyType:
+    description: Transaction body
+    type: string
+    enum:
+      - AllocationBodyAmount
+      - AllocationBodyTotal
+  cart:
+    $ref: "#/definitions/InvoiceCart"

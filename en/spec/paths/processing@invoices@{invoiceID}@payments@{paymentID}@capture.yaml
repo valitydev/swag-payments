@@ -1,0 +1,57 @@
+post:
+  description: >
+    Capture the specified payment. In case the capture amount is less than the original amount, the remainder of the payment will be refunded. (see. [Payment options](#tag/Payments))
+  tags:
+    - Payments
+  operationId: capturePayment
+  parameters:
+    - 
+      $ref: "#/parameters/requestID"
+    - 
+      $ref: "#/parameters/deadline"
+    - 
+      $ref: "#/parameters/invoiceID"
+    - 
+      $ref: "#/parameters/paymentID"
+    - 
+      name: capturePayment
+      in: body
+      description: Payment capture parameters
+      required: true
+      schema:
+        $ref: "#/definitions/CaptureParams"
+  responses:
+    "202":
+      description: Request to capture payment accepted
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Payment capture error
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: >
+              [Error code](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidPaymentStatus
+              - operationNotPermitted
+              - invalidPartyStatus
+              - invalidShopStatus
+              - invalidRequest
+              - invalidDeadline
+              - invalidInvoiceCart
+              - invalidAllocation
+              - allocationNotPermitted
+              - inconsistentCaptureCurrency
+              - amountExceededCaptureBalance
+          message:
+            description: Human-readable description of the error
+            type: string
+            example: Invalid payment status

@@ -1,0 +1,11 @@
+description: Document on the basis of which the EIO/representative acts
+type: object
+discriminator: representativeDocumentType
+required:
+  - representativeDocumentType
+properties:
+  representativeDocumentType:
+    type: string
+    enum:
+      - ArticlesOfAssociation
+      - PowerOfAttorney

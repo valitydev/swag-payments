@@ -1,0 +1,60 @@
+type: object
+required:
+  - shopID
+  - dueDate
+  - currency
+  - product
+  - metadata
+properties:
+  shopID:
+    description: Shop ID
+    type: string
+    maxLength: 40
+    minLength: 1
+  partyID:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/PartyID"
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/ExternalID"
+      - 
+        description: External invoice identifier
+  dueDate:
+    description: >
+      The date and time of expiration of the invoice, after which it can no longer be paid
+    type: string
+    format: date-time
+  amount:
+    description: >
+      The value of the goods or services offered, in minor monetary units, such as cents if US dollars are specified as the currency.
+      If no value is specified, the value of the invoice will be the total value of the items in the shopping cart.
+    type: integer
+    format: int64
+    minimum: 1
+  randomizeAmount:
+    $ref: "#/definitions/InvoiceRandomizeAmount"
+  currency:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/Currency"
+  product:
+    description: Name of the offered goods or services
+    type: string
+    maxLength: 100
+  description:
+    description: Description of the goods or services offered
+    type: string
+    maxLength: 1000
+  cart:
+    $ref: "#/definitions/InvoiceCart"
+  allocation:
+    $ref: "#/definitions/Allocation"
+  bankAccount:
+    $ref: "#/definitions/InvoiceBankAccount"
+  metadata:
+    description: "Invoice metadata"
+    type: object
+  clientInfo:
+    $ref: "#/definitions/InvoiceClientInfo"

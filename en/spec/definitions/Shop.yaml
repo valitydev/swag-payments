@@ -1,0 +1,42 @@
+description: Shop details
+type: object
+required:
+  - id
+  - createdAt
+  - isBlocked
+  - isSuspended
+  - categoryID
+  - location
+  - details
+  - contractID
+properties:
+  id:
+    description: Shop ID
+    type: string
+  createdAt:
+    description: Date and time of creation
+    type: string
+    format: date-time
+  isBlocked:
+    description: Is the shop blocked?
+    type: boolean
+  isSuspended:
+    description: Are operations suspended within the shop?
+    type: boolean
+  currency:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/Currency"
+  categoryID:
+    description: >
+      Сategory identifier of goods and services offered in this shop
+    type: integer
+    format: int32
+  location:
+    $ref: "#/definitions/ShopLocation"
+  details:
+    $ref: "#/definitions/ShopDetails"
+  contractID:
+    description: >
+      Contract identifier on the basis of which the shop is serviced
+    type: string

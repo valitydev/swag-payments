@@ -1,0 +1,13 @@
+description: >
+  The scope of a webhook, limiting the list of event types, for which the notifications should be sent
+type: object
+discriminator: topic
+required:
+  - topic
+properties:
+  topic:
+    description: Subject of notifications
+    type: string
+    enum:
+      - InvoicesTopic
+      - CustomersTopic

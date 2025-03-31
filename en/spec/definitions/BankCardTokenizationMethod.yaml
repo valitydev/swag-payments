@@ -1,0 +1,5 @@
+description: Tokenization method
+type: string
+enum:
+  - dpan
+  - none

@@ -1,0 +1,33 @@
+type: object
+description: Disposable payment tool data
+required:
+  - paymentSession
+  - paymentToolToken
+properties:
+  paymentToolToken:
+    description: Payment tool token provided by the payer
+    type: string
+    maxLength: 2000
+  resourceToken:
+    description: >
+      Clean resource token. Can be used for differentiating one resource from another.
+    type: string
+    maxLength: 2000
+  paymentSession:
+    description: Payment session identifier
+    type: string
+    maxLength: 1000
+  paymentToolDetails:
+    $ref: "#/definitions/PaymentToolDetails"
+  clientInfo:
+    allOf:
+      - 
+        $ref: "#/definitions/ClientInfo"
+      - 
+        readOnly: true
+  validUntil:
+    description: >
+      Date and time until which the payment resource token remains valid
+    type: string
+    format: date-time
+    readOnly: true

@@ -1,0 +1,16 @@
+type: object
+allOf:
+  - 
+    $ref: "#/definitions/UserInteraction"
+  - 
+    type: object
+    required:
+      - shortPaymentID
+      - dueDate
+    properties:
+      shortPaymentID:
+        description: Account number for payment via payment terminal
+        type: string
+      dueDate:
+        description: Expiration date and time
+        type: string

@@ -1,0 +1,43 @@
+type: object
+required:
+  - id
+  - shopID
+  - lifetime
+  - details
+properties:
+  id:
+    description: Invoice template ID
+    type: string
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/ExternalID"
+      - 
+        description: External invoice template identifier
+  shopID:
+    description: Shop ID
+    type: string
+    maxLength: 40
+    minLength: 1
+  name:
+    description: Template name
+    type: string
+    maxLength: 100
+  description:
+    description: Description of the goods or services offered
+    type: string
+    maxLength: 1000
+  createdAt:
+    description: Template creation date
+    type: string
+    format: date-time
+  lifetime:
+    $ref: "#/definitions/LifetimeInterval"
+  details:
+    $ref: "#/definitions/InvoiceTemplateDetails"
+  metadata:
+    description: >
+      Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.
+    type: object
+  randomizeAmount:
+    $ref: "#/definitions/InvoiceRandomizeAmount"

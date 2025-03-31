@@ -1,0 +1,12 @@
+type: object
+required:
+  - paymentResource
+properties:
+  externalID:
+    x-rebillyMerge:
+      - 
+        $ref: "#/definitions/ExternalID"
+      - 
+        description: External customer binding identifier
+  paymentResource:
+    $ref: "#/definitions/PaymentResource"

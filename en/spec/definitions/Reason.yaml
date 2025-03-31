@@ -1,0 +1,8 @@
+type: object
+required:
+  - reason
+properties:
+  reason:
+    description: Operation reason
+    type: string
+    maxLength: 1000

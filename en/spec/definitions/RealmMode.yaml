@@ -1,0 +1,5 @@
+description: Payment institution's mode
+type: string
+enum:
+  - test
+  - live
