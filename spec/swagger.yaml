@@ -158,14 +158,6 @@ parameters:
     type: string
     maxLength: 40
     minLength: 1
-  contractID:
-    name: contractID
-    in: path
-    description: Contract ID
-    required: true
-    type: string
-    maxLength: 40
-    minLength: 1
   residence:
     name: residence
     in: query
@@ -175,34 +167,10 @@ parameters:
     required: false
     type: string
     pattern: "^[A-Z]{3}$"
-  customerID:
-    name: customerID
-    in: path
-    description: Customer ID
-    required: true
-    type: string
-    maxLength: 40
-    minLength: 1
-  customerBindingID:
-    name: customerBindingID
-    in: path
-    description: Customer binding identifier
-    required: true
-    type: string
-    maxLength: 40
-    minLength: 1
   webhookID:
     name: webhookID
     in: path
     description: Webhook identifier
-    required: true
-    type: string
-    maxLength: 40
-    minLength: 1
-  adjustmentID:
-    name: adjustmentID
-    in: path
-    description: Contract adjustment identifier
     required: true
     type: string
     maxLength: 40
@@ -230,36 +198,6 @@ parameters:
     type: string
     maxLength: 100
     minLength: 1
-  fromTime:
-    name: fromTime
-    in: query
-    description: Start of the time period
-    required: true
-    type: string
-    format: date-time
-  toTime:
-    name: toTime
-    in: query
-    description: End of the time period
-    required: true
-    type: string
-    format: date-time
-  limit:
-    name: limit
-    in: query
-    description: Selection limit
-    required: true
-    type: integer
-    format: int32
-    minimum: 1
-    maximum: 1000
-  offset:
-    name: offset
-    in: query
-    description: Query offset
-    required: false
-    type: integer
-    minimum: 0
   deadline:
     name: X-Request-Deadline
     in: header
@@ -546,19 +484,6 @@ tags:
       Categories are used to describe groups of goods and services offered by
       shops. Categories can influence on statistics provision, shops
       organisation and also system financial terms.
-  - name: Contracts
-    x-displayName: Contracts
-    description: >
-      A contract contains all details of a legal agreement on basis of which
-      the system provides all possible services to a merchant. In particular a
-      list of conditions, on basis of which the system services are provided, is
-      written in the contract. The examples of this can be the transaction
-      fees, conditions of withdrawal and legal entity data.
-
-      Any changes of the shops require system verification by creating change
-      requests.
-
-      Any data changes require system verification by creating change requests.
   - name: Webhooks
     x-displayName: Webhooks
     description: >
@@ -571,12 +496,6 @@ tags:
       You will need to read the specification [Vality Webhooks Events API]
       (https://github.com/valitydev/swag-payments-webhook-events) in order to
       implement notification handler.
-  - name: Search
-    x-displayName: Search
-    description: >
-      You should call the corresponding system method to get a list of all
-      invoices or payments of the specified shop. It is possible to filter
-      sampling by the status.
   - name: PaymentInstitutions
     x-displayName: Payment Institutions
     description: >

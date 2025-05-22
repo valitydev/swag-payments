@@ -1,3 +1,0 @@
-allOf:
-  - description: Correspondent account data of the specified bank
-  - $ref: "#/definitions/InternationalBankAccount"

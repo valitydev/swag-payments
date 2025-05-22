@@ -1,7 +1,0 @@
-type: object
-required:
-  - url
-properties:
-  url:
-    description: URL of the file
-    type: string
