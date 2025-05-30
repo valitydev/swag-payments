@@ -27,28 +27,50 @@ jobs:
           codegen-version: "2.4.25"
           generator-version: "1.1.0"
 
+      - name: Cache Node Modules and NPM Cache
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
       - name: Install deps
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
 
       - name: Bundle spec and build docsite
         run: npm run build -- web_deploy
 
-      - name: Generate stubs
-        run: |
-          mkdir -p out
-          echo "Generate base stubs"
-          swagger-codegen generate -l vality-erlang-client -i web_deploy/swagger.json -o out/erlang-client --additional-properties packageName=swag_client
-          swagger-codegen generate -l vality-erlang-server -i web_deploy/swagger.json -o out/erlang-server --additional-properties packageName=swag_server
+      - name: Check swagger output exists
+        run: ls -la web_deploy
 
-      - name: Determine branch name
-        id: extract_branch
-        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+      - name: Generate stubs
+        run: >
+          mkdir -p out
+
+          swagger-codegen generate
+          -l vality-erlang-client
+          -i web_deploy/swagger.json
+          -o out/erlang-client
+          --additional-properties packageName=swag_client
+
+          swagger-codegen generate
+          -l vality-erlang-server
+          -i web_deploy/swagger.json
+          -o out/erlang-server
+          --additional-properties packageName=swag_server
+
+      - name: Extract branch name
+        id: branch
+        run: echo "name=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
 
       - name: Deploy erlang-client artifact to release branch
         if: ${{ github.event_name == 'push' }}
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
-          branch: release/erlang/client/${{ steps.extract_branch.outputs.BRANCH_NAME }}
+          branch: release/erlang/client/${{ steps.branch.outputs.name }}
           folder: out/erlang-client
           commit-message: Release ${{ github.repository }}@${{ github.sha }}
 
@@ -56,6 +78,6 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
-          branch: release/erlang/server/${{ steps.extract_branch.outputs.BRANCH_NAME }}
+          branch: release/erlang/server/${{ steps.branch.outputs.name }}
           folder: out/erlang-server
           commit-message: Release ${{ github.repository }}@${{ github.sha }}
