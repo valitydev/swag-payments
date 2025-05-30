@@ -47,13 +47,13 @@ jobs:
 
           swagger-codegen generate
           -l vality-erlang-client
-          -i web_deploy/swagger.json
+          -i file://$(pwd)/web_deploy/swagger.json
           -o out/erlang-client
           --additional-properties packageName=swag_client
 
           swagger-codegen generate
           -l vality-erlang-server
-          -i web_deploy/swagger.json
+          -i file://$(pwd)/web_deploy/swagger.json
           -o out/erlang-server
           --additional-properties packageName=swag_server
 
