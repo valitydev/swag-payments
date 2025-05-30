@@ -5,8 +5,6 @@ on:
     branches:
       - v2
       - epic/**
-  pull_request:
-    branches: ['**']
 
 jobs:
   build:
@@ -43,9 +41,6 @@ jobs:
       - name: Bundle spec and build docsite
         run: npm run build -- web_deploy
 
-      - name: Check swagger output exists
-        run: ls -la web_deploy
-
       - name: Generate stubs
         run: >
           mkdir -p out
@@ -67,7 +62,6 @@ jobs:
         run: echo "name=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
 
       - name: Deploy erlang-client artifact to release branch
-        if: ${{ github.event_name == 'push' }}
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: release/erlang/client/${{ steps.branch.outputs.name }}
@@ -75,7 +69,6 @@ jobs:
           commit-message: Release ${{ github.repository }}@${{ github.sha }}
 
       - name: Deploy erlang-server artifact to release branch
-        if: ${{ github.event_name == 'push' }}
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: release/erlang/server/${{ steps.branch.outputs.name }}
