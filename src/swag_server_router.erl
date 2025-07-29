@@ -205,11 +205,6 @@ get_operations() ->
             method => <<"GET">>,
             handler => 'swag_server_payment_institutions_handler'
         },
-        'GetPaymentInstitutionPaymentTerms' => #{
-            path => "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payments",
-            method => <<"GET">>,
-            handler => 'swag_server_payment_institutions_handler'
-        },
         'GetPaymentInstitutions' => #{
             path => "/v2/processing/payment-institutions",
             method => <<"GET">>,

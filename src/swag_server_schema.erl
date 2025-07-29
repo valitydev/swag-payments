@@ -2544,60 +2544,6 @@ get_raw() ->
         }
       }
     },
-    <<"/processing/payment-institutions/{paymentInstitutionID}/terms/payments">> => #{
-      <<"get">> => #{
-        <<"tags">> => [ <<"PaymentInstitutions">> ],
-        <<"description">> => <<"Get payment terms and conditions for the payment institution">>,
-        <<"operationId">> => <<"getPaymentInstitutionPaymentTerms">>,
-        <<"parameters">> => [ #{
-          <<"name">> => <<"X-Request-ID">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Unique identifier of the request to the system">>,
-          <<"required">> => true,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 32,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"X-Request-Deadline">>,
-          <<"in">> => <<"header">>,
-          <<"description">> => <<"Maximum request processing time">>,
-          <<"required">> => false,
-          <<"type">> => <<"string">>,
-          <<"maxLength">> => 40,
-          <<"minLength">> => 1
-        }, #{
-          <<"name">> => <<"paymentInstitutionID">>,
-          <<"in">> => <<"path">>,
-          <<"description">> => <<"Payment institution reference">>,
-          <<"required">> => true,
-          <<"type">> => <<"integer">>,
-          <<"format">> => <<"int32">>
-        } ],
-        <<"responses">> => #{
-          <<"200">> => #{
-            <<"description">> => <<"Payment institution terms calculated">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/PaymentTerms">>
-            }
-          },
-          <<"400">> => #{
-            <<"description">> => <<"Invalid data">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
-            }
-          },
-          <<"401">> => #{
-            <<"description">> => <<"Authorization error">>
-          },
-          <<"404">> => #{
-            <<"description">> => <<"Target resource not found">>,
-            <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/GeneralError">>
-            }
-          }
-        }
-      }
-    },
     <<"/processing/payment-resources">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"Tokens">> ],
@@ -5732,31 +5678,6 @@ get_raw() ->
           }
         }
       } ]
-    },
-    <<"PaymentTerms">> => #{
-      <<"type">> => <<"object">>,
-      <<"properties">> => #{
-        <<"currencies">> => #{
-          <<"type">> => <<"array">>,
-          <<"items">> => #{
-            <<"type">> => <<"string">>,
-            <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>,
-            <<"pattern">> => <<"^[A-Z]{3}$">>
-          }
-        },
-        <<"categories">> => #{
-          <<"type">> => <<"array">>,
-          <<"items">> => #{
-            <<"type">> => <<"integer">>,
-            <<"format">> => <<"int32">>,
-            <<"description">> => <<"Available category identifiers">>
-          }
-        }
-      },
-      <<"example">> => #{
-        <<"categories">> => [ 0, 0 ],
-        <<"currencies">> => [ <<"currencies">>, <<"currencies">> ]
-      }
     },
     <<"PaymentTool">> => #{
       <<"type">> => <<"object">>,
