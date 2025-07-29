@@ -6,9 +6,6 @@
 -export([get_payment_institution_by_ref/2]).
 -export([get_payment_institution_by_ref/3]).
 
--export([get_payment_institution_payment_terms/2]).
--export([get_payment_institution_payment_terms/3]).
-
 -export([get_payment_institutions/2]).
 -export([get_payment_institutions/3]).
 
@@ -33,24 +30,6 @@ get_payment_institution_by_ref(Endpoint, Params, Opts) ->
         get_request_spec(get_payment_institution_by_ref),
         Opts
     ), get_payment_institution_by_ref).
-
--spec get_payment_institution_payment_terms(Endpoint :: swag_client:endpoint(), Params :: map()) ->
-    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
-    {error, _Reason}.
-get_payment_institution_payment_terms(Endpoint, Params) ->
-    get_payment_institution_payment_terms(Endpoint, Params, []).
-
--spec get_payment_institution_payment_terms(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
-    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
-    {error, _Reason}.
-get_payment_institution_payment_terms(Endpoint, Params, Opts) ->
-    process_response(swag_client_procession:process_request(
-        get,
-        swag_client_utils:get_url(Endpoint, "/v2/processing/payment-institutions/:paymentInstitutionID/terms/payments"),
-        Params,
-        get_request_spec(get_payment_institution_payment_terms),
-        Opts
-    ), get_payment_institution_payment_terms).
 
 -spec get_payment_institutions(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
@@ -127,24 +106,6 @@ get_request_spec('get_payment_institution_by_ref') ->
 , {required, false}]
         }}
     ];
-get_request_spec('get_payment_institution_payment_terms') ->
-    [
-        {'X-Request-ID', #{
-            source => header,
-            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
-, {required, true}]
-        }},
-        {'paymentInstitutionID', #{
-            source => binding,
-            rules  => [{type, 'integer'}, {format, 'int32'}, true
-, {required, true}]
-        }},
-        {'X-Request-Deadline', #{
-            source => header,
-            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
-, {required, false}]
-        }}
-    ];
 get_request_spec('get_payment_institutions') ->
     [
         {'X-Request-ID', #{
@@ -201,18 +162,6 @@ get_response_spec('get_payment_institution_by_ref', 401) ->
     undefined;
 
 get_response_spec('get_payment_institution_by_ref', 404) ->
-    {'GeneralError', 'GeneralError'};
-
-get_response_spec('get_payment_institution_payment_terms', 200) ->
-    {'PaymentTerms', 'PaymentTerms'};
-
-get_response_spec('get_payment_institution_payment_terms', 400) ->
-    {'DefaultLogicError', 'DefaultLogicError'};
-
-get_response_spec('get_payment_institution_payment_terms', 401) ->
-    undefined;
-
-get_response_spec('get_payment_institution_payment_terms', 404) ->
     {'GeneralError', 'GeneralError'};
 
 get_response_spec('get_payment_institutions', 200) ->
