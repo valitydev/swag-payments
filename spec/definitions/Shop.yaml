@@ -2,7 +2,6 @@ description: Shop details
 type: object
 required:
   - id
-  - createdAt
   - isBlocked
   - isSuspended
   - categoryID
@@ -13,10 +12,6 @@ properties:
   id:
     description: Shop ID
     type: string
-  createdAt:
-    description: Date and time of creation
-    type: string
-    format: date-time
   isBlocked:
     description: Is the shop blocked?
     type: boolean
