@@ -6356,16 +6356,11 @@ get_raw() ->
     },
     <<"Shop">> => #{
       <<"type">> => <<"object">>,
-      <<"required">> => [ <<"categoryID">>, <<"contractID">>, <<"createdAt">>, <<"details">>, <<"id">>, <<"isBlocked">>, <<"isSuspended">>, <<"location">> ],
+      <<"required">> => [ <<"categoryID">>, <<"contractID">>, <<"details">>, <<"id">>, <<"isBlocked">>, <<"isSuspended">>, <<"location">> ],
       <<"properties">> => #{
         <<"id">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"Shop ID">>
-        },
-        <<"createdAt">> => #{
-          <<"type">> => <<"string">>,
-          <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Date and time of creation">>
         },
         <<"isBlocked">> => #{
           <<"type">> => <<"boolean">>,
@@ -6398,7 +6393,6 @@ get_raw() ->
       },
       <<"description">> => <<"Shop details">>,
       <<"example">> => #{
-        <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
         <<"isSuspended">> => true,
         <<"isBlocked">> => true,
         <<"contractID">> => <<"contractID">>,
