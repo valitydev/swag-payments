@@ -3,7 +3,7 @@ name: Release Erlang Libraries
 on:
   push:
     branches:
-      - 'v0'
+      - 'v3'
       - 'epic/**'
   pull_request:
     branches: ["**"]
@@ -32,8 +32,12 @@ jobs:
         run: |
           mkdir -p out
           echo "Generate wallet stubs"
-          swagger-codegen generate -l vality-erlang-client -i web_deploy/swagger.json -o out/erlang-client --additional-properties packageName=swag_client
-          swagger-codegen generate -l vality-erlang-server -i web_deploy/swagger.json -o out/erlang-server --additional-properties packageName=swag_server
+          swagger-codegen generate -l vality-erlang-client \
+            -i web_deploy/swagger.json -o out/erlang-client \
+            --additional-properties packageName=swag_client
+          swagger-codegen generate -l vality-erlang-server \
+            -i web_deploy/swagger.json -o out/erlang-server \
+            --additional-properties packageName=swag_server
 
       - name: Set release suffix
         id: vars
@@ -42,7 +46,7 @@ jobs:
           if [[ "$GITHUB_REF" == refs/heads/epic/* ]]; then
             RELEASE_SUFFIX="epic-${BRANCH_NAME}"
           else
-            RELEASE_SUFFIX="v0"
+            RELEASE_SUFFIX="v3"
           fi
           echo "release_suffix=${RELEASE_SUFFIX}" >> $GITHUB_OUTPUT
 

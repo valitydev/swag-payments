@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - v2
+      - v3
 
 jobs:
   build:
@@ -40,6 +40,6 @@ jobs:
       - name: Deploy artifacts to release branch
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
-          branch: release/v2
+          branch: release/v3
           folder: out
           commit-message: Release ${{ github.repository }}@${{ github.sha }}
