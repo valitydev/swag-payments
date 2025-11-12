@@ -1,0 +1,20 @@
+description: Shop account
+type: object
+required:
+  - own
+  - available
+properties:
+  own:
+    x-rebillyMerge:
+      - $ref: "#/definitions/Asset"
+      - description: |
+          Own funds
+  available:
+    x-rebillyMerge:
+      - $ref: "#/definitions/Asset"
+      - description: |
+          Funds available for use. Usually equal to own funds
+          minus the sum of all pending transactions
+        example:
+          amount: 1200000
+          currency: USD
