@@ -1,0 +1,17 @@
+{application, swag_client, [
+    {description, "## Description API is designed for the merchants who accept payments via user interface such as a website or a mobile app and it is the only interaction point with the system for goods and services payment transactions. ## Interaction details Whenever an API is accessed, its unique ID must be passed in the header X-Request-ID of the corresponding request: &#x60;&#x60;&#x60;  X-Request-ID: 37d735d4-0f42-4f05-89fa-eaa478fb5aa9 &#x60;&#x60;&#x60; ### Content type and coding The system accepts and returns data in JSON format and UTF-8 coding: &#x60;&#x60;&#x60;   Content-Type: application/json; charset&#x3D;utf-8 &#x60;&#x60;&#x60; ### Date formats The system accepts and returns timestamp values in the format date-time, described in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339): &#x60;&#x60;&#x60;   2017-01-01T00:00:00Z   2017-01-01T00:00:01+00:00 &#x60;&#x60;&#x60; ### Maximum request processing time Whenever an API is accessed, the time cutoff parameters, that define maximum request processing time of the transaction completion, can be passed in the header &#x60;X-Request-Deadline&#x60; of the corresponding request: &#x60;&#x60;&#x60;  X-Request-Deadline: 10s &#x60;&#x60;&#x60; The system stops processing the request upon the specified time. It is recommended to specify a value that is not more than one minute and not less than three seconds. &#x60;X-Request-Deadline&#x60; can be:  * specified in the format &#x60;date-time&#x60; according to [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339); * specified in relative values: in milliseconds (&#x60;150000ms&#x60;), in seconds (&#x60;540s&#x60;) or in minutes (&#x60;3.5m&#x60;). "},
+    {vsn, "1.0.0"},
+    {registered, []},
+    {applications, [
+        kernel,
+        stdlib,
+        hackney,
+        jsx,
+        jesse
+    ]},
+    {env, [
+    ]},
+    {modules, []},
+    {licenses, []},
+    {links, []}
+]}.
