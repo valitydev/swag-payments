@@ -31,8 +31,12 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
 
+      - name: Setup plugins
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: npm run postinstall
+
       - name: Bundle spec and build docsite
-        run: npm run build -- web_deploy
+        run: npm run build
 
       - name: Prepare release artifacts
         run: mkdir -p out && cp web_deploy/swagger.{yaml,json} package.json package-lock.json out/
