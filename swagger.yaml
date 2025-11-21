@@ -1,0 +1,4618 @@
+swagger: '2.0'
+info:
+  version: 2.0.1
+  title: Vality Payments API
+  description: |
+    ## Description
+    API is designed for the merchants who accept payments via user interface such as a website or a mobile app and it is the only interaction point with the system for goods and services payment transactions.
+    ## Interaction details
+    Whenever an API is accessed, its unique ID must be passed in the header X-Request-ID of the corresponding request:
+    ```
+     X-Request-ID: 37d735d4-0f42-4f05-89fa-eaa478fb5aa9
+    ```
+    ### Content type and coding
+    The system accepts and returns data in JSON format and UTF-8 coding:
+    ```
+      Content-Type: application/json; charset=utf-8
+    ```
+    ### Date formats
+    The system accepts and returns timestamp values in the format date-time, described in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339):
+    ```
+      2017-01-01T00:00:00Z
+      2017-01-01T00:00:01+00:00
+    ```
+    ### Maximum request processing time
+    Whenever an API is accessed, the time cutoff parameters, that define maximum request processing time of the transaction completion, can be passed in the header `X-Request-Deadline` of the corresponding request:
+    ```
+     X-Request-Deadline: 10s
+    ```
+    The system stops processing the request upon the specified time. It is recommended to specify a value that is not more than one minute and not less than three seconds.
+    `X-Request-Deadline` can be:
+
+    * specified in the format `date-time` according to [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339);
+    * specified in relative values: in milliseconds (`150000ms`), in seconds (`540s`) or in minutes (`3.5m`).
+basePath: /v2
+schemes:
+  - https
+consumes:
+  - application/json; charset=utf-8
+produces:
+  - application/json; charset=utf-8
+securityDefinitions:
+  bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: |
+      Interaction between the merchant and the system is performed via a secure protocol (HTTPS).
+
+      HTTP requests via unencrypted channel are not supported.
+
+      The contents of the API key should be passed in the `Authorization` header:
+
+      ``` Authorization: Bearer MjMyNDQxMjM6NDUzRmRnZDQ0M... ```
+
+      Keys are not divided into test and production keys. Use the test shop ID for test transactions.
+
+      **Important: Do not pass the API-key to third parties!**
+security:
+  - bearer: []
+responses:
+  NotFound:
+    description: Target resource not found
+    schema:
+      $ref: '#/definitions/GeneralError'
+  Unauthorized:
+    description: Authorization error
+  DefaultLogicError:
+    description: Invalid data
+    schema:
+      $ref: '#/definitions/DefaultLogicError'
+  ExternalIDConflict:
+    description: The passed value `externalID` has already been used by you with other query parameters
+    schema:
+      $ref: '#/definitions/ExternalIDConflictError'
+parameters:
+  requestID:
+    name: X-Request-ID
+    in: header
+    description: Unique identifier of the request to the system
+    required: true
+    type: string
+    maxLength: 32
+    minLength: 1
+  shopID:
+    name: shopID
+    in: path
+    description: Shop ID
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
+  invoiceTemplateID:
+    name: invoiceTemplateID
+    in: path
+    description: Invoice template ID
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
+  paymentID:
+    name: paymentID
+    in: path
+    description: Invoice payment identifier
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
+  refundID:
+    name: refundID
+    in: path
+    description: Refund identifier within the payment
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
+  chargebackID:
+    name: chargebackID
+    in: path
+    description: Chargeback identifier within the payment
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
+  residence:
+    name: residence
+    in: query
+    description: |
+      Residence, alpha-3 code according to standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
+    required: false
+    type: string
+    pattern: '^[A-Z]{3}$'
+  webhookID:
+    name: webhookID
+    in: path
+    description: Webhook identifier
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
+  invoiceID:
+    name: invoiceID
+    in: path
+    description: Invoice ID
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
+  paymentInstitutionID:
+    name: paymentInstitutionID
+    in: path
+    description: Payment institution reference
+    required: true
+    type: integer
+    format: int32
+  serviceProviderID:
+    name: serviceProviderID
+    in: path
+    description: Service provider identifier
+    required: true
+    type: string
+    maxLength: 100
+    minLength: 1
+  deadline:
+    name: X-Request-Deadline
+    in: header
+    description: Maximum request processing time
+    required: false
+    type: string
+    maxLength: 40
+    minLength: 1
+  partyID:
+    name: partyID
+    in: path
+    description: The participant's unique identifier within the system.
+    required: true
+    type: string
+  countryID:
+    name: countryID
+    in: path
+    required: true
+    description: ' Alpha-3 country code by standard [ISO 3166-1] (https://en.wikipedia.org/wiki/ISO_3166-1)'
+    type: string
+    pattern: '^[A-Z]{3}$'
+  tradeBlocID:
+    name: tradeBlocID
+    in: path
+    description: Trade bloc identifier
+    required: true
+    type: string
+tags:
+  - name: Parties
+    x-displayName: Parties
+    description: |
+      A system party is a data set about your company, structure and conditions of concluded contracts, and also the information about the shops associated with the company.
+  - name: Shops
+    x-displayName: Shops
+    description: |
+      A shop is a display of your website or a point of sales in the system. Financial terms, that determine, particularly, the system fee percentage, are linked to the shop. Each shop has its linked accounts that accumulate money sent by payers. Only one account can be in each currency. The shop category is determined by the group of offered goods and services. A banking terminal can be linked to a shop on the side of an acquiring bank. Any changes of these shops require system verification.
+      Shops created in the test category are used for test payment. The system creates a test shop automatically during the participant registration.
+      Your website or point of sales may have more than one shop. The closest analogue can be POS-terminals at a point of sales.
+      ## Asynchronous notifications
+      It is possible to specify a URL for any shop to receive asynchronous notifications about data status change by setting up webhook. For example, you can set up webhook by specifying URL of your application to which the system will send data about invoice changes. The corresponding public key, created during the webhook setup, is used to verify integrity of data sent to your application URL. You can receive this key in your account.
+  - name: Invoices
+    x-displayName: Invoices
+    description: |
+      An invoice is a fundamental model for work with payment acceptance system. It is necessary to create an invoice and find out its ID before rendering the payment form launching debit transactions, holding funds on the payer’s card and launching other similar business processes.
+      In general, an invoice is a container for payments, data about goods and a shop. Invoices have customizable limited lifetime. Once lifetime is expired, invoice status is impossible to change.
+
+      ## Invoice statuses
+      ### Table of invoice statuses:
+
+      | Status     | Indication  |  Description                                                                                                  |
+      | --         | --          | --                                                                                                            |
+      | Unpaid     | `unpaid`    | An invoice has been created but financial obligations are not fulfilled.                                      |
+      | Cancelled  | `cancelled` | An invoice is cancelled with reason, all obligations under it are null and void.                              |
+      | Paid       | `paid`      | Financial obligations under an invoice are paid but goods or services has not been provided yet to the payer. |
+      | Fulfilled  | `fulfilled` | All obligations, both payer’s and merchant’s ones, are fulfilled.                                             |
+
+      Invoice statuses are indicated in the diagram nodes, narrows are marked by the processes. Successful completion of processes generates change from one status to another.
+      ![Invoice State diagram](wsd/img/invoice.svg)
+      ## Invoice and payment metadata
+      The system provides you a possibility to fill and save any necessary metadata both in invoice and payment pattern. Data is described by the JSON array. Later the system will provide this data to you when you request invoice or payment data by its ID or it will send it to webhook in asynchronous mode that is set up for the relevant shop if there is one.
+      ## Invoice events
+      Any data status changes generate events. You can receive a full list of events that led to the specific data status or the latest event that describes the current data status. For example, you can request all events or the latest one within the specified invoice ID to find out an invoice status so that to make a decision about the shipment of goods or providing services to the payer.
+      ## Authorization
+      Operations:
+      * invoice creation,
+      * invoice cancellation,
+      * invoice fulfillment,
+      * getting a *new* invoice access token (after invoice creation)
+
+      are authorised with your API key.
+      ### Invoice access token
+      The invoice access token authorises a limited amount of transactions needed to make [payments](#tag/Payments) by the specified invoice, in particular:
+      * [tokenization](#tag/Tokens) of payment instrument,
+      * payment creation by this and only this invoice,
+      * getting the invoice status.
+
+      The token is valid for 3 days from the creation. After this it will be impossible to use it to authorise transactions.
+      ## Money distribution data
+      You can specify the distribution of funds among several shops within one invoice. If necessary, you can add a fee that will be charged to the shop specified during the invoice creation (hereinafter invoice shop). Total amount of all distribution transactions shouldn’t exceed the invoice amount. There shouldn’t be more than one transaction per one shop in the distribution. The distribution transactions can be:
+      * With AllocationBodyAmount body which transmits the amount to be transferred to the shop. You must create a transaction in favour of an invoice shop to add a fee.
+      * With AllocationBodyTotal body which transmits the total amount of transactions and its fee that can be:
+
+        * AllocationFeeFixed or fee amount in favour of an invoice shop.
+
+        * AllocationFeeShare or some percent of the total amount of transaction in favour of an invoice shop.
+  - name: InvoiceTemplates
+    x-displayName: Invoice templates
+    description: |
+      Invoice templates make invoicing easy. An invoice template is linked to the shop and contains specification that can be used for invoice creation by specifying the cost of goods and services and/or invoice metadata. If a template contains the fixed cost, it can be removed during invoice creation. If invoice metadata is not specified when an invoice is created by a template, they will be taken from a template (if metadata is contained in a template).
+
+      The creation, update and deletion of an invoice template doesn’t require the system verification and requests for these changes.
+      ## Authorization
+      The creation, update and deletion of an invoice template is authorised by your API key.
+      ### Invoice template access token
+      An invoice template access token is created in the result of template creation transaction. It authorises:
+      * the getting of invoice template by its ID,
+      * invoice creation by the template.
+  - name: Payments
+    x-displayName: Payments
+    description: |
+      The actual debiting the payer’s funds is made by calling of payment creation method. Before payments the invoice, within which the system will attempt to debit, has to be created and payer’s payment token has to be specified. This way the system provides you an interface that allows your server code to initiate and control the debiting process. This process can be both synchronous, when you are waiting for system response, and asynchronous, when you are waiting for notifications on the webhook set up for the corresponding shop after the payments are launched.
+      ## Payment options
+      The system provides two payment methods: one-step and two-step, PaymentFlowInstant and PaymentFlowHold.
+      One-step payment (PaymentFlowInstant) is performed by calling of one API method. The result of it is authorisation and further debiting in favour of a shop within one transaction.
+      Two-step payment (PaymentFlowHold) means the call of two methods: one for authorisation and one for debiting. After the successful authorisation the transaction amount will be blocked on a payer’s account so a payer can’t use it.
+      The debiting (capturePayment) can be confirmed on equal or less authorisation amount. If the less amount is specified, the balance will be refunded to a payer. The successful authorisation can be confirmed or cancelled both manually by calling the corresponding API method (capturePayment or cancelPayment) and automatically according to the chosen strategy onHoldExpiration. The manual confirmation period is set in the system settings by yourself and it is usually from 3 to 7 calendar days.
+      ## Payment session
+      The system ensures the idempotency of debiting funds from payment instrument by providing the unique payment session ID. This ID is provided during the creation of [payment instrument tokens](#tag/Tokens) and guarantees the idempotency of debit requests, providing the protection from erroneous repeated debits.
+      ## Payment processing time limit
+      When the payment is created within the system, you can set up the payment processing time in the field `processingDeadline`. When it is expired, the system is trying to stop processing the payment and changing its status to `failed` with the error `processing_deadline_reached`.
+
+      Processing time limit should be considered as a recommendation as the system can fail to stop processing on the basis of the payment instrument and the current payment status. If a field value is not set up, the system will choose it by itself to have enough time for payment transfer in general conditions.
+
+      Payment processing time limit, similarly to the header `X-Request-Deadline`, can be specified in format described in RFC 3339 or in relative values.
+      ## Authorization
+      Payment request APIs are authorised by an invoice access token that is used to create the payment or by API key.
+  - name: Tokens
+    x-displayName: Payment tokens
+    description: |
+      The system provides you the possibility to initiate the funds withdrawal from payer’s charge cards by yourself and undertakes the processes of the certification and PCS-DSS standard compliance. The standard declares the prohibition on cardholder data processing and storage on the merchant’s side. The approaches used in interface implementation provide the opportunity of HTLM form layout and output for cardholder data on your server side code. To ensure the standard compliance we provide our developed JS-library that collects cardholder data in asynchronous mode and sends it to the system interface for further cryptography and tokenization after it is embedded in HTLM code of your payment form. In response, JS-library returns an unique payment card token, that can be used to run payments, to your payment form.
+
+      The [payment session](#tag/Payments), that ensures the idempodency of funds withdrawal from the payment instrument, is provided during the token creation.
+  - name: Categories
+    x-displayName: Shop categories
+    description: |
+      Categories are used to describe groups of goods and services offered by shops. Categories can influence on statistics provision, shops organisation and also system financial terms.
+  - name: Webhooks
+    x-displayName: Webhooks
+    description: |
+      This section describes the methods that allow to manage Webhooks or tools to receive asynchronous notifications via HTTP requests when one or a group of events of interest occur, for example, that the payment within the created invoice has been successfully paid.
+      Attention! Only Webhooks Management API is a part of this specification. You will need to read the specification [Vality Webhooks Events API] (https://github.com/valitydev/swag-payments-webhook-events) in order to implement notification handler.
+  - name: PaymentInstitutions
+    x-displayName: Payment Institutions
+    description: |
+      A payment institution is an institution that provides services for financial transactions that occur as a result of system business processes.
+  - name: Error Codes
+    x-displayName: Error codes
+    description: |
+      ## Business logic errors
+      All business logic errors have as follows:
+      ```json
+      {
+        "code": "string",
+        "message": "string"
+      }
+      ```
+
+      The error type is in the field `code` and additional information about the error that occurred is in `message`.
+      There are the following error codes at the present moment:
+      | Code                             | Description                                                                                                                                |
+      |----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+      | **operationNotPermitted**        | Unavailable transaction within the current contract.                                                                                       |
+      | **invalidPartyStatus**           | Your participant is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateMyParty) them. |
+      | **invalidShopStatus**            | Your shop is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateShop) them.           |
+      | **invalidContractStatus**        | Your contract is not valid anymore due to its expiration or termination.                                                                   |
+      | **invalidShopID**                | The shop with the specified ID doesn’t exist or unavailable.                                                                               |
+      | **invalidInvoiceCost**           | Invoice cost is not specified or invalid, particularly, it isn’t equal to the item cost in the cart.                                       |
+      | **invalidInvoiceCart**           | Incorrect cart in invoice, for example, empty.                                                                                             |
+      | **invalidInvoiceStatus**         | Invalid [invoice status](#tag/Invoices). For example, in an attempt to [pay](#operation/createPayment) the cancelled invoice.              |
+      | **invoiceTermsViolated**         | An invoice violates limitations set within the current contract.                                                                           |
+      | **invoicePaymentPending**        | The last pending payment by the specified invoice has not reached the final status yet.                                                    |
+      | **invalidPaymentStatus**         | Invalid [payment status](#tag/Payments). For example, in an attempt to [confirm](#operation/capturePayment) unsuccessful payment.          |
+      | **invalidPaymentResource**       | The payment instrument that is not supported or connected to the system within the current contract.                                       |
+      | **invalidPaymentToolToken**      | Invalid content of payment instrument token.                                                                                               |
+      | **invalidProcessingDeadline**    | Invalid format of the payment authorisation time limit.                                                                                    |
+      | **invalidPaymentSession**        | Invalid content of the payment session.                                                                                                    |
+      | **invalidRecurrentParent**       | Invalid parent recurrent payment is specified.                                                                                             |
+      | **insufficentAccountBalance**    | Insufficient account balance on the shop account, for example, for the refund.                                                             |
+      | **invoicePaymentAmountExceeded** | Refund attempt exceeds the payment amount.                                                                                                 |
+      | **inconsistentRefundCurrency**   | Refund attempt in the currency is different from the payment currency.                                                                     |
+      | **changesetConflict**            | An attempt to make changes to the participant that conflicts with changes in other pending requests.                                       |
+      | **invalidChangeset**             | Invalid changes to the participant, for example, an attempt to create a shop in the currency that is unavailable within the contract.      |
+      | **limitExceeded**                | The reasonable sampling time limit is exceeded. In this case it is better to request less volume of data.                                  |
+      | **invalidDeadline**              | Invalid time format.                                                                                                                       |
+      | **chargebackInProgress**         | Refund attempt while the chargeback is in progress.                                                                                        |
+      | **invalidRequest**               | Other invalid request data.                                                                                                                |
+      | **invalidPartyID**               | The participant with the specified ID doesn't exist or unavailable.                                                                        |
+      | **ambiguousPartyID**             | It is impossible to define the participant ID, specify the ID more clearly in the request.                                                 |
+      | **invalidAllocation**            | Invalid distribution of funds, for example, more than one transaction in favour of one of shops.                                           |
+      | **allocationNotPermitted**       | The distribution is not available within the contract.                                                                                     |
+      | **refundCartConflict**           | It is impossible to define the refund content as the refund distribution and cart are sent at the same time.                               |
+      ## General errors
+      The errors that occur during the transaction attempts with the objects that are not registered in the system. They look like
+
+        ```json
+        {
+            "message": "string"
+        }
+        ```
+
+      The information about the occurred error is in the field `message`. For example:
+
+        ```json
+        {
+            "message": "Invoice not found"
+        }
+        ```
+
+      ## Errors in processing requests
+      Different unpredictable situations can happen during the request processing with the support of our system. The system sends a signal about them according to the HTTP protocol using the corresponding [statuses][5xx] that specify the server errors.
+      | Code    | Description                                                                                                                                                                                                                          |
+      |---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+      | **500** | An unpredictable situation has occurred during request processing by the system. We recommend contacting the technical support if you receive such a response code.                                                                  |
+      | **503** | The system is temporarily unavailable and not ready to serve this request. The request isn’t guaranteed fulfilled, if you receive such a response code, try to resend it later when the availability of the system will be restored. |
+      | **504** | The system has exceeded the time allowable for request processing, the result of the request is undefined. Try to resend the request or find our the result of the original request if the repeated request is undesirable.          |
+
+      [5xx]: https://tools.ietf.org/html/rfc7231#section-6.6
+
+      ## Payment errors
+      The errors sent to the payment form (payers can see them):
+      | Code                   | Description                                                                                                                                                                                      |
+      |------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+      | InvalidPaymentTool     | Invalid payment instrument (invalid card number, missing account has been entered, etc.)                                                                                                         |
+      | AccountLimitsExceeded  | Limits are exceeded (for example, the payment amount or withdrawal country limits are set up in the personal account)                                                                            |
+      | InsufficientFunds      | Insufficient funds on the account                                                                                                                                                                |
+      | PreauthorizationFailed | Pre-authorisation is failed (invalid SD-Secure code has been entered, cancellation link has been clicked in SD-Secure form)                                                                      |
+      | RejectedByIssuer       | The payment is rejected by the issuer (it has been prohibited to withdraw inside the country or to purchase in the Internet, the payment is rejected by the issuer’s anti-fraud entity and etc.) |
+      | PaymentRejected        | the payment is rejected by other reasons                                                                                                                                                         |
+
+      The errors sent to the personal merchant’s account (only you can see them):
+      - timeout
+
+        Timeout of payment attempt
+
+      - rejected_by_inspector
+
+        Rejected by anti-fraud service
+
+      - preauthorization_failed
+
+        Preauthorisation error (3DS)
+
+      - authorization_failed:
+
+        Provider payment authorisation error
+
+        - unknown
+
+          Unknown authorisation error
+
+        - merchant_blocked
+
+          A merchant is blocked
+
+        - operation_blocked
+
+          A payment transaction is blocked
+
+        - account_not_found
+
+          An account is not found
+
+        - account_blocked
+
+          An account is blocked
+
+        - account_stolen
+
+          An account is stolen
+
+        - insufficient_funds
+
+          Insufficient funds
+
+        - processing_deadline_reached
+
+          Payment fullfillment timeout (see [Payment processing time limit](#section/Payment-processing-time-limit))
+
+        - account_limit_exceeded:
+
+          Payer’s account limit is exceeded
+
+          - unknown
+
+            Limit object is unknown
+
+          - amount
+
+            Amount limit
+
+          - number
+
+            Attempt number limit
+
+        - provider_limit_exceeded:
+
+          The provider limit is exceeded for this merchant or system in general
+
+          - unknown
+
+            Limit object is unknown
+
+          - amount
+
+            Amount limit
+
+          - number
+
+            Attempt number limit
+
+        - payment_tool_rejected:
+
+          A payment instrument is rejected
+
+          - unknown
+
+            An unknown payment instrument
+
+          - bank_card_rejected:
+
+            A bank card is rejected
+
+            - unknown
+
+              The reason is unknown
+
+            - card_number_invalid
+
+              A card number is invalid
+
+            - card_expired
+
+              A card is expired
+
+            - card_holder_invalid
+
+              A cardholder is invalid
+
+            - cvv_invalid
+
+              CVV code is invalid
+
+            - issuer_not_found
+
+              An issuer is not found
+
+        - security_policy_violated
+
+          Security policy violations
+
+        - temporarily_unavailable
+
+          Temporary unavailability of the third parties
+
+        - rejected_by_issuer
+
+          Rejected by the issuer
+
+
+      For example, in the case of invalid CVV:
+      ```
+      {
+         "code":"authorization_failed",
+         "subError":{
+            "code":"payment_tool_rejected",
+            "subError":{
+               "code":"bank_card_rejected",
+               "subError":{
+                  "code":"cvv_invalid"
+               }
+            }
+         }
+      }
+      ```
+      If you have an error that is not described here, contact the technical support.
+paths:
+  /processing/categories:
+    get:
+      description: Get list of categories
+      tags:
+        - Categories
+      operationId: getCategories
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+      responses:
+        '200':
+          description: List of categories
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Category'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+  '/processing/categories/{categoryID}':
+    get:
+      description: Get category data by identifier
+      tags:
+        - Categories
+      operationId: getCategoryByRef
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: categoryID
+          in: path
+          description: Category reference
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Category found
+          schema:
+            $ref: '#/definitions/Category'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  /processing/countries:
+    get:
+      description: Get list of countries
+      tags:
+        - Countries
+      operationId: getCountries
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+      responses:
+        '200':
+          description: Country list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Country'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+  '/processing/countries/{countryID}':
+    get:
+      description: Get country data by country identifier
+      tags:
+        - Countries
+      operationId: getCountryByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/countryID'
+      responses:
+        '200':
+          description: Country found
+          schema:
+            $ref: '#/definitions/Country'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '404':
+          $ref: '#/responses/NotFound'
+  /processing/invoice-templates:
+    post:
+      description: Create an new invoice template.
+      tags:
+        - InvoiceTemplates
+      operationId: createInvoiceTemplate
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: invoiceTemplateCreateParams
+          description: Invoice template parameters.
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InvoiceTemplateCreateParams'
+      responses:
+        '201':
+          description: Invoice template created.
+          schema:
+            $ref: '#/definitions/InvoiceTemplateAndToken'
+        '400':
+          description: Invalid data for invoice template creation
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidPartyID
+                  - invalidRequest
+                  - invalidDeadline
+                  - invalidShopID
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidInvoiceCart
+                  - ambiguousPartyID
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Lifetime cannot be zero
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '409':
+          $ref: '#/responses/ExternalIDConflict'
+  '/processing/invoice-templates/{invoiceTemplateID}':
+    get:
+      description: Get an invoice template by identifier.
+      tags:
+        - InvoiceTemplates
+      operationId: getInvoiceTemplateByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceTemplateID'
+      responses:
+        '200':
+          description: Invoice template
+          schema:
+            $ref: '#/definitions/InvoiceTemplate'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+    put:
+      description: Change the invoice template.
+      tags:
+        - InvoiceTemplates
+      operationId: updateInvoiceTemplate
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceTemplateID'
+        - name: invoiceTemplateUpdateParams
+          description: Invoice template parameters.
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InvoiceTemplateUpdateParams'
+      responses:
+        '200':
+          description: The invoice template has been changed.
+          schema:
+            $ref: '#/definitions/InvoiceTemplate'
+        '400':
+          description: Invalid data for invoice template change
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidInvoiceCart
+                  - invalidRequest
+                  - invalidDeadline
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Invalid party status
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+    delete:
+      description: Remove invoice template.
+      tags:
+        - InvoiceTemplates
+      operationId: deleteInvoiceTemplate
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceTemplateID'
+      responses:
+        '204':
+          description: Invoice template removed.
+        '400':
+          description: Invalid data for invoice template deletion
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidRequest
+                  - invalidDeadline
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Invalid party status
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoice-templates/{invoiceTemplateID}/invoices':
+    post:
+      description: Create a new invoice using the invoice template.
+      tags:
+        - InvoiceTemplates
+      operationId: createInvoiceWithTemplate
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceTemplateID'
+        - name: invoiceParamsWithTemplate
+          description: Invoice parameters
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InvoiceParamsWithTemplate'
+      responses:
+        '201':
+          description: Invoice created
+          schema:
+            $ref: '#/definitions/InvoiceAndToken'
+        '400':
+          description: Invalid data for invoice creation
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidRequest
+                  - invalidDeadline
+                  - invoiceTermsViolated
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Invalid party status
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+        '409':
+          $ref: '#/responses/ExternalIDConflict'
+  '/processing/invoice-templates/{invoiceTemplateID}/payment-methods':
+    get:
+      description: Get the available payment methods for the invoice from the invoice template.
+      tags:
+        - InvoiceTemplates
+      operationId: getInvoicePaymentMethodsByTemplateID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceTemplateID'
+      responses:
+        '200':
+          description: Payment methods
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentMethod'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  /processing/invoices:
+    get:
+      description: Get invoice by specified external identifier.
+      tags:
+        - Invoices
+      operationId: getInvoiceByExternalID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: externalID
+          description: External invoice identifier
+          in: query
+          required: true
+          type: string
+          maxLength: 40
+          minLength: 1
+      responses:
+        '200':
+          description: Invoice
+          schema:
+            $ref: '#/definitions/Invoice'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+    post:
+      description: Create a new invoice.
+      tags:
+        - Invoices
+      operationId: createInvoice
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: invoiceParams
+          description: Invoice parameters
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InvoiceParams'
+      responses:
+        '201':
+          description: Invoice created
+          schema:
+            $ref: '#/definitions/InvoiceAndToken'
+        '400':
+          description: Invalid data for invoice creation
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidPartyID
+                  - invalidShopID
+                  - invalidRequest
+                  - invalidDeadline
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidInvoiceCart
+                  - invalidAllocation
+                  - allocationNotPermitted
+                  - invalidInvoiceCost
+                  - invoiceTermsViolated
+                  - ambiguousPartyID
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Shop not found or inaccessible
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '409':
+          $ref: '#/responses/ExternalIDConflict'
+  '/processing/invoices/{invoiceID}':
+    get:
+      description: Get an invoice by identifier.
+      tags:
+        - Invoices
+      operationId: getInvoiceByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+      responses:
+        '200':
+          description: Invoice details
+          schema:
+            $ref: '#/definitions/Invoice'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/access-tokens':
+    post:
+      operationId: createInvoiceAccessToken
+      description: Create a new token to access the specified invoice.
+      tags:
+        - Invoices
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+      responses:
+        '201':
+          description: Access token created.
+          schema:
+            $ref: '#/definitions/AccessToken'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/events':
+    get:
+      description: Get the history of the specified invoice as a list of events.
+      tags:
+        - Invoices
+      operationId: getInvoiceEvents
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - name: limit
+          in: query
+          description: Selection limit
+          required: true
+          type: integer
+          format: int32
+          minimum: 1
+        - name: eventID
+          in: query
+          description: |
+            Event identifier.
+            All events that occurred in the system _after_ the specified event will be included in the selection.
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: A list of events
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/InvoiceEvent'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/fulfill':
+    post:
+      description: To fulfill the specified invoice.
+      tags:
+        - Invoices
+      operationId: fulfillInvoice
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - name: fulfillInvoice
+          in: body
+          description: Reason for the operation
+          required: true
+          schema:
+            $ref: '#/definitions/Reason'
+      responses:
+        '204':
+          description: Инвойс погашен
+        '400':
+          description: Invoice fulfillment error
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidInvoiceStatus
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidRequest
+                  - invalidDeadline
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Invalid invoice status
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/payment-methods':
+    get:
+      description: Get the payment methods available for the invoice.
+      tags:
+        - Invoices
+      operationId: getInvoicePaymentMethods
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+      responses:
+        '200':
+          description: Payment methods
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentMethod'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/payments':
+    get:
+      description: Get all payments for the specified invoice.
+      tags:
+        - Payments
+      operationId: getPayments
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+      responses:
+        '200':
+          description: List of invoice payments
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Payment'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+    post:
+      description: Create a new payment for the specified invoice.
+      tags:
+        - Payments
+      operationId: createPayment
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - name: paymentParams
+          description: Parameters of the payment to be created
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PaymentParams'
+      responses:
+        '201':
+          description: Payment created
+          schema:
+            $ref: '#/definitions/Payment'
+        '400':
+          description: Invalid data to start the payment
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidInvoiceStatus
+                  - invoicePaymentPending
+                  - invalidRequest
+                  - invalidDeadline
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidContractStatus
+                  - invalidPaymentToolToken
+                  - invalidPaymentSession
+                  - invalidProcessingDeadline
+                  - invalidRecurrentParent
+                  - operationNotPermitted
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Invalid invoice status
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+        '409':
+          $ref: '#/responses/ExternalIDConflict'
+  '/processing/invoices/{invoiceID}/payments/{paymentID}':
+    get:
+      description: Get payment for the specified invoice.
+      tags:
+        - Payments
+      operationId: getPaymentByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - $ref: '#/parameters/paymentID'
+      responses:
+        '200':
+          description: Payment details
+          schema:
+            $ref: '#/definitions/Payment'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/payments/{paymentID}/cancel':
+    post:
+      description: Cancel the specified payment
+      tags:
+        - Payments
+      operationId: cancelPayment
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - $ref: '#/parameters/paymentID'
+        - name: cancelPayment
+          in: body
+          description: Reason for the operation
+          required: true
+          schema:
+            $ref: '#/definitions/Reason'
+      responses:
+        '202':
+          description: Payment cancelation request received
+        '400':
+          description: Payment cancel error
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidPaymentStatus
+                  - operationNotPermitted
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidRequest
+                  - invalidDeadline
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Invalid payment status
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/payments/{paymentID}/capture':
+    post:
+      description: |
+        Capture the specified payment. In case the capture amount is less than the original amount, the remainder of the payment will be refunded. (see. [Payment options](#tag/Payments))
+      tags:
+        - Payments
+      operationId: capturePayment
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - $ref: '#/parameters/paymentID'
+        - name: capturePayment
+          in: body
+          description: Payment capture parameters
+          required: true
+          schema:
+            $ref: '#/definitions/CaptureParams'
+      responses:
+        '202':
+          description: Request to capture payment accepted
+        '400':
+          description: Payment capture error
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidPaymentStatus
+                  - operationNotPermitted
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidRequest
+                  - invalidDeadline
+                  - invalidInvoiceCart
+                  - invalidAllocation
+                  - allocationNotPermitted
+                  - inconsistentCaptureCurrency
+                  - amountExceededCaptureBalance
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Invalid payment status
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/payments/{paymentID}/chargebacks':
+    get:
+      description: Get all chargebacks on the specified payment.
+      tags:
+        - Payments
+      operationId: getChargebacks
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - $ref: '#/parameters/paymentID'
+      responses:
+        '200':
+          description: Chargebacks data on payment
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Chargeback'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/payments/{paymentID}/chargebacks/{chargebackID}':
+    get:
+      description: Get data on the chargeback of the specified payment.
+      tags:
+        - Payments
+      operationId: getChargebackByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - $ref: '#/parameters/paymentID'
+        - $ref: '#/parameters/chargebackID'
+      responses:
+        '200':
+          description: Chargeback details
+          schema:
+            $ref: '#/definitions/Chargeback'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/payments/{paymentID}/refunds':
+    get:
+      description: Get all refunds of the specified payment.
+      tags:
+        - Payments
+      operationId: getRefunds
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - $ref: '#/parameters/paymentID'
+      responses:
+        '200':
+          description: Refunds data on payment
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Refund'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+    post:
+      description: Create a refund of the specified payment
+      tags:
+        - Payments
+      operationId: createRefund
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - $ref: '#/parameters/paymentID'
+        - name: refundParams
+          description: Parameters of the payment refund to be created
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/RefundParams'
+      responses:
+        '201':
+          description: Refund created
+          schema:
+            $ref: '#/definitions/Refund'
+        '400':
+          description: Invalid refund data
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidContractStatus
+                  - invalidInvoiceCart
+                  - invalidAllocation
+                  - allocationNotPermitted
+                  - operationNotPermitted
+                  - invalidPaymentStatus
+                  - insufficentAccountBalance
+                  - invoicePaymentAmountExceeded
+                  - inconsistentRefundCurrency
+                  - invalidRequest
+                  - invalidDeadline
+                  - chargebackInProgress
+                  - refundCartConflict
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Operation not permitted
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+        '409':
+          $ref: '#/responses/ExternalIDConflict'
+  '/processing/invoices/{invoiceID}/payments/{paymentID}/refunds/{refundID}':
+    get:
+      description: Get data on the refund of the specified payment.
+      tags:
+        - Payments
+      operationId: getRefundByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - $ref: '#/parameters/paymentID'
+        - $ref: '#/parameters/refundID'
+      responses:
+        '200':
+          description: Refund details
+          schema:
+            $ref: '#/definitions/Refund'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/rescind':
+    post:
+      description: Set the invoice to "Rescind"
+      tags:
+        - Invoices
+      operationId: rescindInvoice
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - name: rescindInvoice
+          in: body
+          description: Reason for the operation
+          required: true
+          schema:
+            $ref: '#/definitions/Reason'
+      responses:
+        '204':
+          description: Invoice rescinded
+        '400':
+          description: Invoice rescind error
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidInvoiceStatus
+                  - invoicePaymentPending
+                  - invalidPartyStatus
+                  - invalidShopStatus
+                  - invalidRequest
+                  - invalidDeadline
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Invalid invoice status
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}':
+    get:
+      tags:
+        - Parties
+      operationId: getPartyByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+      responses:
+        '200':
+          description: Party
+          schema:
+            $ref: '#/definitions/Party'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/activate':
+    put:
+      description: Activate party by ID
+      operationId: activatePartyByID
+      tags:
+        - Parties
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+      responses:
+        '204':
+          description: Party activated
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/invoices':
+    get:
+      description: Get an invoice by external identifier.
+      tags:
+        - Invoices
+      operationId: getInvoiceByExternalIDForParty
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+        - name: externalID
+          description: External invoice identifier
+          in: query
+          required: true
+          type: string
+          maxLength: 40
+          minLength: 1
+      responses:
+        '200':
+          description: Invoice
+          schema:
+            $ref: '#/definitions/Invoice'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/payments':
+    get:
+      description: Get payment by specified external identifier.
+      tags:
+        - Payments
+      operationId: getPaymentByExternalIDForParty
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+        - name: externalID
+          description: External payment identifier
+          in: query
+          required: true
+          type: string
+          maxLength: 40
+          minLength: 1
+      responses:
+        '200':
+          description: Payment
+          schema:
+            $ref: '#/definitions/Payment'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/refunds':
+    get:
+      description: Get refund by specified external identifier.
+      tags:
+        - Payments
+      operationId: getRefundByExternalIDForParty
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+        - name: externalID
+          description: External refund identifier
+          in: query
+          required: true
+          type: string
+          maxLength: 40
+          minLength: 1
+      responses:
+        '200':
+          description: Refund details
+          schema:
+            $ref: '#/definitions/Refund'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/shops':
+    get:
+      description: Get all shops
+      operationId: getShopsForParty
+      tags:
+        - Shops
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+      responses:
+        '200':
+          description: List of shops
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Shop'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/shops/{shopID}':
+    get:
+      description: Get shop by id
+      operationId: getShopByIDForParty
+      tags:
+        - Shops
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/shopID'
+        - $ref: '#/parameters/partyID'
+      responses:
+        '200':
+          description: Shop found
+          schema:
+            $ref: '#/definitions/Shop'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/shops/{shopID}/activate':
+    put:
+      description: Activate shop
+      operationId: activateShopForParty
+      tags:
+        - Shops
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/shopID'
+        - $ref: '#/parameters/partyID'
+      responses:
+        '204':
+          description: Shop activated
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/shops/{shopID}/suspend':
+    put:
+      description: |
+        Suspend the shop. This type of requests is processed by the platform automatically and is executed immediately after sending.
+      operationId: suspendShopForParty
+      tags:
+        - Shops
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/shopID'
+        - $ref: '#/parameters/partyID'
+      responses:
+        '204':
+          description: Shop suspended
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/suspend':
+    put:
+      description: Suspend party by ID
+      operationId: suspendPartyByID
+      tags:
+        - Parties
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+      responses:
+        '204':
+          description: Party suspended
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/webhooks':
+    get:
+      description: Get a list of installed webhooks
+      tags:
+        - Webhooks
+      operationId: getWebhooksForParty
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/partyID'
+      responses:
+        '200':
+          description: A list of webhooks
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Webhook'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+  /processing/payment-institutions:
+    get:
+      description: Get a list of payment institutions
+      tags:
+        - PaymentInstitutions
+      operationId: getPaymentInstitutions
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/residence'
+        - name: realm
+          in: query
+          required: false
+          description: Payment institution's mode
+          type: string
+          enum:
+            - test
+            - live
+      responses:
+        '200':
+          description: List of payment institutions
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentInstitution'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+  '/processing/payment-institutions/{paymentInstitutionID}':
+    get:
+      description: Get data of the payment institution by identifier
+      tags:
+        - PaymentInstitutions
+      operationId: getPaymentInstitutionByRef
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/paymentInstitutionID'
+      responses:
+        '200':
+          description: Payment institution found
+          schema:
+            $ref: '#/definitions/PaymentInstitution'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  /processing/payment-resources:
+    post:
+      description: |
+        Create a new one-time payment token provided by the payer, as well as a new unique payment session. The payment instrument token and session identifier are required to create a invoice payment and has a limited lifetime.
+      tags:
+        - Tokens
+      operationId: createPaymentResource
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: paymentResource
+          description: Data for the creation of a payment resource
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PaymentResourceParams'
+      responses:
+        '201':
+          description: Token and session created
+          schema:
+            $ref: '#/definitions/PaymentResourceResult'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+  /processing/payments:
+    get:
+      description: Get payment by the specified external identifier.
+      tags:
+        - Payments
+      operationId: getPaymentByExternalID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: externalID
+          description: External payment identifier
+          in: query
+          required: true
+          type: string
+          maxLength: 40
+          minLength: 1
+      responses:
+        '200':
+          description: Payment
+          schema:
+            $ref: '#/definitions/Payment'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  /processing/refunds:
+    get:
+      description: Get refund by specified external identifier.
+      tags:
+        - Payments
+      operationId: getRefundByExternalID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: externalID
+          description: External refund identifier
+          in: query
+          required: true
+          type: string
+          maxLength: 40
+          minLength: 1
+      responses:
+        '200':
+          description: Refund details
+          schema:
+            $ref: '#/definitions/Refund'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/service-providers/{serviceProviderID}':
+    get:
+      description: Get data of payment service provider by identifier
+      tags:
+        - PaymentInstitutions
+      operationId: getServiceProviderByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/serviceProviderID'
+      responses:
+        '200':
+          description: Payment service provider found
+          schema:
+            $ref: '#/definitions/ServiceProvider'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '404':
+          $ref: '#/responses/NotFound'
+  /processing/tradeblocs:
+    get:
+      description: Get a list of trade blocks
+      tags:
+        - TradeBlocs
+      operationId: getTradeBlocs
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+      responses:
+        '200':
+          description: List of trade blocs
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TradeBloc'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+  '/processing/tradeblocs/{tradeBlocID}':
+    get:
+      description: Get trade block data by ID
+      tags:
+        - TradeBlocs
+      operationId: getTradeBlocByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/tradeBlocID'
+      responses:
+        '200':
+          description: Trade bloc found
+          schema:
+            $ref: '#/definitions/TradeBloc'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '404':
+          $ref: '#/responses/NotFound'
+  /processing/webhooks:
+    post:
+      description: Set up a new webhook.
+      tags:
+        - Webhooks
+      operationId: createWebhook
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: webhookParams
+          description: Parameters of the installed webhook
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Webhook'
+      responses:
+        '201':
+          description: Webhook is set
+          schema:
+            $ref: '#/definitions/Webhook'
+        '400':
+          description: Invalid webhook data
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidPartyID
+                  - invalidShopID
+                  - invalidRequest
+                  - invalidDeadline
+                  - ambiguousPartyID
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Shop not found or inaccessible
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '429':
+          description: The limit on the number of installed webhooks has been exceeded
+          schema:
+            type: object
+            required:
+              - message
+            properties:
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Webhook limit exceeded
+    get:
+      description: Get list of installed webhooks.
+      tags:
+        - Webhooks
+      operationId: getWebhooks
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+      responses:
+        '200':
+          description: A list of webhooks
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Webhook'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+  '/processing/webhooks/{webhookID}':
+    get:
+      description: Get a webhook by identifier.
+      tags:
+        - Webhooks
+      operationId: getWebhookByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/webhookID'
+      responses:
+        '200':
+          description: Webhook's data
+          schema:
+            $ref: '#/definitions/Webhook'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+    delete:
+      description: Remove the specified webhook.
+      tags:
+        - Webhooks
+      operationId: deleteWebhookByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/webhookID'
+      responses:
+        '204':
+          description: Webhook successfully removed
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+definitions:
+  AccessToken:
+    type: object
+    required:
+      - payload
+    properties:
+      payload:
+        description: |
+          Access token payload
+        type: string
+  Allocation:
+    description: |
+      Allocation of cash
+    type: array
+    minItems: 1
+    maxItems: 100
+    items:
+      $ref: '#/definitions/AllocationTransaction'
+  AllocationBodyAmount:
+    description: Allocation body amount
+    allOf:
+      - $ref: '#/definitions/AllocationTransaction'
+      - type: object
+        required:
+          - amount
+          - currency
+        properties:
+          amount:
+            description: |
+              The amount transferred to the selected destination in minor monetary units, e.g. cents if US dollars are specified as the currency.
+            type: integer
+            format: int64
+            minimum: 1
+          currency:
+            description: |
+              Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+            type: string
+            pattern: '^[A-Z]{3}$'
+  AllocationBodyTotal:
+    description: Transaction body with fee indication
+    allOf:
+      - $ref: '#/definitions/AllocationTransaction'
+      - type: object
+        required:
+          - total
+          - currency
+          - fee
+        properties:
+          total:
+            description: |
+              Total transaction amount (includes fees) in minor monetary units, e.g. cents if US dollars are specified as the currency.
+            type: integer
+            format: int64
+            minimum: 1
+          amount:
+            description: |
+              The amount transferred to the selected destination in minor monetary units, e.g. cents if US dollars are specified as the currency.
+            type: integer
+            format: int64
+            minimum: 1
+            readOnly: true
+          currency:
+            description: |
+              Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+            type: string
+            pattern: '^[A-Z]{3}$'
+          fee:
+            $ref: '#/definitions/AllocationFee'
+  AllocationFee:
+    description: Transaction fee
+    type: object
+    discriminator: allocationFeeType
+    required:
+      - allocationFeeType
+    properties:
+      target:
+        description: Target of the transaction
+        type: object
+        discriminator: allocationTargetType
+        required:
+          - allocationTargetType
+        properties:
+          allocationTargetType:
+            type: string
+            enum:
+              - AllocationTargetShop
+        readOnly: true
+      allocationFeeType:
+        type: string
+        enum:
+          - AllocationFeeFixed
+          - AllocationFeeShare
+  AllocationFeeFixed:
+    description: Transaction fee in absolute values
+    allOf:
+      - $ref: '#/definitions/AllocationFee'
+      - type: object
+        required:
+          - amount
+        properties:
+          amount:
+            description: |
+              The value of the fee in minor monetary units, e.g. cents if US dollars are specified as the transaction currency.
+            type: integer
+            format: int64
+            minimum: 1
+  AllocationFeeShare:
+    description: Transaction fee in relative values
+    allOf:
+      - $ref: '#/definitions/AllocationFee'
+      - type: object
+        required:
+          - share
+        properties:
+          share:
+            $ref: '#/definitions/Decimal'
+          amount:
+            description: |
+              The value of the fee in minor monetary units, e.g. cents if US dollars are specified as the transaction currency.
+            type: integer
+            format: int64
+            minimum: 1
+            readOnly: true
+  AllocationTarget:
+    description: Target of the transaction
+    type: object
+    discriminator: allocationTargetType
+    required:
+      - allocationTargetType
+    properties:
+      allocationTargetType:
+        type: string
+        enum:
+          - AllocationTargetShop
+  AllocationTargetShop:
+    description: The shop as the target of the transaction
+    allOf:
+      - $ref: '#/definitions/AllocationTarget'
+      - type: object
+        required:
+          - shopID
+        properties:
+          shopID:
+            description: Shop ID
+            type: string
+            maxLength: 40
+            minLength: 1
+  AllocationTransaction:
+    description: Cash allocation transaction
+    type: object
+    discriminator: allocationBodyType
+    required:
+      - target
+      - allocationBodyType
+    properties:
+      target:
+        $ref: '#/definitions/AllocationTarget'
+      allocationBodyType:
+        description: Transaction body
+        type: string
+        enum:
+          - AllocationBodyAmount
+          - AllocationBodyTotal
+      cart:
+        $ref: '#/definitions/InvoiceCart'
+  ApiExtensionRequest:
+    type: object
+    allOf:
+      - $ref: '#/definitions/UserInteraction'
+      - type: object
+        required:
+          - apiType
+        properties:
+          apiType:
+            description: API type to use in subsequent requests
+            type: string
+  ApplePay:
+    type: object
+    allOf:
+      - $ref: '#/definitions/TokenizedCardData'
+      - type: object
+        description: Apple Pay data
+        required:
+          - merchantID
+          - paymentToken
+        properties:
+          merchantID:
+            description: Apple Pay merchant identifier
+            type: string
+          paymentToken:
+            description: Aggregate of open and encrypted payment data
+            type: object
+  BankCard:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentMethod'
+      - type: object
+        required:
+          - paymentSystems
+        properties:
+          paymentSystems:
+            description: List of payment systems
+            type: array
+            items:
+              description: |
+                Payment system.
+                The list of systems available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+              type: string
+          tokenProviders:
+            description: List of payment token providers
+            type: array
+            items:
+              description: |
+                Payment token provider.
+                The list of providers available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+              type: string
+          tokenProviderData:
+            allOf:
+              - $ref: '#/definitions/BankCardTokenProviderData'
+  BankCardDetails:
+    required:
+      - cardNumberMask
+      - paymentSystem
+    properties:
+      cardNumberMask:
+        description: Masked card number
+        type: string
+        pattern: '^\d{0,6}\*+\d{0,4}$'
+      first6:
+        description: |
+          First digits of the card number.
+          Absent for tokenized payment methods.
+        type: string
+        pattern: '^\d{6}$'
+      last4:
+        description: Card last digits
+        type: string
+        pattern: '^\d{0,4}$'
+      paymentSystem:
+        description: |
+          Payment system.
+          The list of systems available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+        type: string
+      tokenProvider:
+        description: |
+          Payment token provider.
+          The list of providers available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+        type: string
+      tokenizationMethod:
+        description: Tokenization method
+        type: string
+        enum:
+          - dpan
+          - none
+  BankCardPaymentSystem:
+    description: |
+      Payment system.
+      The list of systems available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+    type: string
+  BankCardTokenizationMethod:
+    description: Tokenization method
+    type: string
+    enum:
+      - dpan
+      - none
+  BankCardTokenProvider:
+    description: |
+      Payment token provider.
+      The list of providers available for making payments can be found by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+    type: string
+  BankCardTokenProviderData:
+    type: object
+    description: |
+      Data for integration with payment token providers. These parameters are set in our system and can be used to build requests to the token provider or to display the payment form correctly.
+    required:
+      - merchantID
+      - realm
+    properties:
+      merchantID:
+        description: |
+          Merchant identifier in a payment organization.
+          Can be used to pass payment tokens to the provider. For example, this parameter is expected to be passed as gatewayMerchantID for GooglePay and or YandexPay and then used to bind the token to the specified shop.
+        type: string
+      merchantName:
+        description: |
+          The name of the merchant in the payment organization.
+          Can be used, for example, as `merchantInfo.merchantName` in GooglePay or `merchant.name` in YandexPay or `displayName` in ApplePay.
+        type: string
+      orderID:
+        description: |
+          The identifier of the paid account in the payment organization.
+          Can be used, for example, as `orderNumber` in SamsungPay or `order.id` in YandexPay.
+          Using the system identifier can be useful when debugging or reconciling data with provider data.
+        type: string
+      realm:
+        description: Payment institution's mode
+        type: string
+        enum:
+          - test
+          - live
+  BrowserGetRequest:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BrowserRequest'
+      - type: object
+        required:
+          - uriTemplate
+        properties:
+          uriTemplate:
+            description: |
+              URL value template for browser navigation
+              The template is represented according to the standard [RFC6570](https://tools.ietf.org/html/rfc6570).
+            type: string
+  BrowserPostRequest:
+    type: object
+    allOf:
+      - $ref: '#/definitions/BrowserRequest'
+      - type: object
+        required:
+          - uriTemplate
+          - form
+        properties:
+          uriTemplate:
+            description: |
+              URL value template for form submission
+              The template is represented according to the standard [RFC6570](https://tools.ietf.org/html/rfc6570).
+            type: string
+          form:
+            $ref: '#/definitions/UserInteractionForm'
+  BrowserRequest:
+    type: object
+    discriminator: requestType
+    required:
+      - requestType
+    properties:
+      requestType:
+        description: Type of browser operation
+        type: string
+  CaptureParams:
+    type: object
+    allOf:
+      - $ref: '#/definitions/Reason'
+      - type: object
+        description: Data of captured payment amount
+        properties:
+          amount:
+            description: |
+              Captured payment amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
+            type: integer
+            format: int64
+            minimum: 1
+          currency:
+            description: |
+              Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+            type: string
+            pattern: '^[A-Z]{3}$'
+          cart:
+            description: A shopping cart with a list of items of **provided** goods or services
+            type: array
+            minItems: 1
+            maxItems: 100
+            items:
+              $ref: '#/definitions/InvoiceLine'
+          allocation:
+            description: |
+              Final cash allocation
+            type: array
+            minItems: 1
+            maxItems: 100
+            items:
+              $ref: '#/definitions/AllocationTransaction'
+  CardData:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentTool'
+      - type: object
+        description: Bank card
+        required:
+          - cardNumber
+          - expDate
+        properties:
+          cardNumber:
+            description: Bankcard number
+            type: string
+            pattern: '^\d{12,19}$'
+          expDate:
+            description: Bank card expiration date
+            type: string
+            pattern: '^\d{2}\/(\d{2}|\d{4})$'
+          cvv:
+            description: Verification code
+            type: string
+            pattern: '^\d{3,4}$'
+          cardHolder:
+            description: Cardholder name
+            type: string
+            pattern: '^[[:alpha:][:space:][:punct:]]+$'
+            minLength: 1
+            maxLength: 100
+  Category:
+    type: object
+    required:
+      - name
+      - categoryID
+    properties:
+      name:
+        type: string
+        maxLength: 100
+      categoryID:
+        type: integer
+        format: int32
+      description:
+        type: string
+        maxLength: 1000
+  Chargeback:
+    type: object
+    required:
+      - id
+      - createdAt
+      - body
+      - levy
+      - currency
+      - stage
+      - status
+    properties:
+      id:
+        description: Chargeback ID
+        type: string
+      createdAt:
+        description: Date and time of creation
+        type: string
+        format: date-time
+      body:
+        description: |
+          Chargeback amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
+        type: integer
+        format: int64
+        minimum: 1
+      levy:
+        description: |
+          Chargeback levy amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
+        type: integer
+        format: int64
+        minimum: 1
+      currency:
+        description: |
+          Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+        type: string
+        pattern: '^[A-Z]{3}$'
+      reasonCode:
+        description: Chargeback reason code
+        type: string
+        maxLength: 1000
+      stage:
+        description: Chargeback stage
+        type: string
+        enum:
+          - chargeback
+          - pre-arbitration
+          - arbitration
+      status:
+        description: Chargeback status
+        type: string
+        enum:
+          - pending
+          - rejected
+          - accepted
+          - cancelled
+  ClientInfo:
+    description: Payer's client device data
+    type: object
+    required:
+      - fingerprint
+    properties:
+      fingerprint:
+        description: Payer's user agent unique fingerprint
+        type: string
+        maxLength: 1000
+      ip:
+        description: Payer IP-address
+        type: string
+        format: ip-address
+        maxLength: 45
+      url:
+        description: URL from which the payment form was received by the client
+        type: string
+        format: uri
+        maxLength: 1000
+  ContactInfo:
+    description: Contact details
+    type: object
+    properties:
+      email:
+        description: Email address
+        type: string
+        format: email
+        maxLength: 100
+      phoneNumber:
+        description: |
+          Mobile phone number with international prefix according to [E.164](https://en.wikipedia.org/wiki/E.164).
+        type: string
+        format: '^\+\d{4,15}$'
+      firstName:
+        description: First name
+        type: string
+        maxLength: 100
+        example: John
+      lastName:
+        description: Last name
+        type: string
+        maxLength: 100
+        example: Doe
+      country:
+        description: |
+          Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
+        type: string
+        pattern: '^[A-Z]{3}$'
+        example: RUS
+      state:
+        description: State
+        type: string
+        maxLength: 40
+        example: Colorado
+      city:
+        description: City
+        type: string
+        maxLength: 40
+        example: Denver
+      address:
+        description: Address
+        type: string
+        maxLength: 1000
+        example: 10th Street 13
+      postalCode:
+        description: Postal code
+        type: string
+        maxLength: 40
+        example: '00012'
+      dateOfBirth:
+        description: Date of birth
+        type: string
+        format: date
+        example: '1970-01-01'
+      documentId:
+        description: Identity document number
+        type: string
+        maxLength: 40
+        example: 1234-5 678-abcd
+  ContinuationToken:
+    description: |
+      A token signaling that only a part of the data has been transmitted in the response.
+      To receive the next part of the data, it is necessary to reapply to the service, specifying the same list of conditions and the received token. If there is no token, the last part of data is received.
+    type: string
+  CostAmountRange:
+    type: object
+    required:
+      - upperBound
+      - lowerBound
+    properties:
+      upperBound:
+        description: An upper (inclusive) limit on the value of goods or services.
+        type: integer
+        format: int64
+        minimum: 1
+      lowerBound:
+        description: A lower (inclusive) limit on the value of goods or services.
+        type: integer
+        format: int64
+        minimum: 1
+  Country:
+    description: Country
+    type: object
+    required:
+      - id
+      - name
+    properties:
+      id:
+        description: |
+          Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
+        type: string
+        pattern: '^[A-Z]{3}$'
+        example: RUS
+      name:
+        type: string
+        maxLength: 200
+      tradeBlocs:
+        type: array
+        items:
+          description: Trade bloc identifiers
+          type: string
+  CountryCode:
+    description: |
+      Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
+    type: string
+    pattern: '^[A-Z]{3}$'
+    example: RUS
+  CryptoCurrency:
+    description: |
+      Cryptocurrency payment method.
+      The list of cryptocurrencies available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+    type: string
+    example: BTC
+  CryptoCurrencyTransferRequest:
+    type: object
+    allOf:
+      - $ref: '#/definitions/UserInteraction'
+      - type: object
+        required:
+          - cryptoAddress
+          - symbolicCode
+          - cryptoAmount
+        properties:
+          cryptoAddress:
+            description: Cryptocurrency wallet address
+            type: string
+            example: 2NBjv8rkUViGXAQar7n2BsdZjNQgupKtdPJ
+          symbolicCode:
+            description: Cryptocurrency symbolic code
+            type: string
+            example: BTC
+          cryptoAmount:
+            description: Amount of cash in cryptocurrency
+            type: string
+            example: '0.0012'
+            pattern: '^[0-9]+[.][0-9]+$'
+  CryptoWallet:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentMethod'
+      - type: object
+        required:
+          - cryptoCurrencies
+        properties:
+          cryptoCurrencies:
+            description: List of cryptocurrencies
+            type: array
+            items:
+              description: |
+                Cryptocurrency payment method.
+                The list of cryptocurrencies available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+              type: string
+              example: BTC
+  CryptoWalletData:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentTool'
+      - $ref: '#/definitions/CryptoWalletDetails'
+  CryptoWalletDetails:
+    required:
+      - cryptoCurrency
+    properties:
+      cryptoCurrency:
+        description: |
+          Cryptocurrency payment method.
+          The list of cryptocurrencies available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+        type: string
+        example: BTC
+  Currency:
+    description: |
+      Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+    type: string
+    pattern: '^[A-Z]{3}$'
+  Decimal:
+    description: Fractional decimal number of arbitrary precision
+    type: object
+    required:
+      - m
+      - exp
+    properties:
+      m:
+        description: |
+          Mantissa.
+        type: integer
+        format: int64
+        minimum: 0
+      exp:
+        description: |
+          Exponent.
+        type: integer
+        format: int64
+  DefaultLogicError:
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        description: |
+          [Error code](#tag/Error-Codes)
+        type: string
+        enum:
+          - invalidRequest
+          - invalidDeadline
+      message:
+        description: Human-readable description of the error
+        type: string
+  DigitalWallet:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentMethod'
+      - type: object
+        required:
+          - providers
+        properties:
+          providers:
+            description: List of E-wallet providers
+            type: array
+            items:
+              description: |
+                E-wallet provider.
+                The list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+                Additional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).
+              type: string
+              example: QIWI
+  DigitalWalletData:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentTool'
+      - type: object
+        description: E-wallet
+        required:
+          - id
+          - provider
+        properties:
+          id:
+            description: E-wallet identifier
+            type: string
+          provider:
+            description: |
+              E-wallet provider.
+              The list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+              Additional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).
+            type: string
+            example: QIWI
+          token:
+            description: Token
+            type: string
+  DigitalWalletDetails:
+    type: object
+    required:
+      - provider
+    properties:
+      provider:
+        description: |
+          E-wallet provider.
+          The list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+          Additional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).
+        type: string
+        example: QIWI
+  DigitalWalletProvider:
+    description: |
+      E-wallet provider.
+      The list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+      Additional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).
+    type: string
+    example: QIWI
+  ExternalID:
+    description: |
+      A platform-unique entity identifier for this party.
+      It is used to ensure request idempotency.
+    type: string
+    maxLength: 40
+    minLength: 1
+  ExternalIDConflictError:
+    type: object
+    required:
+      - externalID
+    properties:
+      externalID:
+        description: |
+          The passed value of `externalID` for which a request parameter conflict was detected
+        type: string
+        maxLength: 40
+        minLength: 1
+      id:
+        description: |
+          Identifier of the content, created by a previous query with the specified `externalID'
+        type: string
+      message:
+        description: Human-readable description of the error
+        type: string
+  GeneralError:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  GooglePay:
+    type: object
+    allOf:
+      - $ref: '#/definitions/TokenizedCardData'
+      - type: object
+        description: Google Pay data
+        required:
+          - gatewayMerchantID
+          - paymentToken
+        properties:
+          gatewayMerchantID:
+            description: Merchant identifier in the system
+            type: string
+          paymentToken:
+            description: Aggregate of open and encrypted payment data
+            type: object
+  Invoice:
+    type: object
+    required:
+      - id
+      - shopID
+      - createdAt
+      - dueDate
+      - amount
+      - currency
+      - product
+      - metadata
+      - status
+    properties:
+      id:
+        description: Invoice ID
+        type: string
+      shopID:
+        description: Shop ID
+        type: string
+      externalID:
+        description: External invoice identifier
+        type: string
+        maxLength: 40
+        minLength: 1
+      createdAt:
+        description: Created at
+        type: string
+        format: date-time
+      dueDate:
+        description: Expiration date and time
+        type: string
+        format: date-time
+      amount:
+        description: |
+          The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
+        type: integer
+        format: int64
+        minimum: 1
+      currency:
+        description: |
+          Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+        type: string
+        pattern: '^[A-Z]{3}$'
+      product:
+        description: Name of the offered goods or services
+        type: string
+        maxLength: 100
+      description:
+        description: Description of the goods or services offered
+        type: string
+        maxLength: 1000
+      invoiceTemplateID:
+        description: |
+          Invoice template identifier (for invoices created from an invoice template).
+        type: string
+      cart:
+        $ref: '#/definitions/InvoiceCart'
+      allocation:
+        $ref: '#/definitions/Allocation'
+      bankAccount:
+        $ref: '#/definitions/InvoiceBankAccount'
+      metadata:
+        description: Invoice metadata
+        type: object
+      clientInfo:
+        $ref: '#/definitions/InvoiceClientInfo'
+      amountRandomized:
+        $ref: '#/definitions/InvoiceAmountRandomized'
+      status:
+        description: Invoice status
+        type: string
+        enum:
+          - unpaid
+          - cancelled
+          - paid
+          - fulfilled
+      reason:
+        description: Reason for invoice cancellation or redemption
+        type: string
+        maxLength: 1000
+  InvoiceAmountRandomized:
+    description: |
+      Describes how invoice cost amount was randomized.
+    type: object
+    required:
+      - original
+      - randomized
+    properties:
+      original:
+        description: |
+          Original invoice cost amount in minor monetary units.
+        type: integer
+        format: int64
+        minimum: 0
+      randomized:
+        description: |
+          Randomized invoice cost amount in minor monetary units.
+        type: integer
+        format: int64
+        minimum: 0
+  InvoiceAndToken:
+    type: object
+    required:
+      - invoice
+      - invoiceAccessToken
+    properties:
+      invoice:
+        $ref: '#/definitions/Invoice'
+      invoiceAccessToken:
+        $ref: '#/definitions/AccessToken'
+  InvoiceBankAccount:
+    type: object
+    description: |
+      Information on the bank account of the payer, to which transactions this invoice relates
+    discriminator: accountType
+    required:
+      - accountType
+    properties:
+      accountType:
+        description: Bank account type
+        type: string
+        enum:
+          - InvoiceRussianBankAccount
+  InvoiceCart:
+    description: |
+      Products and services cart
+    type: array
+    minItems: 1
+    maxItems: 100
+    items:
+      $ref: '#/definitions/InvoiceLine'
+  InvoiceChange:
+    type: object
+    discriminator: changeType
+    required:
+      - changeType
+    properties:
+      changeType:
+        type: string
+        enum:
+          - InvoiceCreated
+          - InvoiceStatusChanged
+          - PaymentStarted
+          - PaymentStatusChanged
+          - PaymentInteractionRequested
+          - PaymentInteractionCompleted
+          - RefundStarted
+          - RefundStatusChanged
+  InvoiceClientInfo:
+    description: Additional client information
+    type: object
+    required:
+      - trustLevel
+    properties:
+      trustLevel:
+        description: Is the payer reliable?
+        type: string
+        enum:
+          - wellKnown
+          - unknown
+  InvoiceCreated:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceChange'
+      - type: object
+        required:
+          - invoice
+        properties:
+          invoice:
+            $ref: '#/definitions/Invoice'
+  InvoiceEvent:
+    type: object
+    required:
+      - id
+      - createdAt
+      - changes
+    properties:
+      id:
+        type: integer
+      createdAt:
+        type: string
+        format: date-time
+      changes:
+        type: array
+        items:
+          $ref: '#/definitions/InvoiceChange'
+  InvoiceLine:
+    description: Product or service item
+    type: object
+    required:
+      - product
+      - quantity
+      - price
+    properties:
+      product:
+        description: Description of the goods or services offered
+        type: string
+        maxLength: 1000
+      quantity:
+        description: |
+          Number of units of goods or services offered in this item
+        type: integer
+        format: int64
+        minimum: 1
+        default: 1
+      price:
+        description: |
+          The price of the good or service offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
+        type: integer
+        format: int64
+        minimum: 1
+      cost:
+        description: |
+          The total value of the item, taking into account the number of units of goods or services
+        type: integer
+        format: int64
+        minimum: 1
+        readOnly: true
+      taxMode:
+        $ref: '#/definitions/InvoiceLineTaxMode'
+  InvoiceLineTaxMode:
+    description: |
+      The tax mode for the proposed good or service.
+      To be specified only if the proposed good or service is taxable.
+    type: object
+    discriminator: type
+    required:
+      - type
+    properties:
+      type:
+        description: Tax mode
+        type: string
+        enum:
+          - InvoiceLineTaxVAT
+  InvoiceLineTaxVAT:
+    allOf:
+      - $ref: '#/definitions/InvoiceLineTaxMode'
+      - description: Value added tax in the jurisdiction of the Russian Federation
+        type: object
+        required:
+          - rate
+        properties:
+          rate:
+            description: Tax rate
+            type: string
+            enum:
+              - 0%
+              - 10%
+              - 18%
+              - 20%
+              - 10/110
+              - 18/118
+              - 20/120
+  InvoiceParams:
+    type: object
+    required:
+      - shopID
+      - dueDate
+      - currency
+      - product
+      - metadata
+    properties:
+      shopID:
+        description: Shop ID
+        type: string
+        maxLength: 40
+        minLength: 1
+      partyID:
+        description: The participant's unique identifier within the system.
+        type: string
+        minLength: 1
+        maxLength: 40
+      externalID:
+        description: External invoice identifier
+        type: string
+        maxLength: 40
+        minLength: 1
+      dueDate:
+        description: |
+          The date and time of expiration of the invoice, after which it can no longer be paid
+        type: string
+        format: date-time
+      amount:
+        description: |
+          The value of the goods or services offered, in minor monetary units, such as cents if US dollars are specified as the currency.
+          If no value is specified, the value of the invoice will be the total value of the items in the shopping cart.
+        type: integer
+        format: int64
+        minimum: 1
+      randomizeAmount:
+        $ref: '#/definitions/InvoiceRandomizeAmount'
+      currency:
+        description: |
+          Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+        type: string
+        pattern: '^[A-Z]{3}$'
+      product:
+        description: Name of the offered goods or services
+        type: string
+        maxLength: 100
+      description:
+        description: Description of the goods or services offered
+        type: string
+        maxLength: 1000
+      cart:
+        $ref: '#/definitions/InvoiceCart'
+      allocation:
+        $ref: '#/definitions/Allocation'
+      bankAccount:
+        $ref: '#/definitions/InvoiceBankAccount'
+      metadata:
+        description: Invoice metadata
+        type: object
+      clientInfo:
+        $ref: '#/definitions/InvoiceClientInfo'
+  InvoiceParamsWithTemplate:
+    type: object
+    properties:
+      externalID:
+        description: |
+          A platform-unique entity identifier for this party.
+          It is used to ensure request idempotency.
+        type: string
+        maxLength: 40
+        minLength: 1
+      amount:
+        description: |
+          The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
+        type: integer
+        format: int64
+        minimum: 1
+      currency:
+        description: |
+          Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+        type: string
+        pattern: '^[A-Z]{3}$'
+      metadata:
+        description: Invoice metadata
+        type: object
+  InvoiceRandomizeAmount:
+    description: |
+      Describes how to randomly modify invoice's cost amount.
+    type: object
+    required:
+      - deviation
+    properties:
+      deviation:
+        description: |
+          Maximum deviation from original amount value in minor monetary units.
+          Generated random value shall correspond uniform distribution within segment `[-deviation, deviation]`.
+        type: integer
+        format: int64
+        minimum: 0
+      precision:
+        description: |
+          Rounding of generated random value in minor monetary units of given power of `10`.
+          With rounding of `2` generated value `1234` will be rounded down to `1200`.
+        type: integer
+        format: int64
+        minimum: 0
+        maximum: 5
+        default: 2
+      direction:
+        description: |
+          Direction of deviation from original amount.
+        type: string
+        default: both
+        enum:
+          - both
+          - upward
+          - downward
+      minAmountCondition:
+        description: |
+          Minimum amount applicable for randomization, in minor monetary units.
+          If `null` condition is ignored.
+        type: integer
+        format: int64
+        minimum: 0
+      maxAmountCondition:
+        description: |
+          Maximum amount applicable for randomization, in minor monetary units.
+          If `null` condition is ignored.
+        type: integer
+        format: int64
+        minimum: 0
+      amountMultiplicityCondition:
+        description: |
+          Amount must be a multiple of given value to be applicable for randomization. Multiplicity value must be in minor monetary units.
+          If `null` condition is ignored.
+        type: integer
+        format: int64
+        minimum: 1
+  InvoiceRussianBankAccount:
+    allOf:
+      - $ref: '#/definitions/InvoiceBankAccount'
+      - type: object
+        description: |
+          Data of a settlement account in a banking organization operating under the jurisdiction of the Russian Federation.
+        required:
+          - account
+          - bankBik
+        properties:
+          account:
+            description: Account number
+            type: string
+            pattern: '^\d{20}$'
+            example: 12345678912345680000
+          bankBik:
+            description: BIK of the banking organization
+            type: string
+            pattern: '^\d{9}$'
+            example: 123456789
+  InvoiceStatus:
+    type: object
+    required:
+      - status
+    properties:
+      status:
+        description: Invoice status
+        type: string
+        enum:
+          - unpaid
+          - cancelled
+          - paid
+          - fulfilled
+      reason:
+        description: Reason for invoice cancellation or redemption
+        type: string
+        maxLength: 1000
+  InvoiceStatusChanged:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceChange'
+      - $ref: '#/definitions/InvoiceStatus'
+  InvoicesTopic:
+    description: |
+      Scope that includes invoice events within a specific shop
+    allOf:
+      - $ref: '#/definitions/WebhookScope'
+      - type: object
+        required:
+          - shopID
+          - eventTypes
+        properties:
+          shopID:
+            description: Shop ID
+            type: string
+            maxLength: 40
+            minLength: 1
+          eventTypes:
+            description: List of invoice event types to be notified about
+            type: array
+            items:
+              type: string
+              enum:
+                - InvoiceCreated
+                - InvoicePaid
+                - InvoiceCancelled
+                - InvoiceFulfilled
+                - PaymentStarted
+                - PaymentProcessed
+                - PaymentCaptured
+                - PaymentCancelled
+                - PaymentRefunded
+                - PaymentFailed
+                - PaymentRefundCreated
+                - PaymentRefundSucceeded
+                - PaymentRefundFailed
+                - PaymentUserInteractionRequested
+                - PaymentUserInteractionCompleted
+  InvoiceTemplate:
+    type: object
+    required:
+      - id
+      - shopID
+      - lifetime
+      - details
+    properties:
+      id:
+        description: Invoice template ID
+        type: string
+      externalID:
+        description: External invoice template identifier
+        type: string
+        maxLength: 40
+        minLength: 1
+      shopID:
+        description: Shop ID
+        type: string
+        maxLength: 40
+        minLength: 1
+      name:
+        description: Template name
+        type: string
+        maxLength: 100
+      description:
+        description: Description of the goods or services offered
+        type: string
+        maxLength: 1000
+      createdAt:
+        description: Template creation date
+        type: string
+        format: date-time
+      lifetime:
+        $ref: '#/definitions/LifetimeInterval'
+      details:
+        $ref: '#/definitions/InvoiceTemplateDetails'
+      metadata:
+        description: |
+          Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.
+        type: object
+      randomizeAmount:
+        $ref: '#/definitions/InvoiceRandomizeAmount'
+  InvoiceTemplateAndToken:
+    type: object
+    required:
+      - invoiceTemplate
+      - invoiceTemplateAccessToken
+    properties:
+      invoiceTemplate:
+        $ref: '#/definitions/InvoiceTemplate'
+      invoiceTemplateAccessToken:
+        $ref: '#/definitions/AccessToken'
+  InvoiceTemplateCreateParams:
+    type: object
+    required:
+      - shopID
+      - lifetime
+      - details
+    properties:
+      shopID:
+        description: Shop ID
+        type: string
+        maxLength: 40
+        minLength: 1
+      externalID:
+        description: External invoice template identifier
+        type: string
+        maxLength: 40
+        minLength: 1
+      partyID:
+        description: The participant's unique identifier within the system.
+        type: string
+        minLength: 1
+        maxLength: 40
+      name:
+        description: Template name
+        type: string
+        maxLength: 100
+      description:
+        description: Description of the goods or services offered
+        type: string
+        maxLength: 1000
+      lifetime:
+        $ref: '#/definitions/LifetimeInterval'
+      details:
+        $ref: '#/definitions/InvoiceTemplateDetails'
+      metadata:
+        description: |
+          Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.
+        type: object
+      randomizeAmount:
+        $ref: '#/definitions/InvoiceRandomizeAmount'
+  InvoiceTemplateDetails:
+    type: object
+    discriminator: templateType
+    required:
+      - templateType
+    properties:
+      templateType:
+        type: string
+  InvoiceTemplateLineCost:
+    type: object
+    discriminator: costType
+    description: |
+      Limitations on the value of goods and services for invoices generated by the template.
+    required:
+      - costType
+    properties:
+      costType:
+        type: string
+  InvoiceTemplateLineCostFixed:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceTemplateLineCost'
+      - type: object
+        required:
+          - currency
+          - amount
+        properties:
+          currency:
+            description: |
+              Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+            type: string
+            pattern: '^[A-Z]{3}$'
+          amount:
+            description: |
+              The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
+            type: integer
+            format: int64
+            minimum: 1
+  InvoiceTemplateLineCostRange:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceTemplateLineCost'
+      - type: object
+        required:
+          - currency
+          - range
+        properties:
+          currency:
+            description: |
+              Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+            type: string
+            pattern: '^[A-Z]{3}$'
+          range:
+            $ref: '#/definitions/CostAmountRange'
+  InvoiceTemplateLineCostUnlim:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceTemplateLineCost'
+  InvoiceTemplateMultiLine:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceTemplateDetails'
+      - type: object
+        required:
+          - cart
+          - currency
+        properties:
+          cart:
+            $ref: '#/definitions/InvoiceCart'
+          currency:
+            description: |
+              Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+            type: string
+            pattern: '^[A-Z]{3}$'
+  InvoiceTemplateSingleLine:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceTemplateDetails'
+      - type: object
+        required:
+          - product
+          - price
+        properties:
+          product:
+            description: Name of the offered goods or services
+            type: string
+            maxLength: 100
+          price:
+            $ref: '#/definitions/InvoiceTemplateLineCost'
+          taxMode:
+            $ref: '#/definitions/InvoiceLineTaxMode'
+  InvoiceTemplateUpdateParams:
+    type: object
+    properties:
+      name:
+        description: Template name
+        type: string
+        maxLength: 100
+      description:
+        description: Description of the goods or services offered
+        type: string
+        maxLength: 1000
+      lifetime:
+        $ref: '#/definitions/LifetimeInterval'
+      details:
+        $ref: '#/definitions/InvoiceTemplateDetails'
+      metadata:
+        description: |
+          Metadata that will be associated with the invoice created by the template, in case other metadata is not specified in the invoice creation request.
+        type: object
+      randomizeAmount:
+        $ref: '#/definitions/InvoiceRandomizeAmount'
+  LifetimeInterval:
+    type: object
+    description: The life time of an invoice from the time it was created.
+    required:
+      - days
+      - months
+      - years
+    properties:
+      days:
+        type: integer
+        format: int32
+        minimum: 0
+      months:
+        type: integer
+        format: int32
+        minimum: 0
+      years:
+        type: integer
+        format: int32
+        minimum: 0
+  LogicError:
+    description: Description of the error that occurred during the payment process
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+  MobileCommerce:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentMethod'
+      - type: object
+        required:
+          - operators
+        properties:
+          operators:
+            description: List of mobile operators
+            type: array
+            items:
+              description: |
+                Cellular operator.
+                The list of operators available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+              type: string
+              example: MTS
+  MobileCommerceData:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentTool'
+      - type: object
+        required:
+          - mobilePhone
+        description: Mobile commerce
+        discriminator: mobileCommerceType
+        properties:
+          mobilePhone:
+            $ref: '#/definitions/MobileCommercePhone'
+  MobileCommerceDetails:
+    required:
+      - phoneNumber
+    properties:
+      phoneNumber:
+        description: Masked cell phone number
+        type: string
+        pattern: '^\+\d\*{1,10}\d{2,4}$'
+        example: +7******0102
+  MobileCommercePhone:
+    type: object
+    description: |
+      Telephone number, according to ITU-T recommendation [E.164](https://en.wikipedia.org/wiki/E.164)
+    required:
+      - cc
+      - ctn
+    properties:
+      cc:
+        description: Country code (1-3 digits)
+        type: string
+        pattern: '^\d{1,3}$'
+        example: '7'
+      ctn:
+        description: Phone number
+        type: string
+        pattern: '^\d{10,12}$'
+        example: '0001234567'
+  MobileOperator:
+    description: |
+      Cellular operator.
+      The list of operators available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+    type: string
+    example: MTS
+  Party:
+    type: object
+    required:
+      - id
+      - isBlocked
+      - isSuspended
+    properties:
+      id:
+        type: string
+      isBlocked:
+        type: boolean
+      isSuspended:
+        type: boolean
+  PartyID:
+    description: The participant's unique identifier within the system.
+    type: string
+    minLength: 1
+    maxLength: 40
+  Payer:
+    type: object
+    discriminator: payerType
+    properties:
+      payerType:
+        description: Payment tool type
+        type: string
+      sessionInfo:
+        description: Payer's current session data
+        type: object
+        properties:
+          redirectUrl:
+            description: |
+              URL of the resource to which the payer should be redirected upon completion of interaction with it in the browser, for example, preauthorization of payment using 3D Secure 2.0 protocol, if such interaction is required.
+            type: string
+            format: uri-template
+            maxLength: 2000
+    required:
+      - payerType
+  Payment:
+    type: object
+    required:
+      - id
+      - invoiceID
+      - createdAt
+      - amount
+      - currency
+      - flow
+      - payer
+      - status
+    properties:
+      id:
+        description: Payment ID
+        type: string
+      externalID:
+        description: |
+          A platform-unique entity identifier for this party.
+          It is used to ensure request idempotency.
+        type: string
+        maxLength: 40
+        minLength: 1
+      invoiceID:
+        description: |
+          Identifier of the invoice within which the payment was created
+        type: string
+      createdAt:
+        description: Created at
+        type: string
+        format: date-time
+      amount:
+        description: |
+          The price of the goods or services offered, in minor monetary units, e.g. cents if U.S. dollars are specified as the currency
+        type: integer
+        format: int64
+        minimum: 1
+      currency:
+        description: |
+          Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+        type: string
+        pattern: '^[A-Z]{3}$'
+      flow:
+        $ref: '#/definitions/PaymentFlow'
+      payer:
+        $ref: '#/definitions/Payer'
+      transactionInfo:
+        $ref: '#/definitions/TransactionInfo'
+      makeRecurrent:
+        description: |
+          An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.
+        type: boolean
+        default: false
+        readOnly: true
+      metadata:
+        description: Payment metadata
+        type: object
+      allocation:
+        description: |
+          Allocation of cash
+        type: array
+        minItems: 1
+        maxItems: 100
+        items:
+          $ref: '#/definitions/AllocationTransaction'
+        readOnly: true
+      status:
+        description: Payment status
+        type: string
+        enum:
+          - pending
+          - processed
+          - captured
+          - cancelled
+          - refunded
+          - failed
+      error:
+        $ref: '#/definitions/PaymentError'
+  PaymentError:
+    description: |
+      [Error](#tag/Error-Codes) occurred during the payment process
+    type: object
+    required:
+      - code
+    properties:
+      code:
+        description: Basic error code
+        type: string
+      subError:
+        $ref: '#/definitions/SubError'
+  PaymentFlow:
+    type: object
+    discriminator: type
+    required:
+      - type
+    properties:
+      type:
+        description: Payment flow type
+        type: string
+        enum:
+          - PaymentFlowInstant
+          - PaymentFlowHold
+        default: PaymentFlowInstant
+  PaymentFlowHold:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentFlow'
+      - type: object
+        required:
+          - onHoldExpiration
+        properties:
+          onHoldExpiration:
+            description: Cash withholding management policy
+            type: string
+            default: cancel
+            enum:
+              - cancel
+              - capture
+          heldUntil:
+            description: Date and time of withholding of funds
+            type: string
+            format: date-time
+            readOnly: true
+  PaymentFlowInstant:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentFlow'
+  PaymentInstitution:
+    description: Payment Institution
+    type: object
+    required:
+      - id
+      - name
+      - realm
+      - residences
+    properties:
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+        maxLength: 200
+      description:
+        type: string
+        maxLength: 1000
+      residences:
+        type: array
+        items:
+          description: |
+            Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)
+          type: string
+          pattern: '^[A-Z]{3}$'
+          example: RUS
+      realm:
+        description: Payment institution's mode
+        type: string
+        enum:
+          - test
+          - live
+  PaymentInstitutionAccount:
+    description: Payment institution's account
+    type: object
+  PaymentInteractionCompleted:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceChange'
+      - type: object
+        description: |
+          Notification on completion of the last requested interaction with the customer
+        required:
+          - paymentID
+        properties:
+          paymentID:
+            description: Payment ID
+            type: string
+          userInteraction:
+            $ref: '#/definitions/UserInteraction'
+  PaymentInteractionRequested:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceChange'
+      - type: object
+        description: |
+          Require interaction with the customer to continue the payment process
+        required:
+          - paymentID
+          - userInteraction
+        properties:
+          paymentID:
+            description: Payment ID
+            type: string
+          userInteraction:
+            $ref: '#/definitions/UserInteraction'
+  PaymentMakeRecurrent:
+    description: |
+      An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.
+    type: boolean
+    default: false
+  PaymentMethod:
+    type: object
+    discriminator: method
+    required:
+      - method
+    properties:
+      method:
+        description: Payment method
+        type: string
+        enum:
+          - BankCard
+          - PaymentTerminal
+          - DigitalWallet
+          - CryptoWallet
+          - MobileCommerce
+  PaymentParams:
+    type: object
+    required:
+      - flow
+      - payer
+    properties:
+      externalID:
+        description: |
+          A platform-unique entity identifier for this party.
+          It is used to ensure request idempotency.
+        type: string
+        maxLength: 40
+        minLength: 1
+      flow:
+        $ref: '#/definitions/PaymentFlow'
+      payer:
+        $ref: '#/definitions/Payer'
+      processingDeadline:
+        type: string
+        description: Maximum payment processing time
+        maxLength: 40
+        minLength: 1
+        example: 30m
+      makeRecurrent:
+        description: |
+          An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.
+        type: boolean
+        default: false
+      metadata:
+        description: Metadata to be linked with the payment
+        type: object
+  PaymentRecurrentParent:
+    type: object
+    description: 'Parent payment, on the basis of which the current recurrent payment was created'
+    required:
+      - invoiceID
+      - paymentID
+    properties:
+      invoiceID:
+        description: Invoice identifier
+        type: string
+      paymentID:
+        description: Payment identifier
+        type: string
+  PaymentResource:
+    type: object
+    description: Disposable payment tool data
+    properties:
+      paymentToolToken:
+        description: |
+          A payment tool token provided by the payer.
+          _Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.
+        type: string
+        maxLength: 2000
+      paymentSession:
+        description: |
+          Payment session identifier.
+          _Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.
+        type: string
+        maxLength: 1000
+      paymentToolDetails:
+        $ref: '#/definitions/PaymentToolDetails'
+      clientInfo:
+        allOf:
+          - $ref: '#/definitions/ClientInfo'
+          - readOnly: true
+  PaymentResourceParams:
+    type: object
+    required:
+      - paymentTool
+      - clientInfo
+    properties:
+      paymentTool:
+        $ref: '#/definitions/PaymentTool'
+      clientInfo:
+        $ref: '#/definitions/ClientInfo'
+  PaymentResourcePayer:
+    type: object
+    description: Disposable payment tool
+    allOf:
+      - $ref: '#/definitions/Payer'
+      - $ref: '#/definitions/PaymentResource'
+      - type: object
+        required:
+          - contactInfo
+        properties:
+          contactInfo:
+            $ref: '#/definitions/ContactInfo'
+  PaymentResourceResult:
+    type: object
+    description: Disposable payment tool data
+    required:
+      - paymentSession
+      - paymentToolToken
+    properties:
+      paymentToolToken:
+        description: Payment tool token provided by the payer
+        type: string
+        maxLength: 2000
+      resourceToken:
+        description: |
+          Clean resource token. Can be used for differentiating one resource from another.
+        type: string
+        maxLength: 2000
+      paymentSession:
+        description: Payment session identifier
+        type: string
+        maxLength: 1000
+      paymentToolDetails:
+        $ref: '#/definitions/PaymentToolDetails'
+      clientInfo:
+        allOf:
+          - $ref: '#/definitions/ClientInfo'
+          - readOnly: true
+      validUntil:
+        description: |
+          Date and time until which the payment resource token remains valid
+        type: string
+        format: date-time
+        readOnly: true
+  PaymentStarted:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceChange'
+      - type: object
+        required:
+          - payment
+        properties:
+          payment:
+            $ref: '#/definitions/Payment'
+  PaymentStatus:
+    type: object
+    required:
+      - status
+    properties:
+      status:
+        description: Payment status
+        type: string
+        enum:
+          - pending
+          - processed
+          - captured
+          - cancelled
+          - refunded
+          - failed
+      error:
+        $ref: '#/definitions/PaymentError'
+  PaymentStatusChanged:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceChange'
+      - $ref: '#/definitions/PaymentStatus'
+      - type: object
+        required:
+          - paymentID
+        properties:
+          paymentID:
+            type: string
+  PaymentTerminal:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentMethod'
+      - type: object
+        required:
+          - providers
+        properties:
+          providers:
+            description: Providers
+            type: array
+            items:
+              description: |
+                Payment terminal provider.
+                The list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+                Additional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).
+              type: string
+              example: EUROSET
+  PaymentTerminalData:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentTool'
+      - type: object
+        description: Payment terminal
+        required:
+          - provider
+        properties:
+          provider:
+            description: |
+              Payment terminal provider.
+              The list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+              Additional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).
+            type: string
+            example: EUROSET
+          metadata:
+            description: |
+              Arbitrary metadata further describing this payment instrument.
+            type: object
+            example:
+              type: BankAccountRUS
+              accountNumber: '40817810500000000035'
+              bankBIC: '044525716'
+  PaymentTerminalDetails:
+    required:
+      - provider
+    properties:
+      provider:
+        description: |
+          Payment terminal provider.
+          The list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+          Additional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).
+        type: string
+        example: EUROSET
+  PaymentTerminalProvider:
+    description: |
+      Payment terminal provider.
+      The list of providers available for making payments can be found by calling the the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.
+      Additional provider details can be found out by calling [reference operation](#operation/getServiceProviderByID).
+    type: string
+    example: EUROSET
+  PaymentTerminalReceipt:
+    type: object
+    allOf:
+      - $ref: '#/definitions/UserInteraction'
+      - type: object
+        required:
+          - shortPaymentID
+          - dueDate
+        properties:
+          shortPaymentID:
+            description: Account number for payment via payment terminal
+            type: string
+          dueDate:
+            description: Expiration date and time
+            type: string
+  PaymentTool:
+    type: object
+    discriminator: paymentToolType
+    properties:
+      paymentToolType:
+        description: Payment tool type
+        type: string
+        enum:
+          - CardData
+          - PaymentTerminalData
+          - DigitalWalletData
+          - TokenizedCardData
+          - CryptoWalletData
+          - MobileCommerceData
+    required:
+      - paymentToolType
+  PaymentToolDetails:
+    type: object
+    discriminator: detailsType
+    description: Payment tool details
+    readOnly: true
+    required:
+      - detailsType
+    properties:
+      detailsType:
+        description: Type of payment tool
+        type: string
+  PaymentToolDetailsBankCard:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentToolDetails'
+      - $ref: '#/definitions/BankCardDetails'
+  PaymentToolDetailsCryptoWallet:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentToolDetails'
+      - $ref: '#/definitions/CryptoWalletDetails'
+  PaymentToolDetailsDigitalWallet:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentToolDetails'
+      - $ref: '#/definitions/DigitalWalletDetails'
+  PaymentToolDetailsMobileCommerce:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentToolDetails'
+      - $ref: '#/definitions/MobileCommerceDetails'
+  PaymentToolDetailsPaymentTerminal:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentToolDetails'
+      - $ref: '#/definitions/PaymentTerminalDetails'
+  ProcessingDeadline:
+    type: string
+    description: Maximum payment processing time
+    maxLength: 40
+    minLength: 1
+    example: 30m
+  QrCodeDisplayRequest:
+    type: object
+    allOf:
+      - $ref: '#/definitions/UserInteraction'
+      - type: object
+        required:
+          - qrCode
+        properties:
+          qrCode:
+            description: QR code content as byte array
+            type: string
+            format: binary
+  RealmMode:
+    description: Payment institution's mode
+    type: string
+    enum:
+      - test
+      - live
+  Reason:
+    type: object
+    required:
+      - reason
+    properties:
+      reason:
+        description: Operation reason
+        type: string
+        maxLength: 1000
+  RecurrentPayer:
+    type: object
+    description: Recurring payment tool based on another payment
+    allOf:
+      - $ref: '#/definitions/Payer'
+      - type: object
+        required:
+          - contactInfo
+          - recurrentParentPayment
+        properties:
+          contactInfo:
+            $ref: '#/definitions/ContactInfo'
+          recurrentParentPayment:
+            $ref: '#/definitions/PaymentRecurrentParent'
+          paymentToolDetails:
+            $ref: '#/definitions/PaymentToolDetails'
+  Redirect:
+    type: object
+    allOf:
+      - $ref: '#/definitions/UserInteraction'
+      - type: object
+        required:
+          - request
+        properties:
+          request:
+            $ref: '#/definitions/BrowserRequest'
+  Refund:
+    type: object
+    required:
+      - id
+      - createdAt
+      - amount
+      - currency
+      - status
+    properties:
+      id:
+        description: Refund ID
+        type: string
+      externalID:
+        description: |
+          A platform-unique entity identifier for this party.
+          It is used to ensure request idempotency.
+        type: string
+        maxLength: 40
+        minLength: 1
+      createdAt:
+        description: Creation date and time
+        type: string
+        format: date-time
+      amount:
+        description: |
+          Refund amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
+        type: integer
+        format: int64
+        minimum: 1
+      currency:
+        description: |
+          Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+        type: string
+        pattern: '^[A-Z]{3}$'
+      reason:
+        description: Refund reason
+        type: string
+      cart:
+        description: |
+          The final cart of goods and services provided, which should be formed from the invoice cart excluding the items for which a refund has been made. The amount of the cart should be the same as the amount of the payment less the amount of the refund.
+        type: array
+        minItems: 1
+        maxItems: 100
+        items:
+          $ref: '#/definitions/InvoiceLine'
+      allocation:
+        description: |
+          The final cash distribution, which should be formed from the invoice distribution excluding the items for which a refund is made.
+        type: array
+        minItems: 1
+        maxItems: 100
+        items:
+          $ref: '#/definitions/AllocationTransaction'
+      status:
+        description: Refund status
+        type: string
+        enum:
+          - pending
+          - succeeded
+          - failed
+      error:
+        description: |
+          Data of the error that occurred during the refund process, if the refund was unsuccessful
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: Error code for automatic processing
+            type: string
+          message:
+            description: Human-readable error description
+            type: string
+  RefundParams:
+    type: object
+    properties:
+      externalID:
+        description: |
+          A platform-unique entity identifier for this party.
+          It is used to ensure request idempotency.
+        type: string
+        maxLength: 40
+        minLength: 1
+      amount:
+        description: |
+          Refund amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
+        type: integer
+        format: int64
+        minimum: 1
+      currency:
+        description: |
+          Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+        type: string
+        pattern: '^[A-Z]{3}$'
+      reason:
+        description: Refund reason
+        type: string
+        maxLength: 1000
+      cart:
+        description: |
+          The final cart of goods and services provided, which should be formed from the invoice cart excluding the items for which a refund has been made. The amount of the cart should be the same as the amount of the payment less the amount of the refund.
+        type: array
+        minItems: 1
+        maxItems: 100
+        items:
+          $ref: '#/definitions/InvoiceLine'
+      allocation:
+        description: |
+          Cash allocation, which should be formed from the items for which a refund is made. The sum of all allocation transactions must match the refund amount.
+        type: array
+        minItems: 1
+        maxItems: 100
+        items:
+          $ref: '#/definitions/AllocationTransaction'
+  RefundStarted:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceChange'
+      - type: object
+        required:
+          - paymentID
+          - refund
+        properties:
+          paymentID:
+            type: string
+          refund:
+            $ref: '#/definitions/Refund'
+  RefundStatus:
+    type: object
+    required:
+      - status
+    properties:
+      status:
+        description: Refund status
+        type: string
+        enum:
+          - pending
+          - succeeded
+          - failed
+      error:
+        description: |
+          Data of the error that occurred during the refund process, if the refund was unsuccessful
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: Error code for automatic processing
+            type: string
+          message:
+            description: Human-readable error description
+            type: string
+  RefundStatusChanged:
+    type: object
+    allOf:
+      - $ref: '#/definitions/InvoiceChange'
+      - type: object
+        required:
+          - paymentID
+          - refundID
+        properties:
+          paymentID:
+            type: string
+          refundID:
+            type: string
+      - $ref: '#/definitions/RefundStatus'
+  SamsungPay:
+    type: object
+    allOf:
+      - $ref: '#/definitions/TokenizedCardData'
+      - type: object
+        description: Samsung Pay data
+        required:
+          - serviceID
+          - referenceID
+        properties:
+          serviceID:
+            description: Samsung Pay service identifier
+            type: string
+          referenceID:
+            description: Samsung Pay reference indentifier
+            type: string
+  ServiceProvider:
+    description: |
+      Payment service provider.
+      A third-party organization that provides payment services, such as maintaining a system of e-wallets or payment terminals.
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        description: Service provider's identifier
+        type: string
+        maxLength: 100
+      brandName:
+        description: |
+          The name of the provider by which it is known to the general public
+        type: string
+        maxLength: 100
+        example: Nubank
+      category:
+        description: |
+          Provider сategory.
+          Can be used for presentation tasks, such as grouping available payment methods by their provider category, if known.
+        type: string
+        maxLength: 100
+        example: onlinebanking
+      metadata:
+        description: |
+          Arbitrary, namespace-separated metadata that further describes a given provider to various consumers.
+        type: object
+        example:
+          dev.vality.checkout:
+            brandLogo:
+              banner: /assets/brands/paypal.svg
+            localization:
+              name:
+                ja_JP: ヱヴァンゲリヲン
+  Shop:
+    description: Shop details
+    type: object
+    required:
+      - id
+      - isBlocked
+      - isSuspended
+      - categoryID
+      - location
+      - details
+      - contractID
+    properties:
+      id:
+        description: Shop ID
+        type: string
+      isBlocked:
+        description: Is the shop blocked?
+        type: boolean
+      isSuspended:
+        description: Are operations suspended within the shop?
+        type: boolean
+      currency:
+        description: |
+          Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+        type: string
+        pattern: '^[A-Z]{3}$'
+      categoryID:
+        description: |
+          Сategory identifier of goods and services offered in this shop
+        type: integer
+        format: int32
+      location:
+        $ref: '#/definitions/ShopLocation'
+      details:
+        $ref: '#/definitions/ShopDetails'
+      contractID:
+        description: |
+          Contract identifier on the basis of which the shop is serviced
+        type: string
+  ShopDetails:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        description: Shop name
+        type: string
+        maxLength: 100
+      description:
+        description: Short description
+        type: string
+        maxLength: 1000
+  ShopLocation:
+    description: 'The location of the shop, by which it can be found'
+    type: object
+    discriminator: locationType
+    required:
+      - locationType
+    properties:
+      locationType:
+        description: Location type
+        type: string
+  ShopLocationUrl:
+    description: Shop location as a url on the Internet
+    type: object
+    allOf:
+      - $ref: '#/definitions/ShopLocation'
+      - type: object
+        required:
+          - url
+        properties:
+          url:
+            description: Shop URL
+            type: string
+            format: uri
+            maxLength: 1000
+  SubError:
+    description: |
+      Detailed description of the error
+    type: object
+    required:
+      - code
+    properties:
+      code:
+        description: Details of the error code
+        type: string
+      subError:
+        $ref: '#/definitions/SubError'
+  TokenizedCardData:
+    type: object
+    allOf:
+      - $ref: '#/definitions/PaymentTool'
+      - type: object
+        description: Tokenized bank card
+        discriminator: provider
+        properties:
+          provider:
+            type: string
+            enum:
+              - ApplePay
+              - GooglePay
+              - SamsungPay
+              - YandexPay
+        required:
+          - provider
+  TradeBloc:
+    description: Trade bloc
+    type: object
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+        maxLength: 200
+      description:
+        type: string
+        maxLength: 1000
+  TransactionInfo:
+    description: Transaction Info
+    type: object
+    properties:
+      rrn:
+        description: Retrieval Reference Number
+        type: string
+        pattern: '^[a-zA-Z0-9]{4,20}$'
+      approvalCode:
+        description: Authorization Approval Code
+        type: string
+  UserInteraction:
+    type: object
+    discriminator: interactionType
+    required:
+      - interactionType
+    properties:
+      interactionType:
+        description: Type of interaction with the user
+        type: string
+  UserInteractionForm:
+    description: Browser submission form
+    type: array
+    items:
+      type: object
+      required:
+        - key
+        - template
+      properties:
+        key:
+          description: |
+            The value of the key of the form element to be send by means of browser
+          type: string
+        template:
+          description: |
+            The template for the form element value
+            The template is presented according to the standard [RFC6570](https://tools.ietf.org/html/rfc6570).
+          type: string
+  Webhook:
+    type: object
+    required:
+      - scope
+      - url
+    properties:
+      id:
+        description: |
+          Identifier of the webhook
+        type: string
+        readOnly: true
+      active:
+        description: |
+          Is notification delivery currently enabled?
+        type: boolean
+        readOnly: true
+      scope:
+        $ref: '#/definitions/WebhookScope'
+      partyID:
+        description: The participant's unique identifier within the system.
+        type: string
+        minLength: 1
+        maxLength: 40
+      url:
+        description: |
+          The URL that will receive notifications of events that have occurred
+        type: string
+        format: http-url
+        maxLength: 1000
+      publicKey:
+        description: |
+          The content of the public key used to check the authoritativeness of notifications coming to `url`
+        type: string
+        format: hexadecimal
+        readOnly: true
+        example: MIGJAoGBAM1fmNUvezts3yglTdhXuqG7OhHxQtDFA+Ss//YuUGjw5ossDbEMoS+SIFuYZ/UL9Xg0rEHNRSbmf48OK+mz0FobEtbji8MADayzGfFopXsfRFa7MVy3Uhu5jBDpLsN3DyJapAkK0TAYINlZXxVjDwxRNheTvC+xub5WNdiwc28fAgMBAAE=
+  WebhookScope:
+    description: |
+      The scope of a webhook, limiting the list of event types, for which the notifications should be sent
+    type: object
+    discriminator: topic
+    required:
+      - topic
+    properties:
+      topic:
+        description: Subject of notifications
+        type: string
+        enum:
+          - InvoicesTopic
+          - CustomersTopic
+  YandexPay:
+    type: object
+    allOf:
+      - $ref: '#/definitions/TokenizedCardData'
+      - type: object
+        description: Yandex Pay data
+        required:
+          - gatewayMerchantID
+          - paymentToken
+        properties:
+          gatewayMerchantID:
+            description: Merchant identifier in the system
+            type: string
+          paymentToken:
+            description: Aggregate of open and encrypted payment data
+            type: object
