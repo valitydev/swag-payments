@@ -11,18 +11,19 @@ get:
   responses:
     "200":
       description: Cash limits found
-      type: object
-      required:
-        - currency
-        - lowerBound
-        - upperBound
-      properties:
-        currency:
-          $ref: "#/definitions/Currency"
-        lowerBound:
-          $ref: "#/definitions/CashLimitBound"
-        upperBound:
-          $ref: "#/definitions/CashLimitBound"
+      schema:
+        type: object
+        required:
+          - currency
+          - lowerBound
+          - upperBound
+        properties:
+          currency:
+            $ref: "#/definitions/Currency"
+          lowerBound:
+            $ref: "#/definitions/CashLimitBound"
+          upperBound:
+            $ref: "#/definitions/CashLimitBound"
     "404":
       $ref: "#/responses/NotFound"
     "401":
