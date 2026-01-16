@@ -9,6 +9,9 @@
 -export([get_shop_by_id_for_party/2]).
 -export([get_shop_by_id_for_party/3]).
 
+-export([get_shop_cash_limits_for_party/2]).
+-export([get_shop_cash_limits_for_party/3]).
+
 -export([get_shops_for_party/2]).
 -export([get_shops_for_party/3]).
 
@@ -51,6 +54,24 @@ get_shop_by_id_for_party(Endpoint, Params, Opts) ->
         get_request_spec(get_shop_by_id_for_party),
         Opts
     ), get_shop_by_id_for_party).
+
+-spec get_shop_cash_limits_for_party(Endpoint :: swag_client:endpoint(), Params :: map()) ->
+    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
+    {error, _Reason}.
+get_shop_cash_limits_for_party(Endpoint, Params) ->
+    get_shop_cash_limits_for_party(Endpoint, Params, []).
+
+-spec get_shop_cash_limits_for_party(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
+    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
+    {error, _Reason}.
+get_shop_cash_limits_for_party(Endpoint, Params, Opts) ->
+    process_response(swag_client_procession:process_request(
+        get,
+        swag_client_utils:get_url(Endpoint, "/v2/processing/parties/:partyID/shops/:shopID/cash-limits"),
+        Params,
+        get_request_spec(get_shop_cash_limits_for_party),
+        Opts
+    ), get_shop_cash_limits_for_party).
 
 -spec get_shops_for_party(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
@@ -155,6 +176,29 @@ get_request_spec('get_shop_by_id_for_party') ->
 , {required, false}]
         }}
     ];
+get_request_spec('get_shop_cash_limits_for_party') ->
+    [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'shopID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'partyID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, true
+, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }}
+    ];
 get_request_spec('get_shops_for_party') ->
     [
         {'X-Request-ID', #{
@@ -223,6 +267,18 @@ get_response_spec('get_shop_by_id_for_party', 401) ->
     undefined;
 
 get_response_spec('get_shop_by_id_for_party', 404) ->
+    {'GeneralError', 'GeneralError'};
+
+get_response_spec('get_shop_cash_limits_for_party', 200) ->
+    {'list', 'inline_response_200'};
+
+get_response_spec('get_shop_cash_limits_for_party', 400) ->
+    {'DefaultLogicError', 'DefaultLogicError'};
+
+get_response_spec('get_shop_cash_limits_for_party', 401) ->
+    undefined;
+
+get_response_spec('get_shop_cash_limits_for_party', 404) ->
     {'GeneralError', 'GeneralError'};
 
 get_response_spec('get_shops_for_party', 200) ->
