@@ -1648,6 +1648,46 @@ paths:
           $ref: '#/responses/Unauthorized'
         '404':
           $ref: '#/responses/NotFound'
+  '/processing/parties/{partyID}/shops/{shopID}/cash-limits':
+    get:
+      description: Get shop cash limits
+      operationId: getShopCashLimitsForParty
+      tags:
+        - Shops
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/shopID'
+        - $ref: '#/parameters/partyID'
+      responses:
+        '200':
+          description: |
+            Cash limits found. Each item is scoped to a specific payment method.
+            If a payment method is absent in the list, that method is not allowed for the shop.
+          schema:
+            type: array
+            items:
+              type: object
+              required:
+                - currency
+                - paymentMethod
+                - lowerBound
+                - upperBound
+              properties:
+                currency:
+                  $ref: '#/definitions/Currency'
+                paymentMethod:
+                  $ref: '#/definitions/PaymentMethod'
+                lowerBound:
+                  $ref: '#/definitions/CashLimitBound'
+                upperBound:
+                  $ref: '#/definitions/CashLimitBound'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
   '/processing/parties/{partyID}/shops/{shopID}/suspend':
     put:
       description: |
@@ -2406,6 +2446,19 @@ definitions:
             pattern: '^[[:alpha:][:space:][:punct:]]+$'
             minLength: 1
             maxLength: 100
+  CashLimitBound:
+    description: Cash limit bound.
+    type: object
+    required:
+      - amount
+      - inclusive
+    properties:
+      amount:
+        type: integer
+        format: int64
+        minimum: 0
+      inclusive:
+        type: boolean
   Category:
     type: object
     required:
