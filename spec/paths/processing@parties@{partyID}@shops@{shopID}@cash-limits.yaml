@@ -8,22 +8,37 @@ get:
     - $ref: "#/parameters/deadline"
     - $ref: "#/parameters/shopID"
     - $ref: "#/parameters/partyID"
+    - name: paymentMethod
+      in: query
+      description: Filter cash limits by payment method
+      required: false
+      type: string
+      enum:
+        - BankCard
+        - PaymentTerminal
+        - DigitalWallet
+        - CryptoWallet
+        - MobileCommerce
   responses:
     "200":
       description: Cash limits found
       schema:
-        type: object
-        required:
-          - currency
-          - lowerBound
-          - upperBound
-        properties:
-          currency:
-            $ref: "#/definitions/Currency"
-          lowerBound:
-            $ref: "#/definitions/CashLimitBound"
-          upperBound:
-            $ref: "#/definitions/CashLimitBound"
+        type: array
+        items:
+          type: object
+          required:
+            - currency
+            - lowerBound
+            - upperBound
+          properties:
+            currency:
+              $ref: "#/definitions/Currency"
+            paymentMethod:
+              $ref: "#/definitions/PaymentMethod"
+            lowerBound:
+              $ref: "#/definitions/CashLimitBound"
+            upperBound:
+              $ref: "#/definitions/CashLimitBound"
     "404":
       $ref: "#/responses/NotFound"
     "401":
