@@ -295,6 +295,11 @@ get_operations() ->
             method => <<"GET">>,
             handler => 'swag_server_shops_handler'
         },
+        'GetShopCashLimitsForParty' => #{
+            path => "/v2/processing/parties/:partyID/shops/:shopID/cash-limits",
+            method => <<"GET">>,
+            handler => 'swag_server_shops_handler'
+        },
         'GetShopsForParty' => #{
             path => "/v2/processing/parties/:partyID/shops",
             method => <<"GET">>,

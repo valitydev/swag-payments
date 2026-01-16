@@ -72,6 +72,14 @@ allowed_methods(
 allowed_methods(
     Req,
     State = #state{
+        operation_id = 'GetShopCashLimitsForParty'
+    }
+) ->
+    {[<<"GET">>], Req, State};
+
+allowed_methods(
+    Req,
+    State = #state{
         operation_id = 'GetShopsForParty'
     }
 ) ->
@@ -126,6 +134,33 @@ is_authorized(
     Req0,
     State = #state{
         operation_id  = 'GetShopByIDForParty' = OperationID,
+        logic_handler = LogicHandler,
+        context       = Context
+    }
+) ->
+    From = header,
+    Result = swag_server_handler_api:authorize_api_key(
+        LogicHandler,
+        OperationID,
+        From,
+        'Authorization',
+        Req0,
+        Context
+    ),
+    case Result of
+        {true, AuthContext, Req} ->
+            NewContext = Context#{
+                auth_context => AuthContext
+            },
+            {true, Req, State#state{context = NewContext}};
+        {false, AuthHeader, Req} ->
+            {{false, AuthHeader}, Req, State}
+    end;
+
+is_authorized(
+    Req0,
+    State = #state{
+        operation_id  = 'GetShopCashLimitsForParty' = OperationID,
         logic_handler = LogicHandler,
         context       = Context
     }
@@ -235,6 +270,16 @@ valid_content_headers(
     Req0,
     State = #state{
         operation_id = 'GetShopByIDForParty'
+    }
+) ->
+    Headers = ["X-Request-ID","X-Request-Deadline"],
+    {Result, Req} = validate_headers(Headers, Req0),
+    {Result, Req, State};
+
+valid_content_headers(
+    Req0,
+    State = #state{
+        operation_id = 'GetShopCashLimitsForParty'
     }
 ) ->
     Headers = ["X-Request-ID","X-Request-Deadline"],
@@ -414,6 +459,29 @@ get_request_spec('GetShopByIDForParty') ->
 , {required, false}]
         }}
     ];
+get_request_spec('GetShopCashLimitsForParty') ->
+    [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'shopID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'partyID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, true
+, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }}
+    ];
 get_request_spec('GetShopsForParty') ->
     [
         {'X-Request-ID', #{
@@ -482,6 +550,18 @@ get_response_spec('GetShopByIDForParty', 401) ->
     undefined;
 
 get_response_spec('GetShopByIDForParty', 404) ->
+    {'GeneralError', 'GeneralError'};
+
+get_response_spec('GetShopCashLimitsForParty', 200) ->
+    {'list', 'inline_response_200'};
+
+get_response_spec('GetShopCashLimitsForParty', 400) ->
+    {'DefaultLogicError', 'DefaultLogicError'};
+
+get_response_spec('GetShopCashLimitsForParty', 401) ->
+    undefined;
+
+get_response_spec('GetShopCashLimitsForParty', 404) ->
     {'GeneralError', 'GeneralError'};
 
 get_response_spec('GetShopsForParty', 200) ->

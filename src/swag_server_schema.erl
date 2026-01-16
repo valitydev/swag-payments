@@ -2274,6 +2274,70 @@ get_raw() ->
         }
       }
     },
+    <<"/processing/parties/{partyID}/shops/{shopID}/cash-limits">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"Shops">> ],
+        <<"description">> => <<"Get shop cash limits">>,
+        <<"operationId">> => <<"getShopCashLimitsForParty">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"shopID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Shop ID">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"Cash limits found. Each item is scoped to a specific payment method.\nIf a payment method is absent in the list, that method is not allowed for the shop.\n">>,
+            <<"schema">> => #{
+              <<"type">> => <<"array">>,
+              <<"items">> => #{
+                <<"$ref">> => <<"#/definitions/inline_response_200">>
+              }
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Invalid data">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Authorization error">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Target resource not found">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
     <<"/processing/parties/{partyID}/shops/{shopID}/suspend">> => #{
       <<"put">> => #{
         <<"tags">> => [ <<"Shops">> ],
@@ -3494,6 +3558,25 @@ get_raw() ->
         },
         <<"description">> => <<"Bank card">>
       } ]
+    },
+    <<"CashLimitBound">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"amount">>, <<"inclusive">> ],
+      <<"properties">> => #{
+        <<"amount">> => #{
+          <<"type">> => <<"integer">>,
+          <<"format">> => <<"int64">>,
+          <<"minimum">> => 0
+        },
+        <<"inclusive">> => #{
+          <<"type">> => <<"boolean">>
+        }
+      },
+      <<"description">> => <<"Cash limit bound.">>,
+      <<"example">> => #{
+        <<"inclusive">> => true,
+        <<"amount">> => 0
+      }
     },
     <<"Category">> => #{
       <<"type">> => <<"object">>,
@@ -6811,6 +6894,38 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"example">> => <<"Invalid invoice status">>,
           <<"description">> => <<"Human-readable description of the error">>
+        }
+      }
+    },
+    <<"inline_response_200">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"currency">>, <<"lowerBound">>, <<"paymentMethod">>, <<"upperBound">> ],
+      <<"properties">> => #{
+        <<"currency">> => #{
+          <<"$ref">> => <<"#/definitions/Currency">>
+        },
+        <<"paymentMethod">> => #{
+          <<"$ref">> => <<"#/definitions/PaymentMethod">>
+        },
+        <<"lowerBound">> => #{
+          <<"$ref">> => <<"#/definitions/CashLimitBound">>
+        },
+        <<"upperBound">> => #{
+          <<"$ref">> => <<"#/definitions/CashLimitBound">>
+        }
+      },
+      <<"example">> => #{
+        <<"upperBound">> => #{
+          <<"inclusive">> => true,
+          <<"amount">> => 0
+        },
+        <<"paymentMethod">> => #{
+          <<"method">> => <<"BankCard">>
+        },
+        <<"currency">> => #{ },
+        <<"lowerBound">> => #{
+          <<"inclusive">> => true,
+          <<"amount">> => 0
         }
       }
     },
