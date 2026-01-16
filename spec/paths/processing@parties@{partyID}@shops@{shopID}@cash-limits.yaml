@@ -1,0 +1,39 @@
+get:
+  description: Get shop cash limits
+  operationId: getShopCashLimitsForParty
+  tags:
+    - Shops
+  parameters:
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/shopID"
+    - $ref: "#/parameters/partyID"
+  responses:
+    "200":
+      description: |
+        Cash limits found. Each item is scoped to a specific payment method.
+        If a payment method is absent in the list, that method is not allowed for the shop.
+      schema:
+        type: array
+        items:
+          type: object
+          required:
+            - currency
+            - paymentMethod
+            - lowerBound
+            - upperBound
+          properties:
+            currency:
+              $ref: "#/definitions/Currency"
+            paymentMethod:
+              $ref: "#/definitions/PaymentMethod"
+            lowerBound:
+              $ref: "#/definitions/CashLimitBound"
+            upperBound:
+              $ref: "#/definitions/CashLimitBound"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
