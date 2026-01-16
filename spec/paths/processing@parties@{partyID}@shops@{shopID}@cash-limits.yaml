@@ -10,7 +10,9 @@ get:
     - $ref: "#/parameters/partyID"
   responses:
     "200":
-      description: Cash limits found
+      description: |
+        Cash limits found. Each item is scoped to a specific payment method.
+        If a payment method is absent in the list, that method is not allowed for the shop.
       schema:
         type: array
         items:
