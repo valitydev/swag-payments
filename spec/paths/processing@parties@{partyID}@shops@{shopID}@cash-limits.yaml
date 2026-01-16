@@ -8,17 +8,6 @@ get:
     - $ref: "#/parameters/deadline"
     - $ref: "#/parameters/shopID"
     - $ref: "#/parameters/partyID"
-    - name: paymentMethod
-      in: query
-      description: Filter cash limits by payment method
-      required: false
-      type: string
-      enum:
-        - BankCard
-        - PaymentTerminal
-        - DigitalWallet
-        - CryptoWallet
-        - MobileCommerce
   responses:
     "200":
       description: Cash limits found
@@ -28,6 +17,7 @@ get:
           type: object
           required:
             - currency
+            - paymentMethod
             - lowerBound
             - upperBound
           properties:
