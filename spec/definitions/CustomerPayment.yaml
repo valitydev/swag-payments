@@ -1,0 +1,17 @@
+description: Customer payment information
+type: object
+required:
+  - invoiceID
+  - paymentID
+  - createdAt
+properties:
+  invoiceID:
+    description: Invoice ID
+    type: string
+  paymentID:
+    description: Payment ID
+    type: string
+  createdAt:
+    description: Date and time of payment
+    type: string
+    format: date-time

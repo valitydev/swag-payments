@@ -1,0 +1,22 @@
+description: Customer details
+type: object
+required:
+  - id
+  - createdAt
+properties:
+  id:
+    description: Customer ID
+    type: string
+  externalID:
+    x-rebillyMerge:
+      - $ref: "#/definitions/ExternalID"
+      - description: External customer identifier
+  createdAt:
+    description: Date and time of customer creation
+    type: string
+    format: date-time
+  contactInfo:
+    $ref: "#/definitions/ContactInfo"
+  metadata:
+    description: Customer metadata
+    type: object

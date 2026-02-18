@@ -212,6 +212,14 @@ parameters:
     description: The participant's unique identifier within the system. #TODO: rephrase
     required: true
     type: string
+  customerID:
+    name: customerID
+    in: path
+    description: Customer ID
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
   countryID:
     name: countryID
     in: path
@@ -225,6 +233,25 @@ parameters:
     description: Trade bloc identifier
     required: true
     type: string
+  limit:
+    name: limit
+    in: query
+    description: Maximum number of items to return
+    required: true
+    type: integer
+    format: int32
+    minimum: 1
+    maximum: 1000
+  continuationToken:
+    name: continuationToken
+    in: query
+    required: false
+    type: string
+    description: >
+      A token signaling that only a part of the data has been transmitted
+      in the response. To receive the next part of the data, reapply to
+      the service specifying the same query parameters and the received
+      token.
 tags:
   - name: Parties
     x-displayName: Parties
@@ -392,10 +419,34 @@ tags:
       * the getting of invoice template by its ID,
 
       * invoice creation by the template.
+  - name: Customers
+    x-displayName: Customers
+    description: >
+      A customer is an aggregator of payer information within a specific party.
+      It links together bank cards and payment history for a single payer,
+      enabling recurrent payment cascading across multiple providers.
+
+
+      A customer can be associated with multiple bank cards, each of which may
+      have recurrent tokens from different providers. When a recurrent payment
+      fails with one provider, the system can automatically cascade to the next
+      available provider using the customer's stored recurrent tokens.
+
+
+      ## Customer access token
+
+      A customer access token is used to associate payments with a customer.
+      Pass the token during payment creation to link the payment and any
+      resulting recurrent tokens to the customer.
+
+
+      ## Authorization
+
+      Customer management operations are authorized by your API key.
   - name: Payments
     x-displayName: Payments
     description: >
-      The actual debiting the payer’s funds is made by calling of payment
+      The actual debiting the payer's funds is made by calling of payment
       creation method. Before payments the invoice, within which the system
       will attempt to debit, has to be created and payer’s payment token has to
       be specified. This way the system provides you an interface that allows

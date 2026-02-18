@@ -1,0 +1,38 @@
+get:
+  description: Get customer by ID.
+  tags:
+    - Customers
+  operationId: getCustomerByID
+  parameters:
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/customerID"
+  responses:
+    "200":
+      description: Customer details
+      schema:
+        $ref: "#/definitions/Customer"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
+delete:
+  description: Delete customer (soft delete).
+  tags:
+    - Customers
+  operationId: deleteCustomer
+  parameters:
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/customerID"
+  responses:
+    "204":
+      description: Customer deleted
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"

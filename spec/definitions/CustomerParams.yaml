@@ -1,0 +1,12 @@
+description: Customer creation parameters
+type: object
+properties:
+  externalID:
+    x-rebillyMerge:
+      - $ref: "#/definitions/ExternalID"
+      - description: External customer identifier
+  contactInfo:
+    $ref: "#/definitions/ContactInfo"
+  metadata:
+    description: Customer metadata
+    type: object

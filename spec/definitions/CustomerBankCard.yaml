@@ -1,0 +1,17 @@
+description: Customer bank card information
+type: object
+required:
+  - id
+  - createdAt
+properties:
+  id:
+    description: Bank card ID
+    type: string
+  cardMask:
+    description: Masked card number
+    type: string
+    pattern: '^\d{0,6}\*+\d{0,4}$'
+  createdAt:
+    description: Date and time of bank card registration
+    type: string
+    format: date-time

@@ -1,0 +1,32 @@
+get:
+  description: Get payments associated with the specified customer.
+  tags:
+    - Customers
+  operationId: getCustomerPayments
+  parameters:
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/customerID"
+    - $ref: "#/parameters/limit"
+    - $ref: "#/parameters/continuationToken"
+  responses:
+    "200":
+      description: List of customer payments
+      schema:
+        type: object
+        required:
+          - result
+        properties:
+          result:
+            type: array
+            items:
+              $ref: "#/definitions/CustomerPayment"
+          continuationToken:
+            x-rebillyMerge:
+              - $ref: "#/definitions/ContinuationToken"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
