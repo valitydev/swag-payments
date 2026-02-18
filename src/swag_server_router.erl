@@ -1,0 +1,388 @@
+-module(swag_server_router).
+
+-export([get_paths/1]).
+-export([get_paths/2]).
+-export([get_operation/1]).
+-export([get_operations/0]).
+
+-type operations() :: #{
+    Method :: binary() => OperationID :: swag_server:operation_id()
+}.
+
+-type logic_handler(T) :: swag_server:logic_handler(T).
+
+-type swagger_handler_opts() :: #{
+    validation_opts => swag_server_validation:validation_opts()
+}.
+
+-type init_opts() :: {
+    Operations      :: operations(),
+    LogicHandler    :: logic_handler(_),
+    SwaggerHandlerOpts :: swagger_handler_opts()
+}.
+
+-type operation_spec() :: #{
+    path    := '_' | iodata(),
+    method  := binary(),
+    handler := module()
+}.
+
+-export_type([swagger_handler_opts/0]).
+-export_type([init_opts/0]).
+-export_type([operation_spec/0]).
+
+-spec get_paths(LogicHandler :: logic_handler(_)) ->  [{'_',[{
+    Path :: string(),
+    Handler :: atom(),
+    InitOpts :: init_opts()
+}]}].
+
+get_paths(LogicHandler) ->
+    get_paths(LogicHandler, #{}).
+
+-spec get_paths(LogicHandler :: logic_handler(_), SwaggerHandlerOpts :: swagger_handler_opts()) ->  [{'_',[{
+    Path :: string(),
+    Handler :: atom(),
+    InitOpts :: init_opts()
+}]}].
+
+get_paths(LogicHandler, SwaggerHandlerOpts) ->
+    PreparedPaths = maps:fold(
+        fun(Path, #{operations := Operations, handler := Handler}, Acc) ->
+            [{Path, Handler, Operations} | Acc]
+        end,
+        [],
+        group_paths()
+    ),
+    [
+        {'_',
+            [{P, H, {O, LogicHandler, SwaggerHandlerOpts}} || {P, H, O} <- PreparedPaths]
+        }
+    ].
+
+group_paths() ->
+    maps:fold(
+        fun(OperationID, #{path := Path, method := Method, handler := Handler}, Acc) ->
+            case maps:find(Path, Acc) of
+                {ok, PathInfo0 = #{operations := Operations0}} ->
+                    Operations = Operations0#{Method => OperationID},
+                    PathInfo = PathInfo0#{operations => Operations},
+                    Acc#{Path => PathInfo};
+                error ->
+                    Operations = #{Method => OperationID},
+                    PathInfo = #{handler => Handler, operations => Operations},
+                    Acc#{Path => PathInfo}
+            end
+        end,
+        #{},
+        get_operations()
+    ).
+
+-spec get_operation(swag_server:operation_id()) ->
+   operation_spec().
+
+get_operation(OperationId) ->
+    maps:get(OperationId, get_operations()).
+
+-spec get_operations() -> #{
+    swag_server:operation_id() := operation_spec()
+}.
+
+get_operations() ->
+    #{ 
+        'GetCategories' => #{
+            path => "/v2/processing/categories",
+            method => <<"GET">>,
+            handler => 'swag_server_categories_handler'
+        },
+        'GetCategoryByRef' => #{
+            path => "/v2/processing/categories/:categoryID",
+            method => <<"GET">>,
+            handler => 'swag_server_categories_handler'
+        },
+        'GetCountries' => #{
+            path => "/v2/processing/countries",
+            method => <<"GET">>,
+            handler => 'swag_server_countries_handler'
+        },
+        'GetCountryByID' => #{
+            path => "/v2/processing/countries/:countryID",
+            method => <<"GET">>,
+            handler => 'swag_server_countries_handler'
+        },
+        'CreateCustomer' => #{
+            path => "/v2/processing/customers",
+            method => <<"POST">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'CreateCustomerAccessToken' => #{
+            path => "/v2/processing/customers/:customerID/access-tokens",
+            method => <<"POST">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'DeleteCustomer' => #{
+            path => "/v2/processing/customers/:customerID",
+            method => <<"DELETE">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'GetCustomerBankCards' => #{
+            path => "/v2/processing/customers/:customerID/bank-cards",
+            method => <<"GET">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'GetCustomerByExternalID' => #{
+            path => "/v2/processing/customers",
+            method => <<"GET">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'GetCustomerByID' => #{
+            path => "/v2/processing/customers/:customerID",
+            method => <<"GET">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'GetCustomerPayments' => #{
+            path => "/v2/processing/customers/:customerID/payments",
+            method => <<"GET">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'CreateInvoiceTemplate' => #{
+            path => "/v2/processing/invoice-templates",
+            method => <<"POST">>,
+            handler => 'swag_server_invoice_templates_handler'
+        },
+        'CreateInvoiceWithTemplate' => #{
+            path => "/v2/processing/invoice-templates/:invoiceTemplateID/invoices",
+            method => <<"POST">>,
+            handler => 'swag_server_invoice_templates_handler'
+        },
+        'DeleteInvoiceTemplate' => #{
+            path => "/v2/processing/invoice-templates/:invoiceTemplateID",
+            method => <<"DELETE">>,
+            handler => 'swag_server_invoice_templates_handler'
+        },
+        'GetInvoicePaymentMethodsByTemplateID' => #{
+            path => "/v2/processing/invoice-templates/:invoiceTemplateID/payment-methods",
+            method => <<"GET">>,
+            handler => 'swag_server_invoice_templates_handler'
+        },
+        'GetInvoiceTemplateByID' => #{
+            path => "/v2/processing/invoice-templates/:invoiceTemplateID",
+            method => <<"GET">>,
+            handler => 'swag_server_invoice_templates_handler'
+        },
+        'UpdateInvoiceTemplate' => #{
+            path => "/v2/processing/invoice-templates/:invoiceTemplateID",
+            method => <<"PUT">>,
+            handler => 'swag_server_invoice_templates_handler'
+        },
+        'CreateInvoice' => #{
+            path => "/v2/processing/invoices",
+            method => <<"POST">>,
+            handler => 'swag_server_invoices_handler'
+        },
+        'CreateInvoiceAccessToken' => #{
+            path => "/v2/processing/invoices/:invoiceID/access-tokens",
+            method => <<"POST">>,
+            handler => 'swag_server_invoices_handler'
+        },
+        'FulfillInvoice' => #{
+            path => "/v2/processing/invoices/:invoiceID/fulfill",
+            method => <<"POST">>,
+            handler => 'swag_server_invoices_handler'
+        },
+        'GetInvoiceByExternalID' => #{
+            path => "/v2/processing/invoices",
+            method => <<"GET">>,
+            handler => 'swag_server_invoices_handler'
+        },
+        'GetInvoiceByExternalIDForParty' => #{
+            path => "/v2/processing/parties/:partyID/invoices",
+            method => <<"GET">>,
+            handler => 'swag_server_invoices_handler'
+        },
+        'GetInvoiceByID' => #{
+            path => "/v2/processing/invoices/:invoiceID",
+            method => <<"GET">>,
+            handler => 'swag_server_invoices_handler'
+        },
+        'GetInvoiceEvents' => #{
+            path => "/v2/processing/invoices/:invoiceID/events",
+            method => <<"GET">>,
+            handler => 'swag_server_invoices_handler'
+        },
+        'GetInvoicePaymentMethods' => #{
+            path => "/v2/processing/invoices/:invoiceID/payment-methods",
+            method => <<"GET">>,
+            handler => 'swag_server_invoices_handler'
+        },
+        'RescindInvoice' => #{
+            path => "/v2/processing/invoices/:invoiceID/rescind",
+            method => <<"POST">>,
+            handler => 'swag_server_invoices_handler'
+        },
+        'ActivatePartyByID' => #{
+            path => "/v2/processing/parties/:partyID/activate",
+            method => <<"PUT">>,
+            handler => 'swag_server_parties_handler'
+        },
+        'GetPartyByID' => #{
+            path => "/v2/processing/parties/:partyID",
+            method => <<"GET">>,
+            handler => 'swag_server_parties_handler'
+        },
+        'SuspendPartyByID' => #{
+            path => "/v2/processing/parties/:partyID/suspend",
+            method => <<"PUT">>,
+            handler => 'swag_server_parties_handler'
+        },
+        'GetPaymentInstitutionByRef' => #{
+            path => "/v2/processing/payment-institutions/:paymentInstitutionID",
+            method => <<"GET">>,
+            handler => 'swag_server_payment_institutions_handler'
+        },
+        'GetPaymentInstitutions' => #{
+            path => "/v2/processing/payment-institutions",
+            method => <<"GET">>,
+            handler => 'swag_server_payment_institutions_handler'
+        },
+        'GetServiceProviderByID' => #{
+            path => "/v2/processing/service-providers/:serviceProviderID",
+            method => <<"GET">>,
+            handler => 'swag_server_payment_institutions_handler'
+        },
+        'CancelPayment' => #{
+            path => "/v2/processing/invoices/:invoiceID/payments/:paymentID/cancel",
+            method => <<"POST">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'CapturePayment' => #{
+            path => "/v2/processing/invoices/:invoiceID/payments/:paymentID/capture",
+            method => <<"POST">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'CreatePayment' => #{
+            path => "/v2/processing/invoices/:invoiceID/payments",
+            method => <<"POST">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'CreateRefund' => #{
+            path => "/v2/processing/invoices/:invoiceID/payments/:paymentID/refunds",
+            method => <<"POST">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetChargebackByID' => #{
+            path => "/v2/processing/invoices/:invoiceID/payments/:paymentID/chargebacks/:chargebackID",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetChargebacks' => #{
+            path => "/v2/processing/invoices/:invoiceID/payments/:paymentID/chargebacks",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetPaymentByExternalID' => #{
+            path => "/v2/processing/payments",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetPaymentByExternalIDForParty' => #{
+            path => "/v2/processing/parties/:partyID/payments",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetPaymentByID' => #{
+            path => "/v2/processing/invoices/:invoiceID/payments/:paymentID",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetPayments' => #{
+            path => "/v2/processing/invoices/:invoiceID/payments",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetRefundByExternalID' => #{
+            path => "/v2/processing/refunds",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetRefundByExternalIDForParty' => #{
+            path => "/v2/processing/parties/:partyID/refunds",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetRefundByID' => #{
+            path => "/v2/processing/invoices/:invoiceID/payments/:paymentID/refunds/:refundID",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'GetRefunds' => #{
+            path => "/v2/processing/invoices/:invoiceID/payments/:paymentID/refunds",
+            method => <<"GET">>,
+            handler => 'swag_server_payments_handler'
+        },
+        'ActivateShopForParty' => #{
+            path => "/v2/processing/parties/:partyID/shops/:shopID/activate",
+            method => <<"PUT">>,
+            handler => 'swag_server_shops_handler'
+        },
+        'GetShopByIDForParty' => #{
+            path => "/v2/processing/parties/:partyID/shops/:shopID",
+            method => <<"GET">>,
+            handler => 'swag_server_shops_handler'
+        },
+        'GetShopCashLimitsForParty' => #{
+            path => "/v2/processing/parties/:partyID/shops/:shopID/cash-limits",
+            method => <<"GET">>,
+            handler => 'swag_server_shops_handler'
+        },
+        'GetShopsForParty' => #{
+            path => "/v2/processing/parties/:partyID/shops",
+            method => <<"GET">>,
+            handler => 'swag_server_shops_handler'
+        },
+        'SuspendShopForParty' => #{
+            path => "/v2/processing/parties/:partyID/shops/:shopID/suspend",
+            method => <<"PUT">>,
+            handler => 'swag_server_shops_handler'
+        },
+        'CreatePaymentResource' => #{
+            path => "/v2/processing/payment-resources",
+            method => <<"POST">>,
+            handler => 'swag_server_tokens_handler'
+        },
+        'GetTradeBlocByID' => #{
+            path => "/v2/processing/tradeblocs/:tradeBlocID",
+            method => <<"GET">>,
+            handler => 'swag_server_trade_blocs_handler'
+        },
+        'GetTradeBlocs' => #{
+            path => "/v2/processing/tradeblocs",
+            method => <<"GET">>,
+            handler => 'swag_server_trade_blocs_handler'
+        },
+        'CreateWebhook' => #{
+            path => "/v2/processing/webhooks",
+            method => <<"POST">>,
+            handler => 'swag_server_webhooks_handler'
+        },
+        'DeleteWebhookByID' => #{
+            path => "/v2/processing/webhooks/:webhookID",
+            method => <<"DELETE">>,
+            handler => 'swag_server_webhooks_handler'
+        },
+        'GetWebhookByID' => #{
+            path => "/v2/processing/webhooks/:webhookID",
+            method => <<"GET">>,
+            handler => 'swag_server_webhooks_handler'
+        },
+        'GetWebhooks' => #{
+            path => "/v2/processing/webhooks",
+            method => <<"GET">>,
+            handler => 'swag_server_webhooks_handler'
+        },
+        'GetWebhooksForParty' => #{
+            path => "/v2/processing/parties/:partyID/webhooks",
+            method => <<"GET">>,
+            handler => 'swag_server_webhooks_handler'
+        }
+    }.
