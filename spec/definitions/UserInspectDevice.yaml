@@ -1,0 +1,6 @@
+description: Customer device information
+properties:
+  ip:
+    type: string
+  fingerprint:
+    type: string

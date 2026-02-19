@@ -1,0 +1,8 @@
+description: Customer contact information
+required:
+  - email
+properties:
+  email:
+    type: string
+  phone:
+    type: string

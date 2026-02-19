@@ -1,0 +1,11 @@
+type: object
+required:
+  - customer
+  - shops
+properties:
+  customer:
+    $ref: '#/definitions/UserInspectCustomer'
+  shops:
+    type: array
+    items:
+      $ref: '#/definitions/UserInspectShop'

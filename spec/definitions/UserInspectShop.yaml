@@ -1,0 +1,9 @@
+description: Shop information
+required:
+  - partyId
+  - shopId
+properties:
+  partyId:
+    type: string
+  shopId:
+    type: string

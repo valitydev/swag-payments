@@ -1,0 +1,8 @@
+description: Information about client
+required:
+  - contact
+properties:
+  device:
+    $ref: '#/definitions/UserInspectDevice'
+  contact:
+    $ref: '#/definitions/UserInspectContact'

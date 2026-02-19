@@ -1,0 +1,22 @@
+post:
+  summary: Inspect user to use payment method
+  operationId: inspectUser
+  tags:
+    - inspector
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '#/definitions/UserInspectRequest'
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            $ref: '#/definitions/UserInspectResult'
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      $ref: "#/responses/DefaultLogicError"
