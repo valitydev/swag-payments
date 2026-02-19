@@ -2,7 +2,7 @@ post:
   summary: Inspect user to use payment method
   operationId: inspectUser
   tags:
-    - inspector
+    - Inspector
   requestBody:
     content:
       application/json:
