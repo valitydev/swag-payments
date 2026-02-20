@@ -235,7 +235,10 @@ validate_headers(_, Req) ->
 
 get_request_spec('InspectUser') ->
     [
-        
+        {'Body', #{
+            source => body,
+            rules  => [schema, {required, true}]
+        }}
     ].
 
 -spec get_response_spec(OperationID :: swag_server:operation_id(), Code :: cowboy:http_status()) ->
@@ -243,7 +246,7 @@ get_request_spec('InspectUser') ->
 
 
 get_response_spec('InspectUser', 200) ->
-    undefined;
+    {'inline_response_200', 'inline_response_200'};
 
 get_response_spec('InspectUser', 400) ->
     {'DefaultLogicError', 'DefaultLogicError'};
