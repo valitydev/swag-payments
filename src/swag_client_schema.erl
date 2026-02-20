@@ -134,6 +134,32 @@ get_raw() ->
     <<"bearer">> => [ ]
   } ],
   <<"paths">> => #{
+    <<"/processing/antifraud/inspectUser">> => #{
+      <<"post">> => #{
+        <<"tags">> => [ <<"Inspector">> ],
+        <<"summary">> => <<"Inspect user to use payment method">>,
+        <<"operationId">> => <<"inspectUser">>,
+        <<"parameters">> => [ ],
+        <<"responses">> => #{
+          <<"200">> => #{ },
+          <<"400">> => #{
+            <<"description">> => <<"Invalid data">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Authorization error">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Target resource not found">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
     <<"/processing/categories">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Categories">> ],
@@ -6617,6 +6643,69 @@ get_raw() ->
         <<"approvalCode">> => <<"approvalCode">>,
         <<"rrn">> => <<"rrn">>
       }
+    },
+    <<"UserInspectContact">> => #{
+      <<"required">> => [ <<"email">> ],
+      <<"properties">> => #{
+        <<"email">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"email">>,
+          <<"description">> => <<"Email address">>,
+          <<"maxLength">> => 100
+        },
+        <<"phoneNumber">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"^\\+\\d{4,15}$">>,
+          <<"description">> => <<"Mobile phone number with international prefix according to [E.164](https://en.wikipedia.org/wiki/E.164).\n">>
+        }
+      },
+      <<"description">> => <<"Customer contact information">>
+    },
+    <<"UserInspectCustomer">> => #{
+      <<"required">> => [ <<"contact">> ],
+      <<"properties">> => #{
+        <<"device">> => #{
+          <<"$ref">> => <<"#/definitions/UserInspectDevice">>
+        },
+        <<"contact">> => #{
+          <<"$ref">> => <<"#/definitions/UserInspectContact">>
+        }
+      },
+      <<"description">> => <<"Information about client">>
+    },
+    <<"UserInspectDevice">> => #{
+      <<"properties">> => #{
+        <<"fingerprint">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Payer's user agent unique fingerprint">>,
+          <<"maxLength">> => 1000
+        },
+        <<"ip">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"ip-address">>,
+          <<"description">> => <<"Payer IP-address">>,
+          <<"maxLength">> => 45
+        }
+      },
+      <<"description">> => <<"Customer device information">>
+    },
+    <<"UserInspectShop">> => #{
+      <<"required">> => [ <<"partyID">>, <<"shopID">> ],
+      <<"properties">> => #{
+        <<"partyID">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
+          <<"minLength">> => 1,
+          <<"maxLength">> => 40
+        },
+        <<"shopID">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Shop ID">>,
+          <<"minLength">> => 1,
+          <<"maxLength">> => 40
+        }
+      },
+      <<"description">> => <<"Shop information">>
     },
     <<"UserInteraction">> => #{
       <<"type">> => <<"object">>,
