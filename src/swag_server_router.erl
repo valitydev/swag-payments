@@ -110,6 +110,11 @@ get_operations() ->
             method => <<"GET">>,
             handler => 'swag_server_countries_handler'
         },
+        'InspectUser' => #{
+            path => "/v2/processing/antifraud/inspectUser",
+            method => <<"POST">>,
+            handler => 'swag_server_inspector_handler'
+        },
         'CreateInvoiceTemplate' => #{
             path => "/v2/processing/invoice-templates",
             method => <<"POST">>,
