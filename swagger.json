@@ -234,6 +234,67 @@
     }
   ],
   "paths": {
+    "/processing/antifraud/inspectUser": {
+      "post": {
+        "summary": "Inspect user to use payment method",
+        "operationId": "inspectUser",
+        "tags": [
+          "Inspector"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "customer",
+                  "shops"
+                ],
+                "properties": {
+                  "customer": {
+                    "$ref": "#/definitions/UserInspectCustomer"
+                  },
+                  "shops": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/UserInspectShop"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blockedShops": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/UserInspectShop"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/DefaultLogicError"
+          },
+          "401": {
+            "$ref": "#/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          }
+        }
+      }
+    },
     "/processing/categories": {
       "get": {
         "description": "Get list of categories",
@@ -6088,6 +6149,76 @@
         "approvalCode": {
           "description": "Authorization Approval Code",
           "type": "string"
+        }
+      }
+    },
+    "UserInspectContact": {
+      "description": "Customer contact information",
+      "required": [
+        "email"
+      ],
+      "properties": {
+        "email": {
+          "description": "Email address",
+          "type": "string",
+          "format": "email",
+          "maxLength": 100
+        },
+        "phoneNumber": {
+          "description": "Mobile phone number with international prefix according to [E.164](https://en.wikipedia.org/wiki/E.164).\n",
+          "type": "string",
+          "format": "^\\+\\d{4,15}$"
+        }
+      }
+    },
+    "UserInspectCustomer": {
+      "description": "Information about client",
+      "required": [
+        "contact"
+      ],
+      "properties": {
+        "device": {
+          "$ref": "#/definitions/UserInspectDevice"
+        },
+        "contact": {
+          "$ref": "#/definitions/UserInspectContact"
+        }
+      }
+    },
+    "UserInspectDevice": {
+      "description": "Customer device information",
+      "properties": {
+        "fingerprint": {
+          "description": "Payer's user agent unique fingerprint",
+          "type": "string",
+          "maxLength": 1000
+        },
+        "ip": {
+          "description": "Payer IP-address",
+          "type": "string",
+          "format": "ip-address",
+          "maxLength": 45
+        }
+      }
+    },
+    "UserInspectShop": {
+      "description": "Shop information",
+      "required": [
+        "partyID",
+        "shopID"
+      ],
+      "properties": {
+        "partyID": {
+          "description": "The participant's unique identifier within the system.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "shopID": {
+          "description": "Shop ID",
+          "type": "string",
+          "maxLength": 40,
+          "minLength": 1
         }
       }
     },
