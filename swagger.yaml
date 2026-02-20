@@ -532,32 +532,32 @@ paths:
       operationId: inspectUser
       tags:
         - Inspector
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - customer
-                - shops
-              properties:
-                customer:
-                  $ref: '#/definitions/UserInspectCustomer'
-                shops:
-                  type: array
-                  items:
-                    $ref: '#/definitions/UserInspectShop'
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required:
+              - customer
+              - shops
+            properties:
+              customer:
+                $ref: '#/definitions/UserInspectCustomer'
+              shops:
+                type: array
+                items:
+                  $ref: '#/definitions/UserInspectShop'
       responses:
         '200':
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  blockedShops:
-                    type: array
-                    items:
-                      $ref: '#/definitions/UserInspectShop'
+          description: OK
+          schema:
+            type: object
+            properties:
+              blockedShops:
+                type: array
+                items:
+                  $ref: '#/definitions/UserInspectShop'
         '400':
           $ref: '#/responses/DefaultLogicError'
         '401':
