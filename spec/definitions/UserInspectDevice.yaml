@@ -1,6 +1,11 @@
 description: Customer device information
 properties:
-  ip:
-    type: string
   fingerprint:
+    description: Payer's user agent unique fingerprint
     type: string
+    maxLength: 1000
+  ip:
+    description: Payer IP-address
+    type: string
+    format: ip-address
+    maxLength: 45

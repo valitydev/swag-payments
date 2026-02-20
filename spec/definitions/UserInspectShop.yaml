@@ -1,9 +1,13 @@
 description: Shop information
 required:
-  - partyId
-  - shopId
+  - partyID
+  - shopID
 properties:
-  partyId:
+  partyID:
+    x-rebillyMerge:
+      - $ref: "#/definitions/PartyID"
+  shopID:
+    description: Shop ID
     type: string
-  shopId:
-    type: string
+    maxLength: 40
+    minLength: 1

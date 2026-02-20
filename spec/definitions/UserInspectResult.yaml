@@ -1,6 +1,0 @@
-type: object
-properties:
-  blockedShops:
-    type: array
-    items:
-      $ref: '#/definitions/UserInspectShop'

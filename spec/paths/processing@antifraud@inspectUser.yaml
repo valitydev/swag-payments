@@ -7,13 +7,30 @@ post:
     content:
       application/json:
         schema:
-          $ref: '#/definitions/UserInspectRequest'
+          type: object
+          required:
+            - customer
+            - shops
+          properties:
+            customer:
+              $ref: '#/definitions/UserInspectCustomer'
+            shops:
+              type: array
+              items:
+                $ref: '#/definitions/UserInspectShop'
+
   responses:
     "200":
       content:
         application/json:
           schema:
-            $ref: '#/definitions/UserInspectResult'
+            type: object
+            properties:
+              blockedShops:
+                type: array
+                items:
+                  $ref: '#/definitions/UserInspectShop'
+
     "404":
       $ref: "#/responses/NotFound"
     "401":
