@@ -139,9 +139,21 @@ get_raw() ->
         <<"tags">> => [ <<"Inspector">> ],
         <<"summary">> => <<"Inspect user to use payment method">>,
         <<"operationId">> => <<"inspectUser">>,
-        <<"parameters">> => [ ],
+        <<"parameters">> => [ #{
+          <<"in">> => <<"body">>,
+          <<"name">> => <<"body">>,
+          <<"required">> => true,
+          <<"schema">> => #{
+            <<"$ref">> => <<"#/definitions/body">>
+          }
+        } ],
         <<"responses">> => #{
-          <<"200">> => #{ },
+          <<"200">> => #{
+            <<"description">> => <<"OK">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/inline_response_200">>
+            }
+          },
           <<"400">> => #{
             <<"description">> => <<"Invalid data">>,
             <<"schema">> => #{
@@ -2342,7 +2354,7 @@ get_raw() ->
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
-                <<"$ref">> => <<"#/definitions/inline_response_200">>
+                <<"$ref">> => <<"#/definitions/inline_response_200_1">>
               }
             }
           },
@@ -6705,7 +6717,11 @@ get_raw() ->
           <<"maxLength">> => 40
         }
       },
-      <<"description">> => <<"Shop information">>
+      <<"description">> => <<"Shop information">>,
+      <<"example">> => #{
+        <<"shopID">> => <<"shopID">>,
+        <<"partyID">> => <<"partyID">>
+      }
     },
     <<"UserInteraction">> => #{
       <<"type">> => <<"object">>,
@@ -6809,6 +6825,41 @@ get_raw() ->
         },
         <<"description">> => <<"Yandex Pay data">>
       } ]
+    },
+    <<"body">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"customer">>, <<"shops">> ],
+      <<"properties">> => #{
+        <<"customer">> => #{
+          <<"$ref">> => <<"#/definitions/UserInspectCustomer">>
+        },
+        <<"shops">> => #{
+          <<"type">> => <<"array">>,
+          <<"items">> => #{
+            <<"$ref">> => <<"#/definitions/UserInspectShop">>
+          }
+        }
+      }
+    },
+    <<"inline_response_200">> => #{
+      <<"type">> => <<"object">>,
+      <<"properties">> => #{
+        <<"blockedShops">> => #{
+          <<"type">> => <<"array">>,
+          <<"items">> => #{
+            <<"$ref">> => <<"#/definitions/UserInspectShop">>
+          }
+        }
+      },
+      <<"example">> => #{
+        <<"blockedShops">> => [ #{
+          <<"shopID">> => <<"shopID">>,
+          <<"partyID">> => <<"partyID">>
+        }, #{
+          <<"shopID">> => <<"shopID">>,
+          <<"partyID">> => <<"partyID">>
+        } ]
+      }
     },
     <<"inline_response_400">> => #{
       <<"type">> => <<"object">>,
@@ -6986,7 +7037,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_200">> => #{
+    <<"inline_response_200_1">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"currency">>, <<"lowerBound">>, <<"paymentMethod">>, <<"upperBound">> ],
       <<"properties">> => #{

@@ -270,7 +270,7 @@ get_response_spec('get_shop_by_id_for_party', 404) ->
     {'GeneralError', 'GeneralError'};
 
 get_response_spec('get_shop_cash_limits_for_party', 200) ->
-    {'list', 'inline_response_200'};
+    {'list', 'inline_response_200_1'};
 
 get_response_spec('get_shop_cash_limits_for_party', 400) ->
     {'DefaultLogicError', 'DefaultLogicError'};

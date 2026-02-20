@@ -48,7 +48,10 @@ process_response(Error, _) ->
 
 get_request_spec('inspect_user') ->
     [
-        
+        {'Body', #{
+            source => body,
+            rules  => [schema, {required, true}]
+        }}
     ].
 
 -spec get_response_spec(OperationID :: swag_client:operation_id(), Code :: swag_client_procession:code()) ->
@@ -56,7 +59,7 @@ get_request_spec('inspect_user') ->
 
 
 get_response_spec('inspect_user', 200) ->
-    undefined;
+    {'inline_response_200', 'inline_response_200'};
 
 get_response_spec('inspect_user', 400) ->
     {'DefaultLogicError', 'DefaultLogicError'};
