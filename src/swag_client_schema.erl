@@ -3971,6 +3971,11 @@ get_raw() ->
         <<"description">> => <<"Bank card">>
       } ]
     },
+    <<"CardMask">> => #{
+      <<"type">> => <<"string">>,
+      <<"pattern">> => <<"^\\d{0,6}\\*+\\d{0,4}$">>,
+      <<"description">> => <<"Masked card number">>
+    },
     <<"CashLimitBound">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"amount">>, <<"inclusive">> ],
@@ -4022,9 +4027,7 @@ get_raw() ->
           <<"description">> => <<"Chargeback ID">>
         },
         <<"createdAt">> => #{
-          <<"type">> => <<"string">>,
-          <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Date and time of creation">>
+          <<"$ref">> => <<"#/definitions/CreatedAt">>
         },
         <<"body">> => #{
           <<"type">> => <<"integer">>,
@@ -4060,7 +4063,7 @@ get_raw() ->
         }
       },
       <<"example">> => #{
-        <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"createdAt">> => #{ },
         <<"stage">> => <<"chargeback">>,
         <<"currency">> => <<"currency">>,
         <<"id">> => <<"id">>,
@@ -4240,6 +4243,11 @@ get_raw() ->
       <<"description">> => <<"Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
       <<"example">> => <<"RUS">>
     },
+    <<"CreatedAt">> => #{
+      <<"type">> => <<"string">>,
+      <<"format">> => <<"date-time">>,
+      <<"description">> => <<"Date and time of creation">>
+    },
     <<"CryptoCurrency">> => #{
       <<"type">> => <<"string">>,
       <<"description">> => <<"Cryptocurrency payment method.\nThe list of cryptocurrencies available for making payments can be found out by calling the corresponding [operation](#operation/getInvoicePaymentMethods) after creating an invoice.\n">>,
@@ -4406,9 +4414,7 @@ get_raw() ->
           <<"description">> => <<"Bank card ID">>
         },
         <<"cardMask">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Masked card number">>,
-          <<"pattern">> => <<"^\\d{0,6}\\*+\\d{0,4}$">>
+          <<"$ref">> => <<"#/definitions/CardMask">>
         },
         <<"createdAt">> => #{
           <<"type">> => <<"string">>,
@@ -4419,7 +4425,7 @@ get_raw() ->
       <<"description">> => <<"Customer bank card information">>,
       <<"example">> => #{
         <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
-        <<"cardMask">> => <<"cardMask">>,
+        <<"cardMask">> => #{ },
         <<"id">> => <<"id">>
       }
     },
@@ -4888,8 +4894,7 @@ get_raw() ->
           <<"type">> => <<"integer">>
         },
         <<"createdAt">> => #{
-          <<"type">> => <<"string">>,
-          <<"format">> => <<"date-time">>
+          <<"$ref">> => <<"#/definitions/CreatedAt">>
         },
         <<"changes">> => #{
           <<"type">> => <<"array">>,
@@ -4899,7 +4904,7 @@ get_raw() ->
         }
       },
       <<"example">> => #{
-        <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"createdAt">> => #{ },
         <<"changes">> => [ #{
           <<"changeType">> => <<"InvoiceCreated">>
         }, #{
@@ -7358,11 +7363,11 @@ get_raw() ->
       <<"example">> => #{
         <<"result">> => [ #{
           <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
-          <<"cardMask">> => <<"cardMask">>,
+          <<"cardMask">> => #{ },
           <<"id">> => <<"id">>
         }, #{
           <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
-          <<"cardMask">> => <<"cardMask">>,
+          <<"cardMask">> => #{ },
           <<"id">> => <<"id">>
         } ],
         <<"continuationToken">> => <<"continuationToken">>
@@ -7848,6 +7853,14 @@ get_raw() ->
       <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response. To receive the next part of the data, reapply to the service specifying the same query parameters and the received token.\n">>,
       <<"required">> => false,
       <<"type">> => <<"string">>
+    },
+    <<"externalID">> => #{
+      <<"name">> => <<"externalID">>,
+      <<"in">> => <<"query">>,
+      <<"required">> => true,
+      <<"type">> => <<"string">>,
+      <<"maxLength">> => 40,
+      <<"minLength">> => 1
     }
   },
   <<"responses">> => #{
