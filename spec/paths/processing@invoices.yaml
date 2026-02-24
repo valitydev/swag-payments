@@ -6,13 +6,9 @@ get:
   parameters:
     - $ref: "#/parameters/requestID"
     - $ref: "#/parameters/deadline"
-    - name: externalID
-      description: External invoice identifier
-      in: query
-      required: true
-      type: string
-      maxLength: 40
-      minLength: 1
+    - x-rebillyMerge:
+        - $ref: "#/parameters/externalID"
+        - description: External invoice identifier
   responses:
     "200":
       description: Invoice

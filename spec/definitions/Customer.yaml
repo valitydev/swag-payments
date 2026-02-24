@@ -12,9 +12,9 @@ properties:
       - $ref: "#/definitions/ExternalID"
       - description: External customer identifier
   createdAt:
-    description: Date and time of customer creation
-    type: string
-    format: date-time
+    x-rebillyMerge:
+      - $ref: "#/definitions/CreatedAt"
+      - description: Date and time of customer creation
   contactInfo:
     $ref: "#/definitions/ContactInfo"
   metadata:

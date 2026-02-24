@@ -8,10 +8,8 @@ properties:
     description: Bank card ID
     type: string
   cardMask:
-    description: Masked card number
-    type: string
-    pattern: '^\d{0,6}\*+\d{0,4}$'
+    $ref: "#/definitions/CardMask"
   createdAt:
-    description: Date and time of bank card registration
-    type: string
-    format: date-time
+    x-rebillyMerge:
+      - $ref: "#/definitions/CreatedAt"
+      - description: Date and time of bank card registration

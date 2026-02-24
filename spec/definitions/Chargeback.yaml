@@ -12,9 +12,7 @@ properties:
     description: Chargeback ID
     type: string
   createdAt:
-    description: Date and time of creation
-    type: string
-    format: date-time
+    $ref: "#/definitions/CreatedAt"
   body:
     description: >
       Chargeback amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.

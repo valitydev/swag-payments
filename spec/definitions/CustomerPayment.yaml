@@ -12,6 +12,6 @@ properties:
     description: Payment ID
     type: string
   createdAt:
-    description: Date and time of payment
-    type: string
-    format: date-time
+    x-rebillyMerge:
+      - $ref: "#/definitions/CreatedAt"
+      - description: Date and time of payment

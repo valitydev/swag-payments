@@ -22,9 +22,9 @@ x-merge-properties:
           - $ref: "#/definitions/ExternalID"
           - description: External invoice identifier
       createdAt:
-        description: Created at
-        type: string
-        format: date-time
+        x-rebillyMerge:
+          - $ref: "#/definitions/CreatedAt"
+          - description: Created at
       dueDate:
         description: Expiration date and time
         type: string

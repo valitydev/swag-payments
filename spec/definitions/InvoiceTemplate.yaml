@@ -26,9 +26,9 @@ properties:
     type: string
     maxLength: 1000
   createdAt:
-    description: Template creation date
-    type: string
-    format: date-time
+    x-rebillyMerge:
+      - $ref: "#/definitions/CreatedAt"
+      - description: Template creation date
   lifetime:
     $ref: "#/definitions/LifetimeInterval"
   details:

@@ -252,6 +252,13 @@ parameters:
       in the response. To receive the next part of the data, reapply to
       the service specifying the same query parameters and the received
       token.
+  externalID:
+    name: externalID
+    in: query
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
 tags:
   - name: Parties
     x-displayName: Parties

@@ -7,13 +7,9 @@ get:
     - $ref: "#/parameters/requestID"
     - $ref: "#/parameters/deadline"
     - $ref: "#/parameters/partyID"
-    - name: externalID
-      description: External refund identifier
-      in: query
-      required: true
-      type: string
-      maxLength: 40
-      minLength: 1
+    - x-rebillyMerge:
+        - $ref: "#/parameters/externalID"
+        - description: External refund identifier
   responses:
     "200":
       description: Refund details

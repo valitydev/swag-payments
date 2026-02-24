@@ -14,9 +14,9 @@ x-merge-properties:
         x-rebillyMerge:
           - $ref: "#/definitions/ExternalID"
       createdAt:
-        description: Creation date and time
-        type: string
-        format: date-time
+        x-rebillyMerge:
+          - $ref: "#/definitions/CreatedAt"
+          - description: Creation date and time
       amount:
         description: >
           Refund amount, in minor monetary units, e.g. cents if US dollars are
