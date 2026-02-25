@@ -103,8 +103,12 @@ get_raw() ->
     <<"description">> => <<"Invoice templates make invoicing easy. An invoice template is linked to the shop and contains specification that can be used for invoice creation by specifying the cost of goods and services and/or invoice metadata. If a template contains the fixed cost, it can be removed during invoice creation. If invoice metadata is not specified when an invoice is created by a template, they will be taken from a template (if metadata is contained in a template).\n\nThe creation, update and deletion of an invoice template doesn’t require the system verification and requests for these changes.\n## Authorization\nThe creation, update and deletion of an invoice template is authorised by your API key.\n### Invoice template access token\nAn invoice template access token is created in the result of template creation transaction. It authorises:\n* the getting of invoice template by its ID,\n* invoice creation by the template.\n">>,
     <<"x-displayName">> => <<"Invoice templates">>
   }, #{
+    <<"name">> => <<"Customers">>,
+    <<"description">> => <<"A customer is an aggregator of payer information within a specific party. It links together bank cards and payment history for a single payer, enabling recurrent payment cascading across multiple providers.\n\nA customer can be associated with multiple bank cards, each of which may have recurrent tokens from different providers. When a recurrent payment fails with one provider, the system can automatically cascade to the next available provider using the customer's stored recurrent tokens.\n\n## Customer access token\nA customer access token is used to associate payments with a customer. Pass the token during payment creation to link the payment and any resulting recurrent tokens to the customer.\n\n## Authorization\nCustomer management operations are authorized by your API key.\n">>,
+    <<"x-displayName">> => <<"Customers">>
+  }, #{
     <<"name">> => <<"Payments">>,
-    <<"description">> => <<"The actual debiting the payer’s funds is made by calling of payment creation method. Before payments the invoice, within which the system will attempt to debit, has to be created and payer’s payment token has to be specified. This way the system provides you an interface that allows your server code to initiate and control the debiting process. This process can be both synchronous, when you are waiting for system response, and asynchronous, when you are waiting for notifications on the webhook set up for the corresponding shop after the payments are launched.\n## Payment options\nThe system provides two payment methods: one-step and two-step, PaymentFlowInstant and PaymentFlowHold.\nOne-step payment (PaymentFlowInstant) is performed by calling of one API method. The result of it is authorisation and further debiting in favour of a shop within one transaction.\nTwo-step payment (PaymentFlowHold) means the call of two methods: one for authorisation and one for debiting. After the successful authorisation the transaction amount will be blocked on a payer’s account so a payer can’t use it.\nThe debiting (capturePayment) can be confirmed on equal or less authorisation amount. If the less amount is specified, the balance will be refunded to a payer. The successful authorisation can be confirmed or cancelled both manually by calling the corresponding API method (capturePayment or cancelPayment) and automatically according to the chosen strategy onHoldExpiration. The manual confirmation period is set in the system settings by yourself and it is usually from 3 to 7 calendar days.\n## Payment session\nThe system ensures the idempotency of debiting funds from payment instrument by providing the unique payment session ID. This ID is provided during the creation of [payment instrument tokens](#tag/Tokens) and guarantees the idempotency of debit requests, providing the protection from erroneous repeated debits.\n## Payment processing time limit\nWhen the payment is created within the system, you can set up the payment processing time in the field `processingDeadline`. When it is expired, the system is trying to stop processing the payment and changing its status to `failed` with the error `processing_deadline_reached`.\n\nProcessing time limit should be considered as a recommendation as the system can fail to stop processing on the basis of the payment instrument and the current payment status. If a field value is not set up, the system will choose it by itself to have enough time for payment transfer in general conditions.\n\nPayment processing time limit, similarly to the header `X-Request-Deadline`, can be specified in format described in RFC 3339 or in relative values.\n## Authorization\nPayment request APIs are authorised by an invoice access token that is used to create the payment or by API key.\n">>,
+    <<"description">> => <<"The actual debiting the payer's funds is made by calling of payment creation method. Before payments the invoice, within which the system will attempt to debit, has to be created and payer’s payment token has to be specified. This way the system provides you an interface that allows your server code to initiate and control the debiting process. This process can be both synchronous, when you are waiting for system response, and asynchronous, when you are waiting for notifications on the webhook set up for the corresponding shop after the payments are launched.\n## Payment options\nThe system provides two payment methods: one-step and two-step, PaymentFlowInstant and PaymentFlowHold.\nOne-step payment (PaymentFlowInstant) is performed by calling of one API method. The result of it is authorisation and further debiting in favour of a shop within one transaction.\nTwo-step payment (PaymentFlowHold) means the call of two methods: one for authorisation and one for debiting. After the successful authorisation the transaction amount will be blocked on a payer’s account so a payer can’t use it.\nThe debiting (capturePayment) can be confirmed on equal or less authorisation amount. If the less amount is specified, the balance will be refunded to a payer. The successful authorisation can be confirmed or cancelled both manually by calling the corresponding API method (capturePayment or cancelPayment) and automatically according to the chosen strategy onHoldExpiration. The manual confirmation period is set in the system settings by yourself and it is usually from 3 to 7 calendar days.\n## Payment session\nThe system ensures the idempotency of debiting funds from payment instrument by providing the unique payment session ID. This ID is provided during the creation of [payment instrument tokens](#tag/Tokens) and guarantees the idempotency of debit requests, providing the protection from erroneous repeated debits.\n## Payment processing time limit\nWhen the payment is created within the system, you can set up the payment processing time in the field `processingDeadline`. When it is expired, the system is trying to stop processing the payment and changing its status to `failed` with the error `processing_deadline_reached`.\n\nProcessing time limit should be considered as a recommendation as the system can fail to stop processing on the basis of the payment instrument and the current payment status. If a field value is not set up, the system will choose it by itself to have enough time for payment transfer in general conditions.\n\nPayment processing time limit, similarly to the header `X-Request-Deadline`, can be specified in format described in RFC 3339 or in relative values.\n## Authorization\nPayment request APIs are authorised by an invoice access token that is used to create the payment or by API key.\n">>,
     <<"x-displayName">> => <<"Payments">>
   }, #{
     <<"name">> => <<"Tokens">>,
@@ -362,6 +366,414 @@ get_raw() ->
         }
       }
     },
+    <<"/processing/customers">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"Customers">> ],
+        <<"description">> => <<"Get customer by specified external identifier.">>,
+        <<"operationId">> => <<"getCustomerByExternalID">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"externalID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"External customer identifier">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"Customer">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/Customer">>
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Invalid data">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Authorization error">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Target resource not found">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      },
+      <<"post">> => #{
+        <<"tags">> => [ <<"Customers">> ],
+        <<"description">> => <<"Create a new customer.">>,
+        <<"operationId">> => <<"createCustomer">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"in">> => <<"body">>,
+          <<"name">> => <<"customerParams">>,
+          <<"description">> => <<"Customer parameters">>,
+          <<"required">> => true,
+          <<"schema">> => #{
+            <<"$ref">> => <<"#/definitions/CustomerParams">>
+          }
+        } ],
+        <<"responses">> => #{
+          <<"201">> => #{
+            <<"description">> => <<"Customer created">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/CustomerAndToken">>
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Invalid data for customer creation">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/inline_response_400">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Authorization error">>
+          },
+          <<"409">> => #{
+            <<"description">> => <<"The passed value `externalID` has already been used by you with other query parameters">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/ExternalIDConflictError">>
+            }
+          }
+        }
+      }
+    },
+    <<"/processing/customers/{customerID}">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"Customers">> ],
+        <<"description">> => <<"Get customer by ID.">>,
+        <<"operationId">> => <<"getCustomerByID">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"customerID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Customer ID">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"Customer details">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/Customer">>
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Invalid data">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Authorization error">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Target resource not found">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      },
+      <<"delete">> => #{
+        <<"tags">> => [ <<"Customers">> ],
+        <<"description">> => <<"Delete customer (soft delete).">>,
+        <<"operationId">> => <<"deleteCustomer">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"customerID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Customer ID">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        } ],
+        <<"responses">> => #{
+          <<"204">> => #{
+            <<"description">> => <<"Customer deleted">>
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Invalid data">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Authorization error">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Target resource not found">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
+    <<"/processing/customers/{customerID}/access-tokens">> => #{
+      <<"post">> => #{
+        <<"tags">> => [ <<"Customers">> ],
+        <<"description">> => <<"Create a new access token for the specified customer.">>,
+        <<"operationId">> => <<"createCustomerAccessToken">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"customerID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Customer ID">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        } ],
+        <<"responses">> => #{
+          <<"201">> => #{
+            <<"description">> => <<"Access token created">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/AccessToken">>
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Invalid data">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Authorization error">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Target resource not found">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
+    <<"/processing/customers/{customerID}/bank-cards">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"Customers">> ],
+        <<"description">> => <<"Get bank cards associated with the specified customer.">>,
+        <<"operationId">> => <<"getCustomerBankCards">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"customerID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Customer ID">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"limit">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"Maximum number of items to return">>,
+          <<"required">> => true,
+          <<"type">> => <<"integer">>,
+          <<"maximum">> => 1000,
+          <<"minimum">> => 1,
+          <<"format">> => <<"int32">>
+        }, #{
+          <<"name">> => <<"continuationToken">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response. To receive the next part of the data, reapply to the service specifying the same query parameters and the received token.\n">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"List of customer bank cards">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/inline_response_200_1">>
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Invalid data">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Authorization error">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Target resource not found">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
+    <<"/processing/customers/{customerID}/payments">> => #{
+      <<"get">> => #{
+        <<"tags">> => [ <<"Customers">> ],
+        <<"description">> => <<"Get payments associated with the specified customer.">>,
+        <<"operationId">> => <<"getCustomerPayments">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"customerID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Customer ID">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"limit">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"Maximum number of items to return">>,
+          <<"required">> => true,
+          <<"type">> => <<"integer">>,
+          <<"maximum">> => 1000,
+          <<"minimum">> => 1,
+          <<"format">> => <<"int32">>
+        }, #{
+          <<"name">> => <<"continuationToken">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response. To receive the next part of the data, reapply to the service specifying the same query parameters and the received token.\n">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>
+        } ],
+        <<"responses">> => #{
+          <<"200">> => #{
+            <<"description">> => <<"List of customer payments">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/inline_response_200_2">>
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Invalid data">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/DefaultLogicError">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Authorization error">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Target resource not found">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
     <<"/processing/invoice-templates">> => #{
       <<"post">> => #{
         <<"tags">> => [ <<"InvoiceTemplates">> ],
@@ -402,7 +814,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invalid data for invoice template creation">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_1">>
             }
           },
           <<"401">> => #{
@@ -518,7 +930,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invalid data for invoice template change">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_1">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_2">>
             }
           },
           <<"401">> => #{
@@ -568,7 +980,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invalid data for invoice template deletion">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_2">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_3">>
             }
           },
           <<"401">> => #{
@@ -631,7 +1043,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invalid data for invoice creation">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_3">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_4">>
             }
           },
           <<"401">> => #{
@@ -803,7 +1215,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invalid data for invoice creation">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_4">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_5">>
             }
           },
           <<"401">> => #{
@@ -1046,7 +1458,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invoice fulfillment error">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_5">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_6">>
             }
           },
           <<"401">> => #{
@@ -1223,7 +1635,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invalid data to start the payment">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_6">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_7">>
             }
           },
           <<"401">> => #{
@@ -1360,7 +1772,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Payment cancel error">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_7">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_8">>
             }
           },
           <<"401">> => #{
@@ -1428,7 +1840,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Payment capture error">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_8">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_9">>
             }
           },
           <<"401">> => #{
@@ -1700,7 +2112,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invalid refund data">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_9">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_10">>
             }
           },
           <<"401">> => #{
@@ -1837,7 +2249,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invoice rescind error">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_10">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_11">>
             }
           },
           <<"401">> => #{
@@ -2354,7 +2766,7 @@ get_raw() ->
             <<"schema">> => #{
               <<"type">> => <<"array">>,
               <<"items">> => #{
-                <<"$ref">> => <<"#/definitions/inline_response_200_1">>
+                <<"$ref">> => <<"#/definitions/inline_response_200_3">>
               }
             }
           },
@@ -3030,7 +3442,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invalid webhook data">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_11">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_12">>
             }
           },
           <<"401">> => #{
@@ -3597,6 +4009,11 @@ get_raw() ->
         <<"description">> => <<"Bank card">>
       } ]
     },
+    <<"CardMask">> => #{
+      <<"type">> => <<"string">>,
+      <<"pattern">> => <<"^\\d{0,6}\\*+\\d{0,4}$">>,
+      <<"description">> => <<"Masked card number">>
+    },
     <<"CashLimitBound">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"amount">>, <<"inclusive">> ],
@@ -3648,9 +4065,7 @@ get_raw() ->
           <<"description">> => <<"Chargeback ID">>
         },
         <<"createdAt">> => #{
-          <<"type">> => <<"string">>,
-          <<"format">> => <<"date-time">>,
-          <<"description">> => <<"Date and time of creation">>
+          <<"$ref">> => <<"#/definitions/CreatedAt">>
         },
         <<"body">> => #{
           <<"type">> => <<"integer">>,
@@ -3686,7 +4101,7 @@ get_raw() ->
         }
       },
       <<"example">> => #{
-        <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"createdAt">> => #{ },
         <<"stage">> => <<"chargeback">>,
         <<"currency">> => <<"currency">>,
         <<"id">> => <<"id">>,
@@ -3794,7 +4209,20 @@ get_raw() ->
           <<"maxLength">> => 40
         }
       },
-      <<"description">> => <<"Contact details">>
+      <<"description">> => <<"Contact details">>,
+      <<"example">> => #{
+        <<"firstName">> => <<"John">>,
+        <<"lastName">> => <<"Doe">>,
+        <<"country">> => <<"RUS">>,
+        <<"phoneNumber">> => <<"phoneNumber">>,
+        <<"address">> => <<"10th Street 13">>,
+        <<"city">> => <<"Denver">>,
+        <<"postalCode">> => <<"00012">>,
+        <<"dateOfBirth">> => <<"1970-01-01">>,
+        <<"documentId">> => <<"1234-5 678-abcd">>,
+        <<"state">> => <<"Colorado">>,
+        <<"email">> => <<"email">>
+      }
     },
     <<"ContinuationToken">> => #{
       <<"type">> => <<"string">>,
@@ -3852,6 +4280,11 @@ get_raw() ->
       <<"pattern">> => <<"^[A-Z]{3}$">>,
       <<"description">> => <<"Alpha-3 country code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
       <<"example">> => <<"RUS">>
+    },
+    <<"CreatedAt">> => #{
+      <<"type">> => <<"string">>,
+      <<"format">> => <<"date-time">>,
+      <<"description">> => <<"Date and time of creation">>
     },
     <<"CryptoCurrency">> => #{
       <<"type">> => <<"string">>,
@@ -3924,6 +4357,177 @@ get_raw() ->
       <<"type">> => <<"string">>,
       <<"pattern">> => <<"^[A-Z]{3}$">>,
       <<"description">> => <<"Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n">>
+    },
+    <<"Customer">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"createdAt">>, <<"id">> ],
+      <<"properties">> => #{
+        <<"id">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Customer ID">>
+        },
+        <<"externalID">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"External customer identifier">>,
+          <<"minLength">> => 1,
+          <<"maxLength">> => 40
+        },
+        <<"createdAt">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"date-time">>,
+          <<"description">> => <<"Date and time of customer creation">>
+        },
+        <<"contactInfo">> => #{
+          <<"$ref">> => <<"#/definitions/ContactInfo">>
+        },
+        <<"metadata">> => #{
+          <<"type">> => <<"object">>,
+          <<"description">> => <<"Customer metadata">>,
+          <<"properties">> => #{ }
+        }
+      },
+      <<"description">> => <<"Customer details">>,
+      <<"example">> => #{
+        <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"metadata">> => <<"{}">>,
+        <<"contactInfo">> => #{
+          <<"firstName">> => <<"John">>,
+          <<"lastName">> => <<"Doe">>,
+          <<"country">> => <<"RUS">>,
+          <<"phoneNumber">> => <<"phoneNumber">>,
+          <<"address">> => <<"10th Street 13">>,
+          <<"city">> => <<"Denver">>,
+          <<"postalCode">> => <<"00012">>,
+          <<"dateOfBirth">> => <<"1970-01-01">>,
+          <<"documentId">> => <<"1234-5 678-abcd">>,
+          <<"state">> => <<"Colorado">>,
+          <<"email">> => <<"email">>
+        },
+        <<"externalID">> => <<"externalID">>,
+        <<"id">> => <<"id">>
+      }
+    },
+    <<"CustomerAndToken">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"customer">>, <<"customerAccessToken">> ],
+      <<"properties">> => #{
+        <<"customer">> => #{
+          <<"$ref">> => <<"#/definitions/Customer">>
+        },
+        <<"customerAccessToken">> => #{
+          <<"$ref">> => <<"#/definitions/AccessToken">>
+        }
+      },
+      <<"example">> => #{
+        <<"customerAccessToken">> => #{
+          <<"payload">> => <<"payload">>
+        },
+        <<"customer">> => #{
+          <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+          <<"metadata">> => <<"{}">>,
+          <<"contactInfo">> => #{
+            <<"firstName">> => <<"John">>,
+            <<"lastName">> => <<"Doe">>,
+            <<"country">> => <<"RUS">>,
+            <<"phoneNumber">> => <<"phoneNumber">>,
+            <<"address">> => <<"10th Street 13">>,
+            <<"city">> => <<"Denver">>,
+            <<"postalCode">> => <<"00012">>,
+            <<"dateOfBirth">> => <<"1970-01-01">>,
+            <<"documentId">> => <<"1234-5 678-abcd">>,
+            <<"state">> => <<"Colorado">>,
+            <<"email">> => <<"email">>
+          },
+          <<"externalID">> => <<"externalID">>,
+          <<"id">> => <<"id">>
+        }
+      }
+    },
+    <<"CustomerBankCard">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"createdAt">>, <<"id">> ],
+      <<"properties">> => #{
+        <<"id">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Bank card ID">>
+        },
+        <<"cardMask">> => #{
+          <<"$ref">> => <<"#/definitions/CardMask">>
+        },
+        <<"createdAt">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"date-time">>,
+          <<"description">> => <<"Date and time of bank card registration">>
+        }
+      },
+      <<"description">> => <<"Customer bank card information">>,
+      <<"example">> => #{
+        <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"cardMask">> => #{ },
+        <<"id">> => <<"id">>
+      }
+    },
+    <<"CustomerParams">> => #{
+      <<"type">> => <<"object">>,
+      <<"properties">> => #{
+        <<"externalID">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"External customer identifier">>,
+          <<"minLength">> => 1,
+          <<"maxLength">> => 40
+        },
+        <<"contactInfo">> => #{
+          <<"$ref">> => <<"#/definitions/ContactInfo">>
+        },
+        <<"metadata">> => #{
+          <<"type">> => <<"object">>,
+          <<"description">> => <<"Customer metadata">>,
+          <<"properties">> => #{ }
+        }
+      },
+      <<"description">> => <<"Customer creation parameters">>,
+      <<"example">> => #{
+        <<"metadata">> => <<"{}">>,
+        <<"contactInfo">> => #{
+          <<"firstName">> => <<"John">>,
+          <<"lastName">> => <<"Doe">>,
+          <<"country">> => <<"RUS">>,
+          <<"phoneNumber">> => <<"phoneNumber">>,
+          <<"address">> => <<"10th Street 13">>,
+          <<"city">> => <<"Denver">>,
+          <<"postalCode">> => <<"00012">>,
+          <<"dateOfBirth">> => <<"1970-01-01">>,
+          <<"documentId">> => <<"1234-5 678-abcd">>,
+          <<"state">> => <<"Colorado">>,
+          <<"email">> => <<"email">>
+        },
+        <<"externalID">> => <<"externalID">>
+      }
+    },
+    <<"CustomerPayment">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"createdAt">>, <<"invoiceID">>, <<"paymentID">> ],
+      <<"properties">> => #{
+        <<"invoiceID">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Invoice ID">>
+        },
+        <<"paymentID">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Payment ID">>
+        },
+        <<"createdAt">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"date-time">>,
+          <<"description">> => <<"Date and time of payment">>
+        }
+      },
+      <<"description">> => <<"Customer payment information">>,
+      <<"example">> => #{
+        <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"paymentID">> => <<"paymentID">>,
+        <<"invoiceID">> => <<"invoiceID">>
+      }
     },
     <<"Decimal">> => #{
       <<"type">> => <<"object">>,
@@ -4328,8 +4932,7 @@ get_raw() ->
           <<"type">> => <<"integer">>
         },
         <<"createdAt">> => #{
-          <<"type">> => <<"string">>,
-          <<"format">> => <<"date-time">>
+          <<"$ref">> => <<"#/definitions/CreatedAt">>
         },
         <<"changes">> => #{
           <<"type">> => <<"array">>,
@@ -4339,7 +4942,7 @@ get_raw() ->
         }
       },
       <<"example">> => #{
-        <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"createdAt">> => #{ },
         <<"changes">> => [ #{
           <<"changeType">> => <<"InvoiceCreated">>
         }, #{
@@ -5539,6 +6142,10 @@ get_raw() ->
           <<"description">> => <<"An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.\n">>,
           <<"default">> => false
         },
+        <<"customerAccessToken">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Customer access token. When provided, the payment and any resulting recurrent tokens will be associated with the customer. If not provided and makeRecurrent is true, a new customer will be created.\n">>
+        },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
           <<"description">> => <<"Metadata to be linked with the payment">>,
@@ -5555,6 +6162,7 @@ get_raw() ->
           },
           <<"payerType">> => <<"payerType">>
         },
+        <<"customerAccessToken">> => <<"customerAccessToken">>,
         <<"flow">> => #{
           <<"type">> => <<"PaymentFlowInstant">>
         },
@@ -6868,6 +7476,78 @@ get_raw() ->
         <<"code">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
+          <<"enum">> => [ <<"invalidPartyID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidPartyStatus">>, <<"ambiguousPartyID">> ]
+        },
+        <<"message">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"Party not found or inaccessible">>,
+          <<"description">> => <<"Human-readable description of the error">>
+        }
+      }
+    },
+    <<"inline_response_200_1">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"result">> ],
+      <<"properties">> => #{
+        <<"result">> => #{
+          <<"type">> => <<"array">>,
+          <<"items">> => #{
+            <<"$ref">> => <<"#/definitions/CustomerBankCard">>
+          }
+        },
+        <<"continuationToken">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response.\nTo receive the next part of the data, it is necessary to reapply to the service, specifying the same list of conditions and the received token. If there is no token, the last part of data is received.\n">>
+        }
+      },
+      <<"example">> => #{
+        <<"result">> => [ #{
+          <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+          <<"cardMask">> => #{ },
+          <<"id">> => <<"id">>
+        }, #{
+          <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+          <<"cardMask">> => #{ },
+          <<"id">> => <<"id">>
+        } ],
+        <<"continuationToken">> => <<"continuationToken">>
+      }
+    },
+    <<"inline_response_200_2">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"result">> ],
+      <<"properties">> => #{
+        <<"result">> => #{
+          <<"type">> => <<"array">>,
+          <<"items">> => #{
+            <<"$ref">> => <<"#/definitions/CustomerPayment">>
+          }
+        },
+        <<"continuationToken">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response.\nTo receive the next part of the data, it is necessary to reapply to the service, specifying the same list of conditions and the received token. If there is no token, the last part of data is received.\n">>
+        }
+      },
+      <<"example">> => #{
+        <<"result">> => [ #{
+          <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+          <<"paymentID">> => <<"paymentID">>,
+          <<"invoiceID">> => <<"invoiceID">>
+        }, #{
+          <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+          <<"paymentID">> => <<"paymentID">>,
+          <<"invoiceID">> => <<"invoiceID">>
+        } ],
+        <<"continuationToken">> => <<"continuationToken">>
+      }
+    },
+    <<"inline_response_400_1">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"code">>, <<"message">> ],
+      <<"properties">> => #{
+        <<"code">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
           <<"enum">> => [ <<"invalidPartyID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidShopID">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"ambiguousPartyID">> ]
         },
         <<"message">> => #{
@@ -6877,7 +7557,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_1">> => #{
+    <<"inline_response_400_2">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -6893,7 +7573,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_2">> => #{
+    <<"inline_response_400_3">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -6909,7 +7589,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_3">> => #{
+    <<"inline_response_400_4">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -6925,7 +7605,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_4">> => #{
+    <<"inline_response_400_5">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -6941,7 +7621,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_5">> => #{
+    <<"inline_response_400_6">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -6957,7 +7637,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_6">> => #{
+    <<"inline_response_400_7">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -6973,7 +7653,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_7">> => #{
+    <<"inline_response_400_8">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -6989,7 +7669,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_8">> => #{
+    <<"inline_response_400_9">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -7005,7 +7685,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_9">> => #{
+    <<"inline_response_400_10">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -7021,7 +7701,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_10">> => #{
+    <<"inline_response_400_11">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -7037,7 +7717,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_200_1">> => #{
+    <<"inline_response_200_3">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"currency">>, <<"lowerBound">>, <<"paymentMethod">>, <<"upperBound">> ],
       <<"properties">> => #{
@@ -7069,7 +7749,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_11">> => #{
+    <<"inline_response_400_12">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{
@@ -7273,6 +7953,15 @@ get_raw() ->
       <<"required">> => true,
       <<"type">> => <<"string">>
     },
+    <<"customerID">> => #{
+      <<"name">> => <<"customerID">>,
+      <<"in">> => <<"path">>,
+      <<"description">> => <<"Customer ID">>,
+      <<"required">> => true,
+      <<"type">> => <<"string">>,
+      <<"maxLength">> => 40,
+      <<"minLength">> => 1
+    },
     <<"countryID">> => #{
       <<"name">> => <<"countryID">>,
       <<"in">> => <<"path">>,
@@ -7287,6 +7976,31 @@ get_raw() ->
       <<"description">> => <<"Trade bloc identifier">>,
       <<"required">> => true,
       <<"type">> => <<"string">>
+    },
+    <<"limit">> => #{
+      <<"name">> => <<"limit">>,
+      <<"in">> => <<"query">>,
+      <<"description">> => <<"Maximum number of items to return">>,
+      <<"required">> => true,
+      <<"type">> => <<"integer">>,
+      <<"maximum">> => 1000,
+      <<"minimum">> => 1,
+      <<"format">> => <<"int32">>
+    },
+    <<"continuationToken">> => #{
+      <<"name">> => <<"continuationToken">>,
+      <<"in">> => <<"query">>,
+      <<"description">> => <<"A token signaling that only a part of the data has been transmitted in the response. To receive the next part of the data, reapply to the service specifying the same query parameters and the received token.\n">>,
+      <<"required">> => false,
+      <<"type">> => <<"string">>
+    },
+    <<"externalID">> => #{
+      <<"name">> => <<"externalID">>,
+      <<"in">> => <<"query">>,
+      <<"required">> => true,
+      <<"type">> => <<"string">>,
+      <<"maxLength">> => 40,
+      <<"minLength">> => 1
     }
   },
   <<"responses">> => #{
