@@ -174,6 +174,14 @@ parameters:
     description: The participant's unique identifier within the system.
     required: true
     type: string
+  customerID:
+    name: customerID
+    in: path
+    description: Customer ID
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
   countryID:
     name: countryID
     in: path
@@ -187,6 +195,29 @@ parameters:
     description: Trade bloc identifier
     required: true
     type: string
+  limit:
+    name: limit
+    in: query
+    description: Maximum number of items to return
+    required: true
+    type: integer
+    format: int32
+    minimum: 1
+    maximum: 1000
+  continuationToken:
+    name: continuationToken
+    in: query
+    required: false
+    type: string
+    description: |
+      A token signaling that only a part of the data has been transmitted in the response. To receive the next part of the data, reapply to the service specifying the same query parameters and the received token.
+  externalID:
+    name: externalID
+    in: query
+    required: true
+    type: string
+    maxLength: 40
+    minLength: 1
 tags:
   - name: Parties
     x-displayName: Parties
@@ -257,10 +288,22 @@ tags:
       An invoice template access token is created in the result of template creation transaction. It authorises:
       * the getting of invoice template by its ID,
       * invoice creation by the template.
+  - name: Customers
+    x-displayName: Customers
+    description: |
+      A customer is an aggregator of payer information within a specific party. It links together bank cards and payment history for a single payer, enabling recurrent payment cascading across multiple providers.
+
+      A customer can be associated with multiple bank cards, each of which may have recurrent tokens from different providers. When a recurrent payment fails with one provider, the system can automatically cascade to the next available provider using the customer's stored recurrent tokens.
+
+      ## Customer access token
+      A customer access token is used to associate payments with a customer. Pass the token during payment creation to link the payment and any resulting recurrent tokens to the customer.
+
+      ## Authorization
+      Customer management operations are authorized by your API key.
   - name: Payments
     x-displayName: Payments
     description: |
-      The actual debiting the payer’s funds is made by calling of payment creation method. Before payments the invoice, within which the system will attempt to debit, has to be created and payer’s payment token has to be specified. This way the system provides you an interface that allows your server code to initiate and control the debiting process. This process can be both synchronous, when you are waiting for system response, and asynchronous, when you are waiting for notifications on the webhook set up for the corresponding shop after the payments are launched.
+      The actual debiting the payer's funds is made by calling of payment creation method. Before payments the invoice, within which the system will attempt to debit, has to be created and payer’s payment token has to be specified. This way the system provides you an interface that allows your server code to initiate and control the debiting process. This process can be both synchronous, when you are waiting for system response, and asynchronous, when you are waiting for notifications on the webhook set up for the corresponding shop after the payments are launched.
       ## Payment options
       The system provides two payment methods: one-step and two-step, PaymentFlowInstant and PaymentFlowHold.
       One-step payment (PaymentFlowInstant) is performed by calling of one API method. The result of it is authorisation and further debiting in favour of a shop within one transaction.
@@ -647,6 +690,208 @@ paths:
           $ref: '#/responses/DefaultLogicError'
         '404':
           $ref: '#/responses/NotFound'
+  /processing/customers:
+    get:
+      description: Get customer by specified external identifier.
+      tags:
+        - Customers
+      operationId: getCustomerByExternalID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: externalID
+          in: query
+          required: true
+          type: string
+          maxLength: 40
+          minLength: 1
+          description: External customer identifier
+      responses:
+        '200':
+          description: Customer
+          schema:
+            $ref: '#/definitions/Customer'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+    post:
+      description: Create a new customer.
+      tags:
+        - Customers
+      operationId: createCustomer
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: customerParams
+          description: Customer parameters
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CustomerParams'
+      responses:
+        '201':
+          description: Customer created
+          schema:
+            $ref: '#/definitions/CustomerAndToken'
+        '400':
+          description: Invalid data for customer creation
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidPartyID
+                  - invalidRequest
+                  - invalidDeadline
+                  - invalidPartyStatus
+                  - ambiguousPartyID
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Party not found or inaccessible
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '409':
+          $ref: '#/responses/ExternalIDConflict'
+  '/processing/customers/{customerID}':
+    get:
+      description: Get customer by ID.
+      tags:
+        - Customers
+      operationId: getCustomerByID
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/customerID'
+      responses:
+        '200':
+          description: Customer details
+          schema:
+            $ref: '#/definitions/Customer'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+    delete:
+      description: Delete customer (soft delete).
+      tags:
+        - Customers
+      operationId: deleteCustomer
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/customerID'
+      responses:
+        '204':
+          description: Customer deleted
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/customers/{customerID}/access-tokens':
+    post:
+      description: Create a new access token for the specified customer.
+      tags:
+        - Customers
+      operationId: createCustomerAccessToken
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/customerID'
+      responses:
+        '201':
+          description: Access token created
+          schema:
+            $ref: '#/definitions/AccessToken'
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/customers/{customerID}/bank-cards':
+    get:
+      description: Get bank cards associated with the specified customer.
+      tags:
+        - Customers
+      operationId: getCustomerBankCards
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/customerID'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/continuationToken'
+      responses:
+        '200':
+          description: List of customer bank cards
+          schema:
+            type: object
+            required:
+              - result
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: '#/definitions/CustomerBankCard'
+              continuationToken:
+                description: |
+                  A token signaling that only a part of the data has been transmitted in the response.
+                  To receive the next part of the data, it is necessary to reapply to the service, specifying the same list of conditions and the received token. If there is no token, the last part of data is received.
+                type: string
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/customers/{customerID}/payments':
+    get:
+      description: Get payments associated with the specified customer.
+      tags:
+        - Customers
+      operationId: getCustomerPayments
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/customerID'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/continuationToken'
+      responses:
+        '200':
+          description: List of customer payments
+          schema:
+            type: object
+            required:
+              - result
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: '#/definitions/CustomerPayment'
+              continuationToken:
+                description: |
+                  A token signaling that only a part of the data has been transmitted in the response.
+                  To receive the next part of the data, it is necessary to reapply to the service, specifying the same list of conditions and the received token. If there is no token, the last part of data is received.
+                type: string
+        '400':
+          $ref: '#/responses/DefaultLogicError'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
   /processing/invoice-templates:
     post:
       description: Create an new invoice template.
@@ -882,12 +1127,12 @@ paths:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
         - name: externalID
-          description: External invoice identifier
           in: query
           required: true
           type: string
           maxLength: 40
           minLength: 1
+          description: External invoice identifier
       responses:
         '200':
           description: Invoice
@@ -1548,12 +1793,12 @@ paths:
         - $ref: '#/parameters/deadline'
         - $ref: '#/parameters/partyID'
         - name: externalID
-          description: External invoice identifier
           in: query
           required: true
           type: string
           maxLength: 40
           minLength: 1
+          description: External invoice identifier
       responses:
         '200':
           description: Invoice
@@ -1576,12 +1821,12 @@ paths:
         - $ref: '#/parameters/deadline'
         - $ref: '#/parameters/partyID'
         - name: externalID
-          description: External payment identifier
           in: query
           required: true
           type: string
           maxLength: 40
           minLength: 1
+          description: External payment identifier
       responses:
         '200':
           description: Payment
@@ -1604,12 +1849,12 @@ paths:
         - $ref: '#/parameters/deadline'
         - $ref: '#/parameters/partyID'
         - name: externalID
-          description: External refund identifier
           in: query
           required: true
           type: string
           maxLength: 40
           minLength: 1
+          description: External refund identifier
       responses:
         '200':
           description: Refund details
@@ -1872,12 +2117,12 @@ paths:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
         - name: externalID
-          description: External payment identifier
           in: query
           required: true
           type: string
           maxLength: 40
           minLength: 1
+          description: External payment identifier
       responses:
         '200':
           description: Payment
@@ -1899,12 +2144,12 @@ paths:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
         - name: externalID
-          description: External refund identifier
           in: query
           required: true
           type: string
           maxLength: 40
           minLength: 1
+          description: External refund identifier
       responses:
         '200':
           description: Refund details
@@ -2484,6 +2729,10 @@ definitions:
             pattern: '^[[:alpha:][:space:][:punct:]]+$'
             minLength: 1
             maxLength: 100
+  CardMask:
+    description: Masked card number
+    type: string
+    pattern: '^\d{0,6}\*+\d{0,4}$'
   CashLimitBound:
     description: Cash limit bound.
     type: object
@@ -2527,9 +2776,7 @@ definitions:
         description: Chargeback ID
         type: string
       createdAt:
-        description: Date and time of creation
-        type: string
-        format: date-time
+        $ref: '#/definitions/CreatedAt'
       body:
         description: |
           Chargeback amount, in minor monetary units, e.g. cents if US dollars are specified as the currency.
@@ -2694,6 +2941,10 @@ definitions:
     type: string
     pattern: '^[A-Z]{3}$'
     example: RUS
+  CreatedAt:
+    description: Date and time of creation
+    type: string
+    format: date-time
   CryptoCurrency:
     description: |
       Cryptocurrency payment method.
@@ -2760,6 +3011,88 @@ definitions:
       Currency character code according to [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
     type: string
     pattern: '^[A-Z]{3}$'
+  Customer:
+    description: Customer details
+    type: object
+    required:
+      - id
+      - createdAt
+    properties:
+      id:
+        description: Customer ID
+        type: string
+      externalID:
+        description: External customer identifier
+        type: string
+        maxLength: 40
+        minLength: 1
+      createdAt:
+        description: Date and time of customer creation
+        type: string
+        format: date-time
+      contactInfo:
+        $ref: '#/definitions/ContactInfo'
+      metadata:
+        description: Customer metadata
+        type: object
+  CustomerAndToken:
+    type: object
+    required:
+      - customer
+      - customerAccessToken
+    properties:
+      customer:
+        $ref: '#/definitions/Customer'
+      customerAccessToken:
+        $ref: '#/definitions/AccessToken'
+  CustomerBankCard:
+    description: Customer bank card information
+    type: object
+    required:
+      - id
+      - createdAt
+    properties:
+      id:
+        description: Bank card ID
+        type: string
+      cardMask:
+        $ref: '#/definitions/CardMask'
+      createdAt:
+        description: Date and time of bank card registration
+        type: string
+        format: date-time
+  CustomerParams:
+    description: Customer creation parameters
+    type: object
+    properties:
+      externalID:
+        description: External customer identifier
+        type: string
+        maxLength: 40
+        minLength: 1
+      contactInfo:
+        $ref: '#/definitions/ContactInfo'
+      metadata:
+        description: Customer metadata
+        type: object
+  CustomerPayment:
+    description: Customer payment information
+    type: object
+    required:
+      - invoiceID
+      - paymentID
+      - createdAt
+    properties:
+      invoiceID:
+        description: Invoice ID
+        type: string
+      paymentID:
+        description: Payment ID
+        type: string
+      createdAt:
+        description: Date and time of payment
+        type: string
+        format: date-time
   Decimal:
     description: Fractional decimal number of arbitrary precision
     type: object
@@ -3082,8 +3415,7 @@ definitions:
       id:
         type: integer
       createdAt:
-        type: string
-        format: date-time
+        $ref: '#/definitions/CreatedAt'
       changes:
         type: array
         items:
@@ -3947,6 +4279,10 @@ definitions:
           An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.
         type: boolean
         default: false
+      customerAccessToken:
+        description: |
+          Customer access token. When provided, the payment and any resulting recurrent tokens will be associated with the customer. If not provided and makeRecurrent is true, a new customer will be created.
+        type: string
       metadata:
         description: Metadata to be linked with the payment
         type: object
