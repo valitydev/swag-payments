@@ -1,7 +1,7 @@
 %% -*- mode: erlang -*-
 
 %% basic handler
--module(swag_server_invoice_templates_handler).
+-module(swag_server_customers_handler).
 
 %% Cowboy REST callbacks
 -export([allowed_methods/2]).
@@ -56,7 +56,7 @@ init(Req, {_Operations, LogicHandler, SwaggerHandlerOpts} = InitOpts) ->
 allowed_methods(
     Req,
     State = #state{
-        operation_id = 'CreateInvoiceTemplate'
+        operation_id = 'CreateCustomer'
     }
 ) ->
     {[<<"POST">>], Req, State};
@@ -64,7 +64,7 @@ allowed_methods(
 allowed_methods(
     Req,
     State = #state{
-        operation_id = 'CreateInvoiceWithTemplate'
+        operation_id = 'CreateCustomerAccessToken'
     }
 ) ->
     {[<<"POST">>], Req, State};
@@ -72,7 +72,7 @@ allowed_methods(
 allowed_methods(
     Req,
     State = #state{
-        operation_id = 'DeleteInvoiceTemplate'
+        operation_id = 'DeleteCustomer'
     }
 ) ->
     {[<<"DELETE">>], Req, State};
@@ -80,7 +80,7 @@ allowed_methods(
 allowed_methods(
     Req,
     State = #state{
-        operation_id = 'GetInvoicePaymentMethodsByTemplateID'
+        operation_id = 'GetCustomerBankCards'
     }
 ) ->
     {[<<"GET">>], Req, State};
@@ -88,7 +88,7 @@ allowed_methods(
 allowed_methods(
     Req,
     State = #state{
-        operation_id = 'GetInvoiceTemplateByID'
+        operation_id = 'GetCustomerByExternalID'
     }
 ) ->
     {[<<"GET">>], Req, State};
@@ -96,10 +96,18 @@ allowed_methods(
 allowed_methods(
     Req,
     State = #state{
-        operation_id = 'UpdateInvoiceTemplate'
+        operation_id = 'GetCustomerByID'
     }
 ) ->
-    {[<<"PUT">>], Req, State};
+    {[<<"GET">>], Req, State};
+
+allowed_methods(
+    Req,
+    State = #state{
+        operation_id = 'GetCustomerPayments'
+    }
+) ->
+    {[<<"GET">>], Req, State};
 
 allowed_methods(Req, State) ->
     {[], Req, State}.
@@ -114,7 +122,7 @@ allowed_methods(Req, State) ->
 is_authorized(
     Req0,
     State = #state{
-        operation_id  = 'CreateInvoiceTemplate' = OperationID,
+        operation_id  = 'CreateCustomer' = OperationID,
         logic_handler = LogicHandler,
         context       = Context
     }
@@ -141,7 +149,7 @@ is_authorized(
 is_authorized(
     Req0,
     State = #state{
-        operation_id  = 'CreateInvoiceWithTemplate' = OperationID,
+        operation_id  = 'CreateCustomerAccessToken' = OperationID,
         logic_handler = LogicHandler,
         context       = Context
     }
@@ -168,7 +176,7 @@ is_authorized(
 is_authorized(
     Req0,
     State = #state{
-        operation_id  = 'DeleteInvoiceTemplate' = OperationID,
+        operation_id  = 'DeleteCustomer' = OperationID,
         logic_handler = LogicHandler,
         context       = Context
     }
@@ -195,7 +203,7 @@ is_authorized(
 is_authorized(
     Req0,
     State = #state{
-        operation_id  = 'GetInvoicePaymentMethodsByTemplateID' = OperationID,
+        operation_id  = 'GetCustomerBankCards' = OperationID,
         logic_handler = LogicHandler,
         context       = Context
     }
@@ -222,7 +230,7 @@ is_authorized(
 is_authorized(
     Req0,
     State = #state{
-        operation_id  = 'GetInvoiceTemplateByID' = OperationID,
+        operation_id  = 'GetCustomerByExternalID' = OperationID,
         logic_handler = LogicHandler,
         context       = Context
     }
@@ -249,7 +257,34 @@ is_authorized(
 is_authorized(
     Req0,
     State = #state{
-        operation_id  = 'UpdateInvoiceTemplate' = OperationID,
+        operation_id  = 'GetCustomerByID' = OperationID,
+        logic_handler = LogicHandler,
+        context       = Context
+    }
+) ->
+    From = header,
+    Result = swag_server_handler_api:authorize_api_key(
+        LogicHandler,
+        OperationID,
+        From,
+        'Authorization',
+        Req0,
+        Context
+    ),
+    case Result of
+        {true, AuthContext, Req} ->
+            NewContext = Context#{
+                auth_context => AuthContext
+            },
+            {true, Req, State#state{context = NewContext}};
+        {false, AuthHeader, Req} ->
+            {{false, AuthHeader}, Req, State}
+    end;
+
+is_authorized(
+    Req0,
+    State = #state{
+        operation_id  = 'GetCustomerPayments' = OperationID,
         logic_handler = LogicHandler,
         context       = Context
     }
@@ -294,7 +329,7 @@ content_types_accepted(Req, State) ->
 valid_content_headers(
     Req0,
     State = #state{
-        operation_id = 'CreateInvoiceTemplate'
+        operation_id = 'CreateCustomer'
     }
 ) ->
     Headers = ["X-Request-ID","X-Request-Deadline"],
@@ -304,7 +339,7 @@ valid_content_headers(
 valid_content_headers(
     Req0,
     State = #state{
-        operation_id = 'CreateInvoiceWithTemplate'
+        operation_id = 'CreateCustomerAccessToken'
     }
 ) ->
     Headers = ["X-Request-ID","X-Request-Deadline"],
@@ -314,7 +349,7 @@ valid_content_headers(
 valid_content_headers(
     Req0,
     State = #state{
-        operation_id = 'DeleteInvoiceTemplate'
+        operation_id = 'DeleteCustomer'
     }
 ) ->
     Headers = ["X-Request-ID","X-Request-Deadline"],
@@ -324,7 +359,7 @@ valid_content_headers(
 valid_content_headers(
     Req0,
     State = #state{
-        operation_id = 'GetInvoicePaymentMethodsByTemplateID'
+        operation_id = 'GetCustomerBankCards'
     }
 ) ->
     Headers = ["X-Request-ID","X-Request-Deadline"],
@@ -334,7 +369,7 @@ valid_content_headers(
 valid_content_headers(
     Req0,
     State = #state{
-        operation_id = 'GetInvoiceTemplateByID'
+        operation_id = 'GetCustomerByExternalID'
     }
 ) ->
     Headers = ["X-Request-ID","X-Request-Deadline"],
@@ -344,7 +379,17 @@ valid_content_headers(
 valid_content_headers(
     Req0,
     State = #state{
-        operation_id = 'UpdateInvoiceTemplate'
+        operation_id = 'GetCustomerByID'
+    }
+) ->
+    Headers = ["X-Request-ID","X-Request-Deadline"],
+    {Result, Req} = validate_headers(Headers, Req0),
+    {Result, Req, State};
+
+valid_content_headers(
+    Req0,
+    State = #state{
+        operation_id = 'GetCustomerPayments'
     }
 ) ->
     Headers = ["X-Request-ID","X-Request-Deadline"],
@@ -458,14 +503,14 @@ validate_headers(_, Req) ->
     Spec :: swag_server_handler_api:request_spec() | no_return().
 
 
-get_request_spec('CreateInvoiceTemplate') ->
+get_request_spec('CreateCustomer') ->
     [
         {'X-Request-ID', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
 , {required, true}]
         }},
-        {'InvoiceTemplateCreateParams', #{
+        {'CustomerParams', #{
             source => body,
             rules  => [schema, {required, true}]
         }},
@@ -475,36 +520,14 @@ get_request_spec('CreateInvoiceTemplate') ->
 , {required, false}]
         }}
     ];
-get_request_spec('CreateInvoiceWithTemplate') ->
+get_request_spec('CreateCustomerAccessToken') ->
     [
         {'X-Request-ID', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
 , {required, true}]
         }},
-        {'invoiceTemplateID', #{
-            source => binding,
-            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
-, {required, true}]
-        }},
-        {'InvoiceParamsWithTemplate', #{
-            source => body,
-            rules  => [schema, {required, true}]
-        }},
-        {'X-Request-Deadline', #{
-            source => header,
-            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
-, {required, false}]
-        }}
-    ];
-get_request_spec('DeleteInvoiceTemplate') ->
-    [
-        {'X-Request-ID', #{
-            source => header,
-            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
-, {required, true}]
-        }},
-        {'invoiceTemplateID', #{
+        {'customerID', #{
             source => binding,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
 , {required, true}]
@@ -515,14 +538,14 @@ get_request_spec('DeleteInvoiceTemplate') ->
 , {required, false}]
         }}
     ];
-get_request_spec('GetInvoicePaymentMethodsByTemplateID') ->
+get_request_spec('DeleteCustomer') ->
     [
         {'X-Request-ID', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
 , {required, true}]
         }},
-        {'invoiceTemplateID', #{
+        {'customerID', #{
             source => binding,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
 , {required, true}]
@@ -533,14 +556,60 @@ get_request_spec('GetInvoicePaymentMethodsByTemplateID') ->
 , {required, false}]
         }}
     ];
-get_request_spec('GetInvoiceTemplateByID') ->
+get_request_spec('GetCustomerBankCards') ->
     [
         {'X-Request-ID', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
 , {required, true}]
         }},
-        {'invoiceTemplateID', #{
+        {'customerID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'limit', #{
+            source => qs_val,
+            rules  => [{type, 'integer'}, {format, 'int32'}, {max, 1000, inclusive}, {min, 1, inclusive}, true
+, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }},
+        {'continuationToken', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, true
+, {required, false}]
+        }}
+    ];
+get_request_spec('GetCustomerByExternalID') ->
+    [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'externalID', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }}
+    ];
+get_request_spec('GetCustomerByID') ->
+    [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'customerID', #{
             source => binding,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
 , {required, true}]
@@ -551,25 +620,31 @@ get_request_spec('GetInvoiceTemplateByID') ->
 , {required, false}]
         }}
     ];
-get_request_spec('UpdateInvoiceTemplate') ->
+get_request_spec('GetCustomerPayments') ->
     [
         {'X-Request-ID', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
 , {required, true}]
         }},
-        {'invoiceTemplateID', #{
+        {'customerID', #{
             source => binding,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
 , {required, true}]
         }},
-        {'InvoiceTemplateUpdateParams', #{
-            source => body,
-            rules  => [schema, {required, true}]
+        {'limit', #{
+            source => qs_val,
+            rules  => [{type, 'integer'}, {format, 'int32'}, {max, 1000, inclusive}, {min, 1, inclusive}, true
+, {required, true}]
         }},
         {'X-Request-Deadline', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }},
+        {'continuationToken', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, true
 , {required, false}]
         }}
     ].
@@ -578,79 +653,88 @@ get_request_spec('UpdateInvoiceTemplate') ->
     Spec :: swag_server_handler_api:response_spec() | no_return().
 
 
-get_response_spec('CreateInvoiceTemplate', 201) ->
-    {'InvoiceTemplateAndToken', 'InvoiceTemplateAndToken'};
+get_response_spec('CreateCustomer', 201) ->
+    {'CustomerAndToken', 'CustomerAndToken'};
 
-get_response_spec('CreateInvoiceTemplate', 400) ->
-    {'inline_response_400_1', 'inline_response_400_1'};
+get_response_spec('CreateCustomer', 400) ->
+    {'inline_response_400', 'inline_response_400'};
 
-get_response_spec('CreateInvoiceTemplate', 401) ->
+get_response_spec('CreateCustomer', 401) ->
     undefined;
 
-get_response_spec('CreateInvoiceTemplate', 409) ->
+get_response_spec('CreateCustomer', 409) ->
     {'ExternalIDConflictError', 'ExternalIDConflictError'};
 
-get_response_spec('CreateInvoiceWithTemplate', 201) ->
-    {'InvoiceAndToken', 'InvoiceAndToken'};
+get_response_spec('CreateCustomerAccessToken', 201) ->
+    {'AccessToken', 'AccessToken'};
 
-get_response_spec('CreateInvoiceWithTemplate', 400) ->
-    {'inline_response_400_4', 'inline_response_400_4'};
-
-get_response_spec('CreateInvoiceWithTemplate', 401) ->
-    undefined;
-
-get_response_spec('CreateInvoiceWithTemplate', 404) ->
-    {'GeneralError', 'GeneralError'};
-
-get_response_spec('CreateInvoiceWithTemplate', 409) ->
-    {'ExternalIDConflictError', 'ExternalIDConflictError'};
-
-get_response_spec('DeleteInvoiceTemplate', 204) ->
-    undefined;
-
-get_response_spec('DeleteInvoiceTemplate', 400) ->
-    {'inline_response_400_3', 'inline_response_400_3'};
-
-get_response_spec('DeleteInvoiceTemplate', 401) ->
-    undefined;
-
-get_response_spec('DeleteInvoiceTemplate', 404) ->
-    {'GeneralError', 'GeneralError'};
-
-get_response_spec('GetInvoicePaymentMethodsByTemplateID', 200) ->
-    {'list', 'PaymentMethod'};
-
-get_response_spec('GetInvoicePaymentMethodsByTemplateID', 400) ->
+get_response_spec('CreateCustomerAccessToken', 400) ->
     {'DefaultLogicError', 'DefaultLogicError'};
 
-get_response_spec('GetInvoicePaymentMethodsByTemplateID', 401) ->
+get_response_spec('CreateCustomerAccessToken', 401) ->
     undefined;
 
-get_response_spec('GetInvoicePaymentMethodsByTemplateID', 404) ->
+get_response_spec('CreateCustomerAccessToken', 404) ->
     {'GeneralError', 'GeneralError'};
 
-get_response_spec('GetInvoiceTemplateByID', 200) ->
-    {'InvoiceTemplate', 'InvoiceTemplate'};
+get_response_spec('DeleteCustomer', 204) ->
+    undefined;
 
-get_response_spec('GetInvoiceTemplateByID', 400) ->
+get_response_spec('DeleteCustomer', 400) ->
     {'DefaultLogicError', 'DefaultLogicError'};
 
-get_response_spec('GetInvoiceTemplateByID', 401) ->
+get_response_spec('DeleteCustomer', 401) ->
     undefined;
 
-get_response_spec('GetInvoiceTemplateByID', 404) ->
+get_response_spec('DeleteCustomer', 404) ->
     {'GeneralError', 'GeneralError'};
 
-get_response_spec('UpdateInvoiceTemplate', 200) ->
-    {'InvoiceTemplate', 'InvoiceTemplate'};
+get_response_spec('GetCustomerBankCards', 200) ->
+    {'inline_response_200_1', 'inline_response_200_1'};
 
-get_response_spec('UpdateInvoiceTemplate', 400) ->
-    {'inline_response_400_2', 'inline_response_400_2'};
+get_response_spec('GetCustomerBankCards', 400) ->
+    {'DefaultLogicError', 'DefaultLogicError'};
 
-get_response_spec('UpdateInvoiceTemplate', 401) ->
+get_response_spec('GetCustomerBankCards', 401) ->
     undefined;
 
-get_response_spec('UpdateInvoiceTemplate', 404) ->
+get_response_spec('GetCustomerBankCards', 404) ->
+    {'GeneralError', 'GeneralError'};
+
+get_response_spec('GetCustomerByExternalID', 200) ->
+    {'Customer', 'Customer'};
+
+get_response_spec('GetCustomerByExternalID', 400) ->
+    {'DefaultLogicError', 'DefaultLogicError'};
+
+get_response_spec('GetCustomerByExternalID', 401) ->
+    undefined;
+
+get_response_spec('GetCustomerByExternalID', 404) ->
+    {'GeneralError', 'GeneralError'};
+
+get_response_spec('GetCustomerByID', 200) ->
+    {'Customer', 'Customer'};
+
+get_response_spec('GetCustomerByID', 400) ->
+    {'DefaultLogicError', 'DefaultLogicError'};
+
+get_response_spec('GetCustomerByID', 401) ->
+    undefined;
+
+get_response_spec('GetCustomerByID', 404) ->
+    {'GeneralError', 'GeneralError'};
+
+get_response_spec('GetCustomerPayments', 200) ->
+    {'inline_response_200_2', 'inline_response_200_2'};
+
+get_response_spec('GetCustomerPayments', 400) ->
+    {'DefaultLogicError', 'DefaultLogicError'};
+
+get_response_spec('GetCustomerPayments', 401) ->
+    undefined;
+
+get_response_spec('GetCustomerPayments', 404) ->
     {'GeneralError', 'GeneralError'};
 
 get_response_spec(OperationID, Code) ->

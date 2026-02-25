@@ -110,6 +110,41 @@ get_operations() ->
             method => <<"GET">>,
             handler => 'swag_server_countries_handler'
         },
+        'CreateCustomer' => #{
+            path => "/v2/processing/customers",
+            method => <<"POST">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'CreateCustomerAccessToken' => #{
+            path => "/v2/processing/customers/:customerID/access-tokens",
+            method => <<"POST">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'DeleteCustomer' => #{
+            path => "/v2/processing/customers/:customerID",
+            method => <<"DELETE">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'GetCustomerBankCards' => #{
+            path => "/v2/processing/customers/:customerID/bank-cards",
+            method => <<"GET">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'GetCustomerByExternalID' => #{
+            path => "/v2/processing/customers",
+            method => <<"GET">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'GetCustomerByID' => #{
+            path => "/v2/processing/customers/:customerID",
+            method => <<"GET">>,
+            handler => 'swag_server_customers_handler'
+        },
+        'GetCustomerPayments' => #{
+            path => "/v2/processing/customers/:customerID/payments",
+            method => <<"GET">>,
+            handler => 'swag_server_customers_handler'
+        },
         'InspectUser' => #{
             path => "/v2/processing/antifraud/inspectUser",
             method => <<"POST">>,

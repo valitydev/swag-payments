@@ -553,7 +553,7 @@ get_response_spec('GetShopByIDForParty', 404) ->
     {'GeneralError', 'GeneralError'};
 
 get_response_spec('GetShopCashLimitsForParty', 200) ->
-    {'list', 'inline_response_200_1'};
+    {'list', 'inline_response_200_3'};
 
 get_response_spec('GetShopCashLimitsForParty', 400) ->
     {'DefaultLogicError', 'DefaultLogicError'};
