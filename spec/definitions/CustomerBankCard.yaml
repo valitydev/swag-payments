@@ -1,0 +1,15 @@
+description: Customer bank card information
+type: object
+required:
+  - id
+  - createdAt
+properties:
+  id:
+    description: Bank card ID
+    type: string
+  cardMask:
+    $ref: "#/definitions/CardMask"
+  createdAt:
+    x-rebillyMerge:
+      - $ref: "#/definitions/CreatedAt"
+      - description: Date and time of bank card registration

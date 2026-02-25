@@ -21,9 +21,9 @@ x-merge-properties:
           Identifier of the invoice within which the payment was created
         type: string
       createdAt:
-        description: Created at
-        type: string
-        format: date-time
+        x-rebillyMerge:
+          - $ref: "#/definitions/CreatedAt"
+          - description: Created at
       amount:
         description: >
           The price of the goods or services offered, in minor monetary units,
