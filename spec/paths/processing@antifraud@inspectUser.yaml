@@ -4,7 +4,7 @@ post:
   tags:
     - Inspector
   parameters:
-    - name: userInspectRequest
+    - name: UserInspectRequest
       description: User inspection request
       in: body
       required: true
