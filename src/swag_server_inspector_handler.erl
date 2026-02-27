@@ -235,7 +235,7 @@ validate_headers(_, Req) ->
 
 get_request_spec('InspectUser') ->
     [
-        {'Body', #{
+        {'UserInspectRequest', #{
             source => body,
             rules  => [schema, {required, true}]
         }}

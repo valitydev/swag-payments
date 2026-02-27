@@ -145,10 +145,11 @@ get_raw() ->
         <<"operationId">> => <<"inspectUser">>,
         <<"parameters">> => [ #{
           <<"in">> => <<"body">>,
-          <<"name">> => <<"body">>,
+          <<"name">> => <<"userInspectRequest">>,
+          <<"description">> => <<"User inspection request">>,
           <<"required">> => true,
           <<"schema">> => #{
-            <<"$ref">> => <<"#/definitions/body">>
+            <<"$ref">> => <<"#/definitions/userInspectRequest">>
           }
         } ],
         <<"responses">> => #{
@@ -7434,7 +7435,7 @@ get_raw() ->
         <<"description">> => <<"Yandex Pay data">>
       } ]
     },
-    <<"body">> => #{
+    <<"userInspectRequest">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"customer">>, <<"shops">> ],
       <<"properties">> => #{
