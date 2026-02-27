@@ -4,6 +4,8 @@ post:
   tags:
     - Inspector
   parameters:
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
     - name: UserInspectRequest
       description: User inspection request
       in: body
