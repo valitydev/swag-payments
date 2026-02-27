@@ -282,8 +282,15 @@
         ],
         "parameters": [
           {
+            "$ref": "#/parameters/requestID"
+          },
+          {
+            "$ref": "#/parameters/deadline"
+          },
+          {
+            "name": "UserInspectRequest",
+            "description": "User inspection request",
             "in": "body",
-            "name": "body",
             "required": true,
             "schema": {
               "type": "object",
