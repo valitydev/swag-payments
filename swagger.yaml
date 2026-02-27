@@ -576,8 +576,11 @@ paths:
       tags:
         - Inspector
       parameters:
-        - in: body
-          name: body
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - name: UserInspectRequest
+          description: User inspection request
+          in: body
           required: true
           schema:
             type: object
