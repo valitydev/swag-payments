@@ -144,6 +144,22 @@ get_raw() ->
         <<"summary">> => <<"Inspect user to use payment method">>,
         <<"operationId">> => <<"inspectUser">>,
         <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
           <<"in">> => <<"body">>,
           <<"name">> => <<"UserInspectRequest">>,
           <<"description">> => <<"User inspection request">>,
