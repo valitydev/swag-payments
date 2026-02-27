@@ -122,7 +122,7 @@ valid_content_headers(
         operation_id = 'InspectUser'
     }
 ) ->
-    Headers = [],
+    Headers = ["X-Request-ID","X-Request-Deadline"],
     {Result, Req} = validate_headers(Headers, Req0),
     {Result, Req, State};
 
@@ -235,9 +235,19 @@ validate_headers(_, Req) ->
 
 get_request_spec('InspectUser') ->
     [
-        {'Body', #{
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'UserInspectRequest', #{
             source => body,
             rules  => [schema, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
         }}
     ].
 

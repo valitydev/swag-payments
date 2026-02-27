@@ -144,11 +144,28 @@ get_raw() ->
         <<"summary">> => <<"Inspect user to use payment method">>,
         <<"operationId">> => <<"inspectUser">>,
         <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
           <<"in">> => <<"body">>,
-          <<"name">> => <<"body">>,
+          <<"name">> => <<"UserInspectRequest">>,
+          <<"description">> => <<"User inspection request">>,
           <<"required">> => true,
           <<"schema">> => #{
-            <<"$ref">> => <<"#/definitions/body">>
+            <<"$ref">> => <<"#/definitions/UserInspectRequest">>
           }
         } ],
         <<"responses">> => #{
@@ -7279,7 +7296,11 @@ get_raw() ->
           <<"description">> => <<"Mobile phone number with international prefix according to [E.164](https://en.wikipedia.org/wiki/E.164).\n">>
         }
       },
-      <<"description">> => <<"Customer contact information">>
+      <<"description">> => <<"Customer contact information">>,
+      <<"example">> => #{
+        <<"phoneNumber">> => <<"phoneNumber">>,
+        <<"email">> => <<"email">>
+      }
     },
     <<"UserInspectCustomer">> => #{
       <<"required">> => [ <<"contact">> ],
@@ -7291,7 +7312,17 @@ get_raw() ->
           <<"$ref">> => <<"#/definitions/UserInspectContact">>
         }
       },
-      <<"description">> => <<"Information about client">>
+      <<"description">> => <<"Information about client">>,
+      <<"example">> => #{
+        <<"contact">> => #{
+          <<"phoneNumber">> => <<"phoneNumber">>,
+          <<"email">> => <<"email">>
+        },
+        <<"device">> => #{
+          <<"ip">> => <<"ip">>,
+          <<"fingerprint">> => <<"fingerprint">>
+        }
+      }
     },
     <<"UserInspectDevice">> => #{
       <<"properties">> => #{
@@ -7307,7 +7338,11 @@ get_raw() ->
           <<"maxLength">> => 45
         }
       },
-      <<"description">> => <<"Customer device information">>
+      <<"description">> => <<"Customer device information">>,
+      <<"example">> => #{
+        <<"ip">> => <<"ip">>,
+        <<"fingerprint">> => <<"fingerprint">>
+      }
     },
     <<"UserInspectShop">> => #{
       <<"required">> => [ <<"partyID">>, <<"shopID">> ],
@@ -7434,7 +7469,7 @@ get_raw() ->
         <<"description">> => <<"Yandex Pay data">>
       } ]
     },
-    <<"body">> => #{
+    <<"UserInspectRequest">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"customer">>, <<"shops">> ],
       <<"properties">> => #{
@@ -7445,6 +7480,25 @@ get_raw() ->
           <<"type">> => <<"array">>,
           <<"items">> => #{
             <<"$ref">> => <<"#/definitions/UserInspectShop">>
+          }
+        }
+      },
+      <<"example">> => #{
+        <<"shops">> => [ #{
+          <<"shopID">> => <<"shopID">>,
+          <<"partyID">> => <<"partyID">>
+        }, #{
+          <<"shopID">> => <<"shopID">>,
+          <<"partyID">> => <<"partyID">>
+        } ],
+        <<"customer">> => #{
+          <<"contact">> => #{
+            <<"phoneNumber">> => <<"phoneNumber">>,
+            <<"email">> => <<"email">>
+          },
+          <<"device">> => #{
+            <<"ip">> => <<"ip">>,
+            <<"fingerprint">> => <<"fingerprint">>
           }
         }
       }
