@@ -48,7 +48,7 @@ process_response(Error, _) ->
 
 get_request_spec('inspect_user') ->
     [
-        {'Body', #{
+        {'UserInspectRequest', #{
             source => body,
             rules  => [schema, {required, true}]
         }}
