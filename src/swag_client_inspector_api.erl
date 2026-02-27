@@ -48,9 +48,19 @@ process_response(Error, _) ->
 
 get_request_spec('inspect_user') ->
     [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
         {'UserInspectRequest', #{
             source => body,
             rules  => [schema, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
         }}
     ].
 
