@@ -52,7 +52,7 @@ jobs:
 
       - name: Deploy erlang-client artifact to release branch
         if: ${{ github.event_name == 'push' }}
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: release/erlang/client/${{ steps.vars.outputs.release_suffix }}
           folder: out/erlang-client
@@ -60,7 +60,7 @@ jobs:
 
       - name: Deploy erlang-server artifact to release branch
         if: ${{ github.event_name == 'push' }}
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: release/erlang/server/${{ steps.vars.outputs.release_suffix }}
           folder: out/erlang-server
