@@ -9,6 +9,10 @@ get:
     - x-rebillyMerge:
         - $ref: "#/parameters/externalID"
         - description: External customer identifier
+    - x-rebillyMerge:
+        - $ref: "#/parameters/partyID"
+        - in: query
+          required: false
   responses:
     "200":
       description: Customer
