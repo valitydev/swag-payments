@@ -709,6 +709,11 @@ paths:
           maxLength: 40
           minLength: 1
           description: External customer identifier
+        - name: partyID
+          in: query
+          description: The participant's unique identifier within the system.
+          required: false
+          type: string
       responses:
         '200':
           description: Customer
@@ -3068,6 +3073,8 @@ definitions:
     description: Customer creation parameters
     type: object
     properties:
+      partyID:
+        $ref: '#/definitions/PartyID'
       externalID:
         description: External customer identifier
         type: string
