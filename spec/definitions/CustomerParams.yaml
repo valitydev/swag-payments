@@ -1,6 +1,8 @@
 description: Customer creation parameters
 type: object
 properties:
+  partyID:
+    $ref: "#/definitions/PartyID"
   externalID:
     x-rebillyMerge:
       - $ref: "#/definitions/ExternalID"
