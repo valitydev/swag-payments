@@ -269,6 +269,11 @@ get_request_spec('get_customer_by_external_id') ->
             source => header,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
 , {required, false}]
+        }},
+        {'partyID', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, true
+, {required, false}]
         }}
     ];
 get_request_spec('get_customer_by_id') ->

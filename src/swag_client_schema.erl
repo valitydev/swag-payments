@@ -412,6 +412,12 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
@@ -4487,6 +4493,9 @@ get_raw() ->
     <<"CustomerParams">> => #{
       <<"type">> => <<"object">>,
       <<"properties">> => #{
+        <<"partyID">> => #{
+          <<"$ref">> => <<"#/definitions/PartyID">>
+        },
         <<"externalID">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"External customer identifier">>,
@@ -4518,7 +4527,8 @@ get_raw() ->
           <<"state">> => <<"Colorado">>,
           <<"email">> => <<"email">>
         },
-        <<"externalID">> => <<"externalID">>
+        <<"externalID">> => <<"externalID">>,
+        <<"partyID">> => #{ }
       }
     },
     <<"CustomerPayment">> => #{
