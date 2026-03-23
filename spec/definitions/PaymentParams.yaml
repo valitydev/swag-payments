@@ -16,11 +16,8 @@ properties:
   makeRecurrent:
     x-rebillyMerge:
       - $ref: "#/definitions/PaymentMakeRecurrent"
-  customerAccessToken:
-    description: >
-      Customer access token. When provided, the payment and any resulting
-      recurrent tokens will be associated with the customer. If not
-      provided and makeRecurrent is true, a new customer will be created.
+  customerID:
+    description: Customer ID
     type: string
   metadata:
     description: Metadata to be linked with the payment
