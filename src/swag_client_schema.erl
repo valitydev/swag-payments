@@ -5875,6 +5875,11 @@ get_raw() ->
           <<"maxItems">> => 100,
           <<"minItems">> => 1
         },
+        <<"customerID">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Customer ID. Present when the payment is associated with a customer.\n">>,
+          <<"readOnly">> => true
+        },
         <<"status">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"Payment status">>,
@@ -5967,6 +5972,7 @@ get_raw() ->
         },
         <<"makeRecurrent">> => false,
         <<"createdAt">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"customerID">> => <<"customerID">>,
         <<"invoiceID">> => <<"invoiceID">>,
         <<"currency">> => <<"currency">>,
         <<"id">> => <<"id">>,
@@ -6169,9 +6175,9 @@ get_raw() ->
           <<"description">> => <<"An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.\n">>,
           <<"default">> => false
         },
-        <<"customerAccessToken">> => #{
+        <<"customerID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Customer access token. When provided, the payment and any resulting recurrent tokens will be associated with the customer. If not provided and makeRecurrent is true, a new customer will be created.\n">>
+          <<"description">> => <<"Customer ID">>
         },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
@@ -6182,6 +6188,7 @@ get_raw() ->
       <<"example">> => #{
         <<"metadata">> => <<"{}">>,
         <<"processingDeadline">> => <<"30m">>,
+        <<"customerID">> => <<"customerID">>,
         <<"externalID">> => <<"externalID">>,
         <<"payer">> => #{
           <<"sessionInfo">> => #{
@@ -6189,7 +6196,6 @@ get_raw() ->
           },
           <<"payerType">> => <<"payerType">>
         },
-        <<"customerAccessToken">> => <<"customerAccessToken">>,
         <<"flow">> => #{
           <<"type">> => <<"PaymentFlowInstant">>
         },
