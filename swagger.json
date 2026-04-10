@@ -5468,6 +5468,11 @@
           },
           "readOnly": true
         },
+        "customerID": {
+          "description": "Customer ID. Present when the payment is associated with a customer.\n",
+          "type": "string",
+          "readOnly": true
+        },
         "status": {
           "description": "Payment status",
           "type": "string",
@@ -5708,8 +5713,8 @@
           "type": "boolean",
           "default": false
         },
-        "customerAccessToken": {
-          "description": "Customer access token. When provided, the payment and any resulting recurrent tokens will be associated with the customer. If not provided and makeRecurrent is true, a new customer will be created.\n",
+        "customerID": {
+          "description": "Customer ID",
           "type": "string"
         },
         "metadata": {
