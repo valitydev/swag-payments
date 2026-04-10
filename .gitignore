@@ -69,3 +69,5 @@ spec/.DS_Store
 /web_deploy
 /scripts
 openapitools.json
+
+.claude

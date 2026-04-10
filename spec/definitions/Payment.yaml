@@ -51,4 +51,9 @@ x-merge-properties:
         x-rebillyMerge:
           - $ref: "#/definitions/Allocation"
           - readOnly: true
+      customerID:
+        description: >
+          Customer ID. Present when the payment is associated with a customer.
+        type: string
+        readOnly: true
   - $ref: "#/definitions/PaymentStatus"
