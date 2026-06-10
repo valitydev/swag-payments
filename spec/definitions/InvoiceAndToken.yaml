@@ -2,8 +2,11 @@ type: object
 required:
   - invoice
   - invoiceAccessToken
+  - invoiceUrl
 properties:
   invoice:
     $ref: "#/definitions/Invoice"
   invoiceAccessToken:
     $ref: "#/definitions/AccessToken"
+  invoiceUrl:
+    $ref: "#/definitions/InvoiceUrl"

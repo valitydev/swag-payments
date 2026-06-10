@@ -12,26 +12,12 @@ post:
       description: Payment forms's prefill parameters
       required: true
       schema:
-        type: object
-        required: []
-        additionalProperties: true
-        properties: {}
-        example:
-          locale: "en-US"
-          theme: "tomorrow-night"
+        $ref: "#/definitions/InvoiceUrlParams"
   responses:
     "201":
       description: Invoice's payment URL is constructed.
       schema:
-        type: object
-        required:
-          - url
-        properties:
-          url:
-            description: >
-              Invoice's payment URL
-            type: string
-            example: "https://shop-specific-example.com/path/to/checkout?locale=en-US&theme=tomorrow-night"
+        $ref: "#/definitions/InvoiceUrl"
     "404":
       $ref: "#/responses/NotFound"
     "401":
