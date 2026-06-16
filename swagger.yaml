@@ -384,6 +384,7 @@ tags:
       | **invalidAllocation**            | Invalid distribution of funds, for example, more than one transaction in favour of one of shops.                                           |
       | **allocationNotPermitted**       | The distribution is not available within the contract.                                                                                     |
       | **refundCartConflict**           | It is impossible to define the refund content as the refund distribution and cart are sent at the same time.                               |
+      | **invalidUrlParams**             | Failed to construct payment URL and encode provided parameters due to incorrect encoding, incomplete sequences, or invalid characters.     |
       ## General errors
       The errors that occur during the transaction attempts with the objects that are not registered in the system. They look like
 
@@ -1092,6 +1093,7 @@ paths:
                   - invalidRequest
                   - invalidDeadline
                   - invoiceTermsViolated
+                  - invalidUrlParams
               message:
                 description: Human-readable description of the error
                 type: string
@@ -1196,6 +1198,7 @@ paths:
                   - invalidInvoiceCost
                   - invoiceTermsViolated
                   - ambiguousPartyID
+                  - invalidUrlParams
               message:
                 description: Human-readable description of the error
                 type: string
@@ -1747,6 +1750,49 @@ paths:
                 description: Human-readable description of the error
                 type: string
                 example: Invalid invoice status
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+  '/processing/invoices/{invoiceID}/urls':
+    post:
+      operationId: createInvoiceUrl
+      description: Construct an URL for invoice payment with set of optional query parameters.
+      tags:
+        - Invoices
+      parameters:
+        - $ref: '#/parameters/requestID'
+        - $ref: '#/parameters/deadline'
+        - $ref: '#/parameters/invoiceID'
+        - name: params
+          in: body
+          description: Payment forms's prefill parameters
+          required: true
+          schema:
+            $ref: '#/definitions/InvoiceUrlParams'
+      responses:
+        '201':
+          description: Invoice's payment URL is constructed.
+          schema:
+            $ref: '#/definitions/InvoiceUrl'
+        '400':
+          description: Invalid data for url construction
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: |
+                  [Error code](#tag/Error-Codes)
+                type: string
+                enum:
+                  - invalidUrlParams
+              message:
+                description: Human-readable description of the error
+                type: string
+                example: Bad url params
         '401':
           $ref: '#/responses/Unauthorized'
         '404':
@@ -3350,11 +3396,14 @@ definitions:
     required:
       - invoice
       - invoiceAccessToken
+      - invoiceUrl
     properties:
       invoice:
         $ref: '#/definitions/Invoice'
       invoiceAccessToken:
         $ref: '#/definitions/AccessToken'
+      invoiceUrl:
+        $ref: '#/definitions/InvoiceUrl'
   InvoiceBankAccount:
     type: object
     description: |
@@ -3559,6 +3608,8 @@ definitions:
         type: object
       clientInfo:
         $ref: '#/definitions/InvoiceClientInfo'
+      urlParams:
+        $ref: '#/definitions/InvoiceUrlParams'
   InvoiceParamsWithTemplate:
     type: object
     properties:
@@ -3583,6 +3634,8 @@ definitions:
       metadata:
         description: Invoice metadata
         type: object
+      urlParams:
+        $ref: '#/definitions/InvoiceUrlParams'
   InvoiceRandomizeAmount:
     description: |
       Describes how to randomly modify invoice's cost amount.
@@ -3919,6 +3972,24 @@ definitions:
         type: object
       randomizeAmount:
         $ref: '#/definitions/InvoiceRandomizeAmount'
+  InvoiceUrl:
+    type: object
+    required:
+      - url
+    properties:
+      url:
+        description: |
+          Invoice's payment URL
+        type: string
+        example: 'https://shop-specific-example.com/path/to/checkout?invoiceID=ABCDEF12345&invoiceAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night'
+  InvoiceUrlParams:
+    type: object
+    required: []
+    additionalProperties: true
+    properties: {}
+    example:
+      locale: en-US
+      theme: tomorrow-night
   LifetimeInterval:
     type: object
     description: The life time of an invoice from the time it was created.
