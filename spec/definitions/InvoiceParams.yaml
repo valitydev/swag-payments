@@ -57,3 +57,5 @@ properties:
     type: object
   clientInfo:
     $ref: "#/definitions/InvoiceClientInfo"
+  urlParams:
+    $ref: "#/definitions/InvoiceUrlParams"

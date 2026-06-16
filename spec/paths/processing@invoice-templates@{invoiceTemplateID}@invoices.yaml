@@ -40,6 +40,7 @@ post:
               - invalidRequest
               - invalidDeadline
               - invoiceTermsViolated
+              - invalidUrlParams
           message:
             description: Human-readable description of the error
             type: string

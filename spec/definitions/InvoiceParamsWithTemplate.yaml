@@ -16,3 +16,5 @@ properties:
   metadata:
     description: "Invoice metadata"
     type: object
+  urlParams:
+    $ref: "#/definitions/InvoiceUrlParams"

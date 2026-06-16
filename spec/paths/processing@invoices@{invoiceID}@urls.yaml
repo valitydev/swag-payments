@@ -1,0 +1,42 @@
+post:
+  operationId: createInvoiceUrl
+  description: Construct an URL for invoice payment with set of optional query parameters.
+  tags:
+    - Invoices
+  parameters:
+    - $ref: "#/parameters/requestID"
+    - $ref: "#/parameters/deadline"
+    - $ref: "#/parameters/invoiceID"
+    - name: params
+      in: body
+      description: Payment forms's prefill parameters
+      required: true
+      schema:
+        $ref: "#/definitions/InvoiceUrlParams"
+  responses:
+    "201":
+      description: Invoice's payment URL is constructed.
+      schema:
+        $ref: "#/definitions/InvoiceUrl"
+    "404":
+      $ref: "#/responses/NotFound"
+    "401":
+      $ref: "#/responses/Unauthorized"
+    "400":
+      description: Invalid data for url construction
+      schema:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            description: >
+              [Error code](#tag/Error-Codes)
+            type: string
+            enum:
+              - invalidUrlParams
+          message:
+            description: Human-readable description of the error
+            type: string
+            example: Bad url params

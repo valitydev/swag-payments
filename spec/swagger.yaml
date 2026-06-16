@@ -647,6 +647,8 @@ tags:
 
       | **refundCartConflict**           | It is impossible to define the refund content as the refund distribution and cart are sent at the same time.                               |
 
+      | **invalidUrlParams**             | Failed to construct payment URL and encode provided parameters due to incorrect encoding, incomplete sequences, or invalid characters.     |
+
       ## General errors
 
       The errors that occur during the transaction attempts with the objects

@@ -1,0 +1,10 @@
+type: object
+required:
+  - url
+properties:
+  url:
+    description: >
+      Invoice's payment URL
+    type: string
+    example: "https://shop-specific-example.com/path/to/checkout?invoiceID=ABCDEF12345&\
+      invoiceAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night"
