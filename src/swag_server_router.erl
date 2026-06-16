@@ -190,6 +190,11 @@ get_operations() ->
             method => <<"POST">>,
             handler => 'swag_server_invoices_handler'
         },
+        'CreateInvoiceUrl' => #{
+            path => "/v2/processing/invoices/:invoiceID/urls",
+            method => <<"POST">>,
+            handler => 'swag_server_invoices_handler'
+        },
         'FulfillInvoice' => #{
             path => "/v2/processing/invoices/:invoiceID/fulfill",
             method => <<"POST">>,

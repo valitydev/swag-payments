@@ -128,7 +128,7 @@ get_raw() ->
     <<"x-displayName">> => <<"Payment Institutions">>
   }, #{
     <<"name">> => <<"Error Codes">>,
-    <<"description">> => <<"## Business logic errors\nAll business logic errors have as follows:\n```json\n{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}\n```\n\nThe error type is in the field `code` and additional information about the error that occurred is in `message`.\nThere are the following error codes at the present moment:\n| Code                             | Description                                                                                                                                |\n|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|\n| **operationNotPermitted**        | Unavailable transaction within the current contract.                                                                                       |\n| **invalidPartyStatus**           | Your participant is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateMyParty) them. |\n| **invalidShopStatus**            | Your shop is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateShop) them.           |\n| **invalidContractStatus**        | Your contract is not valid anymore due to its expiration or termination.                                                                   |\n| **invalidShopID**                | The shop with the specified ID doesn’t exist or unavailable.                                                                               |\n| **invalidInvoiceCost**           | Invoice cost is not specified or invalid, particularly, it isn’t equal to the item cost in the cart.                                       |\n| **invalidInvoiceCart**           | Incorrect cart in invoice, for example, empty.                                                                                             |\n| **invalidInvoiceStatus**         | Invalid [invoice status](#tag/Invoices). For example, in an attempt to [pay](#operation/createPayment) the cancelled invoice.              |\n| **invoiceTermsViolated**         | An invoice violates limitations set within the current contract.                                                                           |\n| **invoicePaymentPending**        | The last pending payment by the specified invoice has not reached the final status yet.                                                    |\n| **invalidPaymentStatus**         | Invalid [payment status](#tag/Payments). For example, in an attempt to [confirm](#operation/capturePayment) unsuccessful payment.          |\n| **invalidPaymentResource**       | The payment instrument that is not supported or connected to the system within the current contract.                                       |\n| **invalidPaymentToolToken**      | Invalid content of payment instrument token.                                                                                               |\n| **invalidProcessingDeadline**    | Invalid format of the payment authorisation time limit.                                                                                    |\n| **invalidPaymentSession**        | Invalid content of the payment session.                                                                                                    |\n| **invalidRecurrentParent**       | Invalid parent recurrent payment is specified.                                                                                             |\n| **insufficentAccountBalance**    | Insufficient account balance on the shop account, for example, for the refund.                                                             |\n| **invoicePaymentAmountExceeded** | Refund attempt exceeds the payment amount.                                                                                                 |\n| **inconsistentRefundCurrency**   | Refund attempt in the currency is different from the payment currency.                                                                     |\n| **changesetConflict**            | An attempt to make changes to the participant that conflicts with changes in other pending requests.                                       |\n| **invalidChangeset**             | Invalid changes to the participant, for example, an attempt to create a shop in the currency that is unavailable within the contract.      |\n| **limitExceeded**                | The reasonable sampling time limit is exceeded. In this case it is better to request less volume of data.                                  |\n| **invalidDeadline**              | Invalid time format.                                                                                                                       |\n| **chargebackInProgress**         | Refund attempt while the chargeback is in progress.                                                                                        |\n| **invalidRequest**               | Other invalid request data.                                                                                                                |\n| **invalidPartyID**               | The participant with the specified ID doesn't exist or unavailable.                                                                        |\n| **ambiguousPartyID**             | It is impossible to define the participant ID, specify the ID more clearly in the request.                                                 |\n| **invalidAllocation**            | Invalid distribution of funds, for example, more than one transaction in favour of one of shops.                                           |\n| **allocationNotPermitted**       | The distribution is not available within the contract.                                                                                     |\n| **refundCartConflict**           | It is impossible to define the refund content as the refund distribution and cart are sent at the same time.                               |\n## General errors\nThe errors that occur during the transaction attempts with the objects that are not registered in the system. They look like\n\n  ```json\n  {\n      \"message\": \"string\"\n  }\n  ```\n\nThe information about the occurred error is in the field `message`. For example:\n\n  ```json\n  {\n      \"message\": \"Invoice not found\"\n  }\n  ```\n\n## Errors in processing requests\nDifferent unpredictable situations can happen during the request processing with the support of our system. The system sends a signal about them according to the HTTP protocol using the corresponding [statuses][5xx] that specify the server errors.\n| Code    | Description                                                                                                                                                                                                                          |\n|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| **500** | An unpredictable situation has occurred during request processing by the system. We recommend contacting the technical support if you receive such a response code.                                                                  |\n| **503** | The system is temporarily unavailable and not ready to serve this request. The request isn’t guaranteed fulfilled, if you receive such a response code, try to resend it later when the availability of the system will be restored. |\n| **504** | The system has exceeded the time allowable for request processing, the result of the request is undefined. Try to resend the request or find our the result of the original request if the repeated request is undesirable.          |\n\n[5xx]: https://tools.ietf.org/html/rfc7231#section-6.6\n\n## Payment errors\nThe errors sent to the payment form (payers can see them):\n| Code                   | Description                                                                                                                                                                                      |\n|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| InvalidPaymentTool     | Invalid payment instrument (invalid card number, missing account has been entered, etc.)                                                                                                         |\n| AccountLimitsExceeded  | Limits are exceeded (for example, the payment amount or withdrawal country limits are set up in the personal account)                                                                            |\n| InsufficientFunds      | Insufficient funds on the account                                                                                                                                                                |\n| PreauthorizationFailed | Pre-authorisation is failed (invalid SD-Secure code has been entered, cancellation link has been clicked in SD-Secure form)                                                                      |\n| RejectedByIssuer       | The payment is rejected by the issuer (it has been prohibited to withdraw inside the country or to purchase in the Internet, the payment is rejected by the issuer’s anti-fraud entity and etc.) |\n| PaymentRejected        | the payment is rejected by other reasons                                                                                                                                                         |\n\nThe errors sent to the personal merchant’s account (only you can see them):\n- timeout\n\n  Timeout of payment attempt\n\n- rejected_by_inspector\n\n  Rejected by anti-fraud service\n\n- preauthorization_failed\n\n  Preauthorisation error (3DS)\n\n- authorization_failed:\n\n  Provider payment authorisation error\n\n  - unknown\n\n    Unknown authorisation error\n\n  - merchant_blocked\n\n    A merchant is blocked\n\n  - operation_blocked\n\n    A payment transaction is blocked\n\n  - account_not_found\n\n    An account is not found\n\n  - account_blocked\n\n    An account is blocked\n\n  - account_stolen\n\n    An account is stolen\n\n  - insufficient_funds\n\n    Insufficient funds\n\n  - processing_deadline_reached\n\n    Payment fullfillment timeout (see [Payment processing time limit](#section/Payment-processing-time-limit))\n\n  - account_limit_exceeded:\n\n    Payer’s account limit is exceeded\n\n    - unknown\n\n      Limit object is unknown\n\n    - amount\n\n      Amount limit\n\n    - number\n\n      Attempt number limit\n\n  - provider_limit_exceeded:\n\n    The provider limit is exceeded for this merchant or system in general\n\n    - unknown\n\n      Limit object is unknown\n\n    - amount\n\n      Amount limit\n\n    - number\n\n      Attempt number limit\n\n  - payment_tool_rejected:\n\n    A payment instrument is rejected\n\n    - unknown\n\n      An unknown payment instrument\n\n    - bank_card_rejected:\n\n      A bank card is rejected\n\n      - unknown\n\n        The reason is unknown\n\n      - card_number_invalid\n\n        A card number is invalid\n\n      - card_expired\n\n        A card is expired\n\n      - card_holder_invalid\n\n        A cardholder is invalid\n\n      - cvv_invalid\n\n        CVV code is invalid\n\n      - issuer_not_found\n\n        An issuer is not found\n\n  - security_policy_violated\n\n    Security policy violations\n\n  - temporarily_unavailable\n\n    Temporary unavailability of the third parties\n\n  - rejected_by_issuer\n\n    Rejected by the issuer\n\n\nFor example, in the case of invalid CVV:\n```\n{\n   \"code\":\"authorization_failed\",\n   \"subError\":{\n      \"code\":\"payment_tool_rejected\",\n      \"subError\":{\n         \"code\":\"bank_card_rejected\",\n         \"subError\":{\n            \"code\":\"cvv_invalid\"\n         }\n      }\n   }\n}\n```\nIf you have an error that is not described here, contact the technical support.\n">>,
+    <<"description">> => <<"## Business logic errors\nAll business logic errors have as follows:\n```json\n{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}\n```\n\nThe error type is in the field `code` and additional information about the error that occurred is in `message`.\nThere are the following error codes at the present moment:\n| Code                             | Description                                                                                                                                |\n|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|\n| **operationNotPermitted**        | Unavailable transaction within the current contract.                                                                                       |\n| **invalidPartyStatus**           | Your participant is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateMyParty) them. |\n| **invalidShopStatus**            | Your shop is blocked or its transactions has been suspended. In the latter case, you can [resume](#operation/activateShop) them.           |\n| **invalidContractStatus**        | Your contract is not valid anymore due to its expiration or termination.                                                                   |\n| **invalidShopID**                | The shop with the specified ID doesn’t exist or unavailable.                                                                               |\n| **invalidInvoiceCost**           | Invoice cost is not specified or invalid, particularly, it isn’t equal to the item cost in the cart.                                       |\n| **invalidInvoiceCart**           | Incorrect cart in invoice, for example, empty.                                                                                             |\n| **invalidInvoiceStatus**         | Invalid [invoice status](#tag/Invoices). For example, in an attempt to [pay](#operation/createPayment) the cancelled invoice.              |\n| **invoiceTermsViolated**         | An invoice violates limitations set within the current contract.                                                                           |\n| **invoicePaymentPending**        | The last pending payment by the specified invoice has not reached the final status yet.                                                    |\n| **invalidPaymentStatus**         | Invalid [payment status](#tag/Payments). For example, in an attempt to [confirm](#operation/capturePayment) unsuccessful payment.          |\n| **invalidPaymentResource**       | The payment instrument that is not supported or connected to the system within the current contract.                                       |\n| **invalidPaymentToolToken**      | Invalid content of payment instrument token.                                                                                               |\n| **invalidProcessingDeadline**    | Invalid format of the payment authorisation time limit.                                                                                    |\n| **invalidPaymentSession**        | Invalid content of the payment session.                                                                                                    |\n| **invalidRecurrentParent**       | Invalid parent recurrent payment is specified.                                                                                             |\n| **insufficentAccountBalance**    | Insufficient account balance on the shop account, for example, for the refund.                                                             |\n| **invoicePaymentAmountExceeded** | Refund attempt exceeds the payment amount.                                                                                                 |\n| **inconsistentRefundCurrency**   | Refund attempt in the currency is different from the payment currency.                                                                     |\n| **changesetConflict**            | An attempt to make changes to the participant that conflicts with changes in other pending requests.                                       |\n| **invalidChangeset**             | Invalid changes to the participant, for example, an attempt to create a shop in the currency that is unavailable within the contract.      |\n| **limitExceeded**                | The reasonable sampling time limit is exceeded. In this case it is better to request less volume of data.                                  |\n| **invalidDeadline**              | Invalid time format.                                                                                                                       |\n| **chargebackInProgress**         | Refund attempt while the chargeback is in progress.                                                                                        |\n| **invalidRequest**               | Other invalid request data.                                                                                                                |\n| **invalidPartyID**               | The participant with the specified ID doesn't exist or unavailable.                                                                        |\n| **ambiguousPartyID**             | It is impossible to define the participant ID, specify the ID more clearly in the request.                                                 |\n| **invalidAllocation**            | Invalid distribution of funds, for example, more than one transaction in favour of one of shops.                                           |\n| **allocationNotPermitted**       | The distribution is not available within the contract.                                                                                     |\n| **refundCartConflict**           | It is impossible to define the refund content as the refund distribution and cart are sent at the same time.                               |\n| **invalidUrlParams**             | Failed to construct payment URL and encode provided parameters due to incorrect encoding, incomplete sequences, or invalid characters.     |\n## General errors\nThe errors that occur during the transaction attempts with the objects that are not registered in the system. They look like\n\n  ```json\n  {\n      \"message\": \"string\"\n  }\n  ```\n\nThe information about the occurred error is in the field `message`. For example:\n\n  ```json\n  {\n      \"message\": \"Invoice not found\"\n  }\n  ```\n\n## Errors in processing requests\nDifferent unpredictable situations can happen during the request processing with the support of our system. The system sends a signal about them according to the HTTP protocol using the corresponding [statuses][5xx] that specify the server errors.\n| Code    | Description                                                                                                                                                                                                                          |\n|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| **500** | An unpredictable situation has occurred during request processing by the system. We recommend contacting the technical support if you receive such a response code.                                                                  |\n| **503** | The system is temporarily unavailable and not ready to serve this request. The request isn’t guaranteed fulfilled, if you receive such a response code, try to resend it later when the availability of the system will be restored. |\n| **504** | The system has exceeded the time allowable for request processing, the result of the request is undefined. Try to resend the request or find our the result of the original request if the repeated request is undesirable.          |\n\n[5xx]: https://tools.ietf.org/html/rfc7231#section-6.6\n\n## Payment errors\nThe errors sent to the payment form (payers can see them):\n| Code                   | Description                                                                                                                                                                                      |\n|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| InvalidPaymentTool     | Invalid payment instrument (invalid card number, missing account has been entered, etc.)                                                                                                         |\n| AccountLimitsExceeded  | Limits are exceeded (for example, the payment amount or withdrawal country limits are set up in the personal account)                                                                            |\n| InsufficientFunds      | Insufficient funds on the account                                                                                                                                                                |\n| PreauthorizationFailed | Pre-authorisation is failed (invalid SD-Secure code has been entered, cancellation link has been clicked in SD-Secure form)                                                                      |\n| RejectedByIssuer       | The payment is rejected by the issuer (it has been prohibited to withdraw inside the country or to purchase in the Internet, the payment is rejected by the issuer’s anti-fraud entity and etc.) |\n| PaymentRejected        | the payment is rejected by other reasons                                                                                                                                                         |\n\nThe errors sent to the personal merchant’s account (only you can see them):\n- timeout\n\n  Timeout of payment attempt\n\n- rejected_by_inspector\n\n  Rejected by anti-fraud service\n\n- preauthorization_failed\n\n  Preauthorisation error (3DS)\n\n- authorization_failed:\n\n  Provider payment authorisation error\n\n  - unknown\n\n    Unknown authorisation error\n\n  - merchant_blocked\n\n    A merchant is blocked\n\n  - operation_blocked\n\n    A payment transaction is blocked\n\n  - account_not_found\n\n    An account is not found\n\n  - account_blocked\n\n    An account is blocked\n\n  - account_stolen\n\n    An account is stolen\n\n  - insufficient_funds\n\n    Insufficient funds\n\n  - processing_deadline_reached\n\n    Payment fullfillment timeout (see [Payment processing time limit](#section/Payment-processing-time-limit))\n\n  - account_limit_exceeded:\n\n    Payer’s account limit is exceeded\n\n    - unknown\n\n      Limit object is unknown\n\n    - amount\n\n      Amount limit\n\n    - number\n\n      Attempt number limit\n\n  - provider_limit_exceeded:\n\n    The provider limit is exceeded for this merchant or system in general\n\n    - unknown\n\n      Limit object is unknown\n\n    - amount\n\n      Amount limit\n\n    - number\n\n      Attempt number limit\n\n  - payment_tool_rejected:\n\n    A payment instrument is rejected\n\n    - unknown\n\n      An unknown payment instrument\n\n    - bank_card_rejected:\n\n      A bank card is rejected\n\n      - unknown\n\n        The reason is unknown\n\n      - card_number_invalid\n\n        A card number is invalid\n\n      - card_expired\n\n        A card is expired\n\n      - card_holder_invalid\n\n        A cardholder is invalid\n\n      - cvv_invalid\n\n        CVV code is invalid\n\n      - issuer_not_found\n\n        An issuer is not found\n\n  - security_policy_violated\n\n    Security policy violations\n\n  - temporarily_unavailable\n\n    Temporary unavailability of the third parties\n\n  - rejected_by_issuer\n\n    Rejected by the issuer\n\n\nFor example, in the case of invalid CVV:\n```\n{\n   \"code\":\"authorization_failed\",\n   \"subError\":{\n      \"code\":\"payment_tool_rejected\",\n      \"subError\":{\n         \"code\":\"bank_card_rejected\",\n         \"subError\":{\n            \"code\":\"cvv_invalid\"\n         }\n      }\n   }\n}\n```\nIf you have an error that is not described here, contact the technical support.\n">>,
     <<"x-displayName">> => <<"Error codes">>
   } ],
   <<"schemes">> => [ <<"https">> ],
@@ -2287,6 +2287,69 @@ get_raw() ->
         }
       }
     },
+    <<"/processing/invoices/{invoiceID}/urls">> => #{
+      <<"post">> => #{
+        <<"tags">> => [ <<"Invoices">> ],
+        <<"description">> => <<"Construct an URL for invoice payment with set of optional query parameters.">>,
+        <<"operationId">> => <<"createInvoiceUrl">>,
+        <<"parameters">> => [ #{
+          <<"name">> => <<"X-Request-ID">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Unique identifier of the request to the system">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 32,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"X-Request-Deadline">>,
+          <<"in">> => <<"header">>,
+          <<"description">> => <<"Maximum request processing time">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"invoiceID">>,
+          <<"in">> => <<"path">>,
+          <<"description">> => <<"Invoice ID">>,
+          <<"required">> => true,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
+          <<"in">> => <<"body">>,
+          <<"name">> => <<"params">>,
+          <<"description">> => <<"Payment forms's prefill parameters">>,
+          <<"required">> => true,
+          <<"schema">> => #{
+            <<"$ref">> => <<"#/definitions/InvoiceUrlParams">>
+          }
+        } ],
+        <<"responses">> => #{
+          <<"201">> => #{
+            <<"description">> => <<"Invoice's payment URL is constructed.">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/InvoiceUrl">>
+            }
+          },
+          <<"400">> => #{
+            <<"description">> => <<"Invalid data for url construction">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/inline_response_400_12">>
+            }
+          },
+          <<"401">> => #{
+            <<"description">> => <<"Authorization error">>
+          },
+          <<"404">> => #{
+            <<"description">> => <<"Target resource not found">>,
+            <<"schema">> => #{
+              <<"$ref">> => <<"#/definitions/GeneralError">>
+            }
+          }
+        }
+      }
+    },
     <<"/processing/parties/{partyID}">> => #{
       <<"get">> => #{
         <<"tags">> => [ <<"Parties">> ],
@@ -3465,7 +3528,7 @@ get_raw() ->
           <<"400">> => #{
             <<"description">> => <<"Invalid webhook data">>,
             <<"schema">> => #{
-              <<"$ref">> => <<"#/definitions/inline_response_400_12">>
+              <<"$ref">> => <<"#/definitions/inline_response_400_13">>
             }
           },
           <<"401">> => #{
@@ -4840,16 +4903,22 @@ get_raw() ->
     },
     <<"InvoiceAndToken">> => #{
       <<"type">> => <<"object">>,
-      <<"required">> => [ <<"invoice">>, <<"invoiceAccessToken">> ],
+      <<"required">> => [ <<"invoice">>, <<"invoiceAccessToken">>, <<"invoiceUrl">> ],
       <<"properties">> => #{
         <<"invoice">> => #{
           <<"$ref">> => <<"#/definitions/Invoice">>
         },
         <<"invoiceAccessToken">> => #{
           <<"$ref">> => <<"#/definitions/AccessToken">>
+        },
+        <<"invoiceUrl">> => #{
+          <<"$ref">> => <<"#/definitions/InvoiceUrl">>
         }
       },
       <<"example">> => #{
+        <<"invoiceUrl">> => #{
+          <<"url">> => <<"https://shop-specific-example.com/path/to/checkout?invoiceID=ABCDEF12345&invoiceAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night">>
+        },
         <<"invoiceAccessToken">> => #{
           <<"payload">> => <<"payload">>
         },
@@ -5122,6 +5191,9 @@ get_raw() ->
         },
         <<"clientInfo">> => #{
           <<"$ref">> => <<"#/definitions/InvoiceClientInfo">>
+        },
+        <<"urlParams">> => #{
+          <<"$ref">> => <<"#/definitions/InvoiceUrlParams">>
         }
       },
       <<"example">> => #{
@@ -5133,6 +5205,10 @@ get_raw() ->
         <<"allocation">> => <<"">>,
         <<"metadata">> => <<"{}">>,
         <<"dueDate">> => <<"2000-01-23T04:56:07.000+00:00">>,
+        <<"urlParams">> => #{
+          <<"locale">> => <<"en-US">>,
+          <<"theme">> => <<"tomorrow-night">>
+        },
         <<"externalID">> => <<"externalID">>,
         <<"description">> => <<"description">>,
         <<"clientInfo">> => #{
@@ -5176,11 +5252,18 @@ get_raw() ->
           <<"type">> => <<"object">>,
           <<"description">> => <<"Invoice metadata">>,
           <<"properties">> => #{ }
+        },
+        <<"urlParams">> => #{
+          <<"$ref">> => <<"#/definitions/InvoiceUrlParams">>
         }
       },
       <<"example">> => #{
         <<"amount">> => 1,
         <<"metadata">> => <<"{}">>,
+        <<"urlParams">> => #{
+          <<"locale">> => <<"en-US">>,
+          <<"theme">> => <<"tomorrow-night">>
+        },
         <<"externalID">> => <<"externalID">>,
         <<"currency">> => <<"currency">>
       }
@@ -5654,6 +5737,27 @@ get_raw() ->
           <<"deviation">> => 0,
           <<"direction">> => <<"both">>
         }
+      }
+    },
+    <<"InvoiceUrl">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"url">> ],
+      <<"properties">> => #{
+        <<"url">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"https://shop-specific-example.com/path/to/checkout?invoiceID=ABCDEF12345&invoiceAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night">>,
+          <<"description">> => <<"Invoice's payment URL\n">>
+        }
+      },
+      <<"example">> => #{
+        <<"url">> => <<"https://shop-specific-example.com/path/to/checkout?invoiceID=ABCDEF12345&invoiceAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night">>
+      }
+    },
+    <<"InvoiceUrlParams">> => #{
+      <<"type">> => <<"object">>,
+      <<"example">> => #{
+        <<"locale">> => <<"en-US">>,
+        <<"theme">> => <<"tomorrow-night">>
       }
     },
     <<"LifetimeInterval">> => #{
@@ -7666,7 +7770,7 @@ get_raw() ->
         <<"code">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
-          <<"enum">> => [ <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invoiceTermsViolated">> ]
+          <<"enum">> => [ <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invoiceTermsViolated">>, <<"invalidUrlParams">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
@@ -7682,7 +7786,7 @@ get_raw() ->
         <<"code">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
-          <<"enum">> => [ <<"invalidPartyID">>, <<"invalidShopID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"invalidAllocation">>, <<"allocationNotPermitted">>, <<"invalidInvoiceCost">>, <<"invoiceTermsViolated">>, <<"ambiguousPartyID">> ]
+          <<"enum">> => [ <<"invalidPartyID">>, <<"invalidShopID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"invalidAllocation">>, <<"allocationNotPermitted">>, <<"invalidInvoiceCost">>, <<"invoiceTermsViolated">>, <<"ambiguousPartyID">>, <<"invalidUrlParams">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
@@ -7787,6 +7891,22 @@ get_raw() ->
         }
       }
     },
+    <<"inline_response_400_12">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"code">>, <<"message">> ],
+      <<"properties">> => #{
+        <<"code">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
+          <<"enum">> => [ <<"invalidUrlParams">> ]
+        },
+        <<"message">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"Bad url params">>,
+          <<"description">> => <<"Human-readable description of the error">>
+        }
+      }
+    },
     <<"inline_response_200_3">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"currency">>, <<"lowerBound">>, <<"paymentMethod">>, <<"upperBound">> ],
@@ -7819,7 +7939,7 @@ get_raw() ->
         }
       }
     },
-    <<"inline_response_400_12">> => #{
+    <<"inline_response_400_13">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"code">>, <<"message">> ],
       <<"properties">> => #{

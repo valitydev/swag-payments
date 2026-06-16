@@ -72,6 +72,14 @@ allowed_methods(
 allowed_methods(
     Req,
     State = #state{
+        operation_id = 'CreateInvoiceUrl'
+    }
+) ->
+    {[<<"POST">>], Req, State};
+
+allowed_methods(
+    Req,
+    State = #state{
         operation_id = 'FulfillInvoice'
     }
 ) ->
@@ -166,6 +174,33 @@ is_authorized(
     Req0,
     State = #state{
         operation_id  = 'CreateInvoiceAccessToken' = OperationID,
+        logic_handler = LogicHandler,
+        context       = Context
+    }
+) ->
+    From = header,
+    Result = swag_server_handler_api:authorize_api_key(
+        LogicHandler,
+        OperationID,
+        From,
+        'Authorization',
+        Req0,
+        Context
+    ),
+    case Result of
+        {true, AuthContext, Req} ->
+            NewContext = Context#{
+                auth_context => AuthContext
+            },
+            {true, Req, State#state{context = NewContext}};
+        {false, AuthHeader, Req} ->
+            {{false, AuthHeader}, Req, State}
+    end;
+
+is_authorized(
+    Req0,
+    State = #state{
+        operation_id  = 'CreateInvoiceUrl' = OperationID,
         logic_handler = LogicHandler,
         context       = Context
     }
@@ -419,6 +454,16 @@ valid_content_headers(
 valid_content_headers(
     Req0,
     State = #state{
+        operation_id = 'CreateInvoiceUrl'
+    }
+) ->
+    Headers = ["X-Request-ID","X-Request-Deadline"],
+    {Result, Req} = validate_headers(Headers, Req0),
+    {Result, Req, State};
+
+valid_content_headers(
+    Req0,
+    State = #state{
         operation_id = 'FulfillInvoice'
     }
 ) ->
@@ -628,6 +673,28 @@ get_request_spec('CreateInvoiceAccessToken') ->
 , {required, false}]
         }}
     ];
+get_request_spec('CreateInvoiceUrl') ->
+    [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'invoiceID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'InvoiceUrlParams', #{
+            source => body,
+            rules  => [schema, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }}
+    ];
 get_request_spec('FulfillInvoice') ->
     [
         {'X-Request-ID', #{
@@ -804,6 +871,18 @@ get_response_spec('CreateInvoiceAccessToken', 401) ->
     undefined;
 
 get_response_spec('CreateInvoiceAccessToken', 404) ->
+    {'GeneralError', 'GeneralError'};
+
+get_response_spec('CreateInvoiceUrl', 201) ->
+    {'InvoiceUrl', 'InvoiceUrl'};
+
+get_response_spec('CreateInvoiceUrl', 400) ->
+    {'inline_response_400_12', 'inline_response_400_12'};
+
+get_response_spec('CreateInvoiceUrl', 401) ->
+    undefined;
+
+get_response_spec('CreateInvoiceUrl', 404) ->
     {'GeneralError', 'GeneralError'};
 
 get_response_spec('FulfillInvoice', 204) ->
