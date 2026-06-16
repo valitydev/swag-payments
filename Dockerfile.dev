@@ -1,0 +1,52 @@
+FROM node:22-alpine
+
+RUN <<EOF
+set -e
+apk update
+apk add --no-cache bash openjdk17-jre-headless
+
+CODEGEN_VERSION="2.4.25"
+GENERATOR_VERSION="1.1.0"
+CODEGEN_PATH="/opt/swagger-codegen"
+
+mkdir -p ${CODEGEN_PATH}
+wget --no-verbose https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/${CODEGEN_VERSION}/swagger-codegen-cli-${CODEGEN_VERSION}.jar -O ${CODEGEN_PATH}/swagger-codegen-cli.jar
+
+wget --no-verbose https://github.com/valitydev/swagger-generator-erlang/releases/download/v${GENERATOR_VERSION}/swagger-generator-erlang-v${GENERATOR_VERSION}.jar -O ${CODEGEN_PATH}/swagger-generator-erlang.jar
+
+echo "#!/bin/sh" > /usr/local/bin/swagger-codegen
+echo "java -cp ${CODEGEN_PATH}/swagger-generator-erlang.jar:${CODEGEN_PATH}/swagger-codegen-cli.jar io.swagger.codegen.SwaggerCodegen \$*" >> /usr/local/bin/swagger-codegen
+chmod +x /usr/local/bin/swagger-codegen
+EOF
+
+RUN <<'EOF' cat > /usr/local/bin/codegen-erlang.sh && chmod +x /usr/local/bin/codegen-erlang.sh
+#!/usr/bin/env bash
+
+SPEC_PATH="${1}"
+OUT_PATH="${2}"
+
+set -euo pipefail
+
+function usage {
+  echo -e "Generates libraries swag_client and swag_server from specification file. Both libraries placed in provided output path."
+  echo
+  echo -e "Usage: $(em ${SCRIPTNAME} spec_path output_path)"
+  echo -e "  $(em spec_path)    Path to JSON specification file (string)"
+  echo -e "  $(em output_path)    Libraries output path (string)"
+  echo
+  echo -e "More information:"
+  echo -e "  https://github.com/valitydev/swag-payments/blob/v3/.github/workflows/release-erlang-v2.yml"
+  echo -e "  https://github.com/valitydev/action-setup-swagger-codegen/blob/master/action.yml"
+  exit $1
+}
+
+[[ -z "${SPEC_PATH}" ]] && usage 127
+[[ -z "${OUT_PATH}" ]] && usage 127
+
+mkdir -p $OUT_PATH
+swagger-codegen generate -l vality-erlang-client -i $SPEC_PATH -o $OUT_PATH/swag_client --additional-properties packageName=swag_client
+swagger-codegen generate -l vality-erlang-server -i $SPEC_PATH -o $OUT_PATH/swag_server --additional-properties packageName=swag_server
+EOF
+
+# Set runtime
+CMD ["/bin/bash"]
