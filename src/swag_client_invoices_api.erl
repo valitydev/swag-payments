@@ -9,6 +9,9 @@
 -export([create_invoice_access_token/2]).
 -export([create_invoice_access_token/3]).
 
+-export([create_invoice_url/2]).
+-export([create_invoice_url/3]).
+
 -export([fulfill_invoice/2]).
 -export([fulfill_invoice/3]).
 
@@ -66,6 +69,24 @@ create_invoice_access_token(Endpoint, Params, Opts) ->
         get_request_spec(create_invoice_access_token),
         Opts
     ), create_invoice_access_token).
+
+-spec create_invoice_url(Endpoint :: swag_client:endpoint(), Params :: map()) ->
+    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
+    {error, _Reason}.
+create_invoice_url(Endpoint, Params) ->
+    create_invoice_url(Endpoint, Params, []).
+
+-spec create_invoice_url(Endpoint :: swag_client:endpoint(), Params :: map(), Opts :: swag_client:transport_opts()) ->
+    {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
+    {error, _Reason}.
+create_invoice_url(Endpoint, Params, Opts) ->
+    process_response(swag_client_procession:process_request(
+        post,
+        swag_client_utils:get_url(Endpoint, "/v2/processing/invoices/:invoiceID/urls"),
+        Params,
+        get_request_spec(create_invoice_url),
+        Opts
+    ), create_invoice_url).
 
 -spec fulfill_invoice(Endpoint :: swag_client:endpoint(), Params :: map()) ->
     {ok, Code :: integer(), RespHeaders :: list(), Response :: map()} |
@@ -249,6 +270,28 @@ get_request_spec('create_invoice_access_token') ->
 , {required, false}]
         }}
     ];
+get_request_spec('create_invoice_url') ->
+    [
+        {'X-Request-ID', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 32}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'invoiceID', #{
+            source => binding,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, true}]
+        }},
+        {'InvoiceUrlParams', #{
+            source => body,
+            rules  => [schema, {required, true}]
+        }},
+        {'X-Request-Deadline', #{
+            source => header,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }}
+    ];
 get_request_spec('fulfill_invoice') ->
     [
         {'X-Request-ID', #{
@@ -425,6 +468,18 @@ get_response_spec('create_invoice_access_token', 401) ->
     undefined;
 
 get_response_spec('create_invoice_access_token', 404) ->
+    {'GeneralError', 'GeneralError'};
+
+get_response_spec('create_invoice_url', 201) ->
+    {'InvoiceUrl', 'InvoiceUrl'};
+
+get_response_spec('create_invoice_url', 400) ->
+    {'inline_response_400_12', 'inline_response_400_12'};
+
+get_response_spec('create_invoice_url', 401) ->
+    undefined;
+
+get_response_spec('create_invoice_url', 404) ->
     {'GeneralError', 'GeneralError'};
 
 get_response_spec('fulfill_invoice', 204) ->
