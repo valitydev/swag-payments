@@ -21,7 +21,7 @@ echo "java -cp ${CODEGEN_PATH}/swagger-generator-erlang.jar:${CODEGEN_PATH}/swag
 chmod +x /usr/local/bin/swagger-codegen
 EOF
 
-RUN <<'EOF' cat > /usr/local/bin/codegen-erlang.sh && chmod +x /usr/local/bin/codegen-erlang.sh
+RUN <<'EOF' cat > "/usr/local/bin/codegen-erlang.sh" && chmod +x "/usr/local/bin/codegen-erlang.sh"
 #!/usr/bin/env bash
 
 SCRIPTNAME="$(basename $0)"
@@ -34,7 +34,7 @@ function usage {
   echo -e "Generates libraries swag_client and swag_server from specification file."
   echo -e "Both libraries placed in provided output path."
   echo
-  echo -e "Usage: $(basename "$0") spec_path output_path"
+  echo -e "Usage: $(basename "${0}") spec_path output_path"
   echo -e "  spec_path    Path to JSON specification file (string)"
   echo -e "  output_path    Libraries output path (string)"
   echo
