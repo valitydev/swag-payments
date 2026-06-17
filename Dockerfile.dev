@@ -44,8 +44,8 @@ function usage {
   exit $1
 }
 
-[[ -z "${SPEC_PATH}" ]] && usage 127
-[[ -z "${OUT_PATH}" ]] && usage 127
+[ -z "${SPEC_PATH}" ] && usage 127
+[ -z "${OUT_PATH}" ] && usage 127
 
 mkdir -p "$OUT_PATH"
 swagger-codegen generate -l vality-erlang-client -i "$SPEC_PATH" -o "$OUT_PATH/swag_client" --additional-properties packageName=swag_client
