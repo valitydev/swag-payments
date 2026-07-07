@@ -3984,10 +3984,19 @@ definitions:
         example: 'https://shop-specific-example.com/path/to/checkout?invoiceID=ABCDEF12345&invoiceAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night'
   InvoiceUrlParams:
     type: object
+    description: Set of key-value pairs to be included in generated invoice URL
     required: []
     additionalProperties: true
-    properties: {}
+    properties:
+      email:
+        description: Payer's email
+        type: string
+      redirectUrl:
+        description: Redirect URL
+        type: string
     example:
+      email: payer.p@example.com
+      redirectUrl: 'https://example.com/my-orders/42'
       locale: en-US
       theme: tomorrow-night
   LifetimeInterval:
