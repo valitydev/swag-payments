@@ -5206,6 +5206,8 @@ get_raw() ->
         <<"metadata">> => <<"{}">>,
         <<"dueDate">> => <<"2000-01-23T04:56:07.000+00:00">>,
         <<"urlParams">> => #{
+          <<"email">> => <<"payer.p@example.com">>,
+          <<"redirectUrl">> => <<"https://example.com/my-orders/42">>,
           <<"locale">> => <<"en-US">>,
           <<"theme">> => <<"tomorrow-night">>
         },
@@ -5261,6 +5263,8 @@ get_raw() ->
         <<"amount">> => 1,
         <<"metadata">> => <<"{}">>,
         <<"urlParams">> => #{
+          <<"email">> => <<"payer.p@example.com">>,
+          <<"redirectUrl">> => <<"https://example.com/my-orders/42">>,
           <<"locale">> => <<"en-US">>,
           <<"theme">> => <<"tomorrow-night">>
         },
@@ -5755,7 +5759,20 @@ get_raw() ->
     },
     <<"InvoiceUrlParams">> => #{
       <<"type">> => <<"object">>,
+      <<"properties">> => #{
+        <<"email">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Payer's email">>
+        },
+        <<"redirectUrl">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Redirect URL">>
+        }
+      },
+      <<"description">> => <<"Set of key-value pairs to be included in generated invoice URL">>,
       <<"example">> => #{
+        <<"email">> => <<"payer.p@example.com">>,
+        <<"redirectUrl">> => <<"https://example.com/my-orders/42">>,
         <<"locale">> => <<"en-US">>,
         <<"theme">> => <<"tomorrow-night">>
       }
