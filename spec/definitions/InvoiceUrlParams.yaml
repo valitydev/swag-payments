@@ -1,7 +1,16 @@
 type: object
+description: Set of key-value pairs to be included in generated invoice URL
 required: []
 additionalProperties: true
-properties: {}
+properties:
+  email:
+    description: Payer's email
+    type: string
+  redirectUrl:
+    description: Redirect URL
+    type: string
 example:
+  email: "payer.p@example.com"
+  redirectUrl: "https://example.com/my-orders/42"
   locale: "en-US"
   theme: "tomorrow-night"
