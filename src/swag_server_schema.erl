@@ -5474,13 +5474,16 @@ get_raw() ->
     },
     <<"InvoiceTemplateAndToken">> => #{
       <<"type">> => <<"object">>,
-      <<"required">> => [ <<"invoiceTemplate">>, <<"invoiceTemplateAccessToken">> ],
+      <<"required">> => [ <<"invoiceTemplate">>, <<"invoiceTemplateAccessToken">>, <<"invoiceTemplateUrl">> ],
       <<"properties">> => #{
         <<"invoiceTemplate">> => #{
           <<"$ref">> => <<"#/definitions/InvoiceTemplate">>
         },
         <<"invoiceTemplateAccessToken">> => #{
           <<"$ref">> => <<"#/definitions/AccessToken">>
+        },
+        <<"invoiceTemplateUrl">> => #{
+          <<"$ref">> => <<"#/definitions/InvoiceTemplateUrl">>
         }
       },
       <<"example">> => #{
@@ -5508,6 +5511,9 @@ get_raw() ->
             <<"deviation">> => 0,
             <<"direction">> => <<"both">>
           }
+        },
+        <<"invoiceTemplateUrl">> => #{
+          <<"url">> => <<"https://shop-specific-example.com/path/to/checkout?invoiceTemplateID=ABCDEF12345&invoiceTemplateAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night">>
         },
         <<"invoiceTemplateAccessToken">> => #{
           <<"payload">> => <<"payload">>
@@ -5559,6 +5565,9 @@ get_raw() ->
         },
         <<"randomizeAmount">> => #{
           <<"$ref">> => <<"#/definitions/InvoiceRandomizeAmount">>
+        },
+        <<"urlParams">> => #{
+          <<"$ref">> => <<"#/definitions/InvoiceUrlParams">>
         }
       },
       <<"example">> => #{
@@ -5568,6 +5577,12 @@ get_raw() ->
           <<"months">> => 0,
           <<"days">> => 0,
           <<"years">> => 0
+        },
+        <<"urlParams">> => #{
+          <<"email">> => <<"payer.p@example.com">>,
+          <<"redirectUrl">> => <<"https://example.com/my-orders/42">>,
+          <<"locale">> => <<"en-US">>,
+          <<"theme">> => <<"tomorrow-night">>
         },
         <<"externalID">> => <<"externalID">>,
         <<"description">> => <<"description">>,
@@ -5741,6 +5756,20 @@ get_raw() ->
           <<"deviation">> => 0,
           <<"direction">> => <<"both">>
         }
+      }
+    },
+    <<"InvoiceTemplateUrl">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"url">> ],
+      <<"properties">> => #{
+        <<"url">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"https://shop-specific-example.com/path/to/checkout?invoiceTemplateID=ABCDEF12345&invoiceTemplateAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night">>,
+          <<"description">> => <<"Invoice template's payment URL\n">>
+        }
+      },
+      <<"example">> => #{
+        <<"url">> => <<"https://shop-specific-example.com/path/to/checkout?invoiceTemplateID=ABCDEF12345&invoiceTemplateAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night">>
       }
     },
     <<"InvoiceUrl">> => #{
