@@ -7768,7 +7768,7 @@ get_raw() ->
         <<"code">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"[Error code](#tag/Error-Codes)\n">>,
-          <<"enum">> => [ <<"invalidPartyID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidShopID">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"ambiguousPartyID">> ]
+          <<"enum">> => [ <<"invalidPartyID">>, <<"invalidRequest">>, <<"invalidDeadline">>, <<"invalidShopID">>, <<"invalidPartyStatus">>, <<"invalidShopStatus">>, <<"invalidInvoiceCart">>, <<"ambiguousPartyID">>, <<"invalidUrlParams">> ]
         },
         <<"message">> => #{
           <<"type">> => <<"string">>,
