@@ -2,8 +2,11 @@ type: object
 required:
   - invoiceTemplate
   - invoiceTemplateAccessToken
+  - invoiceTemplateUrl
 properties:
   invoiceTemplate:
     $ref: "#/definitions/InvoiceTemplate"
   invoiceTemplateAccessToken:
     $ref: "#/definitions/AccessToken"
+  invoiceTemplateUrl:
+    $ref: "#/definitions/InvoiceTemplateUrl"
