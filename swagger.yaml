@@ -3815,11 +3815,14 @@ definitions:
     required:
       - invoiceTemplate
       - invoiceTemplateAccessToken
+      - invoiceTemplateUrl
     properties:
       invoiceTemplate:
         $ref: '#/definitions/InvoiceTemplate'
       invoiceTemplateAccessToken:
         $ref: '#/definitions/AccessToken'
+      invoiceTemplateUrl:
+        $ref: '#/definitions/InvoiceTemplateUrl'
   InvoiceTemplateCreateParams:
     type: object
     required:
@@ -3860,6 +3863,8 @@ definitions:
         type: object
       randomizeAmount:
         $ref: '#/definitions/InvoiceRandomizeAmount'
+      urlParams:
+        $ref: '#/definitions/InvoiceUrlParams'
   InvoiceTemplateDetails:
     type: object
     discriminator: templateType
@@ -3972,6 +3977,16 @@ definitions:
         type: object
       randomizeAmount:
         $ref: '#/definitions/InvoiceRandomizeAmount'
+  InvoiceTemplateUrl:
+    type: object
+    required:
+      - url
+    properties:
+      url:
+        description: |
+          Invoice template's payment URL
+        type: string
+        example: 'https://shop-specific-example.com/path/to/checkout?invoiceTemplateID=ABCDEF12345&invoiceTemplateAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night'
   InvoiceUrl:
     type: object
     required:

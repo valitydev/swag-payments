@@ -5068,7 +5068,8 @@
       "type": "object",
       "required": [
         "invoiceTemplate",
-        "invoiceTemplateAccessToken"
+        "invoiceTemplateAccessToken",
+        "invoiceTemplateUrl"
       ],
       "properties": {
         "invoiceTemplate": {
@@ -5076,6 +5077,9 @@
         },
         "invoiceTemplateAccessToken": {
           "$ref": "#/definitions/AccessToken"
+        },
+        "invoiceTemplateUrl": {
+          "$ref": "#/definitions/InvoiceTemplateUrl"
         }
       }
     },
@@ -5127,6 +5131,9 @@
         },
         "randomizeAmount": {
           "$ref": "#/definitions/InvoiceRandomizeAmount"
+        },
+        "urlParams": {
+          "$ref": "#/definitions/InvoiceUrlParams"
         }
       }
     },
@@ -5294,6 +5301,19 @@
         },
         "randomizeAmount": {
           "$ref": "#/definitions/InvoiceRandomizeAmount"
+        }
+      }
+    },
+    "InvoiceTemplateUrl": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "description": "Invoice template's payment URL\n",
+          "type": "string",
+          "example": "https://shop-specific-example.com/path/to/checkout?invoiceTemplateID=ABCDEF12345&invoiceTemplateAccessToken=0123456789abcdef0123456789abcdef&locale=en-US&theme=tomorrow-night"
         }
       }
     },
