@@ -869,7 +869,8 @@
                     "invalidPartyStatus",
                     "invalidShopStatus",
                     "invalidInvoiceCart",
-                    "ambiguousPartyID"
+                    "ambiguousPartyID",
+                    "invalidUrlParams"
                   ]
                 },
                 "message": {
