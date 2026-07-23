@@ -40,6 +40,7 @@ post:
               - invalidShopStatus
               - invalidInvoiceCart
               - ambiguousPartyID
+              - invalidUrlParams
           message:
             description: Human-readable description of the error
             type: string
