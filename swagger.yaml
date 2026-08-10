@@ -4001,7 +4001,6 @@ definitions:
   InvoiceUrlParams:
     type: object
     description: Set of key-value pairs to be included in generated invoice URL
-    required: []
     additionalProperties: true
     properties:
       email:
