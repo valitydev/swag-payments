@@ -39,6 +39,7 @@ node_modules
 # Generated
 web_deploy/
 target/
+.image.dev
 
 # User-specific stuff:
 .idea/
