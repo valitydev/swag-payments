@@ -1,0 +1,65 @@
+description: Payer's platform data
+type: object
+properties:
+  deviceType:
+    description: Type of the payer's device
+    type: string
+    enum:
+      - desktop
+      - mobile
+      - tablet
+      - unknown
+  osName:
+    description: Operating system name
+    type: string
+    maxLength: 40
+    example: "iOS"
+  osVersion:
+    description: Operating system version
+    type: string
+    maxLength: 40
+    example: "17.5.1"
+  deviceModel:
+    description: Device model
+    type: string
+    maxLength: 100
+    example: "iPhone"
+  browserName:
+    description: Browser name
+    type: string
+    maxLength: 40
+    example: "Chrome"
+  browserVersion:
+    description: Browser version
+    type: string
+    maxLength: 40
+    example: "126"
+  timeZone:
+    description: >
+      Time zone name of the payer's device according to the IANA time zone
+      database
+    type: string
+    maxLength: 60
+    example: "Asia/Dubai"
+  languages:
+    description: Languages preferred by the payer, `navigator.languages`
+    type: array
+    maxItems: 10
+    items:
+      type: string
+      maxLength: 8
+  screenPixelRatio:
+    description: >
+      Ratio of the physical pixels to the CSS pixels of the payer's screen,
+      `window.devicePixelRatio`
+    type: number
+    example: 2
+  webView:
+    description: Indicates that the payment form is displayed inside an in-app browser
+    type: boolean
+  userAgentBrands:
+    description: Browser brands reported by the User-Agent Client Hints API
+    type: array
+    maxItems: 10
+    items:
+      $ref: "#/definitions/UserAgentBrand"

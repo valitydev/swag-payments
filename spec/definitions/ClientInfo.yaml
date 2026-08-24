@@ -17,3 +17,7 @@ properties:
     type: string
     format: uri
     maxLength: 1000
+  browserInfo:
+    $ref: '#/definitions/BrowserInfo'
+  deviceInfo:
+    $ref: '#/definitions/DeviceInfo'
