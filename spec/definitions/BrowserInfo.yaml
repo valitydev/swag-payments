@@ -20,12 +20,6 @@ properties:
     type: string
     maxLength: 8
     example: 'ru-RU'
-  browserJavaEnabled:
-    description: Value returned by the `navigator.javaEnabled()` method
-    type: boolean
-  browserJavascriptEnabled:
-    description: Indicates whether JavaScript is enabled in the payer's browser
-    type: boolean
   browserColorDepth:
     description: >
       Bit depth of the colour palette in bits per pixel, value of the
