@@ -3995,6 +3995,61 @@ get_raw() ->
         }
       } ]
     },
+    <<"BrowserInfo">> => #{
+      <<"type">> => <<"object">>,
+      <<"properties">> => #{
+        <<"browserAcceptHeader">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Exact content of the HTTP `Accept` header of the payer's browser. Filled by the system from the request when not provided.\n">>,
+          <<"maxLength">> => 2048
+        },
+        <<"browserUserAgent">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Exact content of the HTTP `User-Agent` header of the payer's browser. Filled by the system from the request when not provided.\n">>,
+          <<"maxLength">> => 2048
+        },
+        <<"browserLanguage">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"ru-RU">>,
+          <<"description">> => <<"Browser language as defined in IETF BCP 47, value of the `navigator.language` property.\n">>,
+          <<"maxLength">> => 8
+        },
+        <<"browserColorDepth">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"24">>,
+          <<"description">> => <<"Bit depth of the colour palette in bits per pixel, value of the `screen.colorDepth` property\n">>,
+          <<"maxLength">> => 2
+        },
+        <<"browserScreenWidth">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"1920">>,
+          <<"description">> => <<"Total width of the payer's screen in pixels, `screen.width`">>,
+          <<"maxLength">> => 6
+        },
+        <<"browserScreenHeight">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"1080">>,
+          <<"description">> => <<"Total height of the payer's screen in pixels, `screen.height`">>,
+          <<"maxLength">> => 6
+        },
+        <<"browserTZ">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"-480">>,
+          <<"description">> => <<"Time difference between UTC and the payer's browser local time in minutes, value returned by the `getTimezoneOffset()` method\n">>,
+          <<"maxLength">> => 5
+        }
+      },
+      <<"description">> => <<"Payer's client browser data">>,
+      <<"example">> => #{
+        <<"browserLanguage">> => <<"ru-RU">>,
+        <<"browserScreenHeight">> => <<"1080">>,
+        <<"browserColorDepth">> => <<"24">>,
+        <<"browserScreenWidth">> => <<"1920">>,
+        <<"browserAcceptHeader">> => <<"browserAcceptHeader">>,
+        <<"browserUserAgent">> => <<"browserUserAgent">>,
+        <<"browserTZ">> => <<"-480">>
+      }
+    },
     <<"BrowserPostRequest">> => #{
       <<"allOf">> => [ #{
         <<"$ref">> => <<"#/definitions/BrowserRequest">>
@@ -4217,13 +4272,71 @@ get_raw() ->
           <<"format">> => <<"uri">>,
           <<"description">> => <<"URL from which the payment form was received by the client">>,
           <<"maxLength">> => 1000
+        },
+        <<"browserInfo">> => #{
+          <<"$ref">> => <<"#/definitions/BrowserInfo">>
+        },
+        <<"deviceInfo">> => #{
+          <<"$ref">> => <<"#/definitions/DeviceInfo">>
         }
       },
       <<"description">> => <<"Payer's client device data">>,
       <<"example">> => #{
         <<"ip">> => <<"ip">>,
         <<"fingerprint">> => <<"fingerprint">>,
-        <<"url">> => <<"http://example.com/aeiou">>
+        <<"url">> => <<"http://example.com/aeiou">>,
+        <<"browserInfo">> => #{
+          <<"browserLanguage">> => <<"ru-RU">>,
+          <<"browserScreenHeight">> => <<"1080">>,
+          <<"browserColorDepth">> => <<"24">>,
+          <<"browserScreenWidth">> => <<"1920">>,
+          <<"browserAcceptHeader">> => <<"browserAcceptHeader">>,
+          <<"browserUserAgent">> => <<"browserUserAgent">>,
+          <<"browserTZ">> => <<"-480">>
+        },
+        <<"deviceInfo">> => #{
+          <<"deviceType">> => <<"desktop">>,
+          <<"osVersion">> => <<"17.5.1">>,
+          <<"languages">> => [ <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">> ],
+          <<"screenPixelRatio">> => 2.0,
+          <<"webView">> => true,
+          <<"browserVersion">> => <<"126">>,
+          <<"browserName">> => <<"Chrome">>,
+          <<"timeZone">> => <<"Asia/Dubai">>,
+          <<"deviceModel">> => <<"iPhone">>,
+          <<"userAgentBrands">> => [ #{
+            <<"brand">> => <<"Google Chrome">>,
+            <<"version">> => <<"126">>
+          }, #{
+            <<"brand">> => <<"Google Chrome">>,
+            <<"version">> => <<"126">>
+          }, #{
+            <<"brand">> => <<"Google Chrome">>,
+            <<"version">> => <<"126">>
+          }, #{
+            <<"brand">> => <<"Google Chrome">>,
+            <<"version">> => <<"126">>
+          }, #{
+            <<"brand">> => <<"Google Chrome">>,
+            <<"version">> => <<"126">>
+          }, #{
+            <<"brand">> => <<"Google Chrome">>,
+            <<"version">> => <<"126">>
+          }, #{
+            <<"brand">> => <<"Google Chrome">>,
+            <<"version">> => <<"126">>
+          }, #{
+            <<"brand">> => <<"Google Chrome">>,
+            <<"version">> => <<"126">>
+          }, #{
+            <<"brand">> => <<"Google Chrome">>,
+            <<"version">> => <<"126">>
+          }, #{
+            <<"brand">> => <<"Google Chrome">>,
+            <<"version">> => <<"126">>
+          } ],
+          <<"osName">> => <<"iOS">>
+        }
       }
     },
     <<"ContactInfo">> => #{
@@ -4650,6 +4763,122 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"description">> => <<"Human-readable description of the error">>
         }
+      }
+    },
+    <<"DeviceInfo">> => #{
+      <<"type">> => <<"object">>,
+      <<"properties">> => #{
+        <<"deviceType">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Type of the payer's device">>,
+          <<"enum">> => [ <<"desktop">>, <<"mobile">>, <<"tablet">>, <<"unknown">> ]
+        },
+        <<"osName">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"iOS">>,
+          <<"description">> => <<"Operating system name">>,
+          <<"maxLength">> => 40
+        },
+        <<"osVersion">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"17.5.1">>,
+          <<"description">> => <<"Operating system version">>,
+          <<"maxLength">> => 40
+        },
+        <<"deviceModel">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"iPhone">>,
+          <<"description">> => <<"Device model">>,
+          <<"maxLength">> => 100
+        },
+        <<"browserName">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"Chrome">>,
+          <<"description">> => <<"Browser name">>,
+          <<"maxLength">> => 40
+        },
+        <<"browserVersion">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"126">>,
+          <<"description">> => <<"Browser version">>,
+          <<"maxLength">> => 40
+        },
+        <<"timeZone">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"Asia/Dubai">>,
+          <<"description">> => <<"Time zone name of the payer's device according to the IANA time zone database\n">>,
+          <<"maxLength">> => 60
+        },
+        <<"languages">> => #{
+          <<"type">> => <<"array">>,
+          <<"description">> => <<"Languages preferred by the payer, `navigator.languages`">>,
+          <<"items">> => #{
+            <<"type">> => <<"string">>,
+            <<"maxLength">> => 8
+          },
+          <<"maxItems">> => 10
+        },
+        <<"screenPixelRatio">> => #{
+          <<"type">> => <<"number">>,
+          <<"example">> => 2.0,
+          <<"description">> => <<"Ratio of the physical pixels to the CSS pixels of the payer's screen, `window.devicePixelRatio`\n">>
+        },
+        <<"webView">> => #{
+          <<"type">> => <<"boolean">>,
+          <<"description">> => <<"Indicates that the payment form is displayed inside an in-app browser">>
+        },
+        <<"userAgentBrands">> => #{
+          <<"type">> => <<"array">>,
+          <<"description">> => <<"Browser brands reported by the User-Agent Client Hints API">>,
+          <<"items">> => #{
+            <<"$ref">> => <<"#/definitions/UserAgentBrand">>
+          },
+          <<"maxItems">> => 10
+        }
+      },
+      <<"description">> => <<"Payer's platform data">>,
+      <<"example">> => #{
+        <<"deviceType">> => <<"desktop">>,
+        <<"osVersion">> => <<"17.5.1">>,
+        <<"languages">> => [ <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">> ],
+        <<"screenPixelRatio">> => 2.0,
+        <<"webView">> => true,
+        <<"browserVersion">> => <<"126">>,
+        <<"browserName">> => <<"Chrome">>,
+        <<"timeZone">> => <<"Asia/Dubai">>,
+        <<"deviceModel">> => <<"iPhone">>,
+        <<"userAgentBrands">> => [ #{
+          <<"brand">> => <<"Google Chrome">>,
+          <<"version">> => <<"126">>
+        }, #{
+          <<"brand">> => <<"Google Chrome">>,
+          <<"version">> => <<"126">>
+        }, #{
+          <<"brand">> => <<"Google Chrome">>,
+          <<"version">> => <<"126">>
+        }, #{
+          <<"brand">> => <<"Google Chrome">>,
+          <<"version">> => <<"126">>
+        }, #{
+          <<"brand">> => <<"Google Chrome">>,
+          <<"version">> => <<"126">>
+        }, #{
+          <<"brand">> => <<"Google Chrome">>,
+          <<"version">> => <<"126">>
+        }, #{
+          <<"brand">> => <<"Google Chrome">>,
+          <<"version">> => <<"126">>
+        }, #{
+          <<"brand">> => <<"Google Chrome">>,
+          <<"version">> => <<"126">>
+        }, #{
+          <<"brand">> => <<"Google Chrome">>,
+          <<"version">> => <<"126">>
+        }, #{
+          <<"brand">> => <<"Google Chrome">>,
+          <<"version">> => <<"126">>
+        } ],
+        <<"osName">> => <<"iOS">>
       }
     },
     <<"DigitalWallet">> => #{
@@ -6407,7 +6636,59 @@ get_raw() ->
         <<"clientInfo">> => #{
           <<"ip">> => <<"ip">>,
           <<"fingerprint">> => <<"fingerprint">>,
-          <<"url">> => <<"http://example.com/aeiou">>
+          <<"url">> => <<"http://example.com/aeiou">>,
+          <<"browserInfo">> => #{
+            <<"browserLanguage">> => <<"ru-RU">>,
+            <<"browserScreenHeight">> => <<"1080">>,
+            <<"browserColorDepth">> => <<"24">>,
+            <<"browserScreenWidth">> => <<"1920">>,
+            <<"browserAcceptHeader">> => <<"browserAcceptHeader">>,
+            <<"browserUserAgent">> => <<"browserUserAgent">>,
+            <<"browserTZ">> => <<"-480">>
+          },
+          <<"deviceInfo">> => #{
+            <<"deviceType">> => <<"desktop">>,
+            <<"osVersion">> => <<"17.5.1">>,
+            <<"languages">> => [ <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">>, <<"languages">> ],
+            <<"screenPixelRatio">> => 2.0,
+            <<"webView">> => true,
+            <<"browserVersion">> => <<"126">>,
+            <<"browserName">> => <<"Chrome">>,
+            <<"timeZone">> => <<"Asia/Dubai">>,
+            <<"deviceModel">> => <<"iPhone">>,
+            <<"userAgentBrands">> => [ #{
+              <<"brand">> => <<"Google Chrome">>,
+              <<"version">> => <<"126">>
+            }, #{
+              <<"brand">> => <<"Google Chrome">>,
+              <<"version">> => <<"126">>
+            }, #{
+              <<"brand">> => <<"Google Chrome">>,
+              <<"version">> => <<"126">>
+            }, #{
+              <<"brand">> => <<"Google Chrome">>,
+              <<"version">> => <<"126">>
+            }, #{
+              <<"brand">> => <<"Google Chrome">>,
+              <<"version">> => <<"126">>
+            }, #{
+              <<"brand">> => <<"Google Chrome">>,
+              <<"version">> => <<"126">>
+            }, #{
+              <<"brand">> => <<"Google Chrome">>,
+              <<"version">> => <<"126">>
+            }, #{
+              <<"brand">> => <<"Google Chrome">>,
+              <<"version">> => <<"126">>
+            }, #{
+              <<"brand">> => <<"Google Chrome">>,
+              <<"version">> => <<"126">>
+            }, #{
+              <<"brand">> => <<"Google Chrome">>,
+              <<"version">> => <<"126">>
+            } ],
+            <<"osName">> => <<"iOS">>
+          }
         }
       }
     },
@@ -7445,6 +7726,28 @@ get_raw() ->
       <<"example">> => #{
         <<"approvalCode">> => <<"approvalCode">>,
         <<"rrn">> => <<"rrn">>
+      }
+    },
+    <<"UserAgentBrand">> => #{
+      <<"type">> => <<"object">>,
+      <<"properties">> => #{
+        <<"brand">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"Google Chrome">>,
+          <<"description">> => <<"Brand name">>,
+          <<"maxLength">> => 100
+        },
+        <<"version">> => #{
+          <<"type">> => <<"string">>,
+          <<"example">> => <<"126">>,
+          <<"description">> => <<"Brand major version">>,
+          <<"maxLength">> => 40
+        }
+      },
+      <<"description">> => <<"Browser brand reported by the User-Agent Client Hints API">>,
+      <<"example">> => #{
+        <<"brand">> => <<"Google Chrome">>,
+        <<"version">> => <<"126">>
       }
     },
     <<"UserInspectContact">> => #{
