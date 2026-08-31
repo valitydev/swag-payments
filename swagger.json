@@ -3637,6 +3637,52 @@
         }
       ]
     },
+    "BrowserInfo": {
+      "description": "Payer's client browser data",
+      "type": "object",
+      "properties": {
+        "browserAcceptHeader": {
+          "description": "Exact content of the HTTP `Accept` header of the payer's browser. Filled by the system from the request when not provided.\n",
+          "type": "string",
+          "maxLength": 2048
+        },
+        "browserUserAgent": {
+          "description": "Exact content of the HTTP `User-Agent` header of the payer's browser. Filled by the system from the request when not provided.\n",
+          "type": "string",
+          "maxLength": 2048
+        },
+        "browserLanguage": {
+          "description": "Browser language as defined in IETF BCP 47, value of the `navigator.language` property.\n",
+          "type": "string",
+          "maxLength": 8,
+          "example": "ru-RU"
+        },
+        "browserColorDepth": {
+          "description": "Bit depth of the colour palette in bits per pixel, value of the `screen.colorDepth` property\n",
+          "type": "string",
+          "maxLength": 2,
+          "example": "24"
+        },
+        "browserScreenWidth": {
+          "description": "Total width of the payer's screen in pixels, `screen.width`",
+          "type": "string",
+          "maxLength": 6,
+          "example": "1920"
+        },
+        "browserScreenHeight": {
+          "description": "Total height of the payer's screen in pixels, `screen.height`",
+          "type": "string",
+          "maxLength": 6,
+          "example": "1080"
+        },
+        "browserTZ": {
+          "description": "Time difference between UTC and the payer's browser local time in minutes, value returned by the `getTimezoneOffset()` method\n",
+          "type": "string",
+          "maxLength": 5,
+          "example": "-480"
+        }
+      }
+    },
     "BrowserPostRequest": {
       "type": "object",
       "allOf": [
@@ -3886,6 +3932,12 @@
           "type": "string",
           "format": "uri",
           "maxLength": 1000
+        },
+        "browserInfo": {
+          "$ref": "#/definitions/BrowserInfo"
+        },
+        "deviceInfo": {
+          "$ref": "#/definitions/DeviceInfo"
         }
       }
     },
@@ -4269,6 +4321,84 @@
         "message": {
           "description": "Human-readable description of the error",
           "type": "string"
+        }
+      }
+    },
+    "DeviceInfo": {
+      "description": "Payer's platform data",
+      "type": "object",
+      "properties": {
+        "deviceType": {
+          "description": "Type of the payer's device",
+          "type": "string",
+          "enum": [
+            "desktop",
+            "mobile",
+            "tablet",
+            "unknown"
+          ]
+        },
+        "osName": {
+          "description": "Operating system name",
+          "type": "string",
+          "maxLength": 40,
+          "example": "iOS"
+        },
+        "osVersion": {
+          "description": "Operating system version",
+          "type": "string",
+          "maxLength": 40,
+          "example": "17.5.1"
+        },
+        "deviceModel": {
+          "description": "Device model",
+          "type": "string",
+          "maxLength": 100,
+          "example": "iPhone"
+        },
+        "browserName": {
+          "description": "Browser name",
+          "type": "string",
+          "maxLength": 40,
+          "example": "Chrome"
+        },
+        "browserVersion": {
+          "description": "Browser version",
+          "type": "string",
+          "maxLength": 40,
+          "example": "126"
+        },
+        "timeZone": {
+          "description": "Time zone name of the payer's device according to the IANA time zone database\n",
+          "type": "string",
+          "maxLength": 60,
+          "example": "Asia/Dubai"
+        },
+        "languages": {
+          "description": "Languages preferred by the payer, `navigator.languages`",
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "string",
+            "maxLength": 8
+          }
+        },
+        "screenPixelRatio": {
+          "description": "Ratio of the physical pixels to the CSS pixels of the payer's screen, `window.devicePixelRatio`\n",
+          "type": "number",
+          "example": 2
+        },
+        "webView": {
+          "description": "Indicates that the payment form is displayed inside an in-app browser",
+          "type": "boolean"
+        },
+        "userAgentBrands": {
+          "description": "Browser brands reported by the User-Agent Client Hints API",
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/definitions/UserAgentBrand"
+          }
         }
       }
     },
@@ -6796,6 +6926,24 @@
         "approvalCode": {
           "description": "Authorization Approval Code",
           "type": "string"
+        }
+      }
+    },
+    "UserAgentBrand": {
+      "description": "Browser brand reported by the User-Agent Client Hints API",
+      "type": "object",
+      "properties": {
+        "brand": {
+          "description": "Brand name",
+          "type": "string",
+          "maxLength": 100,
+          "example": "Google Chrome"
+        },
+        "version": {
+          "description": "Brand major version",
+          "type": "string",
+          "maxLength": 40,
+          "example": "126"
         }
       }
     },
