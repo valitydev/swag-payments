@@ -1,0 +1,13 @@
+description: Browser brand reported by the User-Agent Client Hints API
+type: object
+properties:
+  brand:
+    description: Brand name
+    type: string
+    maxLength: 100
+    example: "Google Chrome"
+  version:
+    description: Brand major version
+    type: string
+    maxLength: 40
+    example: "126"

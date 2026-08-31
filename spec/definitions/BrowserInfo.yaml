@@ -1,0 +1,46 @@
+description: Payer's client browser data
+type: object
+properties:
+  browserAcceptHeader:
+    description: >
+      Exact content of the HTTP `Accept` header of the payer's browser.
+      Filled by the system from the request when not provided.
+    type: string
+    maxLength: 2048
+  browserUserAgent:
+    description: >
+      Exact content of the HTTP `User-Agent` header of the payer's browser.
+      Filled by the system from the request when not provided.
+    type: string
+    maxLength: 2048
+  browserLanguage:
+    description: >
+      Browser language as defined in IETF BCP 47, value of the
+      `navigator.language` property.
+    type: string
+    maxLength: 8
+    example: 'ru-RU'
+  browserColorDepth:
+    description: >
+      Bit depth of the colour palette in bits per pixel, value of the
+      `screen.colorDepth` property
+    type: string
+    maxLength: 2
+    example: '24'
+  browserScreenWidth:
+    description: Total width of the payer's screen in pixels, `screen.width`
+    type: string
+    maxLength: 6
+    example: '1920'
+  browserScreenHeight:
+    description: Total height of the payer's screen in pixels, `screen.height`
+    type: string
+    maxLength: 6
+    example: '1080'
+  browserTZ:
+    description: >
+      Time difference between UTC and the payer's browser local time in
+      minutes, value returned by the `getTimezoneOffset()` method
+    type: string
+    maxLength: 5
+    example: '-480'
