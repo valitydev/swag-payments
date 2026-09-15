@@ -3790,7 +3790,7 @@
             "cvv": {
               "description": "Verification code",
               "type": "string",
-              "pattern": "^\\d{3,4}$"
+              "pattern": "^$|^\\d{3,4}$"
             },
             "cardHolder": {
               "description": "Cardholder name",
