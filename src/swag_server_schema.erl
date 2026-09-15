@@ -4137,7 +4137,7 @@ get_raw() ->
           <<"cvv">> => #{
             <<"type">> => <<"string">>,
             <<"description">> => <<"Verification code">>,
-            <<"pattern">> => <<"^\\d{3,4}$">>
+            <<"pattern">> => <<"^$|^\\d{3,4}$">>
           },
           <<"cardHolder">> => #{
             <<"type">> => <<"string">>,
