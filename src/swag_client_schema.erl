@@ -6607,7 +6607,7 @@ get_raw() ->
         <<"paymentSession">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"Payment session identifier.\n_Required when creating a payment or binding, can be obtained during [tokenization](#operation/createPaymentResource)_.\n">>,
-          <<"maxLength">> => 1000
+          <<"maxLength">> => 2000
         },
         <<"paymentToolDetails">> => #{
           <<"$ref">> => <<"#/definitions/PaymentToolDetails">>
@@ -6725,7 +6725,7 @@ get_raw() ->
         <<"paymentSession">> => #{
           <<"type">> => <<"string">>,
           <<"description">> => <<"Payment session identifier">>,
-          <<"maxLength">> => 1000
+          <<"maxLength">> => 2000
         },
         <<"paymentToolDetails">> => #{
           <<"$ref">> => <<"#/definitions/PaymentToolDetails">>
