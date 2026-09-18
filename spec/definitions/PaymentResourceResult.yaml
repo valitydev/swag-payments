@@ -16,7 +16,7 @@ properties:
   paymentSession:
     description: Payment session identifier
     type: string
-    maxLength: 1000
+    maxLength: 2000
   paymentToolDetails:
     $ref: "#/definitions/PaymentToolDetails"
   clientInfo:
