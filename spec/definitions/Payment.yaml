@@ -53,7 +53,8 @@ x-merge-properties:
           - readOnly: true
       customerID:
         description: >
-          Customer ID. Present when the payment is associated with a customer.
+          Customer ID. Present when the payment is associated with a customer
+          via the invoice's `clientIdentity`.
         type: string
         readOnly: true
   - $ref: "#/definitions/PaymentStatus"

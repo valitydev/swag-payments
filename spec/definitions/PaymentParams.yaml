@@ -16,17 +16,6 @@ properties:
   makeRecurrent:
     x-rebillyMerge:
       - $ref: "#/definitions/PaymentMakeRecurrent"
-  customerID:
-    description: Customer ID
-    type: string
-  userID:
-    x-rebillyMerge:
-      - $ref: "#/definitions/ExternalID"
-      - description: >
-          Payer identifier in the merchant's system.
-
-          Used to find or create a Customer with the same `userID`
-          within the invoice's party.
   metadata:
     description: Metadata to be linked with the payment
     type: object
