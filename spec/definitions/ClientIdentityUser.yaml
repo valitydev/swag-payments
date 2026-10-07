@@ -11,5 +11,4 @@ allOf:
           - description: >
               Payer identifier in the merchant's system.
 
-              Used to find or create a Customer with the same `userID`
-              within the invoice's party.
+              Used to find or create a Customer with the same `userID`.
