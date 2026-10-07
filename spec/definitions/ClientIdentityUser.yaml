@@ -11,4 +11,4 @@ allOf:
           - description: >
               Payer identifier in the merchant's system.
 
-              Used to find or create a Customer with the same `userID`.
+              Used to find an existing Customer — or create a new one — whose externalID matches the provided userID.
