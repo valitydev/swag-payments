@@ -1,15 +1,15 @@
-description: Payer identification provided by the merchant
-type: object
-properties:
-  customerID:
-    description: >
-      Identifier of an existing customer to associate the invoice payments with
-    type: string
-  userID:
-    x-rebillyMerge:
-      - $ref: "#/definitions/ExternalID"
-      - description: >
-          Payer identifier in the merchant's system.
+description: >
+  Payer identification provided by the merchant.
 
-          Used to find or create a Customer with the same `userID`
-          within the invoice's party.
+  Either an existing customer or a user in the merchant's system.
+type: object
+discriminator: clientIdentityType
+required:
+  - clientIdentityType
+properties:
+  clientIdentityType:
+    description: Payer identification type
+    type: string
+    enum:
+      - ClientIdentityCustomer
+      - ClientIdentityUser

@@ -1,0 +1,11 @@
+description: An existing customer as the payer
+allOf:
+  - $ref: "#/definitions/ClientIdentity"
+  - type: object
+    required:
+      - customerID
+    properties:
+      customerID:
+        description: >
+          Identifier of an existing customer to associate the invoice payments with
+        type: string

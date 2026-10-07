@@ -1,0 +1,15 @@
+description: A user in the merchant's system as the payer
+allOf:
+  - $ref: "#/definitions/ClientIdentity"
+  - type: object
+    required:
+      - userID
+    properties:
+      userID:
+        x-rebillyMerge:
+          - $ref: "#/definitions/ExternalID"
+          - description: >
+              Payer identifier in the merchant's system.
+
+              Used to find or create a Customer with the same `userID`
+              within the invoice's party.
