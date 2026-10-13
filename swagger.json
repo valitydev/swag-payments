@@ -3909,6 +3909,66 @@
         }
       }
     },
+    "ClientIdentity": {
+      "description": "Payer identification provided by the merchant.\nEither an existing customer or a user in the merchant's system.\n",
+      "type": "object",
+      "discriminator": "clientIdentityType",
+      "required": [
+        "clientIdentityType"
+      ],
+      "properties": {
+        "clientIdentityType": {
+          "description": "Payer identification type",
+          "type": "string",
+          "enum": [
+            "ClientIdentityCustomer",
+            "ClientIdentityUser"
+          ]
+        }
+      }
+    },
+    "ClientIdentityCustomer": {
+      "description": "An existing customer as the payer",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ClientIdentity"
+        },
+        {
+          "type": "object",
+          "required": [
+            "customerID"
+          ],
+          "properties": {
+            "customerID": {
+              "description": "Identifier of an existing customer to associate the invoice payments with\n",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "ClientIdentityUser": {
+      "description": "A user in the merchant's system as the payer",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ClientIdentity"
+        },
+        {
+          "type": "object",
+          "required": [
+            "userID"
+          ],
+          "properties": {
+            "userID": {
+              "description": "Payer identifier in the merchant's system.\nUsed to find an existing Customer — or create a new one — whose externalID matches the provided userID.\n",
+              "type": "string",
+              "maxLength": 40,
+              "minLength": 1
+            }
+          }
+        }
+      ]
+    },
     "ClientInfo": {
       "description": "Payer's client device data",
       "type": "object",
@@ -4620,6 +4680,9 @@
         "clientInfo": {
           "$ref": "#/definitions/InvoiceClientInfo"
         },
+        "clientIdentity": {
+          "$ref": "#/definitions/ClientIdentity"
+        },
         "amountRandomized": {
           "$ref": "#/definitions/InvoiceAmountRandomized"
         },
@@ -4944,6 +5007,9 @@
         },
         "clientInfo": {
           "$ref": "#/definitions/InvoiceClientInfo"
+        },
+        "clientIdentity": {
+          "$ref": "#/definitions/ClientIdentity"
         },
         "urlParams": {
           "$ref": "#/definitions/InvoiceUrlParams"
@@ -5733,7 +5799,7 @@
           "readOnly": true
         },
         "customerID": {
-          "description": "Customer ID. Present when the payment is associated with a customer.\n",
+          "description": "Customer ID. Present when the payment is associated with a customer via the invoice's `clientIdentity`.\n",
           "type": "string",
           "readOnly": true
         },
@@ -5976,10 +6042,6 @@
           "description": "An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.\n",
           "type": "boolean",
           "default": false
-        },
-        "customerID": {
-          "description": "Customer ID",
-          "type": "string"
         },
         "metadata": {
           "description": "Metadata to be linked with the payment",
