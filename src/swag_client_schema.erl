@@ -4252,6 +4252,55 @@ get_raw() ->
         <<"status">> => <<"pending">>
       }
     },
+    <<"ClientIdentity">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"clientIdentityType">> ],
+      <<"discriminator">> => <<"clientIdentityType">>,
+      <<"properties">> => #{
+        <<"clientIdentityType">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"Payer identification type">>,
+          <<"enum">> => [ <<"ClientIdentityCustomer">>, <<"ClientIdentityUser">> ]
+        }
+      },
+      <<"description">> => <<"Payer identification provided by the merchant.\nEither an existing customer or a user in the merchant's system.\n">>,
+      <<"example">> => #{
+        <<"clientIdentityType">> => <<"ClientIdentityCustomer">>
+      },
+      <<"x-discriminator-is-enum">> => true
+    },
+    <<"ClientIdentityCustomer">> => #{
+      <<"allOf">> => [ #{
+        <<"$ref">> => <<"#/definitions/ClientIdentity">>
+      }, #{
+        <<"type">> => <<"object">>,
+        <<"required">> => [ <<"customerID">> ],
+        <<"properties">> => #{
+          <<"customerID">> => #{
+            <<"type">> => <<"string">>,
+            <<"description">> => <<"Identifier of an existing customer to associate the invoice payments with\n">>
+          }
+        }
+      } ],
+      <<"description">> => <<"An existing customer as the payer">>
+    },
+    <<"ClientIdentityUser">> => #{
+      <<"allOf">> => [ #{
+        <<"$ref">> => <<"#/definitions/ClientIdentity">>
+      }, #{
+        <<"type">> => <<"object">>,
+        <<"required">> => [ <<"userID">> ],
+        <<"properties">> => #{
+          <<"userID">> => #{
+            <<"type">> => <<"string">>,
+            <<"description">> => <<"Payer identifier in the merchant's system.\nUsed to find an existing Customer — or create a new one — whose externalID matches the provided userID.\n">>,
+            <<"minLength">> => 1,
+            <<"maxLength">> => 40
+          }
+        }
+      } ],
+      <<"description">> => <<"A user in the merchant's system as the payer">>
+    },
     <<"ClientInfo">> => #{
       <<"type">> => <<"object">>,
       <<"required">> => [ <<"fingerprint">> ],
@@ -5065,6 +5114,9 @@ get_raw() ->
         <<"clientInfo">> => #{
           <<"$ref">> => <<"#/definitions/InvoiceClientInfo">>
         },
+        <<"clientIdentity">> => #{
+          <<"$ref">> => <<"#/definitions/ClientIdentity">>
+        },
         <<"amountRandomized">> => #{
           <<"$ref">> => <<"#/definitions/InvoiceAmountRandomized">>
         },
@@ -5104,6 +5156,9 @@ get_raw() ->
         <<"id">> => <<"id">>,
         <<"shopID">> => <<"shopID">>,
         <<"invoiceTemplateID">> => <<"invoiceTemplateID">>,
+        <<"clientIdentity">> => #{
+          <<"clientIdentityType">> => <<"ClientIdentityCustomer">>
+        },
         <<"status">> => <<"unpaid">>
       }
     },
@@ -5176,6 +5231,9 @@ get_raw() ->
           <<"id">> => <<"id">>,
           <<"shopID">> => <<"shopID">>,
           <<"invoiceTemplateID">> => <<"invoiceTemplateID">>,
+          <<"clientIdentity">> => #{
+            <<"clientIdentityType">> => <<"ClientIdentityCustomer">>
+          },
           <<"status">> => <<"unpaid">>
         }
       }
@@ -5421,6 +5479,9 @@ get_raw() ->
         <<"clientInfo">> => #{
           <<"$ref">> => <<"#/definitions/InvoiceClientInfo">>
         },
+        <<"clientIdentity">> => #{
+          <<"$ref">> => <<"#/definitions/ClientIdentity">>
+        },
         <<"urlParams">> => #{
           <<"$ref">> => <<"#/definitions/InvoiceUrlParams">>
         }
@@ -5456,6 +5517,9 @@ get_raw() ->
           <<"maxAmountCondition">> => 0,
           <<"deviation">> => 0,
           <<"direction">> => <<"both">>
+        },
+        <<"clientIdentity">> => #{
+          <<"clientIdentityType">> => <<"ClientIdentityCustomer">>
         }
       }
     },
@@ -6256,7 +6320,7 @@ get_raw() ->
         },
         <<"customerID">> => #{
           <<"type">> => <<"string">>,
-          <<"description">> => <<"Customer ID. Present when the payment is associated with a customer.\n">>,
+          <<"description">> => <<"Customer ID. Present when the payment is associated with a customer via the invoice's `clientIdentity`.\n">>,
           <<"readOnly">> => true
         },
         <<"status">> => #{
@@ -6554,10 +6618,6 @@ get_raw() ->
           <<"description">> => <<"An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.\n">>,
           <<"default">> => false
         },
-        <<"customerID">> => #{
-          <<"type">> => <<"string">>,
-          <<"description">> => <<"Customer ID">>
-        },
         <<"metadata">> => #{
           <<"type">> => <<"object">>,
           <<"description">> => <<"Metadata to be linked with the payment">>,
@@ -6567,7 +6627,6 @@ get_raw() ->
       <<"example">> => #{
         <<"metadata">> => <<"{}">>,
         <<"processingDeadline">> => <<"30m">>,
-        <<"customerID">> => <<"customerID">>,
         <<"externalID">> => <<"externalID">>,
         <<"payer">> => #{
           <<"sessionInfo">> => #{
