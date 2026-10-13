@@ -2910,6 +2910,48 @@ definitions:
           - rejected
           - accepted
           - cancelled
+  ClientIdentity:
+    description: |
+      Payer identification provided by the merchant.
+      Either an existing customer or a user in the merchant's system.
+    type: object
+    discriminator: clientIdentityType
+    required:
+      - clientIdentityType
+    properties:
+      clientIdentityType:
+        description: Payer identification type
+        type: string
+        enum:
+          - ClientIdentityCustomer
+          - ClientIdentityUser
+  ClientIdentityCustomer:
+    description: An existing customer as the payer
+    allOf:
+      - $ref: '#/definitions/ClientIdentity'
+      - type: object
+        required:
+          - customerID
+        properties:
+          customerID:
+            description: |
+              Identifier of an existing customer to associate the invoice payments with
+            type: string
+  ClientIdentityUser:
+    description: A user in the merchant's system as the payer
+    allOf:
+      - $ref: '#/definitions/ClientIdentity'
+      - type: object
+        required:
+          - userID
+        properties:
+          userID:
+            description: |
+              Payer identifier in the merchant's system.
+              Used to find an existing Customer — or create a new one — whose externalID matches the provided userID.
+            type: string
+            maxLength: 40
+            minLength: 1
   ClientInfo:
     description: Payer's client device data
     type: object
@@ -3468,6 +3510,8 @@ definitions:
         type: object
       clientInfo:
         $ref: '#/definitions/InvoiceClientInfo'
+      clientIdentity:
+        $ref: '#/definitions/ClientIdentity'
       amountRandomized:
         $ref: '#/definitions/InvoiceAmountRandomized'
       status:
@@ -3719,6 +3763,8 @@ definitions:
         type: object
       clientInfo:
         $ref: '#/definitions/InvoiceClientInfo'
+      clientIdentity:
+        $ref: '#/definitions/ClientIdentity'
       urlParams:
         $ref: '#/definitions/InvoiceUrlParams'
   InvoiceParamsWithTemplate:
@@ -4321,7 +4367,7 @@ definitions:
         readOnly: true
       customerID:
         description: |
-          Customer ID. Present when the payment is associated with a customer.
+          Customer ID. Present when the payment is associated with a customer via the invoice's `clientIdentity`.
         type: string
         readOnly: true
       status:
@@ -4499,9 +4545,6 @@ definitions:
           An indication of the creation of a parent recurrence payment. Successful payment with this attribute can be used as a parent payment in other recurring payments.
         type: boolean
         default: false
-      customerID:
-        description: Customer ID
-        type: string
       metadata:
         description: Metadata to be linked with the payment
         type: object
