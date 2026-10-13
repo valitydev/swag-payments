@@ -1,0 +1,14 @@
+description: A user in the merchant's system as the payer
+allOf:
+  - $ref: "#/definitions/ClientIdentity"
+  - type: object
+    required:
+      - userID
+    properties:
+      userID:
+        x-rebillyMerge:
+          - $ref: "#/definitions/ExternalID"
+          - description: >
+              Payer identifier in the merchant's system.
+
+              Used to find an existing Customer — or create a new one — whose externalID matches the provided userID.

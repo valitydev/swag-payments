@@ -16,9 +16,6 @@ properties:
   makeRecurrent:
     x-rebillyMerge:
       - $ref: "#/definitions/PaymentMakeRecurrent"
-  customerID:
-    description: Customer ID
-    type: string
   metadata:
     description: Metadata to be linked with the payment
     type: object
