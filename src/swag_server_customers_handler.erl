@@ -536,6 +536,11 @@ get_request_spec('CreateCustomerAccessToken') ->
             source => header,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
 , {required, false}]
+        }},
+        {'partyID', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, true
+, {required, false}]
         }}
     ];
 get_request_spec('DeleteCustomer') ->
@@ -553,6 +558,11 @@ get_request_spec('DeleteCustomer') ->
         {'X-Request-Deadline', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }},
+        {'partyID', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, true
 , {required, false}]
         }}
     ];
@@ -576,6 +586,11 @@ get_request_spec('GetCustomerBankCards') ->
         {'X-Request-Deadline', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }},
+        {'partyID', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, true
 , {required, false}]
         }},
         {'continuationToken', #{
@@ -623,6 +638,11 @@ get_request_spec('GetCustomerByID') ->
             source => header,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
 , {required, false}]
+        }},
+        {'partyID', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, true
+, {required, false}]
         }}
     ];
 get_request_spec('GetCustomerPayments') ->
@@ -645,6 +665,11 @@ get_request_spec('GetCustomerPayments') ->
         {'X-Request-Deadline', #{
             source => header,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }},
+        {'partyID', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, true
 , {required, false}]
         }},
         {'continuationToken', #{
