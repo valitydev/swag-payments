@@ -612,6 +612,13 @@
           },
           {
             "$ref": "#/parameters/customerID"
+          },
+          {
+            "name": "partyID",
+            "in": "query",
+            "description": "The participant's unique identifier within the system.",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
@@ -647,6 +654,13 @@
           },
           {
             "$ref": "#/parameters/customerID"
+          },
+          {
+            "name": "partyID",
+            "in": "query",
+            "description": "The participant's unique identifier within the system.",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
@@ -681,6 +695,13 @@
           },
           {
             "$ref": "#/parameters/customerID"
+          },
+          {
+            "name": "partyID",
+            "in": "query",
+            "description": "The participant's unique identifier within the system.",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
@@ -718,6 +739,13 @@
           },
           {
             "$ref": "#/parameters/customerID"
+          },
+          {
+            "name": "partyID",
+            "in": "query",
+            "description": "The participant's unique identifier within the system.",
+            "required": false,
+            "type": "string"
           },
           {
             "$ref": "#/parameters/limit"
@@ -776,6 +804,13 @@
           },
           {
             "$ref": "#/parameters/customerID"
+          },
+          {
+            "name": "partyID",
+            "in": "query",
+            "description": "The participant's unique identifier within the system.",
+            "required": false,
+            "type": "string"
           },
           {
             "$ref": "#/parameters/limit"
@@ -3941,7 +3976,8 @@
           "properties": {
             "customerID": {
               "description": "Identifier of an existing customer to associate the invoice payments with\n",
-              "type": "string"
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
             }
           }
         }
