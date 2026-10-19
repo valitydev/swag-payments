@@ -7,6 +7,10 @@ get:
     - $ref: "#/parameters/requestID"
     - $ref: "#/parameters/deadline"
     - $ref: "#/parameters/customerID"
+    - x-rebillyMerge:
+        - $ref: "#/parameters/partyID"
+        - in: query
+          required: false
   responses:
     "200":
       description: Customer details
@@ -27,6 +31,10 @@ delete:
     - $ref: "#/parameters/requestID"
     - $ref: "#/parameters/deadline"
     - $ref: "#/parameters/customerID"
+    - x-rebillyMerge:
+        - $ref: "#/parameters/partyID"
+        - in: query
+          required: false
   responses:
     "204":
       description: Customer deleted

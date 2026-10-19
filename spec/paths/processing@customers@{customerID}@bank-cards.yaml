@@ -7,6 +7,10 @@ get:
     - $ref: "#/parameters/requestID"
     - $ref: "#/parameters/deadline"
     - $ref: "#/parameters/customerID"
+    - x-rebillyMerge:
+        - $ref: "#/parameters/partyID"
+        - in: query
+          required: false
     - $ref: "#/parameters/limit"
     - $ref: "#/parameters/continuationToken"
   responses:
