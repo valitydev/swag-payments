@@ -526,6 +526,12 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"200">> => #{
@@ -579,6 +585,12 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"204">> => #{
@@ -631,6 +643,12 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>
         } ],
         <<"responses">> => #{
           <<"201">> => #{
@@ -686,6 +704,12 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"limit">>,
           <<"in">> => <<"query">>,
@@ -756,6 +780,12 @@ get_raw() ->
           <<"type">> => <<"string">>,
           <<"maxLength">> => 40,
           <<"minLength">> => 1
+        }, #{
+          <<"name">> => <<"partyID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"The participant's unique identifier within the system.">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>
         }, #{
           <<"name">> => <<"limit">>,
           <<"in">> => <<"query">>,
@@ -4278,7 +4308,8 @@ get_raw() ->
         <<"properties">> => #{
           <<"customerID">> => #{
             <<"type">> => <<"string">>,
-            <<"description">> => <<"Identifier of an existing customer to associate the invoice payments with\n">>
+            <<"description">> => <<"Identifier of an existing customer to associate the invoice payments with\n">>,
+            <<"pattern">> => <<"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$">>
           }
         }
       } ],
