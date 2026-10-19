@@ -781,6 +781,11 @@ paths:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
         - $ref: '#/parameters/customerID'
+        - name: partyID
+          in: query
+          description: The participant's unique identifier within the system.
+          required: false
+          type: string
       responses:
         '200':
           description: Customer details
@@ -801,6 +806,11 @@ paths:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
         - $ref: '#/parameters/customerID'
+        - name: partyID
+          in: query
+          description: The participant's unique identifier within the system.
+          required: false
+          type: string
       responses:
         '204':
           description: Customer deleted
@@ -820,6 +830,11 @@ paths:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
         - $ref: '#/parameters/customerID'
+        - name: partyID
+          in: query
+          description: The participant's unique identifier within the system.
+          required: false
+          type: string
       responses:
         '201':
           description: Access token created
@@ -841,6 +856,11 @@ paths:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
         - $ref: '#/parameters/customerID'
+        - name: partyID
+          in: query
+          description: The participant's unique identifier within the system.
+          required: false
+          type: string
         - $ref: '#/parameters/limit'
         - $ref: '#/parameters/continuationToken'
       responses:
@@ -876,6 +896,11 @@ paths:
         - $ref: '#/parameters/requestID'
         - $ref: '#/parameters/deadline'
         - $ref: '#/parameters/customerID'
+        - name: partyID
+          in: query
+          description: The participant's unique identifier within the system.
+          required: false
+          type: string
         - $ref: '#/parameters/limit'
         - $ref: '#/parameters/continuationToken'
       responses:
@@ -2937,6 +2962,7 @@ definitions:
             description: |
               Identifier of an existing customer to associate the invoice payments with
             type: string
+            pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
   ClientIdentityUser:
     description: A user in the merchant's system as the payer
     allOf:
